@@ -24,8 +24,11 @@ public class Paddle : FSMSystem
     }
     private void Start()
     {
-        cameraMain = GetComponentInParent<CameraMain>();
-        Init();
+        if (cameraMain == null)
+        {
+            cameraMain = Camera.main.GetComponent<CameraMain>();
+        }
+            Init();
     }
 
     private void Init()

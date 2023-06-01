@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class BallSystem : FSMSystem
@@ -11,7 +12,6 @@ public class BallSystem : FSMSystem
     public Ball_SpawnState SpawnState;
     [HideInInspector]
     public Ball_DeathState DeathState;
-    [SerializeField]
     public CameraMain cameraMain;
     public InGameController inGameController;
     #endregion
@@ -45,11 +45,12 @@ public class BallSystem : FSMSystem
     }
     private void OnEnable()
     {
-        Debug.Log("enable ball");
+            
+        inGameController = GetComponent<InGameController>();
         cameraMain = GetComponent<CameraMain>();
 
     }
-    private void Start()
+        private void Start()
     {
         Init();
     }

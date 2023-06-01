@@ -49,7 +49,6 @@ public class InGameController : MonoBehaviour
         GameObject prefabBallInstance = Instantiate(BallPrefab,transform.parent);
         prefabBallInstance.SetActive(true);
 
-        prefabBallInstance.transform.parent = Paddle.paddle;
     }
 
 }

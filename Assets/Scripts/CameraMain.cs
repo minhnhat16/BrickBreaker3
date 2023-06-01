@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class CameraMain : MonoBehaviour
 {
+    public static CameraMain Instance;
     private Camera main;
     public float height;
     public float width;
 
     private const float baseAspect = 9f / 16f;
-
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         main = Camera.main;
