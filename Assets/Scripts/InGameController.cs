@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class InGameController : MonoBehaviour
 {
-    public static InGameController Instance; 
+    public static InGameController Instance;
     public bool isGameOver;
-    public GameObject BrickPrefab;
-    public GameObject BallPrefab;
-    public GameObject PaddlePrefab;
-    public Transform PaddleParent { get; }  
+    public GameObject brickPref;
+    public GameObject ballPref;
+    public GameObject paddlePref;
+    public CameraMain cam;
+    
     // Start is called before the first frame update
     private void Awake()
     {
@@ -41,13 +42,22 @@ public class InGameController : MonoBehaviour
 
     public void LoadGameObject()
     {
+        //loading prefab
         Debug.Log("Loaded Prefab");
-        GameObject prefabBrickInstance = Instantiate(BrickPrefab, transform.parent);
+        GameObject prefabBrickInstance = Instantiate(brickPref, transform.parent);
         prefabBrickInstance.SetActive(true);
-        GameObject prefabPaddleInstance = Instantiate(PaddlePrefab, transform.parent);
+        GameObject prefabPaddleInstance = Instantiate(paddlePref, transform.parent);
         prefabPaddleInstance.SetActive(true);
-        GameObject prefabBallInstance = Instantiate(BallPrefab,transform.parent);
+        GameObject prefabBallInstance = Instantiate(ballPref,transform.parent);
         prefabBallInstance.SetActive(true);
+
+        //set up camera with ball and paddle
+        prefabPaddleInstance.GetComponent<Paddle>().SetUpCamera();
+        prefabBallInstance.GetComponent<BallSystem>().SetUpCamera();
+
+        //set ball as paddle parent
+        prefabBallInstance.transform.SetParent(prefabPaddleInstance.transform);
+        prefabBallInstance.transform.position = Vector3.up;
 
     }
 

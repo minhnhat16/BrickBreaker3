@@ -13,7 +13,6 @@ public class BallSystem : FSMSystem
     [HideInInspector]
     public Ball_DeathState DeathState;
     public CameraMain cameraMain;
-    public InGameController inGameController;
     #endregion
 
     public ContactHandle contactHandle;
@@ -43,16 +42,20 @@ public class BallSystem : FSMSystem
         MoveState.Setup(this);
         DeathState.Setup(this);
     }
-    private void OnEnable()
-    {
-            
-        inGameController = GetComponent<InGameController>();
-        cameraMain = GetComponent<CameraMain>();
 
-    }
-        private void Start()
+    private void Start()
     {
         Init();
+    }
+
+    public void SetUpCamera()
+    {
+        Debug.Log("set up ball");
+        if (cameraMain == null)
+        {
+            cameraMain = GetComponent<CameraMain>();
+            cameraMain.GetCamera();
+        }
     }
 
     private void Init()

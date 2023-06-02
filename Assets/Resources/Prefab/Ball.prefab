@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2471958557961736355}
   - component: {fileID: 2471958557961736354}
   - component: {fileID: 2471958557961736357}
+  - component: {fileID: 7326862140140854252}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -76,7 +77,6 @@ MonoBehaviour:
     SpawnPosition: {x: 0, y: 0}
     _object: {fileID: 0}
   cameraMain: {fileID: 0}
-  inGameController: {fileID: 0}
   contactHandle:
     contactUnit: {fileID: 0}
     unitType: 0
@@ -96,6 +96,22 @@ MonoBehaviour:
   tempX: 0
   tempY: 0
   temp: 0
+--- !u!114 &7326862140140854252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471958557961736356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a101b7b5010cd4ea05012df31ab4e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  main: {fileID: 0}
+  camPrefab: {fileID: 7317087642881276294, guid: 1d54eb4244308fa47bd7623fb816e26d, type: 3}
+  height: 0
+  width: 0
 --- !u!1 &2471958558087876807
 GameObject:
   m_ObjectHideFlags: 0

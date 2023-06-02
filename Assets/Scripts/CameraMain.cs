@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class CameraMain : MonoBehaviour
 {
-    public static CameraMain Instance;
-    private Camera main;
+    public Camera main;
+    public GameObject camPrefab;
     public float height;
     public float width;
 
     private const float baseAspect = 9f / 16f;
-    private void Awake()
+
+    public void GetCamera()
     {
-        Instance = this;
-    }
-    private void Start()
-    {
-        main = Camera.main;
+
+        GameObject obj = Instantiate(Resources.Load("Prefab/" + camPrefab.name, typeof(GameObject))) as GameObject;
+        obj.transform.SetParent(InGameController.Instance.transform);
+        main = obj.GetComponent<Camera>();
         float targetAspect = main.aspect;
         main.orthographicSize = baseAspect / targetAspect * main.orthographicSize;
         height = main.orthographicSize * 2;
         width = height * main.aspect;
     }
-
     public float GetLeft()
     {
         return main.transform.position.x - width * 0.5f;

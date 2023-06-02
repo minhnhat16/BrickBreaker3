@@ -26,11 +26,19 @@ public class Paddle : FSMSystem
     {
         if (cameraMain == null)
         {
-            cameraMain = Camera.main.GetComponent<CameraMain>();
+            cameraMain = GetComponent<CameraMain>();
         }
             Init();
     }
 
+    public void SetUpCamera()
+    {
+        if (cameraMain == null)
+        {
+            cameraMain = GetComponent<CameraMain>();
+            cameraMain.GetCamera();
+        }
+    }
     private void Init()
     {
         GotoState(MoveState);

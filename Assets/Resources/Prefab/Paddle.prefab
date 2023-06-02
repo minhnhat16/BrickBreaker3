@@ -69,6 +69,7 @@ GameObject:
   - component: {fileID: 3102401259691858786}
   - component: {fileID: 3102401259691858796}
   - component: {fileID: 1613542192962713998}
+  - component: {fileID: 7204150380990232426}
   m_Layer: 0
   m_Name: Paddle
   m_TagString: Paddle
@@ -139,6 +140,22 @@ MonoBehaviour:
   PaddleMoveLimit: 0
   tempX: 0
   spawnPosition: {x: 0, y: -8, z: 0}
+--- !u!114 &7204150380990232426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3102401259691858798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a101b7b5010cd4ea05012df31ab4e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  main: {fileID: 0}
+  camPrefab: {fileID: 7317087642881276294, guid: 1d54eb4244308fa47bd7623fb816e26d, type: 3}
+  height: 0
+  width: 0
 --- !u!1 &3102401260334709046
 GameObject:
   m_ObjectHideFlags: 0
