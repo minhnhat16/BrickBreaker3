@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2471958557961736356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -74,28 +74,31 @@ MonoBehaviour:
   MoveState:
     direction: {x: 0, y: 0}
   SpawnState:
-    SpawnPosition: {x: 0, y: 0}
-    _object: {fileID: 0}
+    lastestPaddlePosition: {x: 0, y: 0, z: 0}
   cameraMain: {fileID: 0}
   contactHandle:
     contactUnit: {fileID: 0}
     unitType: 0
   paddle: {fileID: 1613542192962713998, guid: 48ee0bc3688ec8f458c3455d8ef3649b, type: 3}
-  ballSpeed: 10
-  maxAngle: 45
   Forward: {fileID: 2471958558932879703}
   Anchor: {fileID: 2471958558733591885}
   moveDirection: {x: 0, y: 0, z: 0}
-  ballRadius: 0
+  direction1: {x: 0, y: 0, z: 0}
   tempDirection: {x: 0, y: 0}
+  ballRadius: 0
   isLeft: 0
   isRight: 0
   isTop: 0
   tempDirectionX: 0
-  direction1: {x: 0, y: 0, z: 0}
   tempX: 0
   tempY: 0
+  ballSpeed: 10
+  maxAngle: 45
   temp: 0
+  angleMoveSpeed: 0.2
+  angle: 0
+  maxLives: 3
+  currentLive: 0
 --- !u!114 &7326862140140854252
 MonoBehaviour:
   m_ObjectHideFlags: 0

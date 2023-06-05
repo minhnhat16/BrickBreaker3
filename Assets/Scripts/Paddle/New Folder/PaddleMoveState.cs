@@ -21,10 +21,10 @@ public class PaddleMoveState : FSMState<Paddle>
 
     private void MovePaddle()
     {
-        if (InGameController.Instance.isGameOver)
+        if (InGameController.Instance.isBallDeath)
         {
             sys.ResetPaddle();
-            InGameController.Instance.isGameOver = false;
+            InGameController.Instance.isBallDeath = false;
             tempX = 0;
         }
         else

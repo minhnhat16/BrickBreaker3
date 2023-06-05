@@ -10,8 +10,7 @@ public class Ball_MovermentState : FSMState<BallSystem>
  
     public override void OnEnter()
     {
-   
-        sys.transform.SetParent(Paddle.paddle);
+        sys.transform.SetParent(InGameController.Instance.transform);
         sys.moveDirection = sys.forwardDirection;
     }
 
@@ -23,6 +22,7 @@ public class Ball_MovermentState : FSMState<BallSystem>
     public override void OnUpdate()
     {
         sys.MoveBall();
+        //sys.transform.position = sys.moveBall;
         sys.BallDeath();
         sys.GetBallDirection();
        

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 139010313063362995}
   - component: {fileID: 139010313063362994}
   - component: {fileID: 139010313063362993}
+  - component: {fileID: -549537078773973300}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -61,10 +62,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2484246dce4a10a4dbd86ae106066420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBallDeath: 0
   isGameOver: 0
-  BrickPrefab: {fileID: 0}
-  BallPrefab: {fileID: 0}
-  PaddlePrefab: {fileID: 0}
+  brickPref: {fileID: 0}
+  ballPref: {fileID: 0}
+  paddlePref: {fileID: 0}
+  cam: {fileID: 0}
+--- !u!81 &-549537078773973300
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139010313063363004}
+  m_Enabled: 1
 --- !u!1 &139010313211194240
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,10 +120,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2484246dce4a10a4dbd86ae106066420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBallDeath: 0
   isGameOver: 0
-  BrickPrefab: {fileID: 3657951320212042047, guid: 2345e75977040f24dbaeb67a7491b949, type: 3}
-  BallPrefab: {fileID: 2471958557961736356, guid: ca6cf7dca02c00a448716b03f3b5cac1, type: 3}
-  PaddlePrefab: {fileID: 3102401259691858798, guid: 48ee0bc3688ec8f458c3455d8ef3649b, type: 3}
+  brickPref: {fileID: 0}
+  ballPref: {fileID: 0}
+  paddlePref: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!1 &139010313468756698
 GameObject:
   m_ObjectHideFlags: 0

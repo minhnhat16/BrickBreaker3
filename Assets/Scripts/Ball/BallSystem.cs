@@ -17,25 +17,29 @@ public class BallSystem : FSMSystem
 
     public ContactHandle contactHandle;
     public Paddle paddle;
-    public float ballSpeed = 10f;
-    public float maxAngle = 45f;
+    
     [SerializeField] private Transform Forward;
     [SerializeField] private Transform Anchor;
+
     public Vector2 forwardDirection { get => (Forward.position - Anchor.position).normalized; }
     public Vector3 moveDirection;
-    public float ballRadius;
+    public Vector3 direction1 = new Vector3(0, 4, 0);
     public Vector2 tempDirection;
+    public Vector3 moveBall;
+    public float ballRadius;
     public bool isLeft = false;
     public bool isRight = false;
     public bool isTop = false;
     public float tempDirectionX;
-    public Vector3 direction1 = new Vector3(0, 4, 0);
     public float tempX = 0;
     public float tempY = 0;
-    float angleMoveSpeed = 0.25f;
-    float angle;
+    public float ballSpeed = 10f;
+    public float maxAngle = 45f;
     public float temp;
-
+    public float angleMoveSpeed = 0.2f;
+    public float angle;
+    public int maxLives;
+    public int currentLive;
     private void Awake()
     {
         SpawnState.Setup(this);
@@ -50,7 +54,6 @@ public class BallSystem : FSMSystem
 
     public void SetUpCamera()
     {
-        Debug.Log("set up ball");
         if (cameraMain == null)
         {
             cameraMain = GetComponent<CameraMain>();
@@ -60,34 +63,27 @@ public class BallSystem : FSMSystem
 
     private void Init()
     {
-
+        SetMaxLive();
         GotoState(SpawnState);
     }
     public void MoveBall()
     {
-        transform.position += ballSpeed * Time.deltaTime * moveDirection;
+      moveBall += ballSpeed * Time.deltaTime * moveDirection;
     }
 
     public void AngleMoverment()
     {
-        //Vector3 direction = _object.position - sys.transform.position;
-        //Vector3 direction = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10) - transform.position);
-        //Debug.DrawRay(transform.position, direction, Color.red);
-        //Debug.Log("angle" + angle);
-        // Quaternion angleAxis = Quatrnion.AngleAxis(angle, Vector3.forward);
-        //sys.transform.rotation = Quaternion.Slerp(sys.transform.rotation, angleAxis, Time.deltaTime * 50)
-        
-            Debug.DrawRay(transform.position, direction1, Color.blue);
-            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) && (transform.position.x > -1.0f))
-            {
-                tempDirectionX = 1;
-                AngleCalculation(tempDirectionX);
-            }
-            else if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && (transform.position.x < 1.0f))
-            {
-                tempDirectionX = -1;
-                AngleCalculation(tempDirectionX);
-            }
+        Debug.DrawRay(transform.position, direction1, Color.blue);
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) && (transform.position.x > -1.0f))
+        {
+            tempDirectionX = 1;
+            AngleCalculation(tempDirectionX);
+        }
+        else if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && (transform.position.x < 1.0f))
+        {
+            tempDirectionX = -1;
+            AngleCalculation(tempDirectionX);
+        }
     }
     private void AngleCalculation(float tempXDir)
     {
@@ -148,10 +144,33 @@ public class BallSystem : FSMSystem
 
     public void BallDeath()
     {
-        if (transform.position.y < cameraMain.GetBottom() - ballRadius)
+        if ((transform.position.y < cameraMain.GetBottom() - ballRadius) && currentLive >0)
         {
-            InGameController.Instance.isGameOver = true;
+            DecreaseLive();
+            InGameController.Instance.isBallDeath = true;
+            InGameController.Instance.isGameOver = false;
             GotoState(DeathState);
         }
+        else if ( currentLive <= 0 ) {
+            
+            InGameController.Instance.isGameOver = true;
+        }
+    }
+    public void DecreaseLive()
+    {
+        currentLive--; 
+    }
+    public void IncreasLive()
+    {
+        currentLive++;
+    }
+
+    public void SetMaxLive()
+    {
+        currentLive = maxLives;
+    }
+     public void SetBallDeath()
+    {
+        currentLive = 0;
     }
 }

@@ -1,29 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
 public class Ball_SpawnState : FSMState<BallSystem>
 {
-    public Vector2 SpawnPosition;
-    private float yOffset;
-    [SerializeField]
-    public Transform _object;
-    public Vector3 ParentPosition { get; }
+    //private float yOffset;
+    public Vector3 lastestPaddlePosition;
 
     public override void OnEnter()
-    {  
-        yOffset = 1;
-        //sys.transform.SetParent(sys.paddle.transform);
-        SpawnPosition = ParentPosition;
-        //sys.transform.position = new Vector2(0, 0);
-        sys.transform.position = new Vector2(SpawnPosition.x, SpawnPosition.y + yOffset);
+    {
+        spawnPosition();
+        lastestPaddlePosition = sys.paddle.transform.position;
+        //sys.transform.position = lastestPaddlePosition + Vector3.up;
         sys.direction1 = new Vector3(0, 6.25f, 0);
         sys.tempX = 0;
-    }
-
+    }    
     public override void OnUpdate()
-    {   
+    {
+        Vector3 currentPaddlePosition = sys.paddle.transform.position;
+        Vector3 deltaPosition = currentPaddlePosition - lastestPaddlePosition;
+        sys.transform.position = deltaPosition;
+
         sys.AngleMoverment();
         if (Input.GetKey(KeyCode.Space) || Input.GetMouseButtonUp(0))
         {
@@ -31,6 +31,9 @@ public class Ball_SpawnState : FSMState<BallSystem>
         }
     }
 
-   
-
+    public void spawnPosition()
+    {
+           sys.transform.position = Vector3.up;
+    }
 }
+    
