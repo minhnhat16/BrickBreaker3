@@ -16,7 +16,6 @@ public class PaddleMoveState : FSMState<Paddle>
     public override void OnUpdate()
     {
         MovePaddle();
-
     }
 
     private void MovePaddle()

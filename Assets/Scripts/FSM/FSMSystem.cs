@@ -21,8 +21,7 @@ public class FSMSystem : MonoBehaviour
         currentState = newState;
         currentState.OnEnter(data);
     }
-    // StartP is called before the first frame update
-    // Update is called once per frame
+
     private void Update()
     {
         if (currentState != null)

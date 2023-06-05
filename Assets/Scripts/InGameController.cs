@@ -32,7 +32,7 @@ public class InGameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameOver();
+        //GameOver();
     }
     public void GameOver()
     {
@@ -68,7 +68,6 @@ public class InGameController : MonoBehaviour
     }
     public void LoadBrick()
     {
-
         prefabBrickInstance = Instantiate(brickPref, transform.parent);
         prefabBrickInstance.SetActive(true);
     }

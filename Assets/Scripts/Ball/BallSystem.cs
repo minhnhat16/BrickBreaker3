@@ -17,7 +17,7 @@ public class BallSystem : FSMSystem
 
     public ContactHandle contactHandle;
     public Paddle paddle;
-    
+
     [SerializeField] private Transform Forward;
     [SerializeField] private Transform Anchor;
 
@@ -26,18 +26,19 @@ public class BallSystem : FSMSystem
     public Vector3 direction1 = new Vector3(0, 4, 0);
     public Vector2 tempDirection;
     public Vector3 moveBall;
+    public Vector3 spawnPosition = new Vector3(0,-7,0);
     public float ballRadius;
     public bool isLeft = false;
     public bool isRight = false;
     public bool isTop = false;
     public float tempDirectionX;
-    public float tempX = 0;
-    public float tempY = 0;
+    [HideInInspector] public float tempX = 0;
+    [HideInInspector] private float tempY = 0;
     public float ballSpeed = 10f;
     public float maxAngle = 45f;
-    public float temp;
+    [HideInInspector] public float temp;
     public float angleMoveSpeed = 0.2f;
-    public float angle;
+    [HideInInspector] public float angle;
     public int maxLives;
     public int currentLive;
     private void Awake()
@@ -50,6 +51,7 @@ public class BallSystem : FSMSystem
     private void Start()
     {
         Init();
+
     }
 
     public void SetUpCamera()
@@ -63,12 +65,13 @@ public class BallSystem : FSMSystem
 
     private void Init()
     {
+
         SetMaxLive();
         GotoState(SpawnState);
     }
     public void MoveBall()
     {
-      moveBall += ballSpeed * Time.deltaTime * moveDirection;
+       transform.position += ballSpeed * Time.deltaTime * moveDirection;
     }
 
     public void AngleMoverment()
@@ -122,7 +125,6 @@ public class BallSystem : FSMSystem
             moveDirection = tempDirection;
         }
     }
-
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Paddle"))
@@ -141,7 +143,6 @@ public class BallSystem : FSMSystem
         tempDirection = Vector2.Reflect(moveDirection, Vector2.down);
         moveDirection = tempDirection;
     }
-
     public void BallDeath()
     {
         if ((transform.position.y < cameraMain.GetBottom() - ballRadius) && currentLive >0)

@@ -22,7 +22,6 @@ public class Ball_MovermentState : FSMState<BallSystem>
     public override void OnUpdate()
     {
         sys.MoveBall();
-        //sys.transform.position = sys.moveBall;
         sys.BallDeath();
         sys.GetBallDirection();
        

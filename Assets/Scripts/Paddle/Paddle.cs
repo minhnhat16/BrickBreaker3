@@ -28,7 +28,7 @@ public class Paddle : FSMSystem
         {
             cameraMain = GetComponent<CameraMain>();
         }
-            Init();
+        Init();
     }
 
     public void SetUpCamera()
