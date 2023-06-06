@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Paddle : FSMSystem
@@ -15,8 +13,8 @@ public class Paddle : FSMSystem
     public float leftLimit;
     public float PaddleMoveLimit;
     public float tempX;
-    public Vector3 spawnPosition = new Vector3(0, -8, 0);
-    internal static Transform paddle;
+    public Vector3 currenPaddlePosition;
+    public Vector3 spawnPosition = new Vector3(0,-8,0);
 
     private void Awake()
     {
@@ -40,12 +38,26 @@ public class Paddle : FSMSystem
         }
     }
     private void Init()
-    {
+    { 
         GotoState(MoveState);
     }
 
     public void ResetPaddle()
     {
-            GotoState(MoveState);
-     }
+        GotoState(MoveState);
+    }
+    public Vector3 GetCurrentPosition()
+    {
+        currenPaddlePosition = transform.position;
+       // Debug.Log(currenPaddlePosition + " dm ");
+        return currenPaddlePosition;
+    }
+    public void MoveCalculation(float xDirection)
+    {
+        rightLimit = cameraMain.GetRight() - paddleLenght / 10f;
+        leftLimit = cameraMain.GetLeft() +  paddleLenght / 10f;
+        tempX += Time.deltaTime * paddleSpeed * xDirection;
+        tempX = Mathf.Clamp(tempX, leftLimit, rightLimit);
+        transform.position = new Vector3(tempX, transform.position.y, transform.position.z);
+    }
 }

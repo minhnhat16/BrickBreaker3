@@ -10,7 +10,7 @@ public class Ball_MovermentState : FSMState<BallSystem>
  
     public override void OnEnter()
     {
-        sys.transform.SetParent(InGameController.Instance.transform);
+      
         sys.moveDirection = sys.forwardDirection;
     }
 
@@ -24,6 +24,5 @@ public class Ball_MovermentState : FSMState<BallSystem>
         sys.MoveBall();
         sys.BallDeath();
         sys.GetBallDirection();
-       
     }
 }

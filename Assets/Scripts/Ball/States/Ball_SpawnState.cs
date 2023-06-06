@@ -9,18 +9,24 @@ public class Ball_SpawnState : FSMState<BallSystem>
 {
     //private float yOffset;
     public Vector3 lastestPaddlePosition;
+    public Vector3 currentPaddlePosition;
+    public Vector3 deltaPosition;
+
 
     public override void OnEnter()
     {
-        lastestPaddlePosition = sys.paddle.transform.position;
-        SpawnPosition();
-        //sys.transform.position = sys.spawnPosition;
+        sys.BallDeath();
+        lastestPaddlePosition = sys.paddle.spawnPosition;
         sys.direction1 = new Vector3(0, 6.25f, 0);
         sys.tempX = 0;
     }    
     public override void OnUpdate()
     {
-        //GetCurrenPaddlePosition();
+
+        currentPaddlePosition = sys.paddle.transform.position;
+        deltaPosition.x = currentPaddlePosition.x - lastestPaddlePosition.x;
+        sys.transform.position = new Vector3(deltaPosition.x, currentPaddlePosition.y + 1, currentPaddlePosition.z);
+        //sys.transform.position = deltaPosition;
         sys.AngleMoverment();
         if (Input.GetKey(KeyCode.Space) || Input.GetMouseButtonUp(0))
         {
@@ -28,15 +34,5 @@ public class Ball_SpawnState : FSMState<BallSystem>
         }
     }
 
-    public void SpawnPosition()
-    {
-        sys.transform.position = lastestPaddlePosition + Vector3.up;
-    }
-    public void GetCurrenPaddlePosition()
-    {
-        Vector3 currentPaddlePosition = sys.paddle.transform.position;
-        Vector3 deltaPosition = currentPaddlePosition - lastestPaddlePosition;
-        sys.transform.position = deltaPosition;
-    }
 }
     

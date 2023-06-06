@@ -17,7 +17,6 @@ public class BallSystem : FSMSystem
 
     public ContactHandle contactHandle;
     public Paddle paddle;
-
     [SerializeField] private Transform Forward;
     [SerializeField] private Transform Anchor;
 
@@ -26,7 +25,7 @@ public class BallSystem : FSMSystem
     public Vector3 direction1 = new Vector3(0, 4, 0);
     public Vector2 tempDirection;
     public Vector3 moveBall;
-    public Vector3 spawnPosition = new Vector3(0,-7,0);
+    public Vector3 spawnPosition = new Vector3(0, -7, 0);
     public float ballRadius;
     public bool isLeft = false;
     public bool isRight = false;
@@ -51,9 +50,8 @@ public class BallSystem : FSMSystem
     private void Start()
     {
         Init();
-
+        
     }
-
     public void SetUpCamera()
     {
         if (cameraMain == null)
@@ -65,7 +63,7 @@ public class BallSystem : FSMSystem
 
     private void Init()
     {
-
+        
         SetMaxLive();
         GotoState(SpawnState);
     }
@@ -150,12 +148,9 @@ public class BallSystem : FSMSystem
             DecreaseLive();
             InGameController.Instance.isBallDeath = true;
             InGameController.Instance.isGameOver = false;
+            transform.position = paddle.spawnPosition + Vector3.up;
             GotoState(DeathState);
-        }
-        else if ( currentLive <= 0 ) {
-            
-            InGameController.Instance.isGameOver = true;
-        }
+        }      
     }
     public void DecreaseLive()
     {
@@ -173,5 +168,23 @@ public class BallSystem : FSMSystem
      public void SetBallDeath()
     {
         currentLive = 0;
+    }
+
+    public override void OnSystemUpdate()
+    {
+    
+    }
+    public void CheckBallLive()
+    {
+        if(currentLive <= 0)
+        {
+            InGameController.Instance.isGameOver = true;
+            InGameController.Instance.GameOver();
+        }
+        else{
+            InGameController.Instance.isBallDeath = true;
+            InGameController.Instance.isGameOver = false;
+            Debug.Log(InGameController.Instance.isGameOver);
+        }
     }
 }

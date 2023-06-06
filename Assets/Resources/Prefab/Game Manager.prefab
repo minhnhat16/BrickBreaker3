@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 139010313063362995}
   - component: {fileID: 139010313063362994}
   - component: {fileID: 139010313063362993}
-  - component: {fileID: -549537078773973300}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -68,14 +67,10 @@ MonoBehaviour:
   ballPref: {fileID: 0}
   paddlePref: {fileID: 0}
   cam: {fileID: 0}
---- !u!81 &-549537078773973300
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139010313063363004}
-  m_Enabled: 1
+  prefabBrickInstance: {fileID: 0}
+  prefabPaddleInstance: {fileID: 0}
+  prefabBallInstance: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
 --- !u!1 &139010313211194240
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +121,10 @@ MonoBehaviour:
   ballPref: {fileID: 0}
   paddlePref: {fileID: 0}
   cam: {fileID: 0}
+  prefabBrickInstance: {fileID: 0}
+  prefabPaddleInstance: {fileID: 0}
+  prefabBallInstance: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
 --- !u!1 &139010313468756698
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,3 +171,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loaderCanvas: {fileID: 0}
   progressBar: {fileID: 0}
+  _backGroundCanvas: {fileID: 0}
+  _GameOverUI: {fileID: 0}

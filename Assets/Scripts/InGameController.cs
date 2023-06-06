@@ -32,10 +32,11 @@ public class InGameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //GameOver();
+        
     }
     public void GameOver()
     {
+
         if (isGameOver)
         {
             LoadSceneManager.Instance._GameOverUI.SetActive(true);
@@ -49,6 +50,7 @@ public class InGameController : MonoBehaviour
         LoadBrick();
         LoadPaddle();
         LoadBall();
+       
         SetUpCamera();
         //SetBallParent();
     }
@@ -80,5 +82,9 @@ public class InGameController : MonoBehaviour
     {
         prefabBallInstance = Instantiate(ballPref, transform.parent);
         prefabBallInstance.SetActive(true);
+        prefabBallInstance.GetComponent<BallSystem>().paddle =
+          prefabPaddleInstance.GetComponent<Paddle>();
+        Debug.Log(prefabPaddleInstance.GetComponent<Paddle>());
     }
+
 }

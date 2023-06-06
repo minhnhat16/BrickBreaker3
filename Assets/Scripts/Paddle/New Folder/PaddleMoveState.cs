@@ -1,55 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 [System.Serializable]
 public class PaddleMoveState : FSMState<Paddle>
 {
     public Vector2 direction;
-    public float tempX;
+
 
     public override void OnEnter()
     {
         sys.transform.position = sys.spawnPosition;
+        Debug.Log($"enter {sys.transform.position}");
     }
 
     public override void OnUpdate()
     {
+
         MovePaddle();
     }
 
-    private void MovePaddle()
+    public void MovePaddle()
     {
+
         if (InGameController.Instance.isBallDeath)
         {
             sys.ResetPaddle();
             InGameController.Instance.isBallDeath = false;
-            tempX = 0;
+            sys.tempX = 0;
         }
-        else
+        else if(!InGameController.Instance.isBallDeath && !InGameController.Instance.isGameOver)
         {
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 float tempDirection = -1;
-                MovePaddle(tempDirection);
-                Debug.Log(tempX);
+                sys.MoveCalculation(tempDirection);
             }
             else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 float tempDirection = 1;
-                MovePaddle(tempDirection);
-                Debug.Log(tempX);
+                sys.MoveCalculation(tempDirection);
             }
+            
         }
+
     }
 
-  private void MovePaddle(float xDirection)
-    {
-       
-        sys.rightLimit = sys.cameraMain.GetRight() - sys.paddleLenght /10f;
-        sys.leftLimit = sys.cameraMain.GetLeft() + sys.paddleLenght /10f;
-        tempX += Time.deltaTime * sys.paddleSpeed * xDirection ;
-        tempX = Mathf.Clamp(tempX, sys.leftLimit, sys.rightLimit);
-        sys.transform.position = new Vector3(tempX, sys.transform.position.y, sys.transform.position.z);
-    }
+  
+
 }

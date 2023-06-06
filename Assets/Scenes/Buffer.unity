@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 241058436}
   - component: {fileID: 241058435}
-  - component: {fileID: 241058434}
   m_Layer: 0
   m_Name: Buffer Camera
   m_TagString: Buffer Camera
@@ -141,14 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &241058434
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 241058433}
-  m_Enabled: 1
 --- !u!20 &241058435
 Camera:
   m_ObjectHideFlags: 0
