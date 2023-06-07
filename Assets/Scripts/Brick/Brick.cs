@@ -6,6 +6,17 @@ public class Brick : MonoBehaviour
 {
     //private bool breakable = false;
     public BallSystem ballSystem;
+    public enum BrickType
+    {
+        Red,
+        Gray,
+        Green,
+        Orange,
+        Yellow,
+        Blue
+
+    };
+    public BrickTypeScriptableObject brickTypeScriptableObject;
     private void Update()
     {
     }
@@ -14,5 +25,13 @@ public class Brick : MonoBehaviour
     {
         gameObject.SetActive(false);
 
+    }
+    public Sprite GetSprite()
+    {
+        return brickTypeScriptableObject.brickSprite;
+    }
+    public override string ToString()
+    {
+        return brickTypeScriptableObject.typeName;
     }
 }

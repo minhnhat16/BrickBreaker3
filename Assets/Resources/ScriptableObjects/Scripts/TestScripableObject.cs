@@ -1,18 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestScripableObject : MonoBehaviour
+[CreateAssetMenu(fileName = "TestScriptableObjects", menuName = "ScriptableObjects/TestScriptableObjects ")]
+public class TestScripableObject : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private Transform spawnPosition;
+    [SerializeField] private Sprite[] spriteArray;
+    [SerializeField] private GameObjectPool _brickPool;
+    [SerializeField] private GameObjectPool _groundPool;
 }
+    

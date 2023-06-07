@@ -10,6 +10,7 @@ TagManager:
   - Buffer Camera
   - Ingame Camera
   - testcam
+  - Ground
   layers:
   - Default
   - TransparentFX

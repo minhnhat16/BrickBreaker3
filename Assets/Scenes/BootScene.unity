@@ -263,7 +263,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1982437301}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -341,6 +341,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 139010313211194246, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: pool
+      value: 
+      objectReference: {fileID: 4880327852931349971, guid: 3dbc7f91bfc9d0741affd4e2e3a49ec9, type: 3}
     - target: {fileID: 139010313211194246, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: ballPref
       value: 

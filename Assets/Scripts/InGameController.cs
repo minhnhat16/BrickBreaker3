@@ -8,6 +8,8 @@ public class InGameController : MonoBehaviour
     public static InGameController Instance;
     public bool isBallDeath;
     public bool isGameOver;
+    public ObjectSpawner pool;
+    public ObjectSpawner poolInst;
     public GameObject brickPref;
     public GameObject ballPref;
     public GameObject paddlePref;
@@ -50,7 +52,7 @@ public class InGameController : MonoBehaviour
         LoadBrick();
         LoadPaddle();
         LoadBall();
-       
+        poolInst = Instantiate(pool, transform.parent);
         SetUpCamera();
         //SetBallParent();
     }
