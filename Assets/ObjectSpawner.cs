@@ -7,12 +7,21 @@ using UnityEngine.Pool;
 
 public class ObjectSpawner : MonoBehaviour
 {
+    public static ObjectSpawner instance;
     public Shape shapePref;
     public int spawnAmount = 10;
     public bool _usePool;
     public int _defaultCapacity = 10;
     public int _maxCapacity = 20;
     private ObjectPool<Shape> _pool;
+    private BrickTypeScriptableObject _spawnBrick;
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+    }
     private void Start()
     {
         _pool = new ObjectPool<Shape>(() =>{
@@ -24,7 +33,7 @@ public class ObjectSpawner : MonoBehaviour
         }, shape =>{
             Destroy(shape.gameObject);
         }, false, _defaultCapacity, _maxCapacity);
-        InvokeRepeating(nameof(Spawn), 0.2f, 0.2f);
+        Spawn();
     }
 
     public void Spawn() 
@@ -32,8 +41,13 @@ public class ObjectSpawner : MonoBehaviour
         for (var i = 0; i < spawnAmount; i++)
         {
             var shape = _usePool ? _pool.Get() : Instantiate(shapePref);
-            shape.transform.position = transform.position + Random.insideUnitSphere * 5;
-            shape.Init(KillShape);
+
+            // NOTE: get transform position form sciptabel object
+            Vector3 spawnPos = _spawnBrick.brickSpawnPosArray[i];
+            shape.transform.position = spawnPos;
+           // shape.transform.position = transform.position + Random.insideUnitSphere * 5;
+            shape.transform.SetParent(this.transform);
+           // shape.Init(KillShape);
         }  
     }
 

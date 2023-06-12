@@ -9,6 +9,5 @@ public class TestScripableObject : ScriptableObject
     [SerializeField] private Transform spawnPosition;
     [SerializeField] private Sprite[] spriteArray;
     [SerializeField] private GameObjectPool _brickPool;
-    [SerializeField] private GameObjectPool _groundPool;
+    //[SerializeField] private  GameObjectPool _groundPool;
 }
-    

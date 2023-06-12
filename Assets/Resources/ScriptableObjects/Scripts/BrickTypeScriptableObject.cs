@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BrickTypeScriptableObject", menuName = "ScriptableObjects/BrickTypeScriptableObject ")]
 public class BrickTypeScriptableObject : ScriptableObject
 {
-    public Brick.BrickType BrickType;
-    public string typeName;
-    public Sprite brickSprite;
+ 
+    public Vector3[] brickSpawnPosArray;
+ 
 }

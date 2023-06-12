@@ -26,12 +26,6 @@ public class Brick : MonoBehaviour
         gameObject.SetActive(false);
 
     }
-    public Sprite GetSprite()
-    {
-        return brickTypeScriptableObject.brickSprite;
-    }
-    public override string ToString()
-    {
-        return brickTypeScriptableObject.typeName;
-    }
+
+
 }
