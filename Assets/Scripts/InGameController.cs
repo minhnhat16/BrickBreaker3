@@ -8,16 +8,18 @@ public class InGameController : MonoBehaviour
     public static InGameController Instance;
     public bool isBallDeath;
     public bool isGameOver;
-    public ObjectSpawner pool;
-    public ObjectSpawner poolInst;
-    public GameObject brickPref;
+    public bool isLevelComplete;
+
+    public ConfigFileManager configFile;
+   //public GameObject brickPref;
     public GameObject ballPref;
     public GameObject paddlePref;
     public CameraMain cam;
-    public GameObject prefabBrickInstance;
+    //public GameObject prefabBrickInstance;
     public GameObject prefabPaddleInstance;
     public GameObject prefabBallInstance;
     public Vector3 position;
+    
 
 
     // Start is called before the first frame update
@@ -34,7 +36,7 @@ public class InGameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        CheckBrickCondition();
     }
     public void GameOver()
     {
@@ -48,11 +50,10 @@ public class InGameController : MonoBehaviour
     public void LoadGameObject()
     {
         //loading prefab
-        Debug.Log("Loaded Prefab");
+        //Debug.Log("Loaded Prefab");
         LoadBrick();
         LoadPaddle();
         LoadBall();
-        poolInst = Instantiate(pool, transform.parent);
         SetUpCamera();
         //SetBallParent();
     }
@@ -72,21 +73,42 @@ public class InGameController : MonoBehaviour
     }
     public void LoadBrick()
     {
-        prefabBrickInstance = Instantiate(brickPref, transform.parent);
-        prefabBrickInstance.SetActive(true);
+        for (int i = 0; i < BrickPoolManager.instance.spawnAmount; i++)
+        {
+            BrickPoolManager.instance.pool.SpawnNonGravity();
+            BrickPoolManager.instance.pool.list[i].transform.position = configFile.brickScript.brickSpawnPosArray[i];
+        }
+       
+    }
+    public void CheckBrickCondition()
+    {
+        if (BrickPoolManager.instance.destroyCount == BrickPoolManager.instance.spawnAmount)
+        {
+            isLevelComplete = true;
+            LoadSceneManager.Instance._CompleteLeverUI.SetActive(true);
+        }
+
     }
     public void LoadPaddle()
     {
         prefabPaddleInstance = Instantiate(paddlePref, transform.parent);
         prefabPaddleInstance.SetActive(true);
     }
+
     public void LoadBall()
     {
         prefabBallInstance = Instantiate(ballPref, transform.parent);
         prefabBallInstance.SetActive(true);
         prefabBallInstance.GetComponent<BallSystem>().paddle =
-          prefabPaddleInstance.GetComponent<Paddle>();
-        Debug.Log(prefabPaddleInstance.GetComponent<Paddle>());
+        prefabPaddleInstance.GetComponent<Paddle>();
+        //Debug.Log(prefabPaddleInstance.GetComponent<Paddle>());
     }
 
+    public void LevelComplete(GameObject gameObject)
+    {
+        if (isLevelComplete || isGameOver)
+        {
+            gameObject.SetActive(false);
+        }
+    }
 }

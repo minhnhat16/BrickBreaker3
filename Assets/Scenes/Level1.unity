@@ -255,6 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brickTypeScriptable: {fileID: 11400000, guid: 94619d1bbc4b7fc4ba87b47e3872b782, type: 2}
   shape: {fileID: 0}
+  spacingShape: 3
 --- !u!4 &201365687
 Transform:
   m_ObjectHideFlags: 0
@@ -263,7 +264,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 201365685}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0278399, y: 0.96386397, z: -0.14091739}
+  m_LocalPosition: {x: -2.12, y: 0.96386397, z: -0.14091739}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -300,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 337940269888384711, guid: faa823d101932724c863a3ad27b657b7, type: 3}
-  spawnAmount: 5
+  spawnAmount: 6
 --- !u!4 &326014618
 Transform:
   m_ObjectHideFlags: 0

@@ -12,13 +12,14 @@ public class PaddleMoveState : FSMState<Paddle>
     public override void OnEnter()
     {
         sys.transform.position = sys.spawnPosition;
-        Debug.Log($"enter {sys.transform.position}");
+        //Debug.Log($"enter {sys.transform.position}");
     }
 
     public override void OnUpdate()
     {
 
         MovePaddle();
+        InGameController.Instance.LevelComplete(sys.gameObject);
     }
 
     public void MovePaddle()
@@ -44,7 +45,7 @@ public class PaddleMoveState : FSMState<Paddle>
             }
             
         }
-
+        
     }
 
   

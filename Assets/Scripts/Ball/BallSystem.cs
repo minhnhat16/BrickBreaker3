@@ -160,7 +160,7 @@ public class BallSystem : FSMSystem
     {
         currentLive++;
     }
-
+        
     public void SetMaxLive()
     {
         currentLive = maxLives;
@@ -187,4 +187,5 @@ public class BallSystem : FSMSystem
             Debug.Log(InGameController.Instance.isGameOver);
         }
     }
+    
 }

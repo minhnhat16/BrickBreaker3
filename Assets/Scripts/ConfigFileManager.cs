@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ConfigFileManager : MonoBehaviour
 {
-    [SerializeField] private BrickTypeScriptableObject brickType;
-
+    public BrickTypeScriptableObject brickScript ;
+    public static ConfigFileManager Instance;
+    private void Awake()
+    {
+        Instance = this; 
+    }
 }

@@ -28,11 +28,13 @@ public class BY_Local_Pool<T> where T : MonoBehaviour
     }
     public T SpawnNonGravity()
     {
+        //Debug.Log("in spawn");
         index++;
         if (index >= list.Count) index = 0;
         T trans = list[index];
         trans.gameObject.SetActive(true);
         return trans;
+
     }
     public T SpawnGravity()
     {

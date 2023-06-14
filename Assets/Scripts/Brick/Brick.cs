@@ -19,13 +19,14 @@ public class Brick : MonoBehaviour
     public BrickTypeScriptableObject brickTypeScriptableObject;
     private void Update()
     {
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        gameObject.SetActive(false);
-
+        if (collision.gameObject.CompareTag("Ball")){
+            BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
+            BrickPoolManager.instance.destroyCount++ ;
+        }
     }
-
-
 }

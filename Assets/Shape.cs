@@ -19,24 +19,24 @@ public class Shape : MonoBehaviour
     //    }
     //}
     public Sprite currentSprite;
-    public BrickTypeScriptableObject brickTypeScriptable;
+    public BrickTypeScriptableObject BrickTypeScriptable { get; }
     private void Awake()
     {
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.transform.CompareTag("Ground"))
-        {   
-            ShapePool.instance.pool.DeSpawnNonGravity(this);
-        }
-    }
-    public void TransformShape(int count )
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.transform.CompareTag("Ground"))
+    //    {   
+    //        ShapePool.instance.pool.DeSpawnNonGravity(this);
+    //    }
+    //}
+    public void TransformShape(int count)
     {
         for (int i = 0; i < count; i++)
         {
-            Vector3 vector3 = brickTypeScriptable.brickSpawnPosArray[i];
+            Vector3 vector3 = BrickTypeScriptable.brickSpawnPosArray[i];
             transform.position = vector3;
         }
     }

@@ -13,7 +13,7 @@ public class LoadSceneManager : MonoBehaviour
     [SerializeField] private Image progressBar;
     [SerializeField] private GameObject _backGroundCanvas;
     public GameObject _GameOverUI;
-
+    public GameObject _CompleteLeverUI;
     private void Awake()
     {
         Instance = this;
@@ -33,7 +33,6 @@ public class LoadSceneManager : MonoBehaviour
 
         scene.allowSceneActivation = true;
         _loaderCanvas.SetActive(false);
-        
-
     }
+
 }

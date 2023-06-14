@@ -156,4 +156,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26978a4ccc38d3741b2c71e18dde4297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballSystem: {fileID: 0}
+  ballSystem: {fileID: 2471958557961736357, guid: ca6cf7dca02c00a448716b03f3b5cac1, type: 3}
+  brickTypeScriptableObject: {fileID: 11400000, guid: 94619d1bbc4b7fc4ba87b47e3872b782, type: 2}

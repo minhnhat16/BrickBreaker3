@@ -9,11 +9,12 @@ public class ShapePool : MonoBehaviour
     public BY_Local_Pool<Shape> pool;
     public Shape prefab;
     public static ShapePool instance;
-    public int spawnAmount = 5;
+    public int spawnAmount = 6;
 
     private void Awake()
     {
         instance = this;
-        pool = new BY_Local_Pool<Shape>(prefab, 5, this.transform);
+        pool = new BY_Local_Pool<Shape>(prefab, spawnAmount, this.transform);
     }
 }
+
