@@ -2,12 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 using NaughtyAttributes;
+using UnityEditor.VersionControl;
 
 public class RowScript : MonoBehaviour
 {
+    
     public int index;
     public List<ButtonTool> blocks = new List<ButtonTool>();
-
+    public ButtonTool prefab;
     private void Start()
     {
         AssignIndex();
@@ -20,6 +22,7 @@ public class RowScript : MonoBehaviour
             blocks[i].index = i;
         }
     }
+    
     [Button]
     private void TestBlockData()
     {

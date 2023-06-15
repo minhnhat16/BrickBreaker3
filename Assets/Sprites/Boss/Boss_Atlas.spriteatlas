@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Boss_Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 65
+      m_TextureCompression: 1
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: c344800452d2a584bbe226746fe211a1, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 0bce6ca0fbc77be44b0e308753a2916c, type: 3}
+  - {fileID: 21300000, guid: 0899db517017bb9408b372caa0847f02, type: 3}
+  - {fileID: 21300000, guid: aeef5e332f6430744adb01787c66fa5d, type: 3}
+  - {fileID: 21300000, guid: 42a6c15315138b049bf38c6499cd3573, type: 3}
+  - {fileID: 21300000, guid: e5b59873df1a9f94ead218791afcaca6, type: 3}
+  - {fileID: 21300000, guid: 2cd2bcf377468b74ba02d9fac49ec62f, type: 3}
+  - {fileID: 21300000, guid: 59452c2449f6acb40be7ce9151255f39, type: 3}
+  - {fileID: 21300000, guid: fd4948f468b1ef442860bc1c9b2029ee, type: 3}
+  - {fileID: 21300000, guid: 3370d415155164e43962469d3e561a40, type: 3}
+  - {fileID: 21300000, guid: 2d1acc4677666414dbad8a6723ea4525, type: 3}
+  - {fileID: 21300000, guid: 803bfba6952d02a4e909b058ff2be6ef, type: 3}
+  - {fileID: 21300000, guid: 3c295d6889e03bf46846fcfe106709e7, type: 3}
+  - {fileID: 21300000, guid: 42d9193a2760f004eac2f2523fe647a1, type: 3}
+  - {fileID: 21300000, guid: 9e8e16fad9a5db14fb398e409d513c46, type: 3}
+  - {fileID: 21300000, guid: 4af8ce8b1abc4734daba70568eb80658, type: 3}
+  - {fileID: 21300000, guid: 96af782cd93065a4e9dabce6cf832edb, type: 3}
+  - {fileID: 21300000, guid: 4f21869d9abe3e94596a6b809f324ed5, type: 3}
+  - {fileID: 21300000, guid: 793df7ddbb6382748a3564155086fbed, type: 3}
+  - {fileID: 21300000, guid: e9257a0e770637345b0f3cb0cfe0a7ae, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 1
+  - 2
+  - 2
+  - 3
+  - 1
+  - 1
+  - 1
+  - 2
+  - boss2_2
+  - 1
+  - 3
+  - 2
+  - 1
+  - 1
+  - 2
+  - 2
+  - boss2
+  - 2
+  - bar_bossblood
+  m_RenderDataMap: {}
+  m_Tag: Boss_Atlas
+  m_IsVariant: 0

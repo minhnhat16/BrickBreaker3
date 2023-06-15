@@ -3,6 +3,7 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -50,6 +51,12 @@ public class LevelContain : MonoBehaviour
         level.bricks = GetRowData();
         Debug.Log(GetRowData());
         level.winScore = GetBlockNum() * 100;
-        string path = $"Asset/Resource/Levels/level{levelnum}.asset";
+        string path = $"Assets/Resources/Levels/level{levelnum}.asset";
+        
+
+        AssetDatabase.CreateAsset(level, path);
+        EditorUtility.FocusProjectWindow();
+        Selection.activeObject = level;
+        count = 0;
     }
 }
