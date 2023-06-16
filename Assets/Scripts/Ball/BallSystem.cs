@@ -30,6 +30,7 @@ public class BallSystem : FSMSystem
     public bool isLeft = false;
     public bool isRight = false;
     public bool isTop = false;
+    public bool onItemPowerUP = false; // in item powerup
     public float tempDirectionX;
     [HideInInspector] public float tempX = 0;
     [HideInInspector] private float tempY = 0;
