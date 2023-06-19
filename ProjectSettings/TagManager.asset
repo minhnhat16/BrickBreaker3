@@ -11,6 +11,7 @@ TagManager:
   - Ingame Camera
   - testcam
   - Ground
+  - Level List
   layers:
   - Default
   - TransparentFX

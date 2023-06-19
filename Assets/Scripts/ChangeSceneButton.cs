@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class ChangeSceneButton : MonoBehaviour
 {
+    public GameObject levelist;
     public void ChangeScene(string sceneName)
     {
-        LoadSceneManager.Instance.LoadScene(sceneName);
         GameManager.Instance.LoadOnInGameController();
+    }
+    public void ChangeLeveleListView()
+    {
+        levelist.SetActive(true);
         gameObject.SetActive(false);
     }
 }
