@@ -67,7 +67,7 @@ public class Brick : MonoBehaviour
                 break;
         }
     }
-    private void SettingBrick(int type)
+    public void SettingBrick(int type)
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider2D = GetComponent<BoxCollider2D>();

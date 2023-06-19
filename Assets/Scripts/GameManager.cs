@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public LoadSceneManager LoadSceneManager;
     public InGameController InGameController;
+    public int winScore;
+    public bool isBossLevel;
 
     private void Awake()
     {
