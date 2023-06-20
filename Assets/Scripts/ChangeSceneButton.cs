@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class ChangeSceneButton : MonoBehaviour
 {
-    public GameObject levelist;
+    public LevelManager levelManage;
     public void ChangeScene(string sceneName)
     {
         GameManager.Instance.LoadOnInGameController();
     }
     public void ChangeLeveleListView()
     {
-        levelist.SetActive(true);
+        levelManage.gameObject.SetActive(true);
+        levelManage.SpawnLevel();
         gameObject.SetActive(false);
+        LoadSceneManager.Instance.SetActiveBGCanvas(false);
     }
 }
 

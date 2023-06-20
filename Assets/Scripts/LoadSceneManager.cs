@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
-
+using Unity.VisualScripting;
 
 public class LoadSceneManager : MonoBehaviour
 {
@@ -34,5 +34,17 @@ public class LoadSceneManager : MonoBehaviour
         scene.allowSceneActivation = true;
         _loaderCanvas.SetActive(false);
     }
-
+    
+    //SET BACKGROUND CANVAS ACTIVE
+    public void SetActiveBGCanvas(bool active)
+    {
+        if (active)
+        {
+            _backGroundCanvas.SetActive(true);
+        }
+        else
+        {
+            _backGroundCanvas.SetActive(false);
+        }
+    }
 }
