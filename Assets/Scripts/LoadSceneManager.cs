@@ -5,16 +5,19 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEngine.UIElements;
+
 
 public class LoadSceneManager : MonoBehaviour
 {
     public static LoadSceneManager Instance;
     [SerializeField] private GameObject _loaderCanvas;
-    [SerializeField] private Image progressBar;
+    [SerializeField] private UnityEngine.UI.Image progressBar;
     [SerializeField] private GameObject _backGroundCanvas;
     public GameObject _GameOverUI;
     public GameObject _CompleteLeverUI;
     public GameObject _LevelPopUpUI;
+    public GameObject _LevelScrollView;
     private void Awake()
     {
         Instance = this;

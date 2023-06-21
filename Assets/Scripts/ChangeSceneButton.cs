@@ -11,6 +11,7 @@ public class ChangeSceneButton : MonoBehaviour
     }
     public void ChangeLeveleListView()
     {
+        LoadSceneManager.Instance._LevelScrollView.SetActive(true); 
         levelManage.gameObject.SetActive(true);
         levelManage.SpawnLevel();
         gameObject.SetActive(false);

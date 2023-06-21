@@ -33,29 +33,36 @@ public class LoadLevel : MonoBehaviour
     }
     public void LevelSelect(string level)
     {
-        ResetData();
-        string levelPath  = "Levels/level_" + level;
+        Debug.Log($"level ===> {level}");
+        //ResetData();
+        string levelPath = "Levels/level" + level;
+        Debug.Log($"before level path");
+
+        Debug.Log($"level path ===> {levelPath}");
         LoadLevelData(levelPath);
-        levelNum.text = "Level " + level;   
+        levelNum.text = "level" + level;   
     }
     public void LoadLevelData(string levelPath)
     {
-        Debug.Log("Load level data");
+        Debug.Log("===> Load level data");
         int colCount;
         level = Resources.Load<Level>(levelPath);
         colCount = level.collumnCount;
         //brickScale = 7f / colCount + 0.01f;
 
         string[] arrColor = level.bricks.Split(';');
+        Debug.Log($"===>> Array Color {arrColor}");
 
-       // rootPosition.x = CameraMain.instance.GetLeft() + GameConstant.BRICK_WIDTH_IMAGE * brickScale * 0.5f;
-       //rootPosition.y = CameraMain.instance.GetTop() - GameConstant.BRICK_HEIGHT_IMAGE * brickScale * 0.6f - GameConstant.TOP_PADDING;
-        
+
+        // rootPosition.x = CameraMain.instance.GetLeft() + GameConstant.BRICK_WIDTH_IMAGE * brickScale * 0.5f;
+        //rootPosition.y = CameraMain.instance.GetTop() - GameConstant.BRICK_HEIGHT_IMAGE * brickScale * 0.6f - GameConstant.TOP_PADDING;
+
         List<List<int>> matrix = new List<List<int>>();
         List<int> rows = new List<int>();
         int rowCount = 0;
+        Debug.Log($"===>> ROW COUNT {rowCount}");
 
-        for( int i = 0; i < arrColor.Length; i++ )
+        for ( int i = 0; i < arrColor.Length; i++ )
         {
             int color; 
             bool checkColor = int.TryParse(arrColor[i], out color);
@@ -94,14 +101,14 @@ public class LoadLevel : MonoBehaviour
     //}
     private void SetUp(List<List<int>> matrix)
     {
-        for(int i = 0; i < matrix.Count; i++)
+        Debug.Log($"SETUP BRICK ===>>");
+
+        for (int i = 0; i < matrix.Count; i++)
         {
             List<int> rows = matrix[i];
             for (int j = 0; j < rows.Count; j++)
             {
                 Vector3 position = rootPosition;
-                //position.x += j * GameConstant.BRICK_WIDTH_IMAGE * brickScale;
-                //position.y - = i* GameConstant.BRICK_HEIGHT_IMAGE * brickScale;
                 Brick brick = BrickPoolManager.instance.pool.SpawnNonGravity();
                 brick.transform.position = position;
                 brick.transform.localScale = new Vector2(brickScale, brickScale);
@@ -117,12 +124,6 @@ public class LoadLevel : MonoBehaviour
         //RESET PADDLE
         paddle.ResetPaddle();
         //RESET SCORE
-
         BrickPoolManager.instance.pool.DeSpawnAll();
-
-
-        //RESPAWN BALL
-
-        //RESPAWN PADDLE    
     }
 }

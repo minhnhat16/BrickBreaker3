@@ -11,9 +11,15 @@ public class LevelTextTemp : MonoBehaviour
     {
         currentLevelText = this.gameObject.GetComponent<Text>().text;
         LoadSceneManager.Instance.LoadScene("InGame");
+        LoadSceneManager.Instance._LevelScrollView.SetActive(false);
+        LoadSceneManager.Instance._LevelPopUpUI.SetActive(false);
+ 
         GameManager.Instance.LoadOnInGameController();
+
+
+        //Debug.Log("current level " + currentLevelText);
         LoadLevel.instance.LevelSelect(currentLevelText);
         LoadLevel.instance.currentLevelLoad = Convert.ToInt32(currentLevelText);
-       
+        
     }
 }

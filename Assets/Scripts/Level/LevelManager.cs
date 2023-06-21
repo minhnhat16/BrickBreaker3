@@ -19,10 +19,9 @@ public class LevelManager : MonoBehaviour
         gameObject.SetActive(true);
         for (int i = 0;  i <  levelNum; i++)
         {
-            Debug.Log(i);
             GameObject selectedLevel = Instantiate(levelPrefab, this.transform);
-            //selectedLevel.transform.GetChild(1).GetComponent<Text>().text = (i + 1) + "";
-            selectedLevel.transform.GetComponentInChildren<Text>().text = (i + 1) + "";
+            selectedLevel.transform.GetChild(0).GetComponent<Text>().text = (i + 1) + "";
+            //selectedLevel.transform.GetComponentInChildren<Text>().text = (i + 1) + "";
             selectedLevel.GetComponent<LevelButton>().levelID = (i + 1);
         }
     }
