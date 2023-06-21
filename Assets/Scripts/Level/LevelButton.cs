@@ -22,7 +22,8 @@ public class LevelButton : MonoBehaviour
     {
         levelTxt.text = "Level " + levelID + "";
         levelTxtTemp.text = levelID + "";
-        Debug.Log(levelTxt.text +  " + " + levelTxtTemp.text);
+        LoadSceneManager.Instance.SetActiveCanvas(LoadSceneManager.Instance._LevelPopUpUI,true);
+
     }
 
 }

@@ -14,6 +14,7 @@ public class LoadSceneManager : MonoBehaviour
     [SerializeField] private GameObject _backGroundCanvas;
     public GameObject _GameOverUI;
     public GameObject _CompleteLeverUI;
+    public GameObject _LevelPopUpUI;
     private void Awake()
     {
         Instance = this;
@@ -34,17 +35,23 @@ public class LoadSceneManager : MonoBehaviour
         scene.allowSceneActivation = true;
         _loaderCanvas.SetActive(false);
     }
-    
+
     //SET BACKGROUND CANVAS ACTIVE
-    public void SetActiveBGCanvas(bool active)
+    public void SetActiveCanvas(GameObject _object, bool active)
     {
         if (active)
         {
-            _backGroundCanvas.SetActive(true);
+            _object.SetActive(true);
         }
         else
         {
-            _backGroundCanvas.SetActive(false);
+            _object.SetActive(false);
         }
+    }
+    public void ChangeScene(string sceneName)
+    {
+        LoadScene(sceneName);
+        GameManager.Instance.LoadOnInGameController();
+
     }
 }

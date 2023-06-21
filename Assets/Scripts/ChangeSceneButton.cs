@@ -14,7 +14,6 @@ public class ChangeSceneButton : MonoBehaviour
         levelManage.gameObject.SetActive(true);
         levelManage.SpawnLevel();
         gameObject.SetActive(false);
-        LoadSceneManager.Instance.SetActiveBGCanvas(false);
     }
 }
 

@@ -51,7 +51,6 @@ public class InGameController : MonoBehaviour
     {
         //loading prefab
         //Debug.Log("Loaded Prefab");
-        LoadBrick();
         LoadPaddle();
         LoadBall();
         SetUpCamera();

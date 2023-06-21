@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 public class LoadLevel : MonoBehaviour
 {
@@ -38,6 +40,7 @@ public class LoadLevel : MonoBehaviour
     }
     public void LoadLevelData(string levelPath)
     {
+        Debug.Log("Load level data");
         int colCount;
         level = Resources.Load<Level>(levelPath);
         colCount = level.collumnCount;
