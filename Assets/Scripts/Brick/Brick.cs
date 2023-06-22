@@ -69,8 +69,8 @@ public class Brick : MonoBehaviour
     }
     public void SettingBrick(int type)
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        boxCollider2D = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        boxCollider2D = GetComponent<BoxCollider2D> ();
         switch (type)
         {
             case 0:

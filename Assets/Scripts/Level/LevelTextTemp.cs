@@ -9,17 +9,18 @@ public class LevelTextTemp : MonoBehaviour
     public string currentLevelText;
     public void PopUpPlay()
     {
-        currentLevelText = this.gameObject.GetComponent<Text>().text;
+        GameManager.Instance.LoadOnInGameController();
+
         LoadSceneManager.Instance.LoadScene("InGame");
         LoadSceneManager.Instance._LevelScrollView.SetActive(false);
         LoadSceneManager.Instance._LevelPopUpUI.SetActive(false);
- 
-        GameManager.Instance.LoadOnInGameController();
+
+        currentLevelText = this.gameObject.GetComponent<Text>().text;
 
 
-        //Debug.Log("current level " + currentLevelText);
+       // Debug.Log("current level ==>> " + currentLevelText);
         LoadLevel.instance.LevelSelect(currentLevelText);
         LoadLevel.instance.currentLevelLoad = Convert.ToInt32(currentLevelText);
-        
+        //Debug.Log("current load ==>> " + LoadLevel.instance.currentLevelLoad);
     }
 }

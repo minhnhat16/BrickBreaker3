@@ -9,15 +9,17 @@ using Debug = UnityEngine.Debug;
 
 public class LoadLevel : MonoBehaviour
 {
-    [SerializeField ]private Level level;
+    [SerializeField]private Level level;
     [SerializeField] private GameManager gameManager;
     public Paddle paddle;
     public BallSystem ball;
     [SerializeField] private Text levelNum;
     public static LoadLevel instance;
     public int currentLevelLoad;
-    public Vector3 rootPosition;
+    public Vector2 rootPosition = new Vector2(-2.5f,2.5f);
     public float brickScale;
+    public static float BRICK_WIDTH_IMAGE = 0.79f;
+    public static float BRICK_HEIGHT_IMAGE = 0.32f;
     private void Awake()
     {
         instance = this;
@@ -33,34 +35,39 @@ public class LoadLevel : MonoBehaviour
     }
     public void LevelSelect(string level)
     {
-        Debug.Log($"level ===> {level}");
+        //Debug.Log($"level ===> {level}");
         //ResetData();
-        string levelPath = "Levels/level" + level;
-        Debug.Log($"before level path");
+        string levelPath = "Levels/level_" + level;
+        // Debug.Log($"before level path");
 
-        Debug.Log($"level path ===> {levelPath}");
+        //Debug.Log($"level path ===> {levelPath}");
+        Debug.Log($"Load level data {levelPath}");
+
         LoadLevelData(levelPath);
-        levelNum.text = "level" + level;   
+        //Debug.Log($"levelnum.text = {levelNum.text = "level" + level}");
     }
     public void LoadLevelData(string levelPath)
     {
-        Debug.Log("===> Load level data");
+        //Debug.Log("===> Load level data");
         int colCount;
         level = Resources.Load<Level>(levelPath);
+
+
         colCount = level.collumnCount;
         //brickScale = 7f / colCount + 0.01f;
+        //Debug.Log($"Brick Scale {brickScale}");
 
         string[] arrColor = level.bricks.Split(';');
-        Debug.Log($"===>> Array Color {arrColor}");
+       
 
 
-        // rootPosition.x = CameraMain.instance.GetLeft() + GameConstant.BRICK_WIDTH_IMAGE * brickScale * 0.5f;
-        //rootPosition.y = CameraMain.instance.GetTop() - GameConstant.BRICK_HEIGHT_IMAGE * brickScale * 0.6f - GameConstant.TOP_PADDING;
+        rootPosition.x = CameraMain.instance.GetLeft() + BRICK_WIDTH_IMAGE * 1 * 0.5f;
+        rootPosition.y = CameraMain.instance.GetTop() - BRICK_HEIGHT_IMAGE * 1 * 0.6f - 1;
 
         List<List<int>> matrix = new List<List<int>>();
         List<int> rows = new List<int>();
         int rowCount = 0;
-        Debug.Log($"===>> ROW COUNT {rowCount}");
+   
 
         for ( int i = 0; i < arrColor.Length; i++ )
         {
@@ -80,7 +87,7 @@ public class LoadLevel : MonoBehaviour
                 rowCount = 0;
             }
         }
-
+        //Debug.Log($"Matrix row {matrix.Count}");
         if(level.isBossLevel)
         {
             //LoadBossData()
@@ -105,13 +112,20 @@ public class LoadLevel : MonoBehaviour
 
         for (int i = 0; i < matrix.Count; i++)
         {
+            Debug.Log($"SETUP {i} BRICK ===>> count");
+
             List<int> rows = matrix[i];
+          
+
             for (int j = 0; j < rows.Count; j++)
             {
+
                 Vector3 position = rootPosition;
+                position.x += j * BRICK_WIDTH_IMAGE * 1;
+                position.y -= i * BRICK_HEIGHT_IMAGE * 1;
                 Brick brick = BrickPoolManager.instance.pool.SpawnNonGravity();
                 brick.transform.position = position;
-                brick.transform.localScale = new Vector2(brickScale, brickScale);
+                brick.transform.localScale = new Vector2(1, 1);
                 brick.SettingBrick(rows[j]);
             }
 
@@ -119,11 +133,10 @@ public class LoadLevel : MonoBehaviour
     }
     public void ResetData()
     {
+        BrickPoolManager.instance.pool.DeSpawnAll();
         //RESET BALL'
-        ball.GotoState(ball.SpawnState) ;
         //RESET PADDLE
         paddle.ResetPaddle();
         //RESET SCORE
-        BrickPoolManager.instance.pool.DeSpawnAll();
     }
 }

@@ -24,6 +24,8 @@ public class LevelContain : MonoBehaviour
         for (int i = 0; i < rows.Count; i++)
         {
             rows[i].index = i;
+            Debug.Log(rows[i].index = i);
+
         }
     }
     public string GetRowData()
@@ -51,7 +53,7 @@ public class LevelContain : MonoBehaviour
         level.bricks = GetRowData();
         Debug.Log(GetRowData());
         level.winScore = GetBlockNum() * 100;
-        string path = $"Assets/Resources/Levels/level{levelnum}.asset";
+        string path = $"Assets/Resources/Levels/level_{levelnum}.asset";
         
 
         AssetDatabase.CreateAsset(level, path);

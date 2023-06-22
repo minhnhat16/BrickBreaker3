@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraMain : MonoBehaviour
 {
+    public static CameraMain instance;
     public Camera main;
     public GameObject camPrefab;
     public float height;
     public float width;
 
     private const float baseAspect = 9f / 16f;
-
+    private void Awake()
+    {
+        instance = this;
+    }
     public void GetCamera()
     {
 

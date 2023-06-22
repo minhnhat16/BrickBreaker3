@@ -38,7 +38,7 @@ public class InGameController : MonoBehaviour
     {
         CheckBrickCondition();
     }
-    public void GameOver()
+    public void GameOver()  
     {
 
         if (isGameOver)
@@ -50,7 +50,7 @@ public class InGameController : MonoBehaviour
     public void LoadGameObject()
     {
         //loading prefab
-        //Debug.Log("Loaded Prefab");
+        
         LoadPaddle();
         LoadBall();
         SetUpCamera();
@@ -96,7 +96,8 @@ public class InGameController : MonoBehaviour
 
     public void LoadBall()
     {
-        prefabBallInstance = Instantiate(ballPref, transform.parent);
+        GameObject gameObject1 = Instantiate(ballPref, transform.parent);
+        prefabBallInstance = gameObject1;
         prefabBallInstance.SetActive(true);
         prefabBallInstance.GetComponent<BallSystem>().paddle =
         prefabPaddleInstance.GetComponent<Paddle>();

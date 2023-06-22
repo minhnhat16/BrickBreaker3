@@ -55,6 +55,7 @@ MonoBehaviour:
   InGameController: {fileID: 139010313211194246}
   winScore: 0
   isBossLevel: 0
+  levelTextTemp: {fileID: 0}
 --- !u!114 &139010313063362993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +213,8 @@ MonoBehaviour:
   _backGroundCanvas: {fileID: 0}
   _GameOverUI: {fileID: 0}
   _CompleteLeverUI: {fileID: 0}
+  _LevelPopUpUI: {fileID: 0}
+  _LevelScrollView: {fileID: 0}
 --- !u!1 &6260062463585519418
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +317,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3564693116266618701}
   - component: {fileID: 1179605656103551712}
-  - component: {fileID: 5813079145728799002}
   m_Layer: 0
   m_Name: PoolManager
   m_TagString: Untagged
@@ -350,18 +352,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d15c43fbdbcdc949887cd36cbe20187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5813079145728799002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8721186374312752480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c373e571563edf4289e060b9da10407, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  spawnAmount: 6
-  destroyCount: 0

@@ -290,6 +290,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1559924341}
   m_CullTransparentMesh: 1
+--- !u!114 &1646459488 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5013356511566669237, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+  m_PrefabInstance: {fileID: 4809746929112923834}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1680534025 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1944367545620804929, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
@@ -576,6 +587,18 @@ PrefabInstance:
       value: 6.7999997
       objectReference: {fileID: 0}
     - target: {fileID: 5348670711114413268, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 2471958557961736357, guid: ca6cf7dca02c00a448716b03f3b5cac1, type: 3}
+    - target: {fileID: 5348670711114413268, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: paddle
+      value: 
+      objectReference: {fileID: 1613542192962713998, guid: 48ee0bc3688ec8f458c3455d8ef3649b, type: 3}
+    - target: {fileID: 5348670711114413268, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: levelNum
+      value: 
+      objectReference: {fileID: 1646459488}
+    - target: {fileID: 5348670711114413268, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 2051406458}
@@ -603,10 +626,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 6.7999997
       objectReference: {fileID: 0}
-    - target: {fileID: 5813079145728799002, guid: cbe037dceba018d428c4021915e52242, type: 3}
-      propertyPath: prefab
-      value: 
-      objectReference: {fileID: 5215209068885794474, guid: 2345e75977040f24dbaeb67a7491b949, type: 3}
     - target: {fileID: 6162390576302939056, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.4599998
@@ -675,8 +694,7 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 5.6499996
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5813079145728799002, guid: cbe037dceba018d428c4021915e52242, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbe037dceba018d428c4021915e52242, type: 3}
 --- !u!1001 &4809746929112923834
 PrefabInstance:

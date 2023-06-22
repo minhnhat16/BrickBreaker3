@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
 {
     public int levelNum = 50;
     public GameObject levelPrefab;
-    public int currentLevel = 10;
+    public int currentLevel = 1;
     //public List<Sprite> backgroundLevel;
     private void Start()
     { 
