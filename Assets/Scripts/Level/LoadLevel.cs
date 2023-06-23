@@ -54,15 +54,16 @@ public class LoadLevel : MonoBehaviour
 
 
         colCount = level.collumnCount;
-        //brickScale = 7f / colCount + 0.01f;
+        Debug.Log(colCount);
+        brickScale = 14f / colCount + 0.01f;
         //Debug.Log($"Brick Scale {brickScale}");
 
         string[] arrColor = level.bricks.Split(';');
        
 
 
-        rootPosition.x = CameraMain.instance.GetLeft() + BRICK_WIDTH_IMAGE * 1 * 0.5f;
-        rootPosition.y = CameraMain.instance.GetTop() - BRICK_HEIGHT_IMAGE * 1 * 0.6f - 1;
+        rootPosition.x = CameraMain.instance.GetLeft() + BRICK_WIDTH_IMAGE * brickScale * 0.5f;
+        rootPosition.y = CameraMain.instance.GetTop() - BRICK_HEIGHT_IMAGE * brickScale * 0.6f - 1;
 
         List<List<int>> matrix = new List<List<int>>();
         List<int> rows = new List<int>();
@@ -121,11 +122,11 @@ public class LoadLevel : MonoBehaviour
             {
 
                 Vector3 position = rootPosition;
-                position.x += j * BRICK_WIDTH_IMAGE * 1;
-                position.y -= i * BRICK_HEIGHT_IMAGE * 1;
+                position.x += j * BRICK_WIDTH_IMAGE * brickScale;
+                position.y -= i * BRICK_HEIGHT_IMAGE * brickScale;
                 Brick brick = BrickPoolManager.instance.pool.SpawnNonGravity();
                 brick.transform.position = position;
-                brick.transform.localScale = new Vector2(1, 1);
+                brick.transform.localScale = new Vector2(brickScale, brickScale);
                 brick.SettingBrick(rows[j]);
             }
 

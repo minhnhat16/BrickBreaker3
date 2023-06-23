@@ -14,6 +14,6 @@ public class BrickPoolManager : MonoBehaviour
     {
         instance = this;
         destroyCount = 0;
-        pool = new BY_Local_Pool<Brick>(prefab, spawnAmount, this.transform);
+        pool = new BY_Local_Pool<Brick>(prefab, 150, this.transform);
     }
 }
