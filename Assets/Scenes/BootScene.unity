@@ -500,6 +500,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 1
+--- !u!114 &1729154195 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4809746928380764582, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+  m_PrefabInstance: {fileID: 4809746929112923834}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0043234fe1c25a74ab4a1017e481b90b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1785475706 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4809746928740928704, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
@@ -1055,14 +1066,14 @@ PrefabInstance:
     - target: {fileID: 1088573985387704329, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 4809746929112923835}
+      objectReference: {fileID: 1729154195}
     - target: {fileID: 1088573985387704329, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HideParentComponent
+      value: ChangeLeveleListView
       objectReference: {fileID: 0}
     - target: {fileID: 1088573985387704329, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: QuitButton, Assembly-CSharp
+      value: ChangeSceneButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1088573985387704329, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1439,6 +1450,22 @@ PrefabInstance:
     - target: {fileID: 3390556043822956204, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -1998.0005
+      objectReference: {fileID: 0}
+    - target: {fileID: 3542160649338958045, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3542160649338958045, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 876108697}
+    - target: {fileID: 3542160649338958045, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3542160649338958045, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LoadSceneManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3553345383524075120, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2110,14 +2137,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
---- !u!114 &4809746929112923835 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4520251358033645660, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
-  m_PrefabInstance: {fileID: 4809746929112923834}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf60753850e757b4c810a61b77b0c1d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

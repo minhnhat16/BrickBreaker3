@@ -22,7 +22,9 @@ public class ViewManager : MonoBehaviour
         foreach (ViewIndex viewIndex in ViewConfig.viewArray)
         {
             string viewName = viewIndex.ToString();
-            GameObject view = Instantiate(Resources.Load("Resources/Prefabs/UI/Views/" + viewName, typeof(GameObject))) as GameObject;
+            Debug.Log($"=======> VIEW NAME : {viewName}<=======");
+            GameObject view = Instantiate(Resources.Load("Prefab/UI/Views/" + viewName, typeof(GameObject))) as GameObject;
+
             view.transform.SetParent(anchorView, false);
             view.GetComponent<BaseView>().Init();
             dicView.Add(viewIndex, view.GetComponent<BaseView>());

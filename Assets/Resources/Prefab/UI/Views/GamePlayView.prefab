@@ -143,8 +143,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7918432571867840421}
+  - component: {fileID: -3940340563966425333}
   m_Layer: 5
-  m_Name: UI_InGame
+  m_Name: GamePlayView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,6 +175,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &-3940340563966425333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2361959522326061039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f5e84a4a5a0484294c8c3137f9c125, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewIndex: 3
+  baseViewAnim: {fileID: 0}
 --- !u!1 &3630668497483003949
 GameObject:
   m_ObjectHideFlags: 0
