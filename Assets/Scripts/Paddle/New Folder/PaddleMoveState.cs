@@ -12,7 +12,7 @@ public class PaddleMoveState : FSMState<Paddle>
     public override void OnEnter()
     {
         sys.transform.position = sys.spawnPosition;
-        //Debug.Log($"enter {sys.transform.position}");
+        
     }
 
     public override void OnUpdate()

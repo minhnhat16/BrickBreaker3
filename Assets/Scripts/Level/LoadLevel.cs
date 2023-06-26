@@ -11,9 +11,9 @@ public class LoadLevel : MonoBehaviour
 {
     [SerializeField]private Level level;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private Text levelNum;
     public Paddle paddle;
     public BallSystem ball;
-    [SerializeField] private Text levelNum;
     public static LoadLevel instance;
     public int currentLevelLoad;
     public Vector2 rootPosition = new Vector2(-2.5f,2.5f);
@@ -35,20 +35,15 @@ public class LoadLevel : MonoBehaviour
     }
     public void LevelSelect(string level)
     {
-        //Debug.Log($"level ===> {level}");
         //ResetData();
         string levelPath = "Levels/level_" + level;
-        // Debug.Log($"before level path");
 
-        //Debug.Log($"level path ===> {levelPath}");
         Debug.Log($"Load level data {levelPath}");
 
         LoadLevelData(levelPath);
-        //Debug.Log($"levelnum.text = {levelNum.text = "level" + level}");
     }
     public void LoadLevelData(string levelPath)
     {
-        //Debug.Log("===> Load level data");
         int colCount;
         level = Resources.Load<Level>(levelPath);
 
@@ -56,14 +51,13 @@ public class LoadLevel : MonoBehaviour
         colCount = level.collumnCount;
         Debug.Log(colCount);
         brickScale = 14f / colCount + 0.01f;
-        //Debug.Log($"Brick Scale {brickScale}");
 
         string[] arrColor = level.bricks.Split(';');
        
 
 
         rootPosition.x = CameraMain.instance.GetLeft() + BRICK_WIDTH_IMAGE * brickScale * 0.5f;
-        rootPosition.y = CameraMain.instance.GetTop() - BRICK_HEIGHT_IMAGE * brickScale * 0.6f - 1;
+        rootPosition.y = CameraMain.instance.GetTop() - BRICK_HEIGHT_IMAGE * brickScale * 0.6f - 3;
 
         List<List<int>> matrix = new List<List<int>>();
         List<int> rows = new List<int>();
@@ -88,7 +82,6 @@ public class LoadLevel : MonoBehaviour
                 rowCount = 0;
             }
         }
-        //Debug.Log($"Matrix row {matrix.Count}");
         if(level.isBossLevel)
         {
             //LoadBossData()
@@ -134,10 +127,10 @@ public class LoadLevel : MonoBehaviour
     }
     public void ResetData()
     {
+        InGameController.Instance.LoadGameObject(); 
         BrickPoolManager.instance.pool.DeSpawnAll();
         //RESET BALL'
         //RESET PADDLE
-        paddle.ResetPaddle();
         //RESET SCORE
     }
 }

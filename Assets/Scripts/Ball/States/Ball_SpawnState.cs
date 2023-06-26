@@ -28,7 +28,7 @@ public class Ball_SpawnState : FSMState<BallSystem>
         sys.transform.position = new Vector3(deltaPosition.x, currentPaddlePosition.y + 1, currentPaddlePosition.z);
         //sys.transform.position = deltaPosition;
         sys.AngleMoverment();
-        if (!InGameController.Instance.isGameOver && (Input.GetKey(KeyCode.Space) || Input.GetMouseButtonUp(0)))
+        if (!InGameController.Instance.isGameOver && (Input.GetKey(KeyCode.Space)))
         {
             sys.GotoState(sys.MoveState);
         }

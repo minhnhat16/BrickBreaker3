@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class QuitButton : MonoBehaviour
 {
-    private Transform currentParent;
+   private Transform currentParent;
 
     public void HideParentComponent()
     {
         currentParent = this.transform.parent;
         currentParent.gameObject.SetActive(false);
-        gameObject.SetActive(false);
+        
     }
 
 }
