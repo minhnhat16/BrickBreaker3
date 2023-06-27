@@ -8,7 +8,8 @@ public enum DialogIndex
     WinDialog = 2,
     LoseDialog = 3,
     ReviveDialog = 4,
-    BuyConfirmDialog = 5
+    BuyConfirmDialog = 5,
+    LevelConfirmDialog = 6
 }
 
 public class DialogParam { }
@@ -59,6 +60,7 @@ public class DialogConfig
         DialogIndex.WinDialog,
         DialogIndex.LoseDialog,
         DialogIndex.ReviveDialog,
-        DialogIndex.BuyConfirmDialog
+        DialogIndex.BuyConfirmDialog,
+        DialogIndex.LevelConfirmDialog
     };
 }

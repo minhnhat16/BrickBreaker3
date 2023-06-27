@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public LoadSceneManager LoadSceneManager;
     public InGameController InGameController;
+    public ViewManager ViewManager;
     public int winScore;
     public bool isBossLevel;
     public LevelTextTemp levelTextTemp;

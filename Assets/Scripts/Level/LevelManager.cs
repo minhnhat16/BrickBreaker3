@@ -11,12 +11,13 @@ public class LevelManager : MonoBehaviour
     public int currentLevel = 1;
     //public List<Sprite> backgroundLevel;
     private void Start()
-    { 
+    {
+        SpawnLevel();
     }
 
     public void SpawnLevel()
     {
-        gameObject.SetActive(true);
+        
         for (int i = 0;  i <  levelNum; i++)
         {
             GameObject selectedLevel = Instantiate(levelPrefab, this.transform);
