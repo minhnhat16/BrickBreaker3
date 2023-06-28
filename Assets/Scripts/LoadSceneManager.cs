@@ -30,28 +30,13 @@ public class LoadSceneManager : MonoBehaviour
 
         var scene = SceneManager.LoadSceneAsync(sceneName);
         scene.allowSceneActivation = false;
-        _loaderCanvas.SetActive(true);
+        ViewManager.Instance.SwitchView(ViewIndex.LoadingView);
         do
         {
-            await Task.Delay(300);
-            progressBar.fillAmount = scene.progress;
+            await Task.Delay(100);
         } while (scene.progress < 0.9f);
 
         scene.allowSceneActivation = true;
-        _loaderCanvas.SetActive(false);
-    }
-
-    //SET BACKGROUND CANVAS ACTIVE
-    public void SetActiveCanvas(GameObject _object, bool active)
-    {
-        if (active)
-        {
-            _object.SetActive(true);
-        }
-        else
-        {
-            _object.SetActive(false);
-        }
     }
     public void ChangeScene(string sceneName)
     {

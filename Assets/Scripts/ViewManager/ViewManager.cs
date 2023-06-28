@@ -22,9 +22,6 @@ public class ViewManager : MonoBehaviour
         foreach (ViewIndex viewIndex in ViewConfig.viewArray)
         {
             string viewName = viewIndex.ToString();
-           Debug.Log($"=======> VIEW NAME : {viewName}<=======");
-            Debug.Log($"=======> VIEW INDEX : {viewIndex}<=======");
-
             GameObject view = Instantiate(Resources.Load("Prefab/UI/Views/" + viewName, typeof(GameObject))) as GameObject;
 
             view.transform.SetParent(anchorView, false);

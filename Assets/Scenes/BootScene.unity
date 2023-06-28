@@ -210,6 +210,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad6992efce595a4684619dd88753893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &613234636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 512525321681885428, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+  m_PrefabInstance: {fileID: 4809746929112923834}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3beb434612a37554dae44c2951b8cb4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &671100611 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4809746928509627134, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
@@ -455,6 +466,10 @@ PrefabInstance:
       propertyPath: ViewManager
       value: 
       objectReference: {fileID: 1729016245}
+    - target: {fileID: 139010313063362994, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: DialogManager
+      value: 
+      objectReference: {fileID: 613234636}
     - target: {fileID: 139010313063362995, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -935,6 +950,10 @@ PrefabInstance:
     - target: {fileID: 1233115074414252665, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
       propertyPath: m_Name
       value: Level_Text_Temp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293497100257040476, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1368405981472895325, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
       propertyPath: m_Enabled

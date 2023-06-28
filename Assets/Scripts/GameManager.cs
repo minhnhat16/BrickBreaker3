@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public LoadSceneManager LoadSceneManager;
     public InGameController InGameController;
     public ViewManager ViewManager;
+    public DialogManager DialogManager;
     public int winScore;
     public bool isBossLevel;
     public LevelTextTemp levelTextTemp;

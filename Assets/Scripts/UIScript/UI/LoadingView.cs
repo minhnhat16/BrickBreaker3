@@ -8,7 +8,7 @@ public class LoadingView : BaseView
 {
     public void Start()
     {
-        StartCoroutine(LoadViewAfterDelay(1f));
+        StartCoroutine(LoadViewAfterDelay(0.5f));
 
     }
     IEnumerator LoadViewAfterDelay(float delay)

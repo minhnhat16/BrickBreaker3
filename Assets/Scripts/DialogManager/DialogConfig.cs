@@ -51,6 +51,10 @@ public class BuyConfirmDialogParam : DialogParam
     public Action onConfirmAction;
     public Action onCancleAction;
 }
+public class LevelConfirm : DialogParam
+{
+    public int levelnum;
+}
 
 public class DialogConfig
 {

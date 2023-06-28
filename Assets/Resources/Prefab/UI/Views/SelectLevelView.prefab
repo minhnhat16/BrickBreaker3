@@ -319,11 +319,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 985602978117600296, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 985602978117600296, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 1920
       objectReference: {fileID: 0}
     - target: {fileID: 985602978117600296, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_LocalPosition.x
@@ -376,6 +376,26 @@ PrefabInstance:
     - target: {fileID: 2072990049005446210, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_Name
       value: BackGround
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992726049121595286, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992726049121595286, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992726049121595286, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992726049121595286, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992726049121595286, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
