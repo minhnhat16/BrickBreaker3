@@ -53,7 +53,7 @@ public class BuyConfirmDialogParam : DialogParam
 }
 public class LevelConfirm : DialogParam
 {
-    public int levelnum;
+    public string levelnum;
 }
 
 public class DialogConfig

@@ -106,7 +106,7 @@ public class LoadLevel : MonoBehaviour
 
         for (int i = 0; i < matrix.Count; i++)
         {
-            Debug.Log($"SETUP {i} BRICK ===>> count");
+            //Debug.Log($"SETUP {i} BRICK ===>> count");
 
             List<int> rows = matrix[i];
           

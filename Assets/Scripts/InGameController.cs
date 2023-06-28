@@ -111,4 +111,15 @@ public class InGameController : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+    public void PauseGame()
+    {
+        Debug.Log("======>PAUSE");
+        Time.timeScale = 0f;
+    }
+    public void ResumeGame()
+    {
+        Debug.Log("======>RESUME");
+
+        Time.timeScale = 1f;
+    }
 }

@@ -5,4 +5,9 @@ using UnityEngine;
 public class GamePlayView : BaseView
 {
  
+    public void OnPauseButton()
+    {
+        InGameController.Instance.PauseGame();
+        DialogManager.Instance.ShowDialog(DialogIndex.PauseDialog);
+    }
 }

@@ -22,9 +22,8 @@ public class LevelButton : MonoBehaviour
     {
         levelTxt.text = "Level " + levelID + "";
         levelTxtTemp.text = levelID + "";
-        //ViewManager.Instance.SwitchView(ViewIndex.GameplayView);
         DialogManager.Instance.ShowDialog(DialogIndex.LevelConfirmDialog);
-
+        //ViewManager.Instance.SwitchView(ViewIndex.GameplayView);
     }
 
 }

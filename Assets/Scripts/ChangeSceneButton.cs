@@ -6,11 +6,6 @@ public class ChangeSceneButton : MonoBehaviour
 {
     public LevelManager levelManage;
 
-    
-    public void ChangeScene(string sceneName)
-    {
-        GameManager.Instance.LoadOnInGameController();
-    }
     public void ChangeLeveleListView()
     {
         levelManage.gameObject.SetActive(true);
