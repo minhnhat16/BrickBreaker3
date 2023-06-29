@@ -11,16 +11,6 @@ using UnityEngine.UIElements;
 public class LoadSceneManager : MonoBehaviour
 {
     public static LoadSceneManager Instance;
-    [SerializeField] private GameObject _loaderCanvas;
-    [SerializeField] private UnityEngine.UI.Image progressBar;
-    [SerializeField] private GameObject _backGroundCanvas;
-    [SerializeField] private GameObject _pauseGameBtn;
-    public GameObject _GameOverUI;
-    public GameObject _CompleteLeverUI;
-    public GameObject _LevelPopUpUI;
-    public GameObject _LevelScrollView;
-    public GameObject _MenuUI;
-    public GameObject _InGameUI;
     private void Awake()
     {
         Instance = this;
@@ -47,19 +37,6 @@ public class LoadSceneManager : MonoBehaviour
     public void HidePopUpUI()
     {
 
-    }
-
-    public void HideMenuUI()
-    {
-        _MenuUI.gameObject.SetActive(false);
-    }
-    public void HideInGameUI()
-    {
-        _InGameUI.gameObject.SetActive(false);
-    }
-    public void ActiveIngameUI()
-    {
-        _InGameUI.gameObject.SetActive(true);
     }
     public void PauseGame()
     {

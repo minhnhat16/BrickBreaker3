@@ -16,8 +16,8 @@ public class InGameController : MonoBehaviour
     public GameObject paddlePref;
     public CameraMain cam;
     //public GameObject prefabBrickInstance;
-    public GameObject prefabPaddleInstance;
-    public GameObject prefabBallInstance;
+    public static GameObject prefabPaddleInstance;
+    public static GameObject prefabBallInstance;
     public Vector3 position;
     
 
@@ -43,7 +43,7 @@ public class InGameController : MonoBehaviour
 
         if (isGameOver)
         {
-            LoadSceneManager.Instance._GameOverUI.SetActive(true);
+            DialogManager.Instance.ShowDialog(DialogIndex.LoseDialog);
         }
     }
 
@@ -84,7 +84,6 @@ public class InGameController : MonoBehaviour
         if (BrickPoolManager.instance.destroyCount == BrickPoolManager.instance.spawnAmount)
         {
             isLevelComplete = true;
-            LoadSceneManager.Instance._CompleteLeverUI.SetActive(true);
         }
 
     }
@@ -121,5 +120,13 @@ public class InGameController : MonoBehaviour
         Debug.Log("======>RESUME");
 
         Time.timeScale = 1f;
+    }
+
+    public void DeSpawnAll()
+    {
+        prefabBallInstance.SetActive(false);
+        prefabPaddleInstance.SetActive(false);
+        BrickPoolManager.instance.pool.DeSpawnAll();
+
     }
 }

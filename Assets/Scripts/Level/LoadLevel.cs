@@ -16,6 +16,7 @@ public class LoadLevel : MonoBehaviour
     public BallSystem ball;
     public static LoadLevel instance;
     public int currentLevelLoad;
+    public int totalBrickInLevel = 0 ;
     public Vector2 rootPosition = new Vector2(-2.5f,2.5f);
     public float brickScale;
     public static float BRICK_WIDTH_IMAGE = 0.79f;
@@ -49,7 +50,7 @@ public class LoadLevel : MonoBehaviour
 
 
         colCount = level.collumnCount;
-        Debug.Log(colCount);
+       // Debug.Log(colCount);
         brickScale = 14f / colCount + 0.01f;
 
         string[] arrColor = level.bricks.Split(';');
@@ -90,7 +91,8 @@ public class LoadLevel : MonoBehaviour
         }
         SetUp(matrix);
         gameManager.winScore = level.winScore;
-
+        totalBrickInLevel = matrix.Count - 1;
+        Debug.Log($"total brick in level =>>>> {totalBrickInLevel}");
         Time.timeScale = 1;
     }
     //public void LoadBossData()
@@ -106,11 +108,7 @@ public class LoadLevel : MonoBehaviour
 
         for (int i = 0; i < matrix.Count; i++)
         {
-            //Debug.Log($"SETUP {i} BRICK ===>> count");
-
             List<int> rows = matrix[i];
-          
-
             for (int j = 0; j < rows.Count; j++)
             {
 
@@ -121,16 +119,21 @@ public class LoadLevel : MonoBehaviour
                 brick.transform.position = position;
                 brick.transform.localScale = new Vector2(brickScale, brickScale);
                 brick.SettingBrick(rows[j]);
+               
+                
             }
-
         }
+        Debug.Log($"TOTAL BRICK IN LEVEL ===>> {totalBrickInLevel}");
     }
     public void ResetData()
     {
-        InGameController.Instance.LoadGameObject(); 
+        totalBrickInLevel = 0;
+        InGameController.Instance.DeSpawnAll();
         BrickPoolManager.instance.pool.DeSpawnAll();
         //RESET BALL'
         //RESET PADDLE
+
+        InGameController.Instance.LoadGameObject(); 
         //RESET SCORE
     }
 }

@@ -16,9 +16,11 @@ public class LevelConfirmDialog : BaseDialog
     {
         _levelNumText = GameObject.Find("Level_Text").GetComponent<Text>();
     }
-    private void FixedUpdate()
+    private void Update()
     {
-        _showLevelNum = _levelNumText;
+        Text text = GameObject.Find("Level_Text").GetComponent<Text>();
+        string tempLevel = text.text ;
+        _showLevelNum.text = tempLevel;
 
     }
     public void OnClickQuitBtn()
