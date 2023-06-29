@@ -11,7 +11,6 @@ public class LoadLevel : MonoBehaviour
 {
     [SerializeField]private Level level;
     [SerializeField] private GameManager gameManager;
-    [SerializeField] private Text levelNum;
     public Paddle paddle;
     public BallSystem ball;
     public static LoadLevel instance;
@@ -38,9 +37,7 @@ public class LoadLevel : MonoBehaviour
     {
         //ResetData();
         string levelPath = "Levels/level_" + level;
-
         Debug.Log($"Load level data {levelPath}");
-
         LoadLevelData(levelPath);
     }
     public void LoadLevelData(string levelPath)
@@ -123,17 +120,12 @@ public class LoadLevel : MonoBehaviour
                 
             }
         }
-        Debug.Log($"TOTAL BRICK IN LEVEL ===>> {totalBrickInLevel}");
     }
     public void ResetData()
     {
         totalBrickInLevel = 0;
         InGameController.Instance.DeSpawnAll();
-        BrickPoolManager.instance.pool.DeSpawnAll();
-        //RESET BALL'
-        //RESET PADDLE
-
         InGameController.Instance.LoadGameObject(); 
-        //RESET SCORE
+
     }
 }

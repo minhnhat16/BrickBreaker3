@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     public DialogManager DialogManager;
     public int winScore;
     public bool isBossLevel;
-    public LevelTextTemp levelTextTemp;
     private void Awake()
     {
         Instance = this;

@@ -17,9 +17,7 @@ public class PaddleMoveState : FSMState<Paddle>
 
     public override void OnUpdate()
     {
-
         MovePaddle();
-        InGameController.Instance.LevelComplete(sys.gameObject);
     }
 
     public void MovePaddle()

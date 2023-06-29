@@ -11,10 +11,11 @@ public class PauseDialog : BaseDialog
         DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
 
     }
-    public void OnContinueBtn()
+    public void OnRestartBtn()
     {
         DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
         InGameController.Instance.ResumeGame();
+        LoadLevel.instance.RestartLevel();
 
     }
 }

@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class GamePlayView : BaseView
 {
- 
+    public void Update()
+    {
+        InGameController.Instance.LevelComplete();
+    }
     public void OnPauseButton()
     {
         InGameController.Instance.PauseGame();

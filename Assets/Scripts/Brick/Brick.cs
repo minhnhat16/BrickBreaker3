@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Brick : MonoBehaviour
@@ -33,7 +34,6 @@ public class Brick : MonoBehaviour
         if (collision.gameObject.CompareTag("Ball")){
             BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
             BrickPoolManager.instance.destroyCount++ ;
-
         }
     }
     public void OnContact(RaycastHit2D hit, BallSystem ball)

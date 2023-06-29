@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 using UnityEditor.Build;
 using UnityEngine;
 
@@ -11,11 +13,10 @@ public class InGameController : MonoBehaviour
     public bool isLevelComplete;
 
     public ConfigFileManager configFile;
-   //public GameObject brickPref;
     public GameObject ballPref;
     public GameObject paddlePref;
     public CameraMain cam;
-    //public GameObject prefabBrickInstance;
+
     public static GameObject prefabPaddleInstance;
     public static GameObject prefabBallInstance;
     public Vector3 position;
@@ -30,13 +31,12 @@ public class InGameController : MonoBehaviour
     }
     void Start()
     {
-        // LiveOnStart();
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        CheckBrickCondition();
+
     }
     public void GameOver()  
     {
@@ -49,15 +49,15 @@ public class InGameController : MonoBehaviour
 
     public void LoadGameObject()
     {
-        //loading prefab
-        
         LoadPaddle();
         LoadBall();
         SetUpCamera();
-        //SetBallParent();
+
+
     }
     public void SetUpCamera()
     {
+        
         //set up camera with ball and paddle
         prefabPaddleInstance.GetComponent<Paddle>().SetUpCamera();
         prefabBallInstance.GetComponent<BallSystem>().SetUpCamera();
@@ -70,21 +70,14 @@ public class InGameController : MonoBehaviour
         prefabBallInstance.transform.position = position;
 
     }
-    public void LoadBrick()
+    public bool CheckBrickClear()
     {
-        for (int i = 0; i < BrickPoolManager.instance.spawnAmount; i++)
-        {
-            BrickPoolManager.instance.pool.SpawnNonGravity();
-            BrickPoolManager.instance.pool.list[i].transform.position = configFile.brickScript.brickSpawnPosArray[i];
-        }
-       
-    }
-    public void CheckBrickCondition()
-    {
-        if (BrickPoolManager.instance.destroyCount == BrickPoolManager.instance.spawnAmount)
+        if (BrickPoolManager.instance.destroyCount == LoadLevel.instance.totalBrickInLevel)
         {
             isLevelComplete = true;
+            return isLevelComplete;
         }
+            return isLevelComplete= false;
 
     }
     public void LoadPaddle()
@@ -103,13 +96,15 @@ public class InGameController : MonoBehaviour
         //Debug.Log(prefabPaddleInstance.GetComponent<Paddle>());
     }
 
-    public void LevelComplete(GameObject gameObject)
+    public void LevelComplete()
     {
-        if (isLevelComplete || isGameOver)
+       if(isLevelComplete)
         {
-            gameObject.SetActive(false);
-        }
+            PauseGame();
+            DialogManager.Instance.ShowDialog(DialogIndex.WinDialog);
+       }
     }
+ 
     public void PauseGame()
     {
         Debug.Log("======>PAUSE");
@@ -124,9 +119,9 @@ public class InGameController : MonoBehaviour
 
     public void DeSpawnAll()
     {
-        prefabBallInstance.SetActive(false);
-        prefabPaddleInstance.SetActive(false);
+        Destroy(prefabBallInstance);
+        Destroy(prefabPaddleInstance);
+        gameObject.GetComponent
         BrickPoolManager.instance.pool.DeSpawnAll();
-
     }
 }
