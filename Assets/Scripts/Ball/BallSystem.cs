@@ -55,6 +55,7 @@ public class BallSystem : FSMSystem
     }
     public void SetUpCamera()
     {
+       
         if (cameraMain == null)
         {
             cameraMain = GetComponent<CameraMain>();

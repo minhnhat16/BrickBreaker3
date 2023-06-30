@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEditor.Build;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class InGameController : MonoBehaviour
@@ -46,7 +48,7 @@ public class InGameController : MonoBehaviour
             DialogManager.Instance.ShowDialog(DialogIndex.LoseDialog);
         }
     }
-
+   
     public void LoadGameObject()
     {
         LoadPaddle();
@@ -57,11 +59,12 @@ public class InGameController : MonoBehaviour
     }
     public void SetUpCamera()
     {
-        
-        //set up camera with ball and paddle
-        prefabPaddleInstance.GetComponent<Paddle>().SetUpCamera();
-        prefabBallInstance.GetComponent<BallSystem>().SetUpCamera();
+        if(Camera.main == null)
+        {
+           
+        }
     }
+  
     public void SetBallParent()
     {
         //set ball as paddle parent
@@ -107,7 +110,7 @@ public class InGameController : MonoBehaviour
  
     public void PauseGame()
     {
-        Debug.Log("======>PAUSE");
+        //Debug.Log("======>PAUSE");
         Time.timeScale = 0f;
     }
     public void ResumeGame()
@@ -121,7 +124,7 @@ public class InGameController : MonoBehaviour
     {
         Destroy(prefabBallInstance);
         Destroy(prefabPaddleInstance);
-        gameObject.GetComponent
+        Destroy(GameObject.Find("camPrefab"));
         BrickPoolManager.instance.pool.DeSpawnAll();
     }
 }

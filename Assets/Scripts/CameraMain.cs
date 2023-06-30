@@ -10,18 +10,26 @@ public class CameraMain : MonoBehaviour
     public GameObject camPrefab;
     public float height;
     public float width;
+    public GameObject _obj;
+
 
     private const float baseAspect = 9f / 16f;
     private void Awake()
     {
         instance = this;
+
+    }
+    private void Start()
+    {
+        
     }
     public void GetCamera()
     {
-
-        GameObject obj = Instantiate(Resources.Load("Prefab/" + camPrefab.name, typeof(GameObject))) as GameObject;
-        obj.transform.SetParent(InGameController.Instance.transform);
-        main = obj.GetComponent<Camera>();
+       
+        _obj = Instantiate(Resources.Load("Prefab/Camera/camPrefab", typeof(GameObject))) as GameObject;
+        Debug.Log("Get Cam");
+        _obj.transform.SetParent(InGameController.Instance.transform);
+        main = _obj.GetComponent<Camera>();
         float targetAspect = main.aspect;
         main.orthographicSize = baseAspect / targetAspect * main.orthographicSize;
         height = main.orthographicSize * 2;

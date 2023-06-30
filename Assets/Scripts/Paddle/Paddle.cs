@@ -7,7 +7,6 @@ public class Paddle : FSMSystem
     [SerializeField] public Collision collision { get; set; }
     public float paddleSpeed = 4f;
     public BallSystem ballSystem;
-    public CameraMain cameraMain;
     public float paddleLenght;
     public float rightLimit;
     public float leftLimit;
@@ -22,21 +21,21 @@ public class Paddle : FSMSystem
     }
     private void Start()
     {
-        if (cameraMain == null)
-        {
-            cameraMain = GetComponent<CameraMain>();
-        }
+        //if (cameraMain == null)
+        //{
+        //    cameraMain = GetComponent<CameraMain>();    
+        //}
         Init();
     }
 
-    public void SetUpCamera()
-    {
-        if (cameraMain == null)
-        {
-            cameraMain = GetComponent<CameraMain>();
-            cameraMain.GetCamera();
-        }
-    }
+    //public void SetUpCamera()
+    //{
+    //    if (cameraMain == null)
+    //    {
+    //        cameraMain = GetComponent<CameraMain>();
+    //        cameraMain.GetCamera();
+    //    }
+    //}
     private void Init()
     { 
         GotoState(MoveState);
@@ -54,8 +53,8 @@ public class Paddle : FSMSystem
     }
     public void MoveCalculation(float xDirection)
     {
-        rightLimit = cameraMain.GetRight() - paddleLenght / 10f;
-        leftLimit = cameraMain.GetLeft() +  paddleLenght / 10f;
+        rightLimit = CameraMain.instance.GetRight() - paddleLenght / 10f;
+        leftLimit = CameraMain.instance.GetLeft() +  paddleLenght / 10f;
         tempX += Time.deltaTime * paddleSpeed * xDirection;
         tempX = Mathf.Clamp(tempX, leftLimit, rightLimit);
         transform.position = new Vector3(tempX, transform.position.y, transform.position.z);

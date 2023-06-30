@@ -10,15 +10,16 @@ public class GameManager : MonoBehaviour
     public InGameController InGameController;
     public ViewManager ViewManager;
     public DialogManager DialogManager;
+    public CameraMain CameraMain;
     public int winScore;
     public bool isBossLevel;
     private void Awake()
     {
         Instance = this;
+
     }
     public void Start()
     {
-
     }
 
     public void LoadOnInGameController()
