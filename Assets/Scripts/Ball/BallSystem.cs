@@ -59,8 +59,8 @@ public class BallSystem : FSMSystem
         if (cameraMain == null)
         {
             cameraMain = GetComponent<CameraMain>();
-            cameraMain.GetCamera();
-        }
+            CameraMain.instance.GetCamera();
+        }   
     }
 
     private void Init()
@@ -92,8 +92,8 @@ public class BallSystem : FSMSystem
     {
     
         tempX += angleMoveSpeed * tempXDir;
-        tempX = Mathf.Clamp(tempX, cameraMain.GetLeft() - 2, cameraMain.GetRight() + 2);
-        temp = (-cameraMain.GetLeft() + cameraMain.GetRight());
+        tempX = Mathf.Clamp(tempX, CameraMain.instance.GetLeft() - 2, CameraMain.instance.GetRight() + 2);
+        temp = (-CameraMain.instance.GetLeft() + CameraMain.instance.GetRight());
         tempY =  Mathf.Sqrt((temp*temp) - (tempX * tempX)) -5;
         direction1 = new Vector3(tempX, tempY, transform.position.z);
         Debug.DrawRay(transform.position, direction1, Color.blue);
@@ -109,17 +109,17 @@ public class BallSystem : FSMSystem
     }
     public void GetBallDirection()
     {
-        if (transform.position.x > cameraMain.GetRight() - ballRadius)
+        if (transform.position.x > CameraMain.instance.GetRight() - ballRadius)
         {
             tempDirection = Vector2.Reflect(moveDirection, Vector2.left);
             moveDirection = tempDirection;
         }
-        else if (transform.position.x < cameraMain.GetLeft() - ballRadius)
+        else if (transform.position.x < CameraMain.instance.GetLeft() - ballRadius)
         {
             tempDirection = Vector2.Reflect(moveDirection, Vector2.right);
             moveDirection = tempDirection;
         }
-        else if (transform.position.y > cameraMain.GetTop() - ballRadius)
+        else if (transform.position.y > CameraMain.instance.GetTop() - ballRadius)
         {
             tempDirection = Vector2.Reflect(moveDirection, Vector2.down);
             moveDirection = tempDirection;
@@ -145,7 +145,7 @@ public class BallSystem : FSMSystem
     }
     public void BallDeath()
     {
-        if ((transform.position.y < cameraMain.GetBottom() - ballRadius) && currentLive >0)
+        if ((transform.position.y < CameraMain.instance.GetBottom() - ballRadius) && currentLive >0)
         {
             DecreaseLive();
             InGameController.Instance.isBallDeath = true;

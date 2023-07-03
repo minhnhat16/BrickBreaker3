@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7317087642881276297}
   - component: {fileID: 7317087642881276296}
+  - component: {fileID: 5947978031311871536}
   m_Layer: 0
   m_Name: camPrefab
   m_TagString: testcam
@@ -75,3 +76,20 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &5947978031311871536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7317087642881276294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a101b7b5010cd4ea05012df31ab4e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  main: {fileID: 0}
+  camPrefab: {fileID: 7317087642881276294}
+  height: 0
+  width: 0
+  _obj: {fileID: 0}

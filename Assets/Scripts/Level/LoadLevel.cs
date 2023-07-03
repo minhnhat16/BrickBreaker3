@@ -125,7 +125,8 @@ public class LoadLevel : MonoBehaviour
     {
         totalBrickInLevel = 0;
         InGameController.Instance.DeSpawnAll();
-        InGameController.Instance.LoadGameObject(); 
+        InGameController.Instance.LoadBall();
+        InGameController.Instance.LoadPaddle();
 
     }
 }

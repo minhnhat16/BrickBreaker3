@@ -53,15 +53,15 @@ public class InGameController : MonoBehaviour
     {
         LoadPaddle();
         LoadBall();
-        SetUpCamera();
 
-
+  
     }
     public void SetUpCamera()
     {
-        if(Camera.main == null)
+        if (Camera.current == null)
         {
-           
+            Debug.Log("camera null");
+            CameraMain.instance.GetCamera();
         }
     }
   
