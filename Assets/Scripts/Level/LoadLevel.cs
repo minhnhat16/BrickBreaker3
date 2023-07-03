@@ -31,13 +31,12 @@ public class LoadLevel : MonoBehaviour
     }
     public void RestartLevel()
     {
+        ResetData();
         LevelSelect(currentLevelLoad.ToString());
     }
     public void LevelSelect(string level)
     {
-        //ResetData();
         string levelPath = "Levels/level_" + level;
-        Debug.Log($"Load level data {levelPath}");
         LoadLevelData(levelPath);
     }
     public void LoadLevelData(string levelPath)
@@ -47,16 +46,13 @@ public class LoadLevel : MonoBehaviour
 
 
         colCount = level.collumnCount;
-       // Debug.Log(colCount);
+ 
         brickScale = 14f / colCount + 0.01f;
 
         string[] arrColor = level.bricks.Split(';');
-       
-
 
         rootPosition.x = CameraMain.instance.GetLeft() + BRICK_WIDTH_IMAGE * brickScale * 0.5f;
         rootPosition.y = CameraMain.instance.GetTop() - BRICK_HEIGHT_IMAGE * brickScale * 0.6f - 3;
-
         List<List<int>> matrix = new List<List<int>>();
         List<int> rows = new List<int>();
         int rowCount = 0;
@@ -89,7 +85,6 @@ public class LoadLevel : MonoBehaviour
         SetUp(matrix);
         gameManager.winScore = level.winScore;
         totalBrickInLevel = matrix.Count - 1;
-        Debug.Log($"total brick in level =>>>> {totalBrickInLevel}");
         Time.timeScale = 1;
     }
     //public void LoadBossData()
@@ -101,7 +96,6 @@ public class LoadLevel : MonoBehaviour
     //}
     private void SetUp(List<List<int>> matrix)
     {
-        Debug.Log($"SETUP BRICK ===>>");
 
         for (int i = 0; i < matrix.Count; i++)
         {
@@ -125,7 +119,7 @@ public class LoadLevel : MonoBehaviour
     {
         totalBrickInLevel = 0;
         InGameController.Instance.DeSpawnAll();
-        InGameController.Instance.LoadGameObject(); 
+       // InGameController.Instance.LoadGameObject(); 
 
     }
 }

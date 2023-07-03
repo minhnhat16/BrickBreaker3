@@ -54,15 +54,23 @@ public class InGameController : MonoBehaviour
         LoadPaddle();
         LoadBall();
         SetUpCamera();
-
-
     }
     public void SetUpCamera()
     {
-        if(Camera.main == null)
+        GameObject camObject = GameObject.FindGameObjectWithTag("testcam");
+        if (camObject == null)
         {
-           
+            CameraMain.instance.GetCamera();
+            CameraMain.instance.GetCameraAspect();
+
         }
+        else
+        {
+            CameraMain.instance.main = camObject.GetComponent<Camera>();
+            CameraMain.instance.GetCameraAspect();
+
+        }
+
     }
   
     public void SetBallParent()
@@ -85,7 +93,7 @@ public class InGameController : MonoBehaviour
     }
     public void LoadPaddle()
     {
-        prefabPaddleInstance = Instantiate(paddlePref, transform.parent);
+        prefabPaddleInstance = Instantiate(paddlePref,transform.parent);
         prefabPaddleInstance.SetActive(true);
     }
 
@@ -122,9 +130,6 @@ public class InGameController : MonoBehaviour
 
     public void DeSpawnAll()
     {
-        Destroy(prefabBallInstance);
-        Destroy(prefabPaddleInstance);
-        Destroy(GameObject.Find("camPrefab"));
         BrickPoolManager.instance.pool.DeSpawnAll();
     }
 }

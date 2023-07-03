@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PauseDialog : BaseDialog
 {
-   public void OnHomBtn()
+   public void OnHomeBtn()
     {
         ViewManager.Instance.SwitchView(ViewIndex.SelectLevelView);
         InGameController.Instance.DeSpawnAll();
@@ -14,8 +14,14 @@ public class PauseDialog : BaseDialog
     public void OnRestartBtn()
     {
         DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
-        InGameController.Instance.ResumeGame();
+       // InGameController.Instance.LoadGameObject();
         LoadLevel.instance.RestartLevel();
-
+        InGameController.Instance.ResumeGame();
+        Debug.Log("======> RESTART ON YOUR HAND ");
+    }
+    public void OnReturnBtn()
+    {
+        DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
+        InGameController.Instance.ResumeGame();
     }
 }

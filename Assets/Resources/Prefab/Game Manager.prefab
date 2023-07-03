@@ -53,9 +53,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoadSceneManager: {fileID: 139010313468756696}
   InGameController: {fileID: 139010313211194246}
+  ViewManager: {fileID: 0}
+  DialogManager: {fileID: 0}
+  CameraMain: {fileID: 0}
   winScore: 0
   isBossLevel: 0
-  levelTextTemp: {fileID: 0}
 --- !u!114 &139010313063362993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,8 +77,6 @@ MonoBehaviour:
   ballPref: {fileID: 0}
   paddlePref: {fileID: 0}
   cam: {fileID: 0}
-  prefabPaddleInstance: {fileID: 0}
-  prefabBallInstance: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
 --- !u!114 &3794794537084021218
 MonoBehaviour:
@@ -106,9 +106,9 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   paddle: {fileID: 0}
   ball: {fileID: 0}
-  levelNum: {fileID: 0}
   currentLevelLoad: 0
-  rootPosition: {x: 0, y: 0, z: 0}
+  totalBrickInLevel: 0
+  rootPosition: {x: 0, y: 0}
   brickScale: 0
 --- !u!1 &139010313211194240
 GameObject:
@@ -120,6 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 139010313211194247}
   - component: {fileID: 139010313211194246}
+  - component: {fileID: 1977366585479490412}
   m_Layer: 0
   m_Name: InGameController
   m_TagString: Untagged
@@ -161,9 +162,24 @@ MonoBehaviour:
   ballPref: {fileID: 0}
   paddlePref: {fileID: 0}
   cam: {fileID: 0}
-  prefabPaddleInstance: {fileID: 0}
-  prefabBallInstance: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
+--- !u!114 &1977366585479490412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139010313211194240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a101b7b5010cd4ea05012df31ab4e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  main: {fileID: 0}
+  camPrefab: {fileID: 7317087642881276294, guid: 1d54eb4244308fa47bd7623fb816e26d, type: 3}
+  height: 0
+  width: 0
+  _obj: {fileID: 0}
 --- !u!1 &139010313468756698
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,13 +224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d81afd9756b12a04f921870a25e10120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loaderCanvas: {fileID: 0}
-  progressBar: {fileID: 0}
-  _backGroundCanvas: {fileID: 0}
-  _GameOverUI: {fileID: 0}
-  _CompleteLeverUI: {fileID: 0}
-  _LevelPopUpUI: {fileID: 0}
-  _LevelScrollView: {fileID: 0}
 --- !u!1 &6260062463585519418
 GameObject:
   m_ObjectHideFlags: 0
