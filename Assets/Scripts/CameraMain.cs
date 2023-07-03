@@ -25,8 +25,9 @@ public class CameraMain : MonoBehaviour
     }
     public void GetCamera()
     {
-
+       
         _obj = Instantiate(Resources.Load("Prefab/Camera/camPrefab", typeof(GameObject))) as GameObject;
+        Debug.Log("Get Cam");
         _obj.transform.SetParent(InGameController.Instance.transform);
         main = _obj.GetComponent<Camera>();
         float targetAspect = main.aspect;
