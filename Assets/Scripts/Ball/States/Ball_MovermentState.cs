@@ -24,5 +24,7 @@ public class Ball_MovermentState : FSMState<BallSystem>
         sys.MoveBall();
         sys.BallDeath();
         sys.GetBallDirection();
+        InGameController.Instance.LevelComplete();
+        
     }
 }

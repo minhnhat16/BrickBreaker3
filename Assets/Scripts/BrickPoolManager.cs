@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BrickPoolManager : MonoBehaviour
 {
-    [System.NonSerialized]
+    
     public BY_Local_Pool<Brick> pool;
     public Brick prefab;
     public static BrickPoolManager instance;

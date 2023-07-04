@@ -6,7 +6,6 @@ public class GamePlayView : BaseView
 {
     public void Update()
     {
-        InGameController.Instance.LevelComplete();
     }
     public void OnPauseButton()
     {

@@ -1,3 +1,4 @@
+using NaughtyAttributes.Test;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,7 @@ public class InGameController : MonoBehaviour
     public GameObject paddlePref;
     public CameraMain cam;
 
+    public Paddle paddle;
     public static GameObject prefabPaddleInstance;
     public static GameObject prefabBallInstance;
     public Vector3 position;
@@ -33,12 +35,11 @@ public class InGameController : MonoBehaviour
     }
     void Start()
     {
-
+       
     }
 
     void Update()
     {
-
     }
     public void GameOver()  
     {
@@ -51,9 +52,25 @@ public class InGameController : MonoBehaviour
    
     public void LoadGameObject()
     {
-        LoadPaddle();
-        LoadBall();
-        SetUpCamera();
+        bool check = CheckGameObjectNull();
+        if(check)
+        {
+            Debug.Log(" load");
+            LoadPaddle();
+            LoadBall();
+            SetUpCamera();
+        }
+        else
+        {
+            Debug.Log("reload ");
+            ReloadGameObject();
+        }
+       
+    }
+    public bool CheckGameObjectNull()
+    {
+        if (prefabPaddleInstance == null || prefabBallInstance == null)  return true; 
+        else return false;
     }
     public void SetUpCamera()
     {
@@ -62,25 +79,14 @@ public class InGameController : MonoBehaviour
         {
             CameraMain.instance.GetCamera();
             CameraMain.instance.GetCameraAspect();
-
         }
         else
         {
             CameraMain.instance.main = camObject.GetComponent<Camera>();
             CameraMain.instance.GetCameraAspect();
-
         }
-
     }
   
-    public void SetBallParent()
-    {
-        //set ball as paddle parent
-        prefabBallInstance.transform.SetParent(prefabPaddleInstance.transform);
-        position = prefabPaddleInstance.transform.position + Vector3.up;
-        prefabBallInstance.transform.position = position;
-
-    }
     public bool CheckBrickClear()
     {
         if (BrickPoolManager.instance.destroyCount == LoadLevel.instance.totalBrickInLevel)
@@ -93,10 +99,11 @@ public class InGameController : MonoBehaviour
     }
     public void LoadPaddle()
     {
+       
         prefabPaddleInstance = Instantiate(paddlePref,transform.parent);
         prefabPaddleInstance.SetActive(true);
     }
-
+        
     public void LoadBall()
     {
         GameObject gameObject1 = Instantiate(ballPref, transform.parent);
@@ -106,12 +113,21 @@ public class InGameController : MonoBehaviour
         prefabPaddleInstance.GetComponent<Paddle>();
         //Debug.Log(prefabPaddleInstance.GetComponent<Paddle>());
     }
-
+    public void DeSpawnBall()
+    {
+        prefabBallInstance.GetComponent<BallSystem>().ResetBall();
+    }
+    public void DeSpawnPaddle()
+    {
+        prefabPaddleInstance.GetComponent <Paddle>().ResetPaddle();
+    }
     public void LevelComplete()
     {
-       if(isLevelComplete)
+        CheckBrickClear();
+       if (isLevelComplete)
         {
             PauseGame();
+            DeSpawnAll();
             DialogManager.Instance.ShowDialog(DialogIndex.WinDialog);
        }
     }
@@ -130,6 +146,19 @@ public class InGameController : MonoBehaviour
 
     public void DeSpawnAll()
     {
+        prefabBallInstance.SetActive(false);
+
+        prefabPaddleInstance.SetActive(false);
+
         BrickPoolManager.instance.pool.DeSpawnAll();
+    }
+    public void ReloadGameObject()
+    {
+        prefabBallInstance.SetActive(true);
+        prefabBallInstance.GetComponent<BallSystem>().ResetBall();
+
+        prefabPaddleInstance.SetActive(true);
+        prefabPaddleInstance.GetComponent<Paddle>().ResetPaddle();
+
     }
 }

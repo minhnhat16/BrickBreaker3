@@ -9,14 +9,15 @@ using Debug = UnityEngine.Debug;
 
 public class LoadLevel : MonoBehaviour
 {
+    public static LoadLevel instance;
     [SerializeField]private Level level;
     [SerializeField] private GameManager gameManager;
     public Paddle paddle;
     public BallSystem ball;
-    public static LoadLevel instance;
     public int currentLevelLoad;
-    public int totalBrickInLevel = 0 ;
+    public int totalBrickInLevel;
     public Vector2 rootPosition = new Vector2(-2.5f,2.5f);
+
     public float brickScale;
     public static float BRICK_WIDTH_IMAGE = 0.79f;
     public static float BRICK_HEIGHT_IMAGE = 0.32f;
@@ -41,12 +42,13 @@ public class LoadLevel : MonoBehaviour
     }
     public void LoadLevelData(string levelPath)
     {
+        ResetData();
+
         int colCount;
         level = Resources.Load<Level>(levelPath);
 
-
         colCount = level.collumnCount;
- 
+
         brickScale = 14f / colCount + 0.01f;
 
         string[] arrColor = level.bricks.Split(';');
@@ -56,27 +58,27 @@ public class LoadLevel : MonoBehaviour
         List<List<int>> matrix = new List<List<int>>();
         List<int> rows = new List<int>();
         int rowCount = 0;
-   
 
-        for ( int i = 0; i < arrColor.Length; i++ )
+
+        for (int i = 0; i < arrColor.Length; i++)
         {
-            int color; 
+            int color;
             bool checkColor = int.TryParse(arrColor[i], out color);
 
-            if(!checkColor)
+            if (!checkColor)
             {
-                continue;                
+                continue;
             }
             rows.Add(color);
             rowCount++;
-            if(rowCount >= colCount)
+            if (rowCount >= colCount)
             {
                 matrix.Add(rows);
                 rows = new List<int>();
                 rowCount = 0;
             }
         }
-        if(level.isBossLevel)
+        if (level.isBossLevel)
         {
             //LoadBossData()
             gameManager.winScore = level.winScore;
@@ -84,7 +86,7 @@ public class LoadLevel : MonoBehaviour
         }
         SetUp(matrix);
         gameManager.winScore = level.winScore;
-        totalBrickInLevel = matrix.Count - 1;
+        Debug.Log($"total brick in level {totalBrickInLevel}");
         Time.timeScale = 1;
     }
     //public void LoadBossData()
@@ -110,16 +112,16 @@ public class LoadLevel : MonoBehaviour
                 brick.transform.position = position;
                 brick.transform.localScale = new Vector2(brickScale, brickScale);
                 brick.SettingBrick(rows[j]);
-               
                 
             }
         }
+
     }
     public void ResetData()
     {
-        totalBrickInLevel = 0;
+        totalBrickInLevel = 1;
         InGameController.Instance.DeSpawnAll();
-       // InGameController.Instance.LoadGameObject(); 
+        InGameController.Instance.LoadGameObject(); 
 
     }
 }

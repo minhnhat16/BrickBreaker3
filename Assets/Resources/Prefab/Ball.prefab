@@ -77,7 +77,6 @@ MonoBehaviour:
     lastestPaddlePosition: {x: 0, y: 0, z: 0}
     currentPaddlePosition: {x: 0, y: 0, z: 0}
     deltaPosition: {x: 0, y: 0, z: 0}
-  cameraMain: {fileID: 0}
   contactHandle:
     contactUnit: {fileID: 0}
     unitType: 0
@@ -99,7 +98,7 @@ MonoBehaviour:
   ballSpeed: 10
   maxAngle: 45
   temp: 0
-  angleMoveSpeed: 0.2
+  angleMoveSpeed: 0.15
   angle: 0
   maxLives: 3
   currentLive: 0
@@ -119,6 +118,7 @@ MonoBehaviour:
   camPrefab: {fileID: 7317087642881276294, guid: 1d54eb4244308fa47bd7623fb816e26d, type: 3}
   height: 0
   width: 0
+  _obj: {fileID: 0}
 --- !u!1 &2471958558087876807
 GameObject:
   m_ObjectHideFlags: 0

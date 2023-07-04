@@ -28,7 +28,7 @@ public class BY_Local_Pool<T> where T : MonoBehaviour
     }
     public T SpawnNonGravity()
     {
-        Debug.Log("spawn brick");
+       // Debug.Log("spawn brick");
         index++;
         if (index >= list.Count) index = 0;
         T trans = list[index];

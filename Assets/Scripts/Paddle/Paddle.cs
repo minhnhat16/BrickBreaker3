@@ -37,12 +37,13 @@ public class Paddle : FSMSystem
     //    }
     //}
     private void Init()
-    { 
+    {
         GotoState(MoveState);
     }
 
     public void ResetPaddle()
     {
+        tempX = 0;
         GotoState(MoveState);
     }
     public Vector3 GetCurrentPosition()

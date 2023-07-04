@@ -122,7 +122,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4642230630814341011}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -7254447091747296362}
+        m_TargetAssemblyTypeName: WinDialog, Assembly-CSharp
+        m_MethodName: OnNextLevelButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3961397507617256328
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +541,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fb6405687776a3441a67c5bead1b4245, type: 3}
+  m_Sprite: {fileID: 21300000, guid: af62839be975d4947a58fd1ce763ec8f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -597,6 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogIndex: 2
+  TextLevel: 
 --- !u!1 &7208391605672058329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,6 +1120,10 @@ PrefabInstance:
     - target: {fileID: 8587601623196598385, guid: 3054ea6ecadfd90488e027ad2ad749d2, type: 3}
       propertyPath: m_Name
       value: LevelStar (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8587601623196598385, guid: 3054ea6ecadfd90488e027ad2ad749d2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3054ea6ecadfd90488e027ad2ad749d2, type: 3}

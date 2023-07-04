@@ -8,7 +8,6 @@ public class BallSystem : FSMSystem
     #region
     [HideInInspector]
     public Ball_MovermentState MoveState;
-    [HideInInspector]
     public Ball_SpawnState SpawnState;
     [HideInInspector]
     public Ball_DeathState DeathState;
@@ -50,21 +49,9 @@ public class BallSystem : FSMSystem
     private void Start()
     {
         Init();
-        
     }
-    //public void SetUpCamera()
-    //{
-       
-    //    if (cameraMain == null)
-    //    {
-    //        cameraMain = GetComponent<CameraMain>();
-    //        CameraMain.instance.GetCamera();
-    //    }
-    //}
-
     private void Init()
     {
-        
         SetMaxLive();
         GotoState(SpawnState);
     }
@@ -72,7 +59,6 @@ public class BallSystem : FSMSystem
     {
        transform.position += ballSpeed * Time.deltaTime * moveDirection;
     }
-
     public void AngleMoverment()
     {
         Debug.DrawRay(transform.position, direction1, Color.blue);
@@ -89,7 +75,6 @@ public class BallSystem : FSMSystem
     }
     private void AngleCalculation(float tempXDir)
     {
-    
         tempX += angleMoveSpeed * tempXDir;
         tempX = Mathf.Clamp(tempX, CameraMain.instance.GetLeft() - 2, CameraMain.instance.GetRight() + 2);
         temp = (- CameraMain.instance.GetLeft() + CameraMain.instance.GetRight());
@@ -99,8 +84,6 @@ public class BallSystem : FSMSystem
         angle = Mathf.Atan2(direction1.y, direction1.x) * Mathf.Rad2Deg - 90;
         transform.eulerAngles = Vector3.forward * angle;
     }
-
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -161,19 +144,19 @@ public class BallSystem : FSMSystem
     {
         currentLive++;
     }
-        
     public void SetMaxLive()
     {
         currentLive = maxLives;
     }
-     public void SetBallDeath()
+    public void SetBallDeath()
     {
         currentLive = 0;
     }
-
-    public override void OnSystemUpdate()
+    public void ResetBall()
     {
-    
+        tempX = 0;
+        SetMaxLive();
+        GotoState(SpawnState);
     }
     public void CheckBallLive()
     {
@@ -188,5 +171,5 @@ public class BallSystem : FSMSystem
             Debug.Log(InGameController.Instance.isGameOver);
         }
     }
-    
+   
 }

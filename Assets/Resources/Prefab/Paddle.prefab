@@ -130,9 +130,8 @@ MonoBehaviour:
   state: 
   MoveState:
     direction: {x: 0, y: 0}
-  paddleSpeed: 4
+  paddleSpeed: 5
   ballSystem: {fileID: 2471958557961736357, guid: ca6cf7dca02c00a448716b03f3b5cac1, type: 3}
-  cameraMain: {fileID: 0}
   paddleLenght: 0
   rightLimit: 0
   leftLimit: 0
@@ -156,6 +155,7 @@ MonoBehaviour:
   camPrefab: {fileID: 7317087642881276294, guid: 1d54eb4244308fa47bd7623fb816e26d, type: 3}
   height: 0
   width: 0
+  _obj: {fileID: 0}
 --- !u!1 &3102401260334709046
 GameObject:
   m_ObjectHideFlags: 0
