@@ -12,6 +12,7 @@ public class LevelContain : MonoBehaviour
     public int count;
     public List<RowScript> rows= new List<RowScript>();
     public int levelnum;
+    public int totalScore;
 
     public void Restart()
     {
@@ -24,16 +25,16 @@ public class LevelContain : MonoBehaviour
         for (int i = 0; i < rows.Count; i++)
         {
             rows[i].index = i;
-            Debug.Log(rows[i].index = i);
 
         }
     }
     public string GetRowData()
-    {
+    { 
         StringBuilder stringbuilder = new StringBuilder();
         for (int i = 0; i < rows.Count; i++)
         {
             stringbuilder.Append(rows[i].GetBlockData());
+            totalScore += rows[i].totalScore;
         }
         return stringbuilder.ToString(); 
     }
@@ -45,20 +46,27 @@ public class LevelContain : MonoBehaviour
         }
         return count;
     }
-
+    [Button]
+    public void TotalScore()
+    {
+        //totalScore = 0;
+        //GetRowData();
+        //Debug.Log(totalScore);
+    }
     [Button]
     private void CreatLevelScrtObj()
     {
+        totalScore = 0;
         Level level = ScriptableObject.CreateInstance<Level>();
         level.bricks = GetRowData();
+        level.winScore = totalScore;
+        Debug.Log($"get total score {totalScore}");
         Debug.Log(GetRowData());
-        level.winScore = GetBlockNum() * 100;
+        //level.winScore = GetBlockNum() * 100;
         string path = $"Assets/Resources/Levels/level_{levelnum}.asset";
-        
-
         AssetDatabase.CreateAsset(level, path);
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = level;
-        count = 0;
+        GetBlockNum();
     }
 }

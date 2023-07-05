@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public ViewManager ViewManager;
     public DialogManager DialogManager;
     public int winScore;
+    public int currentScore;
     public bool isBossLevel;
     private void Awake()
     {

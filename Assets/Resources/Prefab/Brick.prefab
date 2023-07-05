@@ -167,5 +167,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9239d8cb800b4304d9913e71344c9e41, type: 3}
   - {fileID: 21300000, guid: 36e37d67dd7ec9a418dd18d7d706f0f9, type: 3}
   - {fileID: 21300000, guid: 3fab0a7460ed11645a79d9b04dadba37, type: 3}
+  - {fileID: 21300000, guid: 84fd5966a324f7f44ab64e5f52a8bb5f, type: 3}
+  - {fileID: 21300000, guid: 8823851f09f3ef148b1c150a294afdf0, type: 3}
   normalVector: {x: 0, y: 0}
   brickTypeScriptableObject: {fileID: 11400000, guid: 94619d1bbc4b7fc4ba87b47e3872b782, type: 2}

@@ -32,41 +32,59 @@ public class Brick : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ball")){
-            BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
-            BrickPoolManager.instance.destroyCount++ ;
-        }
-    }
-    public void OnContact(RaycastHit2D hit, BallSystem ball)
-    {
-        switch (brickType)
-        {
-            case 1:
+            if (brickType == 1 )
+            {
                 brickHealth--;
-                if (!ball.onItemPowerUP)
-                {
-                    normalVector = hit.point - (Vector2)this.transform.position;
-                }
-                else
-                {
-                    brickHealth = 0;
-                }
-                if(brickHealth == 0)
-                {
-                    DeSpawnBrick();
-                }
-                break;
-            case 2:
-                {
-                    normalVector = hit.point - (Vector2)(this.transform.position);
-                    normalVector.Normalize();
+                DestroyBrick();
+                GameManager.Instance.currentScore += 100;
 
-                    ball.moveDirection = Vector2.Reflect(ball.moveDirection, normalVector);
-                    break;
-                }
-            default:
-                break;
+            }
+            else if(brickType == 2)
+            {
+                Debug.Log("Hit rock");
+
+            }
+
         }
     }
+    public void DestroyBrick()
+    {
+        if(brickHealth <= 0)
+        {
+            BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
+        }
+    }
+    //public void OnContact(RaycastHit2D hit, BallSystem ball)
+    //{
+    //    switch (brickType)
+    //    {
+    //        case 1:
+    //            brickHealth--;
+    //            if (!ball.onItemPowerUP)
+    //            {
+    //                normalVector = hit.point - (Vector2)this.transform.position;
+    //            }
+    //            else
+    //            {
+    //                brickHealth = 0;
+    //            }
+    //            if(brickHealth == 0)
+    //            {
+    //                DeSpawnBrick();
+    //            }
+    //            break;
+    //        case 2:
+    //            {
+    //                normalVector = hit.point - (Vector2)(this.transform.position);
+    //                normalVector.Normalize();
+
+    //                ball.moveDirection = Vector2.Reflect(ball.moveDirection, normalVector);
+    //                break;
+    //            }
+    //        default:
+    //            break;
+    //    }
+    //}
     public void SettingBrick(int type)
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -77,51 +95,61 @@ public class Brick : MonoBehaviour
                 BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
                 break;
             case 1: //yellow
+                spriteRenderer.sprite = sprites[5];
                 spriteRenderer.color = new Color32(245, 217, 32, 255);
                 brickType = 1;
                 brickHealth = 1;
                  break;
             case 2: //green
+                spriteRenderer.sprite = sprites[5];
                 spriteRenderer.color = new Color32(7, 214, 35, 255);
                 brickType = 1;
                 brickHealth = 1;
                 break;
             case 3: // blue
+                spriteRenderer.sprite = sprites[5];
                 spriteRenderer.color = new Color32(41, 130, 252, 255);
                 brickType = 1;
                 brickHealth = 1;
                 break;
             case 4: // orange
+                spriteRenderer.sprite = sprites[5];
                 spriteRenderer.color = new Color32(252, 125, 41, 255);
                 brickType = 1;
                 brickHealth = 1;
                 break;
             case 5: // purple
+                spriteRenderer.sprite = sprites[5];
                 spriteRenderer.color = new Color32(168, 23, 242, 255);
                 brickType = 1;
                 brickHealth = 1;
                 break;
             case 6: // red
+                spriteRenderer.sprite = sprites[5];
                 spriteRenderer.color = new Color32(255, 39, 85, 255);
                 brickType = 1;
                 brickHealth = 1;
                 break;
             case 7: // white
+                spriteRenderer.sprite = sprites[5];
                 spriteRenderer.color = Color.white;
                 brickType = 1;
                 brickHealth = 1;
                 break;
             case 8: // deep green
+                spriteRenderer.sprite = sprites[5];
                 spriteRenderer.color = new Color32(52, 152, 35, 255);
                 brickType = 1;
                 brickHealth = 1;
                 break;
             case 9: // brown
+                spriteRenderer.sprite = sprites[5];
                 spriteRenderer.color = new Color32(77, 48, 15, 255);
                 brickType = 1;
                 brickHealth = 1;
                 break;
             case 10: // vani
+                spriteRenderer.sprite = sprites[5];
                 spriteRenderer.color = new Color32(250, 221, 190, 255);
                 brickType = 1;
                 brickHealth = 1;

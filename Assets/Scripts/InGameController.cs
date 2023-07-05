@@ -87,14 +87,23 @@ public class InGameController : MonoBehaviour
         }
     }
   
+    public bool CheckCompleteScore()
+    {
+        if(GameManager.Instance.currentScore ==  LoadLevel.instance.completeScore)
+        {
+            isLevelComplete = true;
+            return true;
+
+        }
+        return false;
+    }
     public bool CheckBrickClear()
     {
-        if (BrickPoolManager.instance.destroyCount == LoadLevel.instance.totalBrickInLevel)
+        if (true)
         {
             isLevelComplete = true;
             return isLevelComplete;
         }
-            return isLevelComplete= false;
 
     }
     public void LoadPaddle()
@@ -123,7 +132,7 @@ public class InGameController : MonoBehaviour
     }
     public void LevelComplete()
     {
-        CheckBrickClear();
+        CheckCompleteScore();
        if (isLevelComplete)
         {
             PauseGame();

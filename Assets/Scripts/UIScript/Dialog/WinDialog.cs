@@ -8,8 +8,8 @@ public class WinDialog : BaseDialog
     {
         int _crLevel = LoadLevel.instance.currentLevelLoad + 1;
         InGameController.Instance.isGameOver = false;
-        BrickPoolManager.instance.destroyCount = 0;
         LoadLevel.instance.LevelSelect(_crLevel.ToString());
+        GameManager.Instance.currentScore = 0;
         GameManager.Instance.LoadOnInGameController();
         LoadLevel.instance.currentLevelLoad = _crLevel;
         DialogManager.Instance.HideDialog(DialogIndex.WinDialog);

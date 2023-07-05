@@ -634,6 +634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 1
+  totalScore: 0
   blocks:
   - {fileID: 322658739}
   - {fileID: 1655873325}
@@ -1789,6 +1790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 5
+  totalScore: 0
   blocks:
   - {fileID: 2032270914}
   - {fileID: 1030600517}
@@ -1859,6 +1861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 9
+  totalScore: 0
   blocks:
   - {fileID: 1717357799}
   - {fileID: 1972561691}
@@ -2042,6 +2045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 14
+  totalScore: 0
   blocks:
   - {fileID: 535961943}
   - {fileID: 1350910838}
@@ -2225,6 +2229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 15
+  totalScore: 0
   blocks:
   - {fileID: 1815422069}
   - {fileID: 628795971}
@@ -5180,6 +5185,7 @@ MonoBehaviour:
   - {fileID: 150387624}
   - {fileID: 165444117}
   levelnum: 0
+  totalScore: 0
 --- !u!1 &401139678
 GameObject:
   m_ObjectHideFlags: 0
@@ -5205,7 +5211,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401139678}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &401139680
 Camera:
   m_ObjectHideFlags: 0
@@ -5713,6 +5719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 11
+  totalScore: 0
   blocks:
   - {fileID: 1705096793}
   - {fileID: 1434997792}
@@ -8144,6 +8151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 13
+  totalScore: 0
   blocks:
   - {fileID: 1505145643}
   - {fileID: 178659385}
@@ -8327,6 +8335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 10
+  totalScore: 0
   blocks:
   - {fileID: 152753087}
   - {fileID: 562391586}
@@ -9404,6 +9413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 3
+  totalScore: 0
   blocks:
   - {fileID: 219067577}
   - {fileID: 844903281}
@@ -11825,6 +11835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 2
+  totalScore: 0
   blocks:
   - {fileID: 45607799}
   - {fileID: 1763919889}
@@ -13097,6 +13108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 4
+  totalScore: 0
   blocks:
   - {fileID: 333910594}
   - {fileID: 770888586}
@@ -13167,6 +13179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 6
+  totalScore: 0
   blocks:
   - {fileID: 497865}
   - {fileID: 921145057}
@@ -13350,6 +13363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 7
+  totalScore: 0
   blocks:
   - {fileID: 1670706279}
   - {fileID: 2067512429}
@@ -13985,6 +13999,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 8
+  totalScore: 0
   blocks:
   - {fileID: 360275680}
   - {fileID: 333863163}
@@ -15109,6 +15124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
+  totalScore: 0
   blocks:
   - {fileID: 702514161}
   - {fileID: 1658453094}
@@ -16592,6 +16608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 12
+  totalScore: 0
   blocks:
   - {fileID: 1075836917}
   - {fileID: 360987897}

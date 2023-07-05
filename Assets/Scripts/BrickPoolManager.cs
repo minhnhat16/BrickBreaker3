@@ -9,11 +9,9 @@ public class BrickPoolManager : MonoBehaviour
     public Brick prefab;
     public static BrickPoolManager instance;
     public int spawnAmount;
-    public int destroyCount;
     private void Awake()
     {
         instance = this;
-        destroyCount = 0;
         pool = new BY_Local_Pool<Brick>(prefab, 150, this.transform);
     }
 }

@@ -155,6 +155,7 @@ public class BallSystem : FSMSystem
     public void ResetBall()
     {
         tempX = 0;
+        moveDirection = Vector3.zero;
         SetMaxLive();
         GotoState(SpawnState);
     }

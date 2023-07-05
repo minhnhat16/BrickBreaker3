@@ -16,6 +16,7 @@ public class LoadLevel : MonoBehaviour
     public BallSystem ball;
     public int currentLevelLoad;
     public int totalBrickInLevel;
+    public int completeScore;
     public Vector2 rootPosition = new Vector2(-2.5f,2.5f);
 
     public float brickScale;
@@ -47,6 +48,7 @@ public class LoadLevel : MonoBehaviour
         int colCount;
         level = Resources.Load<Level>(levelPath);
 
+        completeScore = level.winScore;
         colCount = level.collumnCount;
 
         brickScale = 14f / colCount + 0.01f;
@@ -64,7 +66,6 @@ public class LoadLevel : MonoBehaviour
         {
             int color;
             bool checkColor = int.TryParse(arrColor[i], out color);
-
             if (!checkColor)
             {
                 continue;
@@ -86,7 +87,6 @@ public class LoadLevel : MonoBehaviour
         }
         SetUp(matrix);
         gameManager.winScore = level.winScore;
-        Debug.Log($"total brick in level {totalBrickInLevel}");
         Time.timeScale = 1;
     }
     //public void LoadBossData()
@@ -120,8 +120,11 @@ public class LoadLevel : MonoBehaviour
     public void ResetData()
     {
         totalBrickInLevel = 1;
+        GameManager.Instance.currentScore = 0;
+        InGameController.Instance.isGameOver = false;
         InGameController.Instance.DeSpawnAll();
-        InGameController.Instance.LoadGameObject(); 
+        InGameController.Instance.LoadGameObject();
+        InGameController.Instance.isLevelComplete = false;
 
     }
 }
