@@ -475,6 +475,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1729016245}
     - target: {fileID: 139010313063362994, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: highetsLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 139010313063362994, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: DialogManager
       value: 
       objectReference: {fileID: 613234636}

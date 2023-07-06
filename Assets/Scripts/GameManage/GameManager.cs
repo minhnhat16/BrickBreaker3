@@ -10,8 +10,10 @@ public class GameManager : MonoBehaviour
     public InGameController InGameController;
     public ViewManager ViewManager;
     public DialogManager DialogManager;
+    public LevelManager LevelManager;
     public int winScore;
     public int currentScore;
+    public int highetsLevel = 1;
     public bool isBossLevel;
     private void Awake()
     {
