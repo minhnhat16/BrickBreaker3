@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 public class LevelContain : MonoBehaviour
 {
     public int count;
-    public List<RowScript> rows= new List<RowScript>();
+    public List<    RowScript> rows= new List<RowScript>();
     public int levelnum;
     public int totalScore;
 

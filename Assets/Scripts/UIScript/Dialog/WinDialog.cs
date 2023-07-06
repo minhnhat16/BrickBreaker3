@@ -22,6 +22,8 @@ public class WinDialog : BaseDialog
     }
     public void OnRestartLevel()
     {
-        
+        DialogManager.Instance.HideDialog(DialogIndex.WinDialog);
+        LoadLevel.instance.RestartLevel();
+        InGameController.Instance.ResumeGame();
     }
 }

@@ -11,6 +11,9 @@ public class LevelButton : MonoBehaviour
     public int levelID;
     public Text levelTxt;
     public Text levelTxtTemp;
+    public bool currentLevel;
+    public bool isLevelComplete;
+
     
     private void Start()
     {
@@ -25,5 +28,12 @@ public class LevelButton : MonoBehaviour
         DialogManager.Instance.ShowDialog(DialogIndex.LevelConfirmDialog);
         //ViewManager.Instance.SwitchView(ViewIndex.GameplayView);
     }
-
+    private void SaveLevelInfor()
+    {
+    }
+    
+    private void IsLevelComplete()
+    {
+        
+    }
 }
