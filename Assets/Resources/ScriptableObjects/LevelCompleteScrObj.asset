@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e275113e72dc2a409966230d6a0225c, type: 3}
   m_Name: LevelCompleteScrObj
   m_EditorClassIdentifier: 
-  buttonToolList: []
+  buttonToolList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   levelList: 
