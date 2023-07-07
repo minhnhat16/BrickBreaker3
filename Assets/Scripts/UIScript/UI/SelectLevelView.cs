@@ -7,12 +7,13 @@ using UnityEngine.UIElements;
 public class SelectLevelView : BaseView
 {
     public GameObject ScrollView;
-    private void OnEnable()
-    {
-     
-    }
-    public void SpawnLevel()
+    public override void OnStartShowView()
     {
         ScrollView.GetComponentInChildren<LevelManager>().SpawnLevel();
+      
+    }
+    public void checkHighestLevel()
+    {
+       
     }
 }

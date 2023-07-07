@@ -8,11 +8,12 @@ public class LoadingView : BaseView
 {
     public void Start()
     {
-        StartCoroutine(LoadViewAfterDelay(0f));
+        StartCoroutine(LoadViewAfterDelay(0.2f));
 
     }
     IEnumerator LoadViewAfterDelay(float delay)
     {
+        Debug.Log("Load MainScreenView");
         yield return new WaitForSeconds(delay);
         ViewManager.Instance.SwitchView(ViewIndex.MainScreenView, null, null);
     }

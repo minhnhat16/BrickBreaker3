@@ -61,7 +61,7 @@ public class LevelButton : MonoBehaviour
     }
     public Level LoadCheckLevel(int index)
     {
-        string path = "Levels/level_" + index.ToString();
+        string path = "Levels/level_" + index.ToString(); 
         level = Resources.Load<Level>(path);
         return level;
     }
@@ -69,7 +69,7 @@ public class LevelButton : MonoBehaviour
     {
         if(GameManager.Instance.highetsLevel== index)
         {
-            Debug.Log("currentLevel on" + index);
+            Debug.Log("Highest level on" + index);
             highetsSprite.gameObject.SetActive(true);
             currentLevel= true;
         }

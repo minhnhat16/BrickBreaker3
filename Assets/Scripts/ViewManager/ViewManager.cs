@@ -17,7 +17,7 @@ public class ViewManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0f);
 
         foreach (ViewIndex viewIndex in ViewConfig.viewArray)
         {
@@ -27,6 +27,7 @@ public class ViewManager : MonoBehaviour
             view.transform.SetParent(anchorView, false);
             view.GetComponent<BaseView>().Init();
             dicView.Add(viewIndex, view.GetComponent<BaseView>());
+            Debug.Log(viewName);
         }
     }
     public void SwitchView(ViewIndex newView, ViewParam viewParam = null, Action callback = null)

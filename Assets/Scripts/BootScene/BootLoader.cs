@@ -11,15 +11,14 @@ public class BootLoader : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(this);
-        StartCoroutine(LoadSceneAfterDelay(1f));
+        ConfigFileManager.Instance.Init(LoadSceneBuffer);
     }
 
-    IEnumerator LoadSceneAfterDelay(float delay)
+    public void  LoadSceneBuffer()
     {
-        yield return new WaitForSeconds(delay);
-
+        Debug.Log("Load Scene Buffer");
         // T?i scene có tên "Buffer"
         SceneManager.LoadScene("Buffer");
-        ViewManager.Instance.SwitchView(ViewIndex.LoadingView, null, null);
+        ViewManager.Instance.SwitchView(ViewIndex.LoadingView);
     }
 }
