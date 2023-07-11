@@ -13,41 +13,52 @@ public class LevelManager : MonoBehaviour
     public List<GameObject> selectLevelList;
 
     //public List<Sprite> backgroundLevel;
-    private void Start()
+    private void Awake()
     {
         levelConfigRecordList = ConfigFileManager.Instance.Level.GetAllRecord();
-    }
 
+
+    }
+    private void Start()
+    {
+        Debug.Log("levelconfigrecordlist" + levelConfigRecordList.Count);
+    }   
     public void SpawnLevel()
     {
-
-        if (selectLevelList.Count == 0 ) {
+        if (selectLevelList.Count == 0)
+        {
+            Debug.Log("select level list:" + selectLevelList.Count);
+            Debug.Log($"Level config record count {levelConfigRecordList.Count}");
             for (int i = 0;  i < levelConfigRecordList.Count; i++)
             {
-                
                 GameObject selectedLevel = Instantiate(levelPrefab, this.transform);
+
                 selectedLevel.transform.GetChild(1).GetComponent<Text>().text = levelConfigRecordList[i].iD + "";
                 selectLevelList.Add(selectedLevel); 
                 selectedLevel.GetComponent<LevelButton>().levelID = levelConfigRecordList[i].iD;
             }
-            //HighestLevelOn();
-            WonLevel();
+            //WonLevel();
 
         }
     }
     public void HighestLevelOn()
     {
-        int highId = GameManager.Instance.highetsLevel;
-        selectLevelList[highId].GetComponent<LevelButton>().highetsSprite.SetActive(true);
+        
+        int highId = GameManager.Instance.currentLevel;
+        selectLevelList[highId - 1].GetComponent<LevelButton>().highetsSprite.SetActive(true);
     }
-    public void WonLevel()
+    public void HighestLevelOff()
     {
-        for (int i = 0; i < levelConfigRecordList.Count; i++)
+        int highId = GameManager.Instance.currentLevel;
+        selectLevelList[highId - 1].GetComponent<LevelButton>().highetsSprite.SetActive(false);
+
+    }
+    public void WonLevel(GameObject gameObject, int index)
+    {
+        if (levelConfigRecordList[index].isWon == 0)
         {
-             if(levelConfigRecordList[i].isWon == 0)
-            {
-                selectLevelList[i].GetComponent<LevelButton>().lockSprite.SetActive(true);
-            }
+            gameObject.GetComponent<LevelButton>().lockSprite.SetActive(true);
+            
         }
     }
     

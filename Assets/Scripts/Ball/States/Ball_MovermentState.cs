@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Ball_MovermentState : FSMState<BallSystem>
+public class Ball_MovermentState : FSMState<BallSystemVer2>
 {
     public Vector2 direction;
  
     public override void OnEnter()
     {
       
-        sys.moveDirection = sys.forwardDirection;
+        sys.moveDirection = sys.forwardDir;
     }
 
     public override void OnFixedUpdate()
@@ -21,9 +21,9 @@ public class Ball_MovermentState : FSMState<BallSystem>
 
     public override void OnUpdate()
     {
-        sys.MoveBall();
-        sys.BallDeath();
-        sys.GetBallDirection();
+        //sys.MoveBall();
+        //sys.BallDeath();
+        //sys.GetBallDirection();
         InGameController.Instance.LevelComplete();
         InGameController.Instance.GameOver();
         

@@ -13,7 +13,6 @@ public class LoadingView : BaseView
     }
     IEnumerator LoadViewAfterDelay(float delay)
     {
-        Debug.Log("Load MainScreenView");
         yield return new WaitForSeconds(delay);
         ViewManager.Instance.SwitchView(ViewIndex.MainScreenView, null, null);
     }

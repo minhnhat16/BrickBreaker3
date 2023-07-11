@@ -13,16 +13,15 @@ using UnityEngine.UIElements;
 
 public class LevelButton : MonoBehaviour
 {
-
     public int levelID;
+    public Level level;
     public Text levelTxt;
     public Text levelTxtTemp;
-    public bool currentLevel;
     public GameObject lockSprite;
     public GameObject highetsSprite;
 
+    public int currentLevel;
     public bool isComplete;
-    public Level level;
     private void Start()
     {
         levelTxt = GameObject.Find("Level_Text").GetComponent<Text>();
@@ -39,26 +38,7 @@ public class LevelButton : MonoBehaviour
         
         //ViewManager.Instance.SwitchView(ViewIndex.GameplayView);
     }
-    public bool CheckLevelComplete()
-    {
-        if (level.isWin == true || currentLevel == true)
-        {
-            Debug.Log("Checkedd");
-
-            isComplete = true;
-            return true;
-
-            //SET BUTTON IN OFF SPRITE
-        
-        }
-        else
-        {
-            lockSprite.gameObject.SetActive(true);
-            isComplete = false;
-            return false;
-        }
-       
-    }
+   
     public Level LoadCheckLevel(int index)
     {
         string path = "Levels/level_" + index.ToString(); 
@@ -67,11 +47,10 @@ public class LevelButton : MonoBehaviour
     }
     public void HighestLevel(int index)
     {
-        if(GameManager.Instance.highetsLevel== index)
+        if(GameManager.Instance.currentLevel == index)
         {
             Debug.Log("Highest level on" + index);
             highetsSprite.gameObject.SetActive(true);
-            currentLevel= true;
         }
     }
     

@@ -134,12 +134,12 @@ public class InGameController : MonoBehaviour
     {
         CheckCompleteScore();
        if (isLevelComplete)
-        {
-            GameManager.Instance.highetsLevel++;
-            PauseGame();
-            DeSpawnAll();
-            DialogManager.Instance.ShowDialog(DialogIndex.WinDialog);
-       }
+       {
+                GameManager.Instance.currentLevel++;
+                PauseGame();
+                DeSpawnAll();
+                DialogManager.Instance.ShowDialog(DialogIndex.WinDialog);
+        }
     }
  
     public void PauseGame()

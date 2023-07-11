@@ -12,4 +12,109 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d07b5324bbac08749b6a8959deeb9fe6, type: 3}
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
-  records: []
+  records:
+  - ID: 1
+    IsBoss: 0
+    IsWon: 0
+  - ID: 2
+    IsBoss: 0
+    IsWon: 0
+  - ID: 3
+    IsBoss: 0
+    IsWon: 0
+  - ID: 4
+    IsBoss: 0
+    IsWon: 0
+  - ID: 5
+    IsBoss: 0
+    IsWon: 0
+  - ID: 6
+    IsBoss: 0
+    IsWon: 0
+  - ID: 7
+    IsBoss: 0
+    IsWon: 0
+  - ID: 8
+    IsBoss: 0
+    IsWon: 0
+  - ID: 9
+    IsBoss: 0
+    IsWon: 0
+  - ID: 10
+    IsBoss: 0
+    IsWon: 0
+  - ID: 11
+    IsBoss: 0
+    IsWon: 0
+  - ID: 12
+    IsBoss: 0
+    IsWon: 0
+  - ID: 13
+    IsBoss: 0
+    IsWon: 0
+  - ID: 14
+    IsBoss: 0
+    IsWon: 0
+  - ID: 15
+    IsBoss: 0
+    IsWon: 0
+  - ID: 16
+    IsBoss: 0
+    IsWon: 0
+  - ID: 17
+    IsBoss: 0
+    IsWon: 0
+  - ID: 18
+    IsBoss: 0
+    IsWon: 0
+  - ID: 19
+    IsBoss: 0
+    IsWon: 0
+  - ID: 20
+    IsBoss: 0
+    IsWon: 0
+  - ID: 21
+    IsBoss: 0
+    IsWon: 0
+  - ID: 22
+    IsBoss: 0
+    IsWon: 0
+  - ID: 23
+    IsBoss: 0
+    IsWon: 0
+  - ID: 24
+    IsBoss: 0
+    IsWon: 0
+  - ID: 25
+    IsBoss: 0
+    IsWon: 0
+  - ID: 26
+    IsBoss: 0
+    IsWon: 0
+  - ID: 27
+    IsBoss: 0
+    IsWon: 0
+  - ID: 28
+    IsBoss: 0
+    IsWon: 0
+  - ID: 29
+    IsBoss: 0
+    IsWon: 0
+  - ID: 30
+    IsBoss: 0
+    IsWon: 0
+  - ID: 31
+    IsBoss: 0
+    IsWon: 0
+  - ID: 32
+    IsBoss: 0
+    IsWon: 0
+  - ID: 33
+    IsBoss: 0
+    IsWon: 0
+  - ID: 34
+    IsBoss: 0
+    IsWon: 0
+  - ID: 35
+    IsBoss: 0
+    IsWon: 0

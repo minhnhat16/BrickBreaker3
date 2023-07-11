@@ -25,13 +25,13 @@ public class BallSystem : FSMSystem
     public Vector3 moveBall;
     public Vector3 spawnPosition = new Vector3(0, -7, 0);
     public float ballRadius;
-    public bool isLeft = false;
+    public bool isLseft = false;
     public bool isRight = false;
     public bool isTop = false;
     public bool onItemPowerUP = false; // in item powerup
     public float tempDirectionX;
     [HideInInspector] public float tempX = 0;
-    [HideInInspector] private float tempY = 0;
+    [HideInInspector] public float tempY = 0;
     public float ballSpeed = 10f;
     public float maxAngle = 45f;
     [HideInInspector] public float temp;
@@ -41,9 +41,7 @@ public class BallSystem : FSMSystem
     public int currentLive;
     private void Awake()
     {
-        SpawnState.Setup(this);
-        MoveState.Setup(this);
-        DeathState.Setup(this);
+       
     }
 
     private void Start()
@@ -88,7 +86,7 @@ public class BallSystem : FSMSystem
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(Anchor.position, (Vector2)Anchor.position + (Vector2)moveDirection);
-    }
+    } 
     public void GetBallDirection()
     {
         if (transform.position.x > CameraMain.instance.GetRight() - ballRadius)

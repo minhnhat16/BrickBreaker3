@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public LevelManager LevelManager;
     public int winScore;
     public int currentScore;
-    public int highetsLevel = 2;
+    public int currentLevel ;
     public bool isBossLevel;
     private void Awake()
     {
