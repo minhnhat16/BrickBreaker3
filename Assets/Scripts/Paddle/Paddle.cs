@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Paddle : FSMSystem
@@ -6,7 +7,7 @@ public class Paddle : FSMSystem
     public PaddleMoveState MoveState;
     [SerializeField] public Collision collision { get; set; }
     public float paddleSpeed = 4f;
-    public BallSystem ballSystem;
+    public BallSystemVer2 ballSystem;
     public float paddleLenght;
     public float rightLimit;
     public float leftLimit;
@@ -59,5 +60,12 @@ public class Paddle : FSMSystem
         tempX += Time.deltaTime * paddleSpeed * xDirection;
         tempX = Mathf.Clamp(tempX, leftLimit, rightLimit);
         transform.position = new Vector3(tempX, transform.position.y, transform.position.z);
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Ball"))
+        {
+            Debug.Log("Hit balll");
+        }
     }
 }

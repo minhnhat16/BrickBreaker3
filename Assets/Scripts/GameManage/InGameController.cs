@@ -118,13 +118,13 @@ public class InGameController : MonoBehaviour
         GameObject gameObject1 = Instantiate(ballPref, transform.parent);
         prefabBallInstance = gameObject1;
         prefabBallInstance.SetActive(true);
-        prefabBallInstance.GetComponent<BallSystem>().paddle =
+        prefabBallInstance.GetComponent<BallSystemVer2>().paddle =
         prefabPaddleInstance.GetComponent<Paddle>();
         //Debug.Log(prefabPaddleInstance.GetComponent<Paddle>());
     }
     public void DeSpawnBall()
     {
-        prefabBallInstance.GetComponent<BallSystem>().ResetBall();
+        prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall();
     }
     public void DeSpawnPaddle()
     {
@@ -132,7 +132,7 @@ public class InGameController : MonoBehaviour
     }
     public void LevelComplete()
     {
-        CheckCompleteScore();
+       // CheckCompleteScore();
        if (isLevelComplete)
        {
                 GameManager.Instance.currentLevel++;
@@ -165,7 +165,7 @@ public class InGameController : MonoBehaviour
     public void ReloadGameObject()
     {
         prefabBallInstance.SetActive(true);
-        prefabBallInstance.GetComponent<BallSystem>().ResetBall();
+        prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall();
 
         prefabPaddleInstance.SetActive(true);
         prefabPaddleInstance.GetComponent<Paddle>().ResetPaddle();

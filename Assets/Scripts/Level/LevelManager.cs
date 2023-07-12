@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour
     }
     private void Start()
     {
-        Debug.Log("levelconfigrecordlist" + levelConfigRecordList.Count);
+       // Debug.Log("levelconfigrecordlist" + levelConfigRecordList.Count);
     }   
     public void SpawnLevel()
     {

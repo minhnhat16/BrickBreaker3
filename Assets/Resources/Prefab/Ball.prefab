@@ -89,12 +89,13 @@ MonoBehaviour:
   moveBall: {x: 0, y: 0, z: 0}
   spawnPosition: {x: 0, y: -7, z: 0}
   ballRadius: 0
-  isLeft: 0
+  isLseft: 0
   isRight: 0
   isTop: 0
   onItemPowerUP: 0
   tempDirectionX: 0
   tempX: 0
+  tempY: 0
   ballSpeed: 10
   maxAngle: 45
   temp: 0

@@ -27,7 +27,7 @@ public class ViewManager : MonoBehaviour
             view.transform.SetParent(anchorView, false);
             view.GetComponent<BaseView>().Init();
             dicView.Add(viewIndex, view.GetComponent<BaseView>());
-            Debug.Log(viewName);
+           // Debug.Log(viewName);
         }
     }
     public void SwitchView(ViewIndex newView, ViewParam viewParam = null, Action callback = null)

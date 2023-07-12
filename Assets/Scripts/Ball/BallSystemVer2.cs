@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using Unity.VisualScripting;
 using UnityEditor.Build;
 using UnityEngine;
@@ -24,17 +25,16 @@ public class BallSystemVer2 : FSMSystem
     [SerializeField]
     public Paddle paddle;
     [SerializeField]
-
     public Vector3 moveDir;
     public Vector3 tempDirection;
     public Vector2 forwardDir { get => (Forward.position - Anchor.position).normalized; }
     public Vector3 direction1 = new Vector3(0, 4, 0);
-    public Vector3 moveDirection;
 
     public bool isLeft = false;
     public bool isRight = false;
     public bool isTop = false;
 
+    public float ballRadius = 1.5f;
     public float tempDirX;
     public float tempX = 0;
     public float tempY = 0;
@@ -46,7 +46,7 @@ public class BallSystemVer2 : FSMSystem
     public float angleMoveSpeed = 0.2f;
     public float ballMess;
     public float ballForce;
-
+    public float bounceFact = 0.2f;
     public int maxLives;
     public int currentLive;
 
@@ -66,56 +66,95 @@ public class BallSystemVer2 : FSMSystem
     {
         GotoState(SpawnState);
     }
-
     public void AngleMoverment()
     {
         Debug.DrawRay(transform.position, direction1, Color.blue);
-        if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow)) && (transform.position.x > -1.0f))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) && (transform.position.x > -1.0f))
         {
             tempDirX = 1;
-
-
             AngleCalculation(tempDirX);
         }
-
         else if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && (transform.position.x < 1.0f))
         {
             tempDirX = -1;
             AngleCalculation(tempDirX);
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void AngleCalculation(float tempXDir)
+    private void AngleCalculation(float tempXDir)
     {
         tempX += angleMoveSpeed * tempXDir;
-        tempX = Mathf.Clamp(tempX, CameraMain.instance.GetLeft() -2, CameraMain.instance.GetRight() + 2);
+        tempX = Mathf.Clamp(tempX, CameraMain.instance.GetLeft() - 2, CameraMain.instance.GetRight() + 2);
         temp = (-CameraMain.instance.GetLeft() + CameraMain.instance.GetRight());
-        tempY = Mathf.Sqrt((temp * temp) - (temp * temp)) - 5;
-        direction1 = new Vector3(tempX,tempY,transform.position.z);
+        tempY = Mathf.Sqrt((temp * temp) - (tempX * tempX)) - 5;
+        direction1 = new Vector3(tempX, tempY, transform.position.z);
         Debug.DrawRay(transform.position, direction1, Color.blue);
-        angle = Mathf.Atan2(direction1.y, direction1.x) *Mathf.Rad2Deg - 90;
-        transform.eulerAngles = Vector3.forward *angle;
+        angle = Mathf.Atan2(direction1.y, direction1.x) * Mathf.Rad2Deg - 90;
+        transform.eulerAngles = Vector3.forward * angle;
     }
-    public void GetBallDir()
+     void OnCollisionEnter2D(Collision2D collision)
     {
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Brick"))
+        if (collision.collider.CompareTag("Paddle"))
         {
-            BallHitBrick(); 
+            Debug.Log("hit paddle");
+            CheckBallAngle(moveDir);
         }
     }
-    public void BallHitBrick()
+    private void OnDrawGizmos()
     {
-        tempDirection = Vector2.Reflect(moveDir, Vector2.down);
-        moveDir = tempDirection;
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(Anchor.position, (Vector2)Anchor.position + (Vector2)moveDir);
+    }
+    public void BallMoverment()
+    {
+        transform.position += ballSpeed * Time.deltaTime * moveDir;
+
+    }
+    public void GetBallDirection()
+    {
+        
+        float right = CameraMain.instance.GetRight() ;
+        float left = CameraMain.instance.GetLeft();
+        if (transform.position.x >= right )
+        {
+            Debug.Log("Right camera" + right);
+            tempDirection = Vector2.Reflect(moveDir, Vector2.left);
+            moveDir = tempDirection + new Vector3(0.1f, 0, 0);
+
+        }
+        else if (transform.position.x <= left )
+        {
+            Debug.Log("Right camera" + left);
+
+            tempDirection = Vector2.Reflect(moveDir, Vector2.right);
+            moveDir = tempDirection + new Vector3(0.1f, 0, 0);
+
+        }
+        else if (transform.position.y >= CameraMain.instance.GetTop() + ballRadius)
+        {
+            tempDirection = Vector2.Reflect(moveDir, Vector2.down);
+            moveDir = tempDirection + new Vector3(0.2f, 0);
+        }
+    }
+    public void CheckBallAngle(Vector3 vector)
+    {
+        if(vector.y == 0)
+        {
+            tempDirection = Vector2.Reflect(moveDir, new Vector2(1,1));
+            moveDir = tempDirection;
+        }
+    }
+   
+    //private Vector2 CalculateBounceDir( Vector2 incomingDir, Vector2 OnCollisionNormal)
+    //{
+    //    Vector2 reflectDir  = Vector2.Reflect(incomingDir,OnCollisionNormal);
+    //    Vector2 newDir = Vector2.Lerp(reflectDir, -OnCollisionNormal, bounceFact);
+    //    return newDir.normalized;
+    //}
+    public void ResetBall()
+    {
+        tempX = 0;
+        moveDir = Vector3.zero;
+        //SetMaxLive();
+        GotoState(SpawnState) ;
     }
 }

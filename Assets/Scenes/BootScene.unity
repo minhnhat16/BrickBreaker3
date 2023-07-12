@@ -475,6 +475,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1729016245}
     - target: {fileID: 139010313063362994, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: currentLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 139010313063362994, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: highetsLevel
       value: 1
       objectReference: {fileID: 0}
@@ -537,7 +541,7 @@ PrefabInstance:
     - target: {fileID: 139010313211194246, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: ballPref
       value: 
-      objectReference: {fileID: 2471958557961736356, guid: ca6cf7dca02c00a448716b03f3b5cac1, type: 3}
+      objectReference: {fileID: 3256839623880254088, guid: 8a2be6dd36163ba43b224e028cb59c58, type: 3}
     - target: {fileID: 139010313211194246, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: brickPref
       value: 
@@ -641,6 +645,34 @@ PrefabInstance:
     - target: {fileID: 4662561885631983878, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: m_LocalPosition.y
       value: 6.7999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919096305562572538, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: m_TagString
+      value: Collide
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919096305808917424, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: m_TagString
+      value: Collide
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919096306587653271, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: m_TagString
+      value: Collide
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919096306647179283, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: m_TagString
+      value: Collide
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919096306647179285, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919096306867599827, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 9.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919096306867599827, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -17.5
       objectReference: {fileID: 0}
     - target: {fileID: 5348670711114413268, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: ball

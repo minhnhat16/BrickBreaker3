@@ -55,8 +55,10 @@ MonoBehaviour:
   InGameController: {fileID: 139010313211194246}
   ViewManager: {fileID: 0}
   DialogManager: {fileID: 0}
-  CameraMain: {fileID: 0}
+  LevelManager: {fileID: 0}
   winScore: 0
+  currentScore: 0
+  currentLevel: 0
   isBossLevel: 0
 --- !u!114 &139010313063362993
 MonoBehaviour:
@@ -77,6 +79,7 @@ MonoBehaviour:
   ballPref: {fileID: 0}
   paddlePref: {fileID: 0}
   cam: {fileID: 0}
+  paddle: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
 --- !u!114 &3794794537084021218
 MonoBehaviour:
@@ -108,6 +111,7 @@ MonoBehaviour:
   ball: {fileID: 0}
   currentLevelLoad: 0
   totalBrickInLevel: 0
+  completeScore: 0
   rootPosition: {x: 0, y: 0}
   brickScale: 0
 --- !u!1 &139010313211194240
@@ -162,6 +166,7 @@ MonoBehaviour:
   ballPref: {fileID: 0}
   paddlePref: {fileID: 0}
   cam: {fileID: 0}
+  paddle: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
 --- !u!114 &1977366585479490412
 MonoBehaviour:
@@ -269,6 +274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brickScript: {fileID: 0}
+  _lvComplete: {fileID: 0}
+  _level: {fileID: 0}
 --- !u!1 &8120022043563529527
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +322,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
   spawnAmount: 6
-  destroyCount: 0
 --- !u!1 &8721186374312752480
 GameObject:
   m_ObjectHideFlags: 0

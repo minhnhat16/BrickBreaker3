@@ -12,6 +12,7 @@ TagManager:
   - testcam
   - Ground
   - Level List
+  - Collide
   layers:
   - Default
   - TransparentFX
