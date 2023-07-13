@@ -165,7 +165,7 @@ public class InGameController : MonoBehaviour
     public void ReloadGameObject()
     {
         prefabBallInstance.SetActive(true);
-        prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall();
+        prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall ();
 
         prefabPaddleInstance.SetActive(true);
         prefabPaddleInstance.GetComponent<Paddle>().ResetPaddle();

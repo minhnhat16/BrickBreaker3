@@ -1,8 +1,11 @@
+using NaughtyAttributes.Test;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -34,7 +37,7 @@ public class BallSystemVer2 : FSMSystem
     public bool isRight = false;
     public bool isTop = false;
 
-    public float ballRadius = 1.5f;
+    public float ballRadius = 0.5f;
     public float tempDirX;
     public float tempX = 0;
     public float tempY = 0;
@@ -91,68 +94,84 @@ public class BallSystemVer2 : FSMSystem
         angle = Mathf.Atan2(direction1.y, direction1.x) * Mathf.Rad2Deg - 90;
         transform.eulerAngles = Vector3.forward * angle;
     }
-     void OnCollisionEnter2D(Collision2D collision)
+     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Paddle"))
+    }
+    public void ObjecstHitOnRayCast()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(Anchor.position,  (Vector2)moveDir, ballRadius);
+        Debug.DrawRay(Anchor.position, (Vector2)Anchor.position - (Vector2)moveDir, Color.red);
+        if (hit.collider != null)
         {
-            Debug.Log("hit paddle");
-            CheckBallAngle(moveDir);
+            GameObject hitObject = hit.collider.gameObject;
+            tempDirection = Vector2.Reflect(moveDir, Vector2.up);
+            moveDir = tempDirection;
+            Debug.Log("HIT OBJECT ====>" + hitObject);  
         }
     }
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(Anchor.position, (Vector2)Anchor.position + (Vector2)moveDir);
+        Gizmos.DrawWireSphere(transform.position, 0.5f);
     }
     public void BallMoverment()
     {
         transform.position += ballSpeed * Time.deltaTime * moveDir;
-
     }
     public void GetBallDirection()
     {
-        
         float right = CameraMain.instance.GetRight() ;
         float left = CameraMain.instance.GetLeft();
-        if (transform.position.x >= right )
+        float top = CameraMain.instance.GetTop();
+        float tempPosX = transform.position.x;
+        float tempPosY = transform.position.y;
+
+        CheckBallAngle(angle);
+        if(tempPosY == top)
         {
-            Debug.Log("Right camera" + right);
-            tempDirection = Vector2.Reflect(moveDir, Vector2.left);
-            moveDir = tempDirection + new Vector3(0.1f, 0, 0);
+            Debug.Log("Hit top");
+        }
+        else if (tempPosX  <= right && tempPosX >= right - 1)
+        {
+
+            Debug.Log("Hit right");
 
         }
-        else if (transform.position.x <= left )
+        else if (tempPosX  >= left && tempPosX <= left +1)
         {
-            Debug.Log("Right camera" + left);
-
-            tempDirection = Vector2.Reflect(moveDir, Vector2.right);
-            moveDir = tempDirection + new Vector3(0.1f, 0, 0);
+            Debug.Log("Hit left");
 
         }
-        else if (transform.position.y >= CameraMain.instance.GetTop() + ballRadius)
-        {
-            tempDirection = Vector2.Reflect(moveDir, Vector2.down);
-            moveDir = tempDirection + new Vector3(0.2f, 0);
-        }
+    
     }
-    public void CheckBallAngle(Vector3 vector)
+    public void CheckBallAngle(float _angle)
     {
-        if(vector.y == 0)
+
+        if (angle < 30) 
         {
-            tempDirection = Vector2.Reflect(moveDir, new Vector2(1,1));
-            moveDir = tempDirection;
+            
+            Debug.Log("Check Ball Angle smaller than 30");
+
         }
+        else if (angle < 120)
+        {
+            Debug.Log("Check Ball Angle lagger than 120");
+
+        }
+
     }
-   
-    //private Vector2 CalculateBounceDir( Vector2 incomingDir, Vector2 OnCollisionNormal)
-    //{
-    //    Vector2 reflectDir  = Vector2.Reflect(incomingDir,OnCollisionNormal);
-    //    Vector2 newDir = Vector2.Lerp(reflectDir, -OnCollisionNormal, bounceFact);
-    //    return newDir.normalized;
-    //}
+   public void VectorCalculator(Vector2 vector, float angleInRad)
+    {
+        tempDirection.x = vector.x * Mathf.Cos(angleInRad) - vector.y * Mathf.Sin(angleInRad);
+        tempDirection.y = vector.x * Mathf.Sin(angleInRad) + vector.y * Mathf.Cos(angleInRad);
+    }
+
     public void ResetBall()
     {
         tempX = 0;
+        tempDirection = Vector3.zero;
         moveDir = Vector3.zero;
         //SetMaxLive();
         GotoState(SpawnState) ;

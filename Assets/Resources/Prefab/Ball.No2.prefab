@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7702946330629282609
 Transform:
   m_ObjectHideFlags: 0
@@ -243,8 +243,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 
-  MoveState:
-    direction: {x: 0, y: 0}
   SpawnState:
     lastestPaddlePosition: {x: 0, y: 0, z: 0}
     currentPaddlePosition: {x: 0, y: 0, z: 0}
@@ -261,12 +259,12 @@ MonoBehaviour:
   isLeft: 0
   isRight: 0
   isTop: 0
-  ballRadius: 1
+  ballRadius: 0.5
   tempDirX: 0
   tempX: 0
   tempY: 0
   temp: 0
-  ballSpeed: 10
+  ballSpeed: 5
   maxAngle: 45
   tempCamPosition: 0
   angle: 0

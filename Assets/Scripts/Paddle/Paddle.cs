@@ -6,8 +6,9 @@ public class Paddle : FSMSystem
     [HideInInspector]
     public PaddleMoveState MoveState;
     [SerializeField] public Collision collision { get; set; }
-    public float paddleSpeed = 4f;
     public BallSystemVer2 ballSystem;
+    [SerializeField] private BoxCollider2D boxCollider2D;
+    public float paddleSpeed = 4f;
     public float paddleLenght;
     public float rightLimit;
     public float leftLimit;
