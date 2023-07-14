@@ -9,6 +9,7 @@ using UnityEditor;
 using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class BallSystemVer2 : FSMSystem
 {
@@ -52,6 +53,7 @@ public class BallSystemVer2 : FSMSystem
     public float bounceFact = 0.2f;
     public int maxLives;
     public int currentLive;
+    public int hitAngleCount = 0;
 
     private void Awake()
     {
@@ -94,19 +96,22 @@ public class BallSystemVer2 : FSMSystem
         angle = Mathf.Atan2(direction1.y, direction1.x) * Mathf.Rad2Deg - 90;
         transform.eulerAngles = Vector3.forward * angle;
     }
-     private void OnCollisionEnter2D(Collision2D collision)
-    {
-    }
     public void ObjecstHitOnRayCast()
     {
         RaycastHit2D hit = Physics2D.Raycast(Anchor.position,  (Vector2)moveDir, ballRadius);
         Debug.DrawRay(Anchor.position, (Vector2)Anchor.position - (Vector2)moveDir, Color.red);
-        if (hit.collider != null)
+        if (hit.collider != null && hit.collider.CompareTag("Paddle"))
         {
-            GameObject hitObject = hit.collider.gameObject;
             tempDirection = Vector2.Reflect(moveDir, Vector2.up);
             moveDir = tempDirection;
-            Debug.Log("HIT OBJECT ====>" + hitObject);  
+            Debug.Log("HIT OBJECT ====> Paddle");
+            Debug.Log("Paddle scale=====>>" + paddle.GetComponent<BoxCollider2D>().size.x);
+        }
+        else if (hit.collider != null && hit.collider.CompareTag("Brick"))
+        {
+            tempDirection = Vector2.Reflect(moveDir, Vector2.up);
+            moveDir = tempDirection;
+            // Debug.Log("HIT OBJECT ====>" + hitObject);  
         }
     }
     
@@ -118,56 +123,72 @@ public class BallSystemVer2 : FSMSystem
     }
     public void BallMoverment()
     {
-        transform.position += ballSpeed * Time.deltaTime * moveDir;
+        transform.position += ballSpeed * Time.deltaTime * moveDir.normalized;
     }
     public void GetBallDirection()
     {
-        float right = CameraMain.instance.GetRight() ;
+        float right = CameraMain.instance.GetRight() ; 
         float left = CameraMain.instance.GetLeft();
         float top = CameraMain.instance.GetTop();
         float tempPosX = transform.position.x;
         float tempPosY = transform.position.y;
-
-        CheckBallAngle(angle);
-        if(tempPosY == top)
+        Vector3 reflectVec = new Vector3(tempPosX, tempPosY);
+        if (tempPosY - 2 >= top )
         {
-            Debug.Log("Hit top");
+            tempDirection = Vector3.Reflect(moveDir, Vector3.down) ;
+            hitAngleCount++;
+            CheckBallAngle(Vector3.down);
         }
-        else if (tempPosX  <= right && tempPosX >= right - 1)
+        else if (reflectVec.x  +ballRadius >= right )
         {
+            tempDirection = Vector3.Reflect(moveDir, Vector3.left) ;
+            hitAngleCount++;
 
-            Debug.Log("Hit right");
+            CheckBallAngle(Vector3.left);
+
+            moveDir = tempDirection;
 
         }
-        else if (tempPosX  >= left && tempPosX <= left +1)
-        {
-            Debug.Log("Hit left");
+        else if (reflectVec.x - ballRadius<= left)
+        { 
+            tempDirection = Vector3.Reflect(moveDir, Vector3.right);
+            hitAngleCount++;
 
+            CheckBallAngle(Vector3.right);
+
+            moveDir = tempDirection;
         }
-    
     }
-    public void CheckBallAngle(float _angle)
+    public void ReflectAnglePaddle()
+    {
+        float currentX = paddle.transform.position.x;
+    }
+    public Vector3 ReflectRandomAngle()
+    {
+        Vector3 randomVect = Vector3.zero;
+        float randomX = Random.Range(-1f, 1f);
+        float randomY = Random.Range(-1f, 1f);
+        randomVect = new Vector3(randomX, randomY);
+        Debug.Log("RandomVector"+ randomVect);
+        return randomVect;
+    }
+    public void CheckBallAngle(Vector3 vector)
     {
 
-        if (angle < 30) 
+        float dotProduct = Vector3.Dot(moveDir.normalized, vector.normalized);
+        float anglecheck = Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
+         Debug.Log("Angle Checking ======>" + anglecheck);
+        if(hitAngleCount ==3)
         {
-            
-            Debug.Log("Check Ball Angle smaller than 30");
-
+            moveDir=ReflectRandomAngle();
+            hitAngleCount = 0;
         }
-        else if (angle < 120)
+        else
         {
-            Debug.Log("Check Ball Angle lagger than 120");
-
+            moveDir = tempDirection;
         }
 
     }
-   public void VectorCalculator(Vector2 vector, float angleInRad)
-    {
-        tempDirection.x = vector.x * Mathf.Cos(angleInRad) - vector.y * Mathf.Sin(angleInRad);
-        tempDirection.y = vector.x * Mathf.Sin(angleInRad) + vector.y * Mathf.Cos(angleInRad);
-    }
-
     public void ResetBall()
     {
         tempX = 0;

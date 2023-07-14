@@ -15,7 +15,7 @@ public class Paddle : FSMSystem
     public float PaddleMoveLimit;
     public float tempX;
     public Vector3 currenPaddlePosition;
-    public Vector3 spawnPosition = new Vector3(0,-8,0);
+    public Vector3 spawnPosition = new Vector3(0, -8, 0);
 
     private void Awake()
     {
@@ -51,15 +51,15 @@ public class Paddle : FSMSystem
     public Vector3 GetCurrentPosition()
     {
         currenPaddlePosition = transform.position;
-       // Debug.Log(currenPaddlePosition + " dm ");
+        // Debug.Log(currenPaddlePosition + " dm ");
         return currenPaddlePosition;
     }
     public void MoveCalculation(float xDirection)
     {
         rightLimit = CameraMain.instance.GetRight() - paddleLenght / 10f;
-        leftLimit = CameraMain.instance.GetLeft() +  paddleLenght / 10f;
+        leftLimit = CameraMain.instance.GetLeft() + paddleLenght / 10f;
         tempX += Time.deltaTime * paddleSpeed * xDirection;
-        tempX = Mathf.Clamp(tempX, leftLimit, rightLimit);
+        tempX = Mathf.Clamp(tempX, leftLimit + ballSystem.ballRadius, rightLimit - ballSystem.ballRadius);
         transform.position = new Vector3(tempX, transform.position.y, transform.position.z);
     }
     private void OnCollisionEnter2D(Collision2D collision)
