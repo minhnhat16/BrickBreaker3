@@ -129,7 +129,7 @@ public class BallSystemVer2 : FSMSystem
         float theta = Mathf.PI / 4;
         double pointX = tempPosX + ballRadius * Mathf.Cos(theta);
         double pointY = tempPosY + ballRadius * Mathf.Sin(theta);
-        Debug.Log($"Point on ball:({pointX},{pointY})") ;
+        //Debug.Log($"Point on ball:({pointX},{pointY})") ;
         if (top -1  <= pointY)
         {
             tempDirection = Vector3.Reflect(moveDir, Vector3.down);
@@ -144,7 +144,7 @@ public class BallSystemVer2 : FSMSystem
             CheckBallAngle(Vector3.up);
 
         }
-        else if (left + ballRadius >= pointX)
+        else if (left + ballRadius <= pointX)
         {
             tempDirection = Vector3.Reflect(moveDir, Vector3.right);
             hitAngleCount++;
