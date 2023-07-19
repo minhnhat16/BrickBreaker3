@@ -1,15 +1,5 @@
-using NaughtyAttributes.Test;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Sockets;
-using System.Security.Cryptography.X509Certificates;
 using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Build;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 public class BallSystemVer2 : FSMSystem
 {
@@ -98,14 +88,11 @@ public class BallSystemVer2 : FSMSystem
     }
     public void ObjecstHitOnRayCast()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Anchor.position,  (Vector2)moveDir, ballRadius);
+        RaycastHit2D hit = Physics2D.Raycast(Anchor.position, (Vector2)moveDir, ballRadius);
         Debug.DrawRay(Anchor.position, (Vector2)Anchor.position - (Vector2)moveDir, Color.red);
         if (hit.collider != null && hit.collider.CompareTag("Paddle"))
         {
-            tempDirection = Vector2.Reflect(moveDir, Vector2.up);
-            moveDir = tempDirection;
-            Debug.Log("HIT OBJECT ====> Paddle");
-            Debug.Log("Paddle scale=====>>" + paddle.GetComponent<BoxCollider2D>().size.x);
+            BallReflectPaddle();
         }
         else if (hit.collider != null && hit.collider.CompareTag("Brick"))
         {
@@ -114,12 +101,19 @@ public class BallSystemVer2 : FSMSystem
             // Debug.Log("HIT OBJECT ====>" + hitObject);  
         }
     }
-    
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(Anchor.position, (Vector2)Anchor.position + (Vector2)moveDir);
         Gizmos.DrawWireSphere(transform.position, 0.5f);
+        Gizmos.DrawLine((new Vector2(5.625f , 10f)), (new Vector2(-5.625f, 10f)));
+        Gizmos.DrawLine((new Vector2(5.625f, -10f)), (new Vector2(-5.625f, -10f)));
+        Gizmos.DrawLine((new Vector2(5.625f, 10f)), (new Vector2(5.625f, -10f)));
+        Gizmos.DrawLine((new Vector2(-5.625f, 10f)), (new Vector2(-5.625f, -10f)));
+
+
+
     }
     public void BallMoverment()
     {
@@ -127,49 +121,77 @@ public class BallSystemVer2 : FSMSystem
     }
     public void GetBallDirection()
     {
-        float right = CameraMain.instance.GetRight() ; 
+        float right = CameraMain.instance.GetRight();
         float left = CameraMain.instance.GetLeft();
         float top = CameraMain.instance.GetTop();
         float tempPosX = transform.position.x;
         float tempPosY = transform.position.y;
-        Vector3 reflectVec = new Vector3(tempPosX, tempPosY);
-        if (tempPosY - 2 >= top )
+        float theta = Mathf.PI / 4;
+        double pointX = tempPosX + ballRadius * Mathf.Cos(theta);
+        double pointY = tempPosY + ballRadius * Mathf.Sin(theta);
+        Debug.Log($"Point on ball:({pointX},{pointY})") ;
+        if (top -1  <= pointY)
         {
-            tempDirection = Vector3.Reflect(moveDir, Vector3.down) ;
+            tempDirection = Vector3.Reflect(moveDir, Vector3.down);
             hitAngleCount++;
-            CheckBallAngle(Vector3.down);
-        }
-        else if (reflectVec.x  +ballRadius >= right )
-        {
-            tempDirection = Vector3.Reflect(moveDir, Vector3.left) ;
-            hitAngleCount++;
-
-            CheckBallAngle(Vector3.left);
-
-            moveDir = tempDirection;
+            CheckBallAngle(Vector3.up);
 
         }
-        else if (reflectVec.x - ballRadius<= left)
-        { 
+        else if (right >= pointX )
+        {
+            tempDirection = Vector3.Reflect(moveDir, Vector3.left);
+            hitAngleCount++;
+            CheckBallAngle(Vector3.up);
+
+        }
+        else if (left + ballRadius >= pointX)
+        {
             tempDirection = Vector3.Reflect(moveDir, Vector3.right);
             hitAngleCount++;
-
-            CheckBallAngle(Vector3.right);
-
-            moveDir = tempDirection;
+            CheckBallAngle(Vector3.up);
         }
     }
-    public void ReflectAnglePaddle()
+    public Vector3 RandomVector(float minX, float maxX,float minY,float maxY)
     {
-        float currentX = paddle.transform.position.x;
+        float randomX = Random.Range(minX, maxX);
+        float randomY = Random.Range(minY, maxY);
+
+        return new Vector3(randomX, randomY);
     }
-    public Vector3 ReflectRandomAngle()
+    public Vector3 ReflectRandomAngle( int defind)
     {
-        Vector3 randomVect = Vector3.zero;
+        
+        switch (defind)
+        {
+           
+            case 0:
+                //RANDOMVECTOR(minX, maxX, minY,maxY)
+                Debug.Log("CASE ANGLE 0:");
+                return RandomVector(-1f, 1f, 0f, -1f); 
+            case 1:
+                Debug.Log("CASE ANGLE 1:");
+
+                return RandomVector(-0.5f, 0.5f, 0f, 1f);
+            case 2:
+                Debug.Log("CASE ANGLE 2:");
+
+                return RandomVector(0f, 1f, -1f, 1f);
+            case 3:
+                Debug.Log("CASE ANGLE 3:");
+
+                return RandomVector(-1f, 0f, -1f, 1f);
+            default:
+                Debug.Log("CASE ANGLE DEFAULT:");
+                return Vector3.zero ;
+        }
+
+    }
+    public Vector3 ReflectRandomAngleY()
+    {
         float randomX = Random.Range(-1f, 1f);
         float randomY = Random.Range(-1f, 1f);
-        randomVect = new Vector3(randomX, randomY);
-        Debug.Log("RandomVector"+ randomVect);
+        Vector3 randomVect = new Vector3(randomX, randomY);
+        Debug.Log("RandomY" + randomY);
         return randomVect;
     }
     public void CheckBallAngle(Vector3 vector)
@@ -177,17 +199,72 @@ public class BallSystemVer2 : FSMSystem
 
         float dotProduct = Vector3.Dot(moveDir.normalized, vector.normalized);
         float anglecheck = Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
-         Debug.Log("Angle Checking ======>" + anglecheck);
-        if(hitAngleCount ==3)
+
+        float anglecheck_no1 = Vector3.Angle(moveDir.normalized, vector.normalized);
+        Vector3 cross = Vector3.Cross(moveDir.normalized, vector.normalized);
+        if (cross.z < 0)
         {
-            moveDir=ReflectRandomAngle();
+            anglecheck_no1 = 360f - anglecheck_no1;
+
+        }
+        Debug.Log("Angle Checking NO.2 =======>" + anglecheck_no1);
+
+        if ((anglecheck_no1 >= 0 && anglecheck_no1 <= 10) && (anglecheck_no1 >= 350 && anglecheck_no1 <=360))
+        {
+            //Debug.Log("Angle Between 170 200");
+            moveDir = ReflectRandomAngle(0).normalized;
             hitAngleCount = 0;
+        }
+        else if (anglecheck_no1 >= 170 && anglecheck_no1 <= 180)
+        {
+            //Debug.Log("Angle Between 170 190");
+            moveDir = ReflectRandomAngle(1).normalized;
+        }
+        else if (anglecheck_no1 >= 80 && anglecheck_no1 <= 100)
+        {
+            //Debug.Log("Angle Between 80 100");
+            moveDir = ReflectRandomAngle(2).normalized;
+            //Debug.Log("Movedir after Y" + moveDir);
+            hitAngleCount = 0;
+        }
+        else if (anglecheck_no1 <= 280 && anglecheck_no1 >= 260)
+        {
+            Debug.Log("Angle Between 280 260");
+            moveDir = ReflectRandomAngle(3).normalized;
         }
         else
         {
-            moveDir = tempDirection;
+            moveDir = tempDirection.normalized;
         }
+    }
+    public void BallReflectPaddle()
+    {
+        Collider2D collider = paddle.GetComponent<Collider2D>();
+        Bounds bounds = collider.bounds;
+        Vector3 min = bounds.min;
+        Vector3 max = bounds.max;
+        float xMoveDir = transform.position.x;
 
+        CheckBallAngle(Vector2.up);
+        if (xMoveDir >= min.x && xMoveDir < min.x + 1)
+        {
+            tempDirection = Vector3.Reflect(moveDir, new Vector3(-1, 1));
+            moveDir = tempDirection.normalized;
+        }
+        else if (xMoveDir > max.x - 1 && xMoveDir <= max.x)
+        {
+            tempDirection = Vector3.Reflect(moveDir, new Vector3(1, 1));
+            moveDir = tempDirection.normalized;
+        }
+        else if (xMoveDir > min.x + 1 && xMoveDir < max.x - 1)
+        {
+            tempDirection = Vector3.Reflect(moveDir, Vector2.up);
+            moveDir = tempDirection.normalized;
+        }
+        else
+        {
+            moveDir = tempDirection.normalized;
+        }
     }
     public void ResetBall()
     {
@@ -195,6 +272,6 @@ public class BallSystemVer2 : FSMSystem
         tempDirection = Vector3.zero;
         moveDir = Vector3.zero;
         //SetMaxLive();
-        GotoState(SpawnState) ;
+        GotoState(SpawnState);
     }
 }

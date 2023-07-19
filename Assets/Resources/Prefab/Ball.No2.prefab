@@ -253,7 +253,7 @@ MonoBehaviour:
     contactUnit: {fileID: 0}
     unitType: 0
   paddle: {fileID: 1613542192962713998, guid: 48ee0bc3688ec8f458c3455d8ef3649b, type: 3}
-  moveDir: {x: 0, y: 0, z: 0}
+  moveDir: {x: 1, y: 0, z: 0}
   tempDirection: {x: 0, y: 0, z: 0}
   direction1: {x: 0, y: 0, z: 0}
   isLeft: 0
