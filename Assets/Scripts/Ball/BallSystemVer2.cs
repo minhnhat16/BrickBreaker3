@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BallSystemVer2 : FSMSystem
@@ -87,7 +86,7 @@ public class BallSystemVer2 : FSMSystem
         transform.eulerAngles = Vector3.forward * angle;
     }
     public void ObjecstHitOnRayCast()
-    {
+    { 
         RaycastHit2D hit = Physics2D.Raycast(Anchor.position, (Vector2)moveDir, ballRadius);
         Debug.DrawRay(Anchor.position, (Vector2)Anchor.position - (Vector2)moveDir, Color.red);
         if (hit.collider != null && hit.collider.CompareTag("Paddle"))
@@ -96,7 +95,7 @@ public class BallSystemVer2 : FSMSystem
         }
         else if (hit.collider != null && hit.collider.CompareTag("Brick"))
         {
-            tempDirection = Vector2.Reflect(moveDir, Vector2.up);
+            tempDirection = Vector2.Reflect(moveDir, Vector2.down);
             moveDir = tempDirection;
             // Debug.Log("HIT OBJECT ====>" + hitObject);  
         }
@@ -107,7 +106,7 @@ public class BallSystemVer2 : FSMSystem
         Gizmos.color = Color.green;
         Gizmos.DrawLine(Anchor.position, (Vector2)Anchor.position + (Vector2)moveDir);
         Gizmos.DrawWireSphere(transform.position, 0.5f);
-        Gizmos.DrawLine((new Vector2(5.625f , 10f)), (new Vector2(-5.625f, 10f)));
+        Gizmos.DrawLine((new Vector2(5.625f, 10f)), (new Vector2(-5.625f, 10f)));
         Gizmos.DrawLine((new Vector2(5.625f, -10f)), (new Vector2(-5.625f, -10f)));
         Gizmos.DrawLine((new Vector2(5.625f, 10f)), (new Vector2(5.625f, -10f)));
         Gizmos.DrawLine((new Vector2(-5.625f, 10f)), (new Vector2(-5.625f, -10f)));
@@ -117,7 +116,15 @@ public class BallSystemVer2 : FSMSystem
     }
     public void BallMoverment()
     {
-        transform.position += ballSpeed * Time.deltaTime * moveDir.normalized;
+        //transform.position += ballSpeed * Time.smoothDeltaTime * moveDir.normalized;
+        transform.Translate(ballSpeed * Time.smoothDeltaTime * moveDir.normalized);
+    }
+    public void BallDeath()
+    {
+        if ( transform.position.y < CameraMain.instance.GetBottom())
+        {
+            ResetBall();
+        }
     }
     public void GetBallDirection()
     {
@@ -129,45 +136,58 @@ public class BallSystemVer2 : FSMSystem
         float theta = Mathf.PI / 4;
         double pointX = tempPosX + ballRadius * Mathf.Cos(theta);
         double pointY = tempPosY + ballRadius * Mathf.Sin(theta);
-        //Debug.Log($"Point on ball:({pointX},{pointY})") ;
-        if (top -1  <= pointY)
+      //  Debug.Log($"Point on ball:({pointX},{pointY})") ;
+        if (tempPosX <= left || tempPosX >= right || pointY >= top - 1 || (pointX <= left && pointY >= top - 1) || (pointX >= right && pointY >= top - 1))
         {
-            tempDirection = Vector3.Reflect(moveDir, Vector3.down);
-            hitAngleCount++;
-            CheckBallAngle(Vector3.up);
+            if (tempPosY > top - 1)
+            {
 
-        }
-        else if (right >= pointX )
-        {
-            tempDirection = Vector3.Reflect(moveDir, Vector3.left);
-            hitAngleCount++;
-            CheckBallAngle(Vector3.up);
+                //Debug.Log("Hit left");
+                tempDirection = Vector3.Reflect(moveDir, Vector3.down).normalized;
+                hitAngleCount++;
+                CheckBallAngle(Vector3.up);
 
-        }
-        else if (left + ballRadius <= pointX)
-        {
-            tempDirection = Vector3.Reflect(moveDir, Vector3.right);
-            hitAngleCount++;
-            CheckBallAngle(Vector3.up);
+            }
+            else if (tempPosX  > right - ballRadius)
+            {
+                //Debug.Log("Hit right");
+                Debug.Log("tempposX " + tempPosX);
+
+                tempDirection = Vector3.Reflect(moveDir, Vector3.left).normalized;
+               // tempDirection = Vector3.Reflect(moveDir, new Vector3(-1, 0.05f, 0));
+                hitAngleCount++;
+                CheckBallAngle(Vector3.up);
+
+            }
+            else if (tempPosX - ballRadius < left)
+            {
+                Debug.Log("tempposX " + tempPosX);
+                //Debug.Log("Hit top");
+                tempDirection = Vector3.Reflect(moveDir, Vector3.right).normalized;
+               // tempDirection = Vector3.Reflect(moveDir, new Vector3(1, 0.05f, 0));
+
+                hitAngleCount++;
+                CheckBallAngle(Vector3.up);
+            }
         }
     }
-    public Vector3 RandomVector(float minX, float maxX,float minY,float maxY)
+    public Vector3 RandomVector(float minX, float maxX, float minY, float maxY)
     {
         float randomX = Random.Range(minX, maxX);
         float randomY = Random.Range(minY, maxY);
 
         return new Vector3(randomX, randomY);
     }
-    public Vector3 ReflectRandomAngle( int defind)
+    public Vector3 ReflectRandomAngle(int defind)
     {
-        
+
         switch (defind)
         {
-           
+
             case 0:
                 //RANDOMVECTOR(minX, maxX, minY,maxY)
                 Debug.Log("CASE ANGLE 0:");
-                return RandomVector(-1f, 1f, 0f, -1f); 
+                return RandomVector(-1f, 1f, 0f, -1f);
             case 1:
                 Debug.Log("CASE ANGLE 1:");
 
@@ -182,7 +202,7 @@ public class BallSystemVer2 : FSMSystem
                 return RandomVector(-1f, 0f, -1f, 1f);
             default:
                 Debug.Log("CASE ANGLE DEFAULT:");
-                return Vector3.zero ;
+                return Vector3.zero;
         }
 
     }
@@ -198,7 +218,7 @@ public class BallSystemVer2 : FSMSystem
     {
 
         float dotProduct = Vector3.Dot(moveDir.normalized, vector.normalized);
-        float anglecheck = Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
+        //float anglecheck = Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
 
         float anglecheck_no1 = Vector3.Angle(moveDir.normalized, vector.normalized);
         Vector3 cross = Vector3.Cross(moveDir.normalized, vector.normalized);
@@ -209,7 +229,7 @@ public class BallSystemVer2 : FSMSystem
         }
         Debug.Log("Angle Checking NO.2 =======>" + anglecheck_no1);
 
-        if ((anglecheck_no1 >= 0 && anglecheck_no1 <= 10) && (anglecheck_no1 >= 350 && anglecheck_no1 <=360))
+        if ((anglecheck_no1 >= 0 && anglecheck_no1 <= 10) && (anglecheck_no1 >= 350 && anglecheck_no1 <= 360))
         {
             //Debug.Log("Angle Between 170 200");
             moveDir = ReflectRandomAngle(0).normalized;
@@ -248,17 +268,38 @@ public class BallSystemVer2 : FSMSystem
         CheckBallAngle(Vector2.up);
         if (xMoveDir >= min.x && xMoveDir < min.x + 1)
         {
+            Debug.Log("hit  left");
+
             tempDirection = Vector3.Reflect(moveDir, new Vector3(-1, 1));
             moveDir = tempDirection.normalized;
         }
         else if (xMoveDir > max.x - 1 && xMoveDir <= max.x)
         {
+            Debug.Log("hit  right");
+
             tempDirection = Vector3.Reflect(moveDir, new Vector3(1, 1));
             moveDir = tempDirection.normalized;
         }
-        else if (xMoveDir > min.x + 1 && xMoveDir < max.x - 1)
+        else if (xMoveDir > min.x + 1 && xMoveDir < min.x + 1.5)
         {
-            tempDirection = Vector3.Reflect(moveDir, Vector2.up);
+            Debug.Log("hit half left");
+
+            Vector2 add = new Vector2(-0.5f, 1f);
+            tempDirection = Vector3.Reflect(moveDir, add);
+            moveDir = tempDirection.normalized;
+        }
+        else if (xMoveDir < max.x - 1 && xMoveDir > max.x - 1.5)
+        {
+            Debug.Log("hit half right");
+            Vector2 add = new Vector2(0.5f, 1f);
+            tempDirection = Vector3.Reflect(moveDir, add);
+            moveDir = tempDirection.normalized;
+        }
+        else if (xMoveDir < max.x - 1.5 && xMoveDir > min.x + 1.5)
+        {
+            Debug.Log("hit half right");
+            Vector2 add = Vector2.up;
+            tempDirection = Vector3.Reflect(moveDir, add);
             moveDir = tempDirection.normalized;
         }
         else

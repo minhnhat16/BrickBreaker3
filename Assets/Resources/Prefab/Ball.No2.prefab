@@ -268,7 +268,7 @@ MonoBehaviour:
   maxAngle: 45
   tempCamPosition: 0
   angle: 0
-  angleMoveSpeed: 0.2
+  angleMoveSpeed: 0.05
   ballMess: 0
   ballForce: 0
   bounceFact: 0.8
