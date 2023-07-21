@@ -20,7 +20,7 @@ public class Ball_MovermentState : FSMState<BallSystemVer2>
         sys.transform.rotation = new Quaternion(0, 0, 0, 0);
         //sys.CheckBallAngle();
         sys.GetBallDirection();
-        sys.ObjecstHitOnRayCast();
+        sys.ObjecstHitOnRayCastPaddle();
         sys.BallMoverment();
         sys.BallDeath();
         InGameController.Instance.LevelComplete();

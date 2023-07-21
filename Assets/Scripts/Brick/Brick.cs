@@ -1,6 +1,4 @@
-using JetBrains.Annotations;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Brick : MonoBehaviour
@@ -8,7 +6,7 @@ public class Brick : MonoBehaviour
     //private bool breakable = false;
     public int brickType;
     public int brickHealth;
-    public BallSystem ballSystem;
+    public BallSystemVer2 ballSystemV2;
     public SpriteRenderer spriteRenderer;
     public BoxCollider2D boxCollider2D;
     public List<Sprite> sprites = new List<Sprite>();
@@ -26,33 +24,38 @@ public class Brick : MonoBehaviour
     public BrickTypeScriptableObject brickTypeScriptableObject;
     private void Update()
     {
-        
+
     }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Ball")){
+    //        if (brickType == 1 )
+    //        {
+    //            Debug.Log("Hit Ball");
+    //            brickHealth--;
+    //            DestroyBrick();
+    //            GameManager.Instance.currentScore += 100;
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ball")){
-            if (brickType == 1 )
-            {
-                brickHealth--;
-                DestroyBrick();
-                GameManager.Instance.currentScore += 100;
+    //        }
+    //        else if(brickType == 2)
+    //        {
+    //            Debug.Log("Hit rock");
 
-            }
-            else if(brickType == 2)
-            {
-                Debug.Log("Hit rock");
+    //        }
 
-            }
-
-        }
-    }
+    //    }
+    //}
     public void DestroyBrick()
     {
-        if(brickHealth <= 0)
+        if (ballSystemV2.ObjecstHitOnRayCastBrick())
         {
-            BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
+            if (brickHealth <= 0)
+            {
+                Debug.Log("DestroyBrick");
+                BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
+            }
         }
+
     }
     //public void OnContact(RaycastHit2D hit, BallSystem ball)
     //{
@@ -88,7 +91,7 @@ public class Brick : MonoBehaviour
     public void SettingBrick(int type)
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        boxCollider2D = GetComponent<BoxCollider2D> ();
+        boxCollider2D = GetComponent<BoxCollider2D>();
         switch (type)
         {
             case 0:
@@ -99,7 +102,7 @@ public class Brick : MonoBehaviour
                 spriteRenderer.color = new Color32(245, 217, 32, 255);
                 brickType = 1;
                 brickHealth = 1;
-                 break;
+                break;
             case 2: //green
                 spriteRenderer.sprite = sprites[5];
                 spriteRenderer.color = new Color32(7, 214, 35, 255);
@@ -243,12 +246,7 @@ public class Brick : MonoBehaviour
     {
         spriteRenderer.color = Color.white;
         transform.position -= new Vector3(0, 0, 0);
-        boxCollider2D.size = new Vector2(1f,1f);
+        boxCollider2D.size = new Vector2(1f, 1f);
     }
-    private void DeSpawnBrick()
-    {
-        BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
-        
-        //IF: is boss level
-    }
+
 }
