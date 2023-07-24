@@ -27,8 +27,8 @@ public class LevelManager : MonoBehaviour
     {
         if (selectLevelList.Count == 0)
         {
-            Debug.Log("select level list:" + selectLevelList.Count);
-            Debug.Log($"Level config record count {levelConfigRecordList.Count}");
+            //Debug.Log("select level list:" + selectLevelList.Count);
+            //Debug.Log($"Level config record count {levelConfigRecordList.Count}");
             for (int i = 0;  i < levelConfigRecordList.Count; i++)
             {
                 GameObject selectedLevel = Instantiate(levelPrefab, this.transform);

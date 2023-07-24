@@ -23,12 +23,12 @@ public class ConfigFileManager : MonoBehaviour
     }
     IEnumerator WaitInit(Action callback)
     {
-        Debug.Log("WAIT IN INIT");
+        //Debug.Log("WAIT IN INIT");
         _level = Resources.Load("Config/LevelConfig", typeof(ScriptableObject)) as LevelConfig;
-        Debug.Log($"_level ===========> {_level}");
+        //Debug.Log($"_level ===========> {_level}");
         yield return new WaitUntil(() => _level != null);
 
-        Debug.Log("==========> LOAD CONFIG FILE ");
+        //Debug.Log("==========> LOAD CONFIG FILE ");
 
         yield return null;
         callback?.Invoke();

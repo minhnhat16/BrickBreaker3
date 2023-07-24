@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Brick : MonoBehaviour
+public class Brick : MonoBehaviour, InteractBall
 {
     //private bool breakable = false;
     public int brickType;
@@ -24,7 +24,6 @@ public class Brick : MonoBehaviour
     public BrickTypeScriptableObject brickTypeScriptableObject;
     private void Update()
     {
-
     }
     //private void OnCollisionEnter2D(Collision2D collision)
     //{
@@ -47,47 +46,47 @@ public class Brick : MonoBehaviour
     //}
     public void DestroyBrick()
     {
-        if (ballSystemV2.ObjecstHitOnRayCastBrick())
-        {
-            if (brickHealth <= 0)
-            {
-                Debug.Log("DestroyBrick");
-                BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
-            }
-        }
-
+        BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
+        //if (!gameManager.isBossLevel)
+        //{
+        //    gameManager.score += gameManager.increaseScore;
+        //    gameManager.count++;
+        //}
     }
-    //public void OnContact(RaycastHit2D hit, BallSystem ball)
-    //{
-    //    switch (brickType)
-    //    {
-    //        case 1:
-    //            brickHealth--;
-    //            if (!ball.onItemPowerUP)
-    //            {
-    //                normalVector = hit.point - (Vector2)this.transform.position;
-    //            }
-    //            else
-    //            {
-    //                brickHealth = 0;
-    //            }
-    //            if(brickHealth == 0)
-    //            {
-    //                DeSpawnBrick();
-    //            }
-    //            break;
-    //        case 2:
-    //            {
-    //                normalVector = hit.point - (Vector2)(this.transform.position);
-    //                normalVector.Normalize();
+    public void OnContact(RaycastHit2D hit, BallSystemVer2 ball)
+    {
+        switch (brickType)
+        {
+            case 1:
+                brickHealth--;
+                if (!ball.onItemPowerUP)
+                {
+                    normalVector = hit.point - (Vector2)this.transform.position;
+                    normalVector.Normalize();
 
-    //                ball.moveDirection = Vector2.Reflect(ball.moveDirection, normalVector);
-    //                break;
-    //            }
-    //        default:
-    //            break;
-    //    }
-    //}
+                    ball.moveDir = Vector2.Reflect(ball.direction1, normalVector);
+                }
+                else
+                {
+                    brickHealth = 0;
+                }
+                if (brickHealth == 0)
+                {
+                    DestroyBrick();
+                }
+                break;
+            case 2:
+                {
+                    normalVector = hit.point - (Vector2)(this.transform.position);
+                    normalVector.Normalize();
+
+                    ball.moveDir = Vector2.Reflect(ball.moveDir, normalVector);
+                    break;
+                }
+            default:
+                break;
+        }
+    }
     public void SettingBrick(int type)
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();

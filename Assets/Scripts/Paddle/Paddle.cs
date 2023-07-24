@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Paddle : FSMSystem
+public class Paddle : FSMSystem,InteractBall
 {
     [HideInInspector]
     public PaddleMoveState MoveState;
@@ -62,11 +62,10 @@ public class Paddle : FSMSystem
         tempX = Mathf.Clamp(tempX, leftLimit + ballSystem.ballRadius, rightLimit - ballSystem.ballRadius);
         transform.position = new Vector3(tempX, transform.position.y, transform.position.z);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    public void OnContact(RaycastHit2D hit, BallSystemVer2 ball)
     {
-        if (collision.collider.CompareTag("Ball"))
-        {
-            Debug.Log("Hit balll");
-        }
+        Debug.Log("Ball reflect Paddle");
+        ball.BallReflectPaddle();
     }
 }

@@ -9,7 +9,7 @@ public class SelectLevelView : BaseView
     public GameObject ScrollView;
     public override void OnStartShowView()
     {
-        Debug.Log("Onstart show select level view");
+        //Debug.Log("Onstart show select level view");
         ScrollView.GetComponentInChildren<LevelManager>().SpawnLevel();
         ScrollView.GetComponentInChildren<LevelManager>().HighestLevelOn();
     }

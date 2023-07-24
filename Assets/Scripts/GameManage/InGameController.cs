@@ -55,14 +55,14 @@ public class InGameController : MonoBehaviour
         bool check = CheckGameObjectNull();
         if(check)
         {
-            Debug.Log(" load");
+            //Debug.Log(" load");
             LoadPaddle();
             LoadBall();
             SetUpCamera();
         }
         else
         {
-            Debug.Log("reload ");
+            //Debug.Log("reload ");
             ReloadGameObject();
         }
        

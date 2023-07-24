@@ -16,7 +16,7 @@ public class BootLoader : MonoBehaviour
 
     public void  LoadSceneBuffer()
     {
-        Debug.Log("Load Scene Buffer");
+        //Debug.Log("Load Scene Buffer");
         // T?i scene có tên "Buffer"
         SceneManager.LoadScene("Buffer");
         ViewManager.Instance.SwitchView(ViewIndex.LoadingView);

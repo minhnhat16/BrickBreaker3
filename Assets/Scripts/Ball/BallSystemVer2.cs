@@ -1,3 +1,4 @@
+using NaughtyAttributes.Test;
 using UnityEngine;
 
 public class BallSystemVer2 : FSMSystem
@@ -18,14 +19,16 @@ public class BallSystemVer2 : FSMSystem
     [SerializeField]
     public Paddle paddle;
     [SerializeField]
+    public ContactHandle contactHandler;
     public Vector3 moveDir;
     public Vector3 tempDirection;
     public Vector2 forwardDir { get => (Forward.position - Anchor.position).normalized; }
-    public Vector3 direction1 = new Vector3(0, 4, 0);
+    public Vector3 direction1 = new Vector3(0, 1, 0);
 
     public bool isLeft = false;
     public bool isRight = false;
     public bool isTop = false;
+    public bool onItemPowerUP = false;
 
     public float ballRadius = 0.5f;
     public float tempDirX;
@@ -49,6 +52,9 @@ public class BallSystemVer2 : FSMSystem
         SpawnState.Setup(this);
         MoveState.Setup(this);
         DeathState.Setup(this);
+        contactHandler = new ContactHandle();
+        contactHandler.contactUnit = null;
+        contactHandler.unitType = UnitType.OTHERS;
     }
     // Start is called before the first frame update
     void Start()
@@ -85,35 +91,79 @@ public class BallSystemVer2 : FSMSystem
         angle = Mathf.Atan2(direction1.y, direction1.x) * Mathf.Rad2Deg - 90;
         transform.eulerAngles = Vector3.forward * angle;
     }
-    public void ObjecstHitOnRayCastPaddle()
-    { 
-        RaycastHit2D hit = Physics2D.Raycast(Anchor.position, (Vector2)moveDir, ballRadius);
-        Debug.DrawRay(Anchor.position, (Vector2)Anchor.position - (Vector2)moveDir, Color.red);
-        if (hit.collider != null && hit.collider.CompareTag("Paddle"))
-        {
-            BallReflectPaddle();
-        }
-        else if (hit.collider != null && hit.collider.CompareTag("Brick"))
-        {
+    //public void ObjecstHitOnRayCastPaddle()
+    //{
+    //    RaycastHit2D hit = Physics2D.Raycast(Anchor.position, (Vector2)moveDir, ballRadius);
+    //    Debug.DrawRay(Anchor.position, (Vector2)Anchor.position - (Vector2)moveDir, Color.red);
+    //    if (hit.collider != null && hit.collider.CompareTag("Paddle"))
+    //    {
+    //        BallReflectPaddle();
+    //    }
+    //    else if (hit.collider != null && hit.collider.CompareTag("Brick"))
+    //    {
+    //        Debug.Log("hit brick");
 
-            tempDirection = Vector2.Reflect(moveDir, Vector2.down);
-            moveDir = tempDirection;
-            // Debug.Log("HIT OBJECT ====>" + hitObject);  
-        }
-    }
-    public bool  ObjecstHitOnRayCastBrick()
+    //        tempDirection = Vector2.Reflect(moveDir, Vector2.down);
+    //        moveDir = tempDirection;
+    //        // Debug.Log("HIT OBJECT ====>" + hitObject);  
+    //    }
+    //}
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.collider.CompareTag("Paddle"))
+    //    {
+    //        BallReflectPaddle();
+    //    }
+    //    else if (collision.collider.CompareTag("Brick"))
+    //    {
+    //        Debug.Log("hit brick");
+
+    //        tempDirection = Vector2.Reflect(moveDir, Vector2.down);
+    //        moveDir = tempDirection;
+    //    }
+    //}
+    public void CheckCollider()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Anchor.position, (Vector2)moveDir, ballRadius);
-        Debug.DrawRay(Anchor.position, (Vector2)Anchor.position - (Vector2)moveDir, Color.red);
-        if (hit.collider != null && hit.collider.CompareTag("Brick"))
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, ballRadius,Vector2.zero);
+        if (hit.collider != null)
         {
-            tempDirection = Vector2.Reflect(moveDir, Vector2.down);
-            moveDir = tempDirection;
-            Debug.Log("HIT OBJECT ====>" );  
-            return true;
+            InteractBall interactBall = hit.collider.GetComponent(typeof(InteractBall)) as InteractBall;
+            Debug.Log("InteractBall" + interactBall);
+            if (interactBall != null)
+            {
+                Debug.Log("Interac not null");
+                if ( contactHandler.contactUnit != hit.collider.transform)
+                {
+                    interactBall.OnContact(hit, this);
+                    contactHandler.contactUnit = hit.collider.transform;
+                    contactHandler.unitType = UnitType.OTHERS;
+                    Debug.Log(contactHandler.contactUnit);
+                    Debug.Log(hit.collider.transform);
+                }
+                else
+                {
+                    Debug.Log("null contact handle");
+                    contactHandler.contactUnit = null;
+                }
+            }
+            
         }
-        return false;
     }
+    //public bool ObjecstHitOnRayCastBrick()
+    //{
+    //    RaycastHit2D hit = Physics2D.Raycast(Anchor.position, (Vector2)moveDir, ballRadius);
+    //    Debug.DrawRay(Anchor.position, (Vector2)Anchor.position - (Vector2)moveDir, Color.red);
+    //    if (hit.collider != null && hit.collider.CompareTag("Brick"))
+    //    {
+    //        tempDirection = Vector2.Reflect(moveDir, Vector2.down);
+    //        moveDir = tempDirection;
+    //       // BrickPoolManager.instance.pool;
+
+    //        Debug.Log("HIT OBJECT ====>" );  
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
     private void OnDrawGizmos()
     {
@@ -124,9 +174,6 @@ public class BallSystemVer2 : FSMSystem
         Gizmos.DrawLine((new Vector2(5.625f, -10f)), (new Vector2(-5.625f, -10f)));
         Gizmos.DrawLine((new Vector2(5.625f, 10f)), (new Vector2(5.625f, -10f)));
         Gizmos.DrawLine((new Vector2(-5.625f, 10f)), (new Vector2(-5.625f, -10f)));
-
-
-
     }
     public void BallMoverment()
     {
@@ -135,9 +182,9 @@ public class BallSystemVer2 : FSMSystem
         float rightCam = CameraMain.instance.GetRight();
         float topCam = CameraMain.instance.GetTop();
         float botCam = CameraMain.instance.GetBottom();
-        float theta = Mathf.PI / 4;
-        float pointX = currentPosition.x + ballRadius * Mathf.Cos(theta);
-        float pointY = currentPosition.y + ballRadius * Mathf.Sin(theta);
+        //float theta = Mathf.PI / 4;
+        //float pointX = currentPosition.x + ballRadius * Mathf.Cos(theta);
+        //float pointY = currentPosition.y + ballRadius * Mathf.Sin(theta);
         // transform.position = Mathf.Clamp(CameraMain.instance.GetLeft(), CameraMain.instance.GetRight());
         //transform.Translate(ballSpeed * Time.deltaTime * moveDir.normalized);
         if (currentPosition.x <= rightCam  && currentPosition.x >= leftCam && currentPosition.y <=topCam && currentPosition.y >= botCam )
@@ -149,14 +196,14 @@ public class BallSystemVer2 : FSMSystem
         {
             currentPosition = transform.position + (ballSpeed * Time.deltaTime * moveDir.normalized);
             currentPosition.x = Mathf.Clamp(currentPosition.x, leftCam + 0.2f, rightCam - 0.2f) ;
-            Debug.Log("CLAMPED: " + currentPosition.x);
+            //Debug.Log("CLAMPED: " + currentPosition.x);
             transform.position = currentPosition;
         }
         else if(currentPosition.y > topCam - 1 || currentPosition.y < botCam + ballRadius)
         {
             currentPosition = transform.position + (ballSpeed * Time.deltaTime * moveDir.normalized);
-            currentPosition.x = Mathf.Clamp(currentPosition.y, topCam - 1.2f, botCam + ballRadius);
-            Debug.Log("CLAMPED: " + currentPosition.x);
+            currentPosition.y = Mathf.Clamp(currentPosition.y, topCam - 1f, botCam + ballRadius);
+            //Debug.Log("CLAMPED: " + currentPosition.x);
             transform.position = currentPosition;
         }
 
@@ -260,7 +307,7 @@ public class BallSystemVer2 : FSMSystem
     public void CheckBallAngle(Vector3 vector)
     {
 
-        float dotProduct = Vector3.Dot(moveDir.normalized, vector.normalized);
+       // float dotProduct = Vector3.Dot(moveDir.normalized, vector.normalized);
         //float anglecheck = Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
 
         float anglecheck_no1 = Vector3.Angle(moveDir.normalized, vector.normalized);
@@ -300,9 +347,6 @@ public class BallSystemVer2 : FSMSystem
             moveDir = tempDirection.normalized;
         }
     }
-    public void BallReflectBrick()
-    {
-    }
     public void BallReflectPaddle()
     {
         Collider2D collider = paddle.GetComponent<Collider2D>();
@@ -310,48 +354,68 @@ public class BallSystemVer2 : FSMSystem
         Vector3 min = bounds.min;
         Vector3 max = bounds.max;
         float xMoveDir = transform.position.x;
-
-        CheckBallAngle(Vector2.up);
+        float yMoveDir = transform.position.y;
+        yMoveDir = Mathf.Clamp(transform.position.y, -7.25f, -7.30f);
+        paddle.GetCurrentPosition();
+        //CheckBallAngle(Vector2.down);
         if (xMoveDir >= min.x && xMoveDir < min.x + 1)
         {
             //Debug.Log("hit  left");
-
+           // Debug.Log(xMoveDir);
             tempDirection = Vector3.Reflect(moveDir, new Vector3(-1, 1));
             moveDir = tempDirection.normalized;
+          
+
         }
         else if (xMoveDir > max.x - 1 && xMoveDir <= max.x)
         {
             //Debug.Log("hit  right");
+            //Debug.Log(xMoveDir);
 
             tempDirection = Vector3.Reflect(moveDir, new Vector3(1, 1));
             moveDir = tempDirection.normalized;
+          
+
         }
         else if (xMoveDir > min.x + 1 && xMoveDir < min.x + 1.5)
         {
-            Debug.Log("hit half left");
+            // Debug.Log("hit half left");
+            //Debug.Log(xMoveDir);
 
             Vector2 add = new Vector2(-0.5f, 1f);
             tempDirection = Vector3.Reflect(moveDir, add);
             moveDir = tempDirection.normalized;
+           
+
         }
         else if (xMoveDir < max.x - 1 && xMoveDir > max.x - 1.5)
         {
-            Debug.Log("hit half right");
+            //Debug.Log("hit half right");
+            //Debug.Log(xMoveDir);
+
             Vector2 add = new Vector2(0.5f, 1f);
             tempDirection = Vector3.Reflect(moveDir, add);
             moveDir = tempDirection.normalized;
+         
+
         }
         else if (xMoveDir < max.x - 1.5 && xMoveDir > min.x + 1.5)
         {
-            Debug.Log("hit half right");
+            //Debug.Log("hit half right");
+            //Debug.Log(xMoveDir);
+
             Vector2 add = Vector2.up;
             tempDirection = Vector3.Reflect(moveDir, add);
             moveDir = tempDirection.normalized;
+            
         }
         else
         {
+            //Debug.Log(xMoveDir);
+
             moveDir = tempDirection.normalized;
         }
+        transform.position = new Vector3(xMoveDir, yMoveDir);
     }
     public void ResetBall()
     {
