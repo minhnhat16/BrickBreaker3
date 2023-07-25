@@ -1,4 +1,5 @@
 using NaughtyAttributes.Test;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BallSystemVer2 : FSMSystem
@@ -43,7 +44,7 @@ public class BallSystemVer2 : FSMSystem
     public float ballMess;
     public float ballForce;
     public float bounceFact = 0.2f;
-    public int maxLives;
+    public int maxLives = 1;
     public int currentLive;
     public int hitAngleCount = 0;
 
@@ -81,6 +82,7 @@ public class BallSystemVer2 : FSMSystem
         }
     }
     private void AngleCalculation(float tempXDir)
+
     {
         tempX += angleMoveSpeed * tempXDir;
         tempX = Mathf.Clamp(tempX, CameraMain.instance.GetLeft() - 2, CameraMain.instance.GetRight() + 2);
@@ -128,7 +130,7 @@ public class BallSystemVer2 : FSMSystem
         if (hit.collider != null)
         {
             InteractBall interactBall = hit.collider.GetComponent(typeof(InteractBall)) as InteractBall;
-            Debug.Log("InteractBall" + interactBall);
+            //Debug.Log("InteractBall" + interactBall);
             if (interactBall != null)
             {
                 Debug.Log("Interac not null");
@@ -137,12 +139,12 @@ public class BallSystemVer2 : FSMSystem
                     interactBall.OnContact(hit, this);
                     contactHandler.contactUnit = hit.collider.transform;
                     contactHandler.unitType = UnitType.OTHERS;
-                    Debug.Log(contactHandler.contactUnit);
-                    Debug.Log(hit.collider.transform);
+                    //Debug.Log(contactHandler.contactUnit);
+                    //Debug.Log(hit.collider.transform);
                 }
                 else
                 {
-                    Debug.Log("null contact handle");
+                    //Debug.Log("null contact handle");
                     contactHandler.contactUnit = null;
                 }
             }
@@ -199,10 +201,10 @@ public class BallSystemVer2 : FSMSystem
             //Debug.Log("CLAMPED: " + currentPosition.x);
             transform.position = currentPosition;
         }
-        else if(currentPosition.y > topCam - 1 || currentPosition.y < botCam + ballRadius)
+        else if(currentPosition.y > topCam -  ballRadius + 1 || currentPosition.y < botCam + ballRadius)
         {
             currentPosition = transform.position + (ballSpeed * Time.deltaTime * moveDir.normalized);
-            currentPosition.y = Mathf.Clamp(currentPosition.y, topCam - 1f, botCam + ballRadius);
+            currentPosition.y = Mathf.Clamp(currentPosition.y, topCam - 1.05f, botCam);
             //Debug.Log("CLAMPED: " + currentPosition.x);
             transform.position = currentPosition;
         }
@@ -212,9 +214,15 @@ public class BallSystemVer2 : FSMSystem
     {
         if ( transform.position.y < CameraMain.instance.GetBottom())
         {
-            ResetBall();
+            //ResetBall();
+            DecreaseLive();
+            InGameController.Instance.isBallDeath = true;
+            InGameController.Instance.isGameOver = false;
+            transform.position = paddle.spawnPosition + Vector3.up;
+            GotoState(DeathState);
         }
     }
+   
     public void GetBallDirection()
     {
         float right = CameraMain.instance.GetRight();
@@ -296,14 +304,14 @@ public class BallSystemVer2 : FSMSystem
         }
 
     }
-    public Vector3 ReflectRandomAngleY()
-    {
-        float randomX = Random.Range(-1f, 1f);
-        float randomY = Random.Range(-1f, 1f);
-        Vector3 randomVect = new Vector3(randomX, randomY);
-        Debug.Log("RandomY" + randomY);
-        return randomVect;
-    }
+    //public Vector3 ReflectRandomAngleY()
+    //{
+    //    float randomX = Random.Range(-1f, 1f);
+    //    float randomY = Random.Range(-1f, 1f);
+    //    Vector3 randomVect = new Vector3(randomX, randomY);
+    //    Debug.Log("RandomY" + randomY);
+    //    return randomVect;
+    //}
     public void CheckBallAngle(Vector3 vector)
     {
 
@@ -353,34 +361,36 @@ public class BallSystemVer2 : FSMSystem
         Bounds bounds = collider.bounds;
         Vector3 min = bounds.min;
         Vector3 max = bounds.max;
-        float xMoveDir = transform.position.x;
+        float xMoveDir = transform.position.x ;
         float yMoveDir = transform.position.y;
-        yMoveDir = Mathf.Clamp(transform.position.y, -7.25f, -7.30f);
         paddle.GetCurrentPosition();
         //CheckBallAngle(Vector2.down);
-        if (xMoveDir >= min.x && xMoveDir < min.x + 1)
+        if (xMoveDir > min.x - ballRadius  && xMoveDir < min.x + 1)
         {
             //Debug.Log("hit  left");
-           // Debug.Log(xMoveDir);
+            // Debug.Log(xMoveDir);
+            xMoveDir = Mathf.Clamp(transform.position.x, min.x - ballRadius, min.x + ballRadius);
+            yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius , min.y );
+
+            Debug.Log(max.y+ " "+ min.y);
             tempDirection = Vector3.Reflect(moveDir, new Vector3(-1, 1));
             moveDir = tempDirection.normalized;
-          
-
         }
-        else if (xMoveDir > max.x - 1 && xMoveDir <= max.x)
+        else if (xMoveDir > max.x - 1 && xMoveDir - ballRadius <= max.x + ballRadius)
         {
             //Debug.Log("hit  right");
             //Debug.Log(xMoveDir);
+            xMoveDir = Mathf.Clamp(transform.position.x, max.x - ballRadius, max.x + ballRadius);
+            yMoveDir = Mathf.Clamp(transform.position.y, max.y  + ballRadius, min.y  );
 
             tempDirection = Vector3.Reflect(moveDir, new Vector3(1, 1));
             moveDir = tempDirection.normalized;
-          
-
         }
         else if (xMoveDir > min.x + 1 && xMoveDir < min.x + 1.5)
         {
             // Debug.Log("hit half left");
             //Debug.Log(xMoveDir);
+            yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius , max.y + ballRadius);
 
             Vector2 add = new Vector2(-0.5f, 1f);
             tempDirection = Vector3.Reflect(moveDir, add);
@@ -392,6 +402,8 @@ public class BallSystemVer2 : FSMSystem
         {
             //Debug.Log("hit half right");
             //Debug.Log(xMoveDir);
+            //yMoveDir = Mathf.Clamp(transform.position.y, -7.25f, -7.30f);
+            yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius, max.y + ballRadius);
 
             Vector2 add = new Vector2(0.5f, 1f);
             tempDirection = Vector3.Reflect(moveDir, add);
@@ -403,6 +415,8 @@ public class BallSystemVer2 : FSMSystem
         {
             //Debug.Log("hit half right");
             //Debug.Log(xMoveDir);
+            //yMoveDir = Mathf.Clamp(transform.position.y, -7.25f, -7.30f);
+            yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius, max.y + ballRadius);
 
             Vector2 add = Vector2.up;
             tempDirection = Vector3.Reflect(moveDir, add);
@@ -412,6 +426,8 @@ public class BallSystemVer2 : FSMSystem
         else
         {
             //Debug.Log(xMoveDir);
+            //yMoveDir = Mathf.Clamp(transform.position.y, -7.25f, -7.30f);
+            yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius, max.y + ballRadius);
 
             moveDir = tempDirection.normalized;
         }
@@ -422,7 +438,29 @@ public class BallSystemVer2 : FSMSystem
         tempX = 0;
         tempDirection = Vector3.zero;
         moveDir = Vector3.zero;
-        //SetMaxLive();
+        SetMaxLive();
         GotoState(SpawnState);
+    }
+    public void CheckBallLive()
+    {
+        if (currentLive <= 0)
+        {
+            InGameController.Instance.isGameOver = true;
+            InGameController.Instance.GameOver();
+        }
+        else
+        {
+            InGameController.Instance.isBallDeath = true;
+            InGameController.Instance.isGameOver = false;
+            Debug.Log(InGameController.Instance.isGameOver);
+        }
+    }
+    public void SetMaxLive()
+    {
+        currentLive = maxLives;
+    }
+    public void DecreaseLive()
+    {
+        currentLive--;
     }
 }

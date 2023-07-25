@@ -132,7 +132,7 @@ public class InGameController : MonoBehaviour
     }
     public void LevelComplete()
     {
-       // CheckCompleteScore();
+       CheckCompleteScore();
        if (isLevelComplete)
        {
                 GameManager.Instance.currentLevel++;
@@ -149,7 +149,7 @@ public class InGameController : MonoBehaviour
     }
     public void ResumeGame()
     {
-        Debug.Log("======>RESUME");
+        //Debug.Log("======>RESUME");
 
         Time.timeScale = 1f;
     }

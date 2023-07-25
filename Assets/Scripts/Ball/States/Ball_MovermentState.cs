@@ -21,7 +21,7 @@ public class Ball_MovermentState : FSMState<BallSystemVer2>
         //sys.CheckBallAngle();
         sys.GetBallDirection();
         sys.CheckCollider();
-        //sys.ObjecstHitOnRayCastPaddle();
+       
         sys.BallMoverment();
         sys.BallDeath();
         InGameController.Instance.LevelComplete();
