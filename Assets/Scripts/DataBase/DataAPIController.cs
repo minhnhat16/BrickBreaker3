@@ -33,9 +33,6 @@ public class DataAPIController : MonoBehaviour
     #region Get Data
     #endregion
 
-
     #region Others
-
-
     #endregion
 }

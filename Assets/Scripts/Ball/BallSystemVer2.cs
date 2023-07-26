@@ -302,7 +302,6 @@ public class BallSystemVer2 : FSMSystem
                 Debug.Log("CASE ANGLE DEFAULT:");
                 return Vector3.zero;
         }
-
     }
     //public Vector3 ReflectRandomAngleY()
     //{

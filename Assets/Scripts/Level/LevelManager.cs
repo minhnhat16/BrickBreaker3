@@ -16,8 +16,6 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         levelConfigRecordList = ConfigFileManager.Instance.Level.GetAllRecord();
-
-
     }
     private void Start()
     {

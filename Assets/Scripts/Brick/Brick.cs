@@ -63,10 +63,10 @@ public class Brick : MonoBehaviour, InteractBall
                 {
                     normalVector = hit.point - (Vector2)this.transform.position;
                     normalVector.Normalize();
-                    Debug.Log(normalVector);
+                    //Debug.Log(normalVector);
                     Debug.DrawLine(hit.point, normalVector,Color.magenta);
-                   // ball.moveDir = Vector2.Reflect(ball.direction1, normalVector);
-                    ball.moveDir = normalVector;
+                    ball.moveDir = Vector2.Reflect(ball.direction1, normalVector);
+                   // ball.moveDir = normalVector;
                 }
                 else
                 {

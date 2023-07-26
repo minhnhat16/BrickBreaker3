@@ -5,20 +5,26 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 
 public class BootLoader : MonoBehaviour
 {
     private void Start()
     {
         DontDestroyOnLoad(this);
-        ConfigFileManager.Instance.Init(LoadSceneBuffer);
+        DataAPIController.instance.InitData(LoadConfigFile);
     }
 
     public void  LoadSceneBuffer()
     {
         //Debug.Log("Load Scene Buffer");
         // T?i scene có tên "Buffer"
+
         SceneManager.LoadScene("Buffer");
         ViewManager.Instance.SwitchView(ViewIndex.LoadingView);
+    }
+    public void LoadConfigFile()
+    {
+        ConfigFileManager.Instance.Init(LoadSceneBuffer);
     }
 }
