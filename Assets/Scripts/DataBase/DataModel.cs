@@ -76,7 +76,14 @@ public class DataModel : MonoBehaviour
         else
         {
             Debug.Log("(BOOT) // CREATE NEW DATA");
-
+            userData = new UserData();
+            UserInfo inf = new UserInfo();
+            inf.name = "Player 1";
+            inf.level =  0;
+            userData.userInfo = inf;
+            UserInventory userInventory = new UserInventory();
+            userInventory.gold = 100;
+            userData.inventory = userInventory;
           
             SaveData();
 
@@ -222,7 +229,7 @@ public class DataModel : MonoBehaviour
     private void SaveData()
     {
         string json_string = JsonConvert.SerializeObject(userData);
-        //Debug.Log("(DATA) // SAVE DATA: " + json_string);
+        Debug.Log("(DATA) // SAVE DATA: " + json_string);
         PlayerPrefs.SetString("DATA", json_string);
     }
 

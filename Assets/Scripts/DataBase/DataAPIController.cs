@@ -31,8 +31,18 @@ public class DataAPIController : MonoBehaviour
     }
 
     #region Get Data
+    public void GetName()
+    {
+        dataModel.ReadData<string>(DataPath.NAME);
+        Level level = dataModel.ReadData<Level>(DataPath.LEVEL);
+    }
     #endregion
 
     #region Others
+    public ItemData GetItemData(int idItem)
+    {
+        ItemData itemData = dataModel.ReadDictionary<ItemData>(DataPath.ITEM, idItem.ToKey());
+        return itemData; 
+    }
     #endregion
 }

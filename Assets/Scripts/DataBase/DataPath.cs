@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class DataPath
 {
-   
+    public const string NAME = "userInfo/name";
+    public const string LEVEL = "userInfo/level";
+    public const string ITEM = "ItemData/id";
+
 }

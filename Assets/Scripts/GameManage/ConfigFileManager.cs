@@ -10,7 +10,7 @@ public class ConfigFileManager : MonoBehaviour
     public LevelCompleteScrObj _lvComplete;
     [SerializeField] private LevelConfig _level;
     public static ConfigFileManager Instance;
-    
+    [SerializeField] private ConfigItemRecord _item;
     public LevelConfig Level { get => _level; }
 
     private void Awake()

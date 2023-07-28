@@ -7,9 +7,11 @@ using UnityEngine;
 public class UserData
 {
     [SerializeField]
-    UserInfo userInfo;
+    public UserInfo userInfo;
     [SerializeField]
-    ItemData itemData;
+    public ItemData itemData;
+    [SerializeField]
+    public UserInventory inventory;
 }
 [Serializable]
 public class UserInfo
@@ -18,14 +20,15 @@ public class UserInfo
     public int level;
 }
 [Serializable]
-public class UserItem
+public class UserInventory
 {
-    public Dictionary<int, ItemData> item_got = new Dictionary<int, ItemData>();
+    [SerializeField]
+    public Dictionary<int, ItemData> inventory = new Dictionary<int, ItemData>();
     public int gold;
 }
 [Serializable]
 public class ItemData
 {
     public int id;
-    public int total_have;
+    public int total;
 }
