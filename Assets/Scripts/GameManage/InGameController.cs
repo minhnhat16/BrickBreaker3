@@ -19,6 +19,7 @@ public class InGameController : MonoBehaviour
     public GameObject ballPref;
     public GameObject paddlePref;
     public CameraMain cam;
+    public GameObject item;
 
     public Paddle paddle;
     public static GameObject prefabPaddleInstance;

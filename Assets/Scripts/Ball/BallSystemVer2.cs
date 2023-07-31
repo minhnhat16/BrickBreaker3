@@ -133,7 +133,7 @@ public class BallSystemVer2 : FSMSystem
             //Debug.Log("InteractBall" + interactBall);
             if (interactBall != null)
             {
-                Debug.Log("Interac not null");
+                //Debug.Log("Interac not null");
                 if ( contactHandler.contactUnit != hit.collider.transform)
                 {
                     interactBall.OnContact(hit, this);
@@ -200,14 +200,18 @@ public class BallSystemVer2 : FSMSystem
             currentPosition.x = Mathf.Clamp(currentPosition.x, leftCam + 0.2f, rightCam - 0.2f) ;
             //Debug.Log("CLAMPED: " + currentPosition.x);
             transform.position = currentPosition;
+
         }
-        else if(currentPosition.y > topCam -  ballRadius + 1 || currentPosition.y < botCam + ballRadius)
+        else if(currentPosition.y > topCam -  ballRadius - 1 || currentPosition.y < botCam + ballRadius)
         {
             currentPosition = transform.position + (ballSpeed * Time.deltaTime * moveDir.normalized);
             currentPosition.y = Mathf.Clamp(currentPosition.y, topCam - 1.05f, botCam);
             //Debug.Log("CLAMPED: " + currentPosition.x);
+
             transform.position = currentPosition;
+
         }
+        RandomItem();
 
     }
     public void BallDeath()
@@ -284,22 +288,22 @@ public class BallSystemVer2 : FSMSystem
 
             case 0:
                 //RANDOMVECTOR(minX, maxX, minY,maxY)
-                Debug.Log("CASE ANGLE 0:");
+                //Debug.Log("CASE ANGLE 0:");
                 return RandomVector(-1f, 1f, 0f, -1f);
             case 1:
-                Debug.Log("CASE ANGLE 1:");
+                //Debug.Log("CASE ANGLE 1:");
 
                 return RandomVector(-0.5f, 0.5f, 0f, 1f);
             case 2:
-                Debug.Log("CASE ANGLE 2:");
+                //Debug.Log("CASE ANGLE 2:");
 
                 return RandomVector(0f, 1f, -1f, 1f);
             case 3:
-                Debug.Log("CASE ANGLE 3:");
+                //Debug.Log("CASE ANGLE 3:");
 
                 return RandomVector(-1f, 0f, -1f, 1f);
             default:
-                Debug.Log("CASE ANGLE DEFAULT:");
+                //Debug.Log("CASE ANGLE DEFAULT:");
                 return Vector3.zero;
         }
     }
@@ -371,7 +375,7 @@ public class BallSystemVer2 : FSMSystem
             xMoveDir = Mathf.Clamp(transform.position.x, min.x - ballRadius, min.x + ballRadius);
             yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius , min.y );
 
-            Debug.Log(max.y+ " "+ min.y);
+            //Debug.Log(max.y+ " "+ min.y);
             tempDirection = Vector3.Reflect(moveDir, new Vector3(-1, 1));
             moveDir = tempDirection.normalized;
         }
@@ -461,5 +465,18 @@ public class BallSystemVer2 : FSMSystem
     public void DecreaseLive()
     {
         currentLive--;
+    }
+    public void RandomItem()
+    {
+        ItemPoolManager.instance.SpawnItem();
+
+        float randomValue = Random.Range(1f, 10f) ;
+        int value = (int)(randomValue * 10);
+        //Debug.Log("RANDOM OBJECT ...." + value);
+
+        if (value % 7 == 0)
+        {
+            Debug.Log("RANDOM OBJECT IN SEVEN" + value);
+        }
     }
 }

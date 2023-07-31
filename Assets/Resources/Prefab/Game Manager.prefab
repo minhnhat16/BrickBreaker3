@@ -79,6 +79,7 @@ MonoBehaviour:
   ballPref: {fileID: 0}
   paddlePref: {fileID: 0}
   cam: {fileID: 0}
+  item: {fileID: 0}
   paddle: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
 --- !u!114 &3794794537084021218
@@ -166,6 +167,7 @@ MonoBehaviour:
   ballPref: {fileID: 0}
   paddlePref: {fileID: 0}
   cam: {fileID: 0}
+  item: {fileID: 0}
   paddle: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
 --- !u!114 &1977366585479490412
@@ -238,6 +240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4024709221509569110}
+  - component: {fileID: 8347793820548223617}
   m_Layer: 0
   m_Name: ItemPool
   m_TagString: Untagged
@@ -260,6 +263,18 @@ Transform:
   m_Father: {fileID: 3564693116266618701}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8347793820548223617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2406159173629797277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6c002814bb9b74fb7be3469bcce5eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6260062463585519418
 GameObject:
   m_ObjectHideFlags: 0

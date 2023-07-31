@@ -27,7 +27,7 @@ public class ShopView : BaseView
             total_lb.text = "";
         }
         name_lb.text = cf.name;
-        Icon.overrideSprite = SpriteLibraryControl.Instance.GetSpriteByName(cf.Icon);
+        Icon.overrideSprite = SpriteLibraryControl.Instance.GetSpriteByName(cf.icon);
         Icon.SetNativeSize();
         DataTrigger.RegisterValueChange(DataPath.ITEM + "/" + cf.ID.ToKey(), (data) =>
         {

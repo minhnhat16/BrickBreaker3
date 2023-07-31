@@ -21,9 +21,10 @@ public class Ball_MovermentState : FSMState<BallSystemVer2>
         //sys.CheckBallAngle();
         sys.GetBallDirection();
         sys.CheckCollider();
-       
+        //sys.RandomItem();
         sys.BallMoverment();
         sys.BallDeath();
+        
         InGameController.Instance.LevelComplete();
         InGameController.Instance.GameOver();
 
