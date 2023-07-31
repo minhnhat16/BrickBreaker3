@@ -36,13 +36,24 @@ public class DataAPIController : MonoBehaviour
         dataModel.ReadData<string>(DataPath.NAME);
         Level level = dataModel.ReadData<Level>(DataPath.LEVEL);
     }
+    public int GetGold()
+    {
+        Debug.LogWarning("GETTING GOLD .....");
+        int gold = dataModel.ReadData<int>(DataPath.GOLD);
+        //int gold = 0;
+        return gold;
+    }
     #endregion
 
     #region Others
     public ItemData GetItemData(int idItem)
     {
         ItemData itemData = dataModel.ReadDictionary<ItemData>(DataPath.ITEM, idItem.ToKey());
-        return itemData; 
+        return itemData;
+    }
+    public void SaveGold(int gold)
+    {
+       dataModel.UpdateData(DataPath.GOLD, gold);
     }
     #endregion
 }

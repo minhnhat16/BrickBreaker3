@@ -1,28 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopView : BaseView
 {
-    public void OnShowInfo()
-    {
-        // DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, new Dialog)
-    }
-}
 
-public class ItemView
-{
     public Text name_lb;
     public Image Icon;
     private ConfigItemRecord cf;
     public Text total_lb;
+    public Sprite gold_bar; 
 
     public void Setup(ConfigItemRecord cf)
     {
         this.cf = cf;
         ItemData dataItem = DataAPIController.instance.GetItemData(cf.ID);
-        if(dataItem != null)
+        if (dataItem != null)
         {
             total_lb.text = dataItem.total.ToString();
         }
@@ -40,4 +36,37 @@ public class ItemView
         });
 
     }
+    public override void OnStartShowView()
+    {
+        total_lb.text = DataAPIController.instance.GetGold().ToString();
+    }
+    public void OnAddGold()
+    {
+        int gold =Convert.ToInt32(total_lb.text);
+        gold += 10;
+        DataAPIController.instance.SaveGold(gold);
+        total_lb.text = DataAPIController.instance.GetGold().ToString();
+
+    }
+    public void OnMinusGold()
+    {
+        int gold = Convert.ToInt32(total_lb.text);
+        gold -= 10;
+        DataAPIController.instance.SaveGold(gold);
+        total_lb.text = DataAPIController.instance.GetGold().ToString();
+
+    }
+    public void OnShowInfo()
+    {
+        // DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, new Dialog)
+
+    }
+    public void OnSelectLevel()
+    {
+        ViewManager.Instance.SwitchView(ViewIndex.SelectLevelView);
+    }
+}
+
+public class ItemView
+{
 }

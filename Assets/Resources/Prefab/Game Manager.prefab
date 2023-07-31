@@ -229,6 +229,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d81afd9756b12a04f921870a25e10120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2406159173629797277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4024709221509569110}
+  m_Layer: 0
+  m_Name: ItemPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4024709221509569110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2406159173629797277}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3564693116266618701}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6260062463585519418
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,6 +307,7 @@ MonoBehaviour:
   brickScript: {fileID: 0}
   _lvComplete: {fileID: 0}
   _level: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &8120022043563529527
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,6 +384,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9206414040219015119}
+  - {fileID: 4024709221509569110}
   m_Father: {fileID: 139010313063362995}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

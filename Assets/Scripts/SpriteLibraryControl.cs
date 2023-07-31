@@ -5,10 +5,22 @@ using UnityEngine;
 public class SpriteLibraryControl : MonoBehaviour
 {
     public static SpriteLibraryControl Instance;
+    [SerializeField]
+    private List<Sprite> spriteList = new List<Sprite>();
+    [SerializeField]
     private Dictionary<string, Sprite> spriteDict = new Dictionary<string, Sprite>();
     private void Awake()
     {
         Instance = this;
+    }
+    private void Start()
+    {
+        for(int i = 0;i  < spriteList.Count; i++)
+        {
+            string spritename = spriteList[i].name;
+            AddSprite(spritename, spriteList[i]);
+            Debug.LogWarning("ADDED SPRITE TO DICT" + spritename); 
+        }
     }
     public void AddSprite(string spriteName, Sprite sprite)
     {
@@ -28,3 +40,5 @@ public class SpriteLibraryControl : MonoBehaviour
         return sprite;
     }
 }
+
+
