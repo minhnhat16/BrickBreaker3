@@ -18,6 +18,7 @@ public class PaddleMoveState : FSMState<Paddle>
     public override void OnUpdate()
     {
         MovePaddle();
+        sys.CheckItemEvent();
     }
 
     public void MovePaddle()

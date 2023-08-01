@@ -15,6 +15,7 @@ public class Paddle : FSMSystem,InteractBall
     [SerializeField]
     private BallSystemVer2 mainBall;
 
+    public static Paddle instance;
     public float paddleSpeed = 4f;
     public float paddleLenght;
     public float rightLimit;
@@ -38,6 +39,7 @@ public class Paddle : FSMSystem,InteractBall
 
     private void Awake()
     {
+        instance = this;
         MoveState.Setup(this);
     }
     private void Start()

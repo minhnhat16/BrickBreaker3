@@ -19,7 +19,8 @@ public class ItemPoolManager : MonoBehaviour
 
     public void SpawnItem()
     {
-        int itemType = Random.Range(0, 2);
+        //int itemType = Random.Range(0, 2);
+        int itemType = 0;
         float random = Random.Range(0f, 1f);
 
         int i;

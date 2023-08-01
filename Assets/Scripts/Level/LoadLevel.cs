@@ -125,6 +125,7 @@ public class LoadLevel : MonoBehaviour
         InGameController.Instance.DeSpawnAll();
         InGameController.Instance.LoadGameObject();
         InGameController.Instance.isLevelComplete = false;
+        ItemPoolManager.instance.pool.DeSpawnAll();
 
     }
 }

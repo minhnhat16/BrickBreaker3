@@ -22,6 +22,7 @@ public class InGameController : MonoBehaviour
     public GameObject item;
 
     public Paddle paddle;
+    public BallSystemVer2 main;
     public static GameObject prefabPaddleInstance;
     public static GameObject prefabBallInstance;
     public Vector3 position;
@@ -58,7 +59,7 @@ public class InGameController : MonoBehaviour
         {
             //Debug.Log(" load");
             LoadPaddle();
-            LoadBall();
+            LoadBall(1);
             SetUpCamera();
         }
         else
@@ -109,7 +110,6 @@ public class InGameController : MonoBehaviour
     }
     public void LoadPaddle()
     {
-       
         prefabPaddleInstance = Instantiate(paddlePref,transform.parent);
         prefabPaddleInstance.SetActive(true);
     }
@@ -123,13 +123,22 @@ public class InGameController : MonoBehaviour
         prefabPaddleInstance.GetComponent<Paddle>();
         //Debug.Log(prefabPaddleInstance.GetComponent<Paddle>());
     }
+    public void LoadBall(int num)
+    {
+        main = BallPoolManager.instance.pool.SpawnNonGravity().GetComponentInChildren<BallSystemVer2>();
+        GameObject gameObject1 = main.gameObject;
+        prefabBallInstance = gameObject1;
+        prefabBallInstance.GetComponent<BallSystemVer2>().paddle =
+        prefabPaddleInstance.GetComponent<Paddle>();
+    }
     public void DeSpawnBall()
     {
         prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall();
+        //BallPoolManager.instance.pool.DeSpawnAll();
     }
     public void DeSpawnPaddle()
     {
-        prefabPaddleInstance.GetComponent <Paddle>().ResetPaddle();
+        prefabPaddleInstance.GetComponent<Paddle>().ResetPaddle();
     }
     public void LevelComplete()
     {
@@ -157,9 +166,8 @@ public class InGameController : MonoBehaviour
 
     public void DeSpawnAll()
     {
-        prefabBallInstance.SetActive(false);
-
-        prefabPaddleInstance.SetActive(false);
+        DeSpawnBall();
+        DeSpawnPaddle();
 
         BrickPoolManager.instance.pool.DeSpawnAll();
     }

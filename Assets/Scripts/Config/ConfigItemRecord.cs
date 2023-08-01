@@ -11,7 +11,6 @@ public class ConfigItemRecord : ScriptableObject
 }
 
 [System.Serializable]
-
 public class ItemDataInGame
 {
     public ItemType itemType;

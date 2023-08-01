@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea105d833f9e5224592cfb3be1b7e732, type: 3}
+  m_Name: DebuffItem
+  m_EditorClassIdentifier: 
+  itemData:
+  - itemType: 6
+    rate: 0.5
+    sprite: {fileID: 21300000, guid: 2f5858f6cba00a247a911a92c8c33f7d, type: 3}
+  - itemType: 7
+    rate: 0.5
+    sprite: {fileID: 21300000, guid: 35210821e2e5ae04f9b35a6d20ea2b6f, type: 3}
+  ID: 0
+  icon: 

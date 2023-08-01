@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UIElements;
 using DG.Tweening;
 using UnityEngine.Experimental.GlobalIllumination;
+using System.Collections;
 
 public class BallSystemVer2 : FSMSystem
 {
@@ -52,6 +53,7 @@ public class BallSystemVer2 : FSMSystem
     public float ballForce;
     public float bounceFact = 0.2f;
     private float timeDecrease1 = 0.1f, timeDecrease2 = 0.1f, timeDecrease3 = 0.1f;
+    private float minDuration = 3f, maxDuration = 10f;
     [SerializeField] private float scaleUpDuration = 5f;
     [SerializeField] private float magnetDuration = 5f;
     [SerializeField] private float powerDuration = 5f;
@@ -77,8 +79,17 @@ public class BallSystemVer2 : FSMSystem
     void Start()
     {
         Init();
+        StartCoroutine(RandomSpawnItem());
     }
-
+    private IEnumerator RandomSpawnItem() 
+    {
+        while (true)
+        {
+            float spawnDuration = Random.Range(minDuration, maxDuration);
+            yield return new WaitForSeconds(spawnDuration);
+            RandomItem();
+        }
+    }
     private void Init()
     {
         GotoState(SpawnState);
@@ -299,10 +310,12 @@ public class BallSystemVer2 : FSMSystem
         //float pointY = currentPosition.y + ballRadius * Mathf.Sin(theta);
         // transform.position = Mathf.Clamp(CameraMain.instance.GetLeft(), CameraMain.instance.GetRight());
         //transform.Translate(ballSpeed * Time.deltaTime * moveDir.normalized);
-        if (currentPosition.x <= rightCam  && currentPosition.x >= leftCam && currentPosition.y <=topCam && currentPosition.y >= botCam )
+        if (currentPosition.x <= rightCam  && currentPosition.x >= leftCam && currentPosition.y <=topCam && currentPosition.y >= botCam)
         {
             //Debug.Log("Point X:" + pointX);
             transform.Translate(ballSpeed * Time.deltaTime * moveDir.normalized);
+            //RandomItem();
+
         }
         else if (currentPosition.x > rightCam - ballRadius || currentPosition.x < leftCam + ballRadius)
         {
@@ -310,6 +323,7 @@ public class BallSystemVer2 : FSMSystem
             currentPosition.x = Mathf.Clamp(currentPosition.x, leftCam + 0.2f, rightCam - 0.2f) ;
             //Debug.Log("CLAMPED: " + currentPosition.x);
             transform.position = currentPosition;
+            //RandomItem();
 
         }
         else if(currentPosition.y > topCam -  ballRadius - 1 || currentPosition.y < botCam + ballRadius)
@@ -319,9 +333,10 @@ public class BallSystemVer2 : FSMSystem
             //Debug.Log("CLAMPED: " + currentPosition.x);
 
             transform.position = currentPosition;
+           
 
         }
-        RandomItem();
+        //RandomItem();
 
     }
     public void BallDeath()
@@ -578,17 +593,21 @@ public class BallSystemVer2 : FSMSystem
     public void RandomItem()
     {
         ItemPoolManager.instance.SpawnItem();
+        ItemPoolManager.instance.item.transform.DOMoveY(-50f, 50f);
 
         float randomValue = Random.Range(1f, 10f) ;
         int value = (int)(randomValue * 10);
         //Debug.Log("RANDOM OBJECT ...." + value);
 
-        if (value % 7 == 0)
+        if (value %7 == 0 )
         {
+            ItemPoolManager.instance.SpawnItem();
+
             Debug.Log("RANDOM OBJECT IN SEVEN" + value);
         }
     }
 }
+
 public static class BallEvent
 {
     public static UnityEvent onScaleUp = new UnityEvent();

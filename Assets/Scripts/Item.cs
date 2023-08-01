@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,10 +17,9 @@ public enum ItemType
 
 public class Item : MonoBehaviour
 {
-    [HideInInspector] private Paddle paddle;
     public ItemType type;
     SpriteRenderer spriteRenderer;
-    public Vector2 circleDistance;
+    public Vector3 circleDistance;
     public Vector3 targetScale = new Vector3(1.5f, 1.5f, 1.5f);
     public float cornerDistance_sq;
     public float scaleSpeed = 2f;
@@ -27,11 +27,10 @@ public class Item : MonoBehaviour
 
     private void Start()
     {
-        paddle = InGameController.Instance.GetComponent<Paddle>();
     }
     private void Update()
     {
-        if (intersects(this, paddle))
+        if (intersects(this, Paddle.instance))
         {
             switch (type)
             {
@@ -46,10 +45,10 @@ public class Item : MonoBehaviour
 
                     break;
                 case ItemType.LONG_BAR:
-                    paddle.isShortBar = true;
+                    Paddle.instance.isShortBar = true;
                     targetScale = new Vector3(1.5f, 1.5f, 1.5f);
-                    //paddle.transform.GetChild(0).GetComponent<Transform>().DOScaleX(0.7f, 0.7f);
-                    paddle.transform.localScale = Vector3.Lerp(paddle.transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
+                    Paddle.instance.transform.GetChild(0).GetComponent<Transform>().DOScaleX(0.7f, 0.7f);
+                    Paddle.instance.transform.localScale = Vector3.Lerp(Paddle.instance.transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
                     ItemPoolManager.instance.pool.DeSpawnNonGravity(this);
 
                     break;
@@ -64,23 +63,23 @@ public class Item : MonoBehaviour
 
                     break;
                 case ItemType.SPEED_UP:
-                    paddle.isSpeedUp = true;
-                    paddle.paddleSpeed = 15f;
+                    Paddle.instance.isSpeedUp = true;
+                    Paddle.instance.paddleSpeed = 15f;
                     
                     ItemPoolManager.instance.pool.DeSpawnNonGravity(this);
 
                     break;
                 case ItemType.SPEED_DOWN:
-                    paddle.isSpeedDown = true;
-                    paddle.paddleSpeed = 5f;
+                    Paddle.instance.isSpeedDown = true;
+                    Paddle.instance.paddleSpeed = 5f;
                     ItemPoolManager.instance.pool.DeSpawnNonGravity(this);
 
                     break;
                 case ItemType.SHORT_BAR:
-                    paddle.isShortBar = true;
+                    Paddle.instance.isShortBar = true;
                     targetScale = new Vector3(0.7f, 0.7f, 0.7f);
-                    //paddle.transform.GetChild(0).GetComponent<Transform>().DOScaleX(0.7f, 0.7f);
-                    paddle.transform.localScale = Vector3.Lerp(paddle.transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
+                    Paddle.instance.transform.GetChild(0).GetComponent<Transform>().DOScaleX(0.7f, 0.7f);
+                    Paddle.instance.transform.localScale = Vector3.Lerp(Paddle.instance.transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
                     ItemPoolManager.instance.pool.DeSpawnNonGravity(this);
                     break;
                 default:
@@ -97,7 +96,6 @@ public class Item : MonoBehaviour
     {
         if(spriteRenderer == null)
         {
-           
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
         spriteRenderer.sprite = sprite;
@@ -105,7 +103,8 @@ public class Item : MonoBehaviour
     }
     bool intersects(Item circle, Paddle rect)
     {
-        rect = paddle;
+        Debug.LogWarning("Start InterSects");
+        rect = Paddle.instance;
 
         circleDistance.x = Mathf.Abs(this.transform.position.x - rect.GetComponent<Transform>().position.x);
         circleDistance.y = Mathf.Abs(this.transform.position.y - rect.GetComponent<Transform>().position.y);
