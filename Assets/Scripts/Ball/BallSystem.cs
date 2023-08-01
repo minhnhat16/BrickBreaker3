@@ -18,27 +18,27 @@ public class BallSystem : FSMSystem
     [SerializeField] private Transform Forward;
     [SerializeField] private Transform Anchor;
 
-    public Vector2 forwardDirection { get => (Forward.position - Anchor.position).normalized; }
-    public Vector3 moveDirection;
-    public Vector3 direction1 = new Vector3(0, 4, 0);
-    public Vector2 tempDirection;
-    public Vector3 moveBall;
-    public Vector3 spawnPosition = new Vector3(0, -7, 0);
-    public float ballRadius;
-    public bool isLseft = false;
-    public bool isRight = false;
-    public bool isTop = false;
-    public bool onItemPowerUP = false; // in item powerup
-    public float tempDirectionX;
+    [HideInInspector] public Vector2 forwardDirection { get => (Forward.position - Anchor.position).normalized; }
+    [HideInInspector] public Vector3 moveDirection;
+    [HideInInspector] public Vector3 direction1 = new Vector3(0, 4, 0);
+    [HideInInspector] public Vector2 tempDirection;
+    [HideInInspector] public Vector3 moveBall;
+    [HideInInspector] public Vector3 spawnPosition = new Vector3(0, -7, 0);
+    [HideInInspector] public float ballRadius;
+    [HideInInspector] public bool isLseft = false;
+    [HideInInspector] public bool isRight = false;
+    [HideInInspector] public bool isTop = false;
+    [HideInInspector] public bool onItemPowerUP = false; // in item powerup
+    [HideInInspector] public float tempDirectionX;
     [HideInInspector] public float tempX = 0;
     [HideInInspector] public float tempY = 0;
-    public float ballSpeed = 10f;
-    public float maxAngle = 45f;
+    [HideInInspector] public float ballSpeed = 10f;
+    [HideInInspector] public float maxAngle = 45f;
     [HideInInspector] public float temp;
-    public float angleMoveSpeed = 0.2f;
+    [HideInInspector] public float angleMoveSpeed = 0.2f;
     [HideInInspector] public float angle;
-    public int maxLives;
-    public int currentLive;
+    [HideInInspector] public int maxLives;
+    [HideInInspector] public int currentLive;
     private void Awake()
     {
        

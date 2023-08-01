@@ -1,6 +1,10 @@
 using NaughtyAttributes.Test;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UIElements;
+using DG.Tweening;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class BallSystemVer2 : FSMSystem
 {
@@ -30,6 +34,9 @@ public class BallSystemVer2 : FSMSystem
     public bool isRight = false;
     public bool isTop = false;
     public bool onItemPowerUP = false;
+    public bool isScaleUp = false;
+    public bool isOnMagnet = false;
+    public bool isItemTypePower = false;
 
     public float ballRadius = 0.5f;
     public float tempDirX;
@@ -44,12 +51,21 @@ public class BallSystemVer2 : FSMSystem
     public float ballMess;
     public float ballForce;
     public float bounceFact = 0.2f;
+    private float timeDecrease1 = 0.1f, timeDecrease2 = 0.1f, timeDecrease3 = 0.1f;
+    [SerializeField] private float scaleUpDuration = 5f;
+    [SerializeField] private float magnetDuration = 5f;
+    [SerializeField] private float powerDuration = 5f;
     public int maxLives = 1;
     public int currentLive;
     public int hitAngleCount = 0;
 
+
     private void Awake()
     {
+        BallEvent.onScaleUp.AddListener(ScaleUp);
+        BallEvent.onMagnet.AddListener(Magnet);
+        BallEvent.onPower.AddListener(Power);
+        BallEvent.onReset.AddListener(ResetBall);
         SpawnState.Setup(this);
         MoveState.Setup(this);
         DeathState.Setup(this);
@@ -166,7 +182,101 @@ public class BallSystemVer2 : FSMSystem
     //    }
     //    return false;
     //}
+    public void CheckItemEvent()
+    {
+        if (isScaleUp)
+        {
+            scaleUpDuration -= Time.deltaTime;
+            if (scaleUpDuration <= 0)
+            {
+                this.gameObject.transform.GetChild(0).localScale = new Vector2(0.5f, 0.5f);
+                ballRadius = 0.15f;
+                //castRadius = 0.15f;
+                scaleUpDuration = 5f;
+                isScaleUp = false;
+            }
+        }
 
+        if (isOnMagnet)
+        {
+            magnetDuration -= Time.deltaTime;
+            if (magnetDuration <= 0)
+            {
+                this.transform.SetParent(null);
+                ballSpeed = 6f;
+                magnetDuration = 5f;
+                isOnMagnet = false;
+            }
+        }
+
+        if (isItemTypePower)
+        {
+            this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(41, 130, 252, 255);
+            powerDuration -= Time.deltaTime;
+            if (powerDuration <= 0)
+            {
+                this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+                powerDuration = 5f;
+                isItemTypePower = false;
+            }
+        }
+
+        if (isRight)
+        {
+            timeDecrease1 -= Time.deltaTime;
+            if (timeDecrease1 <= 0)
+            {
+                isRight = false;
+                timeDecrease1 = 0.1f;
+            }
+        }
+
+        if (isLeft)
+        {
+            timeDecrease2 -= Time.deltaTime;
+            if (timeDecrease2 <= 0)
+            {
+                isLeft = false;
+                timeDecrease2 = 0.1f;
+            }
+        }
+
+        if (isTop)
+        {
+            timeDecrease3 -= Time.deltaTime;
+            if (timeDecrease3 <= 0)
+            {
+                isTop = false;
+                timeDecrease3 = 0.1f;
+            }
+        }
+    }
+    Tween t;
+    private void ScaleUp()
+    {
+        isScaleUp = true;
+        if ( t == null)
+        {
+            t = this.gameObject.transform.GetChild(0).DOScale(new Vector2(1f, 1f), 0.5f);
+            ballRadius *= 1f;
+            //castRadius *= 1f;
+            t.SetAutoKill ( false );
+        }
+        else
+        {
+            t.Restart();
+            t.Play();
+        }
+    }
+    
+    private void Power()
+    {
+        isItemTypePower = true;
+    }
+    private void Magnet()
+    {
+        isOnMagnet = true;
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -226,7 +336,6 @@ public class BallSystemVer2 : FSMSystem
             GotoState(DeathState);
         }
     }
-   
     public void GetBallDirection()
     {
         float right = CameraMain.instance.GetRight();
@@ -479,4 +588,12 @@ public class BallSystemVer2 : FSMSystem
             Debug.Log("RANDOM OBJECT IN SEVEN" + value);
         }
     }
+}
+public static class BallEvent
+{
+    public static UnityEvent onScaleUp = new UnityEvent();
+    public static UnityEvent onMagnet = new UnityEvent();
+    public static UnityEvent onPower = new UnityEvent();
+    public static UnityEvent onReset = new UnityEvent();
+
 }

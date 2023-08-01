@@ -1,5 +1,8 @@
+using DG.Tweening;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Paddle : FSMSystem,InteractBall
 {
@@ -8,14 +11,30 @@ public class Paddle : FSMSystem,InteractBall
     [SerializeField] public Collision collision { get; set; }
     public BallSystemVer2 ballSystem;
     [SerializeField] private BoxCollider2D boxCollider2D;
+    public List<BallSystemVer2> trippleList = new List<BallSystemVer2>();
+    [SerializeField]
+    private BallSystemVer2 mainBall;
+
     public float paddleSpeed = 4f;
     public float paddleLenght;
     public float rightLimit;
     public float leftLimit;
     public float PaddleMoveLimit;
     public float tempX;
+    public float trippleDuration;
+    public float longBarDuration;
+    public float shortBarDuration;
+    public float speedUpBarDuration;
+    public float speedDownBarDuration;
     public Vector3 currenPaddlePosition;
     public Vector3 spawnPosition = new Vector3(0, -8, 0);
+    public bool isShortBar = false;
+    public bool isLongBar = false ;
+    public bool isSpeedDown = false ;
+    public bool isSpeedUp = false;
+    public bool isTrippleBall = false;
+
+
 
     private void Awake()
     {
@@ -68,4 +87,96 @@ public class Paddle : FSMSystem,InteractBall
         //Debug.Log("Ball reflect Paddle");
         ball.BallReflectPaddle();
     }
+ 
+    private void OnTripple()
+    {
+        isTrippleBall = true;
+
+        for (int i = 0; i < 2; i++)
+        {
+            BallSystemVer2 ball = BallPoolManager.instance.pool.SpawnNonGravity();
+            ball.ResetBall();
+            ball.transform.SetParent(null);
+            ball.transform.position = mainBall.transform.position;
+            ball.moveDir.x = Random.Range(-1, 2);
+            trippleList.Add(ball);
+        }
+    }
+
+    private void TrippleBall()
+    {
+        foreach (BallSystemVer2 ball in trippleList)
+        {
+            ball.ballSpeed = 6f;
+        }
+    }
+    public void CheckItemEvent()
+    {
+        if (isLongBar)
+        {
+            longBarDuration -= Time.deltaTime;
+            if (longBarDuration <= 0)
+            {
+                transform.GetChild(0).GetComponent<Transform>().DOScaleX(1f, 0.7f);
+                isLongBar = false;
+                longBarDuration = 5f;
+            }
+        }
+
+        if (isShortBar)
+        {
+            shortBarDuration -= Time.deltaTime;
+            if (shortBarDuration <= 0)
+            {
+                transform.GetChild(0).GetComponent<Transform>().DOScaleX(1f, 0.7f);
+                isShortBar = false;
+                shortBarDuration = 5f;
+            }
+        }
+
+        if (isSpeedUp)
+        {
+            speedUpBarDuration -= Time.deltaTime;
+            if (speedUpBarDuration <= 0)
+            {
+                paddleSpeed = 10f;
+                isSpeedUp = false;
+                speedUpBarDuration = 5f;
+            }
+        }
+
+        if (isSpeedDown)
+        {
+            speedDownBarDuration -= Time.deltaTime;
+            if (speedDownBarDuration <= 0)
+            {
+                paddleSpeed = 10f;
+                isSpeedDown = false;
+                speedDownBarDuration = 5f;
+            }
+        }
+
+        if (isTrippleBall)
+        {
+            TrippleBall();
+            trippleDuration -= Time.deltaTime;
+            if (trippleDuration <= 0)
+            {
+                trippleDuration = 5f;
+                isTrippleBall = false;
+            }
+        }
+    }
+    public void RemoveClone(BallSystemVer2 ball)
+    {
+        if (trippleList.Contains(ball))
+        {
+            trippleList.Remove(ball);
+        }
+    }
+
+}
+public static class PaddleEvent
+{
+    public static UnityEvent onTripple = new UnityEvent();
 }
