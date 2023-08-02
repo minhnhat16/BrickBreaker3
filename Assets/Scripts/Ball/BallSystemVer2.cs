@@ -55,7 +55,7 @@ public class BallSystemVer2 : FSMSystem
     public float ballForce;
     public float bounceFact = 0.2f;
     private float timeDecrease1 = 0.1f, timeDecrease2 = 0.1f, timeDecrease3 = 0.1f;
-    private float minDuration = 5f, maxDuration = 15f;
+    private float minDuration = 1f, maxDuration = 5f;
     [SerializeField] private float scaleUpDuration = 7f;
     [SerializeField] private float magnetDuration = 7f;
     [SerializeField] private float powerDuration = 7f;
@@ -81,9 +81,15 @@ public class BallSystemVer2 : FSMSystem
     void Start()
     {
         Init();
+        StartRandomItem();
+
+    }
+    public void StartRandomItem()
+    {
+        Debug.Log("Start Random Item");
         StartCoroutine(RandomSpawnItem());
     }
-    public IEnumerator RandomSpawnItem() 
+    private IEnumerator RandomSpawnItem() 
     {
         while (true)
         {
@@ -356,12 +362,12 @@ public class BallSystemVer2 : FSMSystem
     {
         if ( transform.position.y < CameraMain.instance.GetBottom())
         {
-            //ResetBall();
-            DecreaseLive();
-            InGameController.Instance.isBallDeath = true;
-            InGameController.Instance.isGameOver = false;
-            transform.position = paddle.spawnPosition + Vector3.up;
-            GotoState(DeathState);
+            ResetBall();
+            //DecreaseLive();
+            //InGameController.Instance.isBallDeath = true;
+            //InGameController.Instance.isGameOver = false;
+            //transform.position = paddle.spawnPosition + Vector3.up;
+            //GotoState(DeathState);
         }
     }
     public void GetBallDirection()

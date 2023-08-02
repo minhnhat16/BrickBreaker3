@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BallPoolManager : MonoBehaviour
@@ -10,6 +11,24 @@ public class BallPoolManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        pool = new BY_Local_Pool<BallSystemVer2>(prefab, 20, this.transform);
+        pool = new BY_Local_Pool<BallSystemVer2>(prefab, 50, this.transform);
+    }
+    public void ResetBallPool()
+    {
+        int i = 0;
+        while ( i < pool.list.Count)
+        {
+            pool.list[i].ResetBall();
+            pool.DeSpawnNonGravity(pool.list[i]);
+        }
+        //pool.DeSpawnAll();
+    }
+    public void ResetAllPoolPostion()
+    {
+        int i = 0;
+        while ( i < pool.list.Count)
+        {
+            pool.list[i].ResetBall();
+        }
     }
 }

@@ -11,7 +11,7 @@ public class Paddle : FSMSystem,InteractBall
     [SerializeField] public Collision collision { get; set; }
     public BallSystemVer2 ballSystem;
     [SerializeField] private BoxCollider2D boxCollider2D;
-    public List<BallSystemVer2> trippleList = new List<BallSystemVer2>();
+    //public List<BallSystemVer2> trippleList = new List<BallSystemVer2>();
     [SerializeField]
     private BallSystemVer2 mainBall;
 
@@ -63,6 +63,8 @@ public class Paddle : FSMSystem,InteractBall
     private void Init()
     {
         GotoState(MoveState);
+        mainBall = InGameController.Instance.main;
+        transform.localScale = new Vector3(1.5f, 1f, 1f);
     }
 
     public void ResetPaddle()
@@ -93,26 +95,27 @@ public class Paddle : FSMSystem,InteractBall
  
     private void OnTripple()
     {
+        Debug.Log("On Tripple");
         isTrippleBall = true;
 
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 1; i++)
         {
             BallSystemVer2 ball = BallPoolManager.instance.pool.SpawnNonGravity();
             ball.ResetBall();
-            ball.transform.SetParent(null);
+            ball.transform.SetParent(BallPoolManager.instance.transform);
             ball.transform.position = mainBall.transform.position;
             ball.moveDir.x = Random.Range(-1, 2);
-            trippleList.Add(ball);
+            //trippleList.Add(ball);
         }
     }
 
-    private void TrippleBall()
-    {
-        foreach (BallSystemVer2 ball in trippleList)
-        {
-            ball.ballSpeed = 6f;
-        }
-    }
+    //private void TrippleBall()
+    //{
+    //    foreach (BallPoolManager.instance.pool.list in list)
+    //    {
+    //        ball.ballSpeed = 6f;
+    //    }
+    //}
     public void CheckItemEvent()
     {
         if (isLongBar)
@@ -120,7 +123,7 @@ public class Paddle : FSMSystem,InteractBall
             longBarDuration -= Time.deltaTime;
             if (longBarDuration <= 0)
             {
-                transform.GetChild(0).GetComponent<Transform>().DOScaleX(1f, 0.7f);
+                transform.GetChild(0).GetComponent<Transform>().DOScaleX(1.5f, 1f);
                 isLongBar = false;
                 longBarDuration = 5f;
             }
@@ -131,7 +134,7 @@ public class Paddle : FSMSystem,InteractBall
             shortBarDuration -= Time.deltaTime;
             if (shortBarDuration <= 0)
             {
-                transform.GetChild(0).GetComponent<Transform>().DOScaleX(1f, 0.7f);
+                transform.GetChild(0).GetComponent<Transform>().DOScaleX(1.5f, 1f);
                 isShortBar = false;
                 shortBarDuration = 5f;
             }
@@ -161,7 +164,7 @@ public class Paddle : FSMSystem,InteractBall
 
         if (isTrippleBall)
         {
-            TrippleBall();
+            //TrippleBall();
             trippleDuration -= Time.deltaTime;
             if (trippleDuration <= 0)
             {
@@ -172,9 +175,9 @@ public class Paddle : FSMSystem,InteractBall
     }
     public void RemoveClone(BallSystemVer2 ball)
     {
-        if (trippleList.Contains(ball))
+        if (BallPoolManager.instance.pool.list.Contains(ball))
         {
-            trippleList.Remove(ball);
+            BallPoolManager.instance.pool.DeSpawnNonGravity(ball);
         }
     }
 

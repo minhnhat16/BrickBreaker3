@@ -1,4 +1,5 @@
 using NaughtyAttributes.Test;
+using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -129,12 +130,20 @@ public class InGameController : MonoBehaviour
         GameObject gameObject1 = main.gameObject;
         prefabBallInstance = gameObject1;
         prefabBallInstance.GetComponent<BallSystemVer2>().paddle =
-        prefabPaddleInstance.GetComponent<Paddle>();
+            prefabPaddleInstance.GetComponent<Paddle>();
+        for(int i = 0; i < BallPoolManager.instance.pool.total; i++)
+        {
+            BallPoolManager.instance.pool.list[i].paddle = 
+            prefabPaddleInstance.GetComponent<Paddle>();
+           
+        }
+        ResetBallPosition();
+        
     }
     public void DeSpawnBall()
     {
+        BallPoolManager.instance.pool.DeSpawnAll();
         prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall();
-        //BallPoolManager.instance.pool.DeSpawnAll();
     }
     public void DeSpawnPaddle()
     {
@@ -168,7 +177,6 @@ public class InGameController : MonoBehaviour
     {
         DeSpawnBall();
         DeSpawnPaddle();
-
         BrickPoolManager.instance.pool.DeSpawnAll();
     }
     public void ReloadGameObject()
@@ -179,5 +187,16 @@ public class InGameController : MonoBehaviour
         prefabPaddleInstance.SetActive(true);
         prefabPaddleInstance.GetComponent<Paddle>().ResetPaddle();
 
+        ResetBallPosition();
+       // BallPoolManager.instance.ResetAllPoolPostion();
+        ItemPoolManager.instance.pool.DeSpawnAll();
+       
+    }
+    public void ResetBallPosition()
+    {
+        for (int i = 0; i < BallPoolManager.instance.pool.total; i++)
+        {
+            BallPoolManager.instance.pool.list[i].ResetBall();
+        }
     }
 }
