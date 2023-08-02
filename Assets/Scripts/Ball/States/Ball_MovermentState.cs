@@ -24,7 +24,7 @@ public class Ball_MovermentState : FSMState<BallSystemVer2>
         sys.CheckItemEvent();
         sys.BallMoverment();
         sys.BallDeath();
-        
+        //sys.StartCoroutine(sys.RandomSpawnItem());
         InGameController.Instance.LevelComplete();
         InGameController.Instance.GameOver();
 

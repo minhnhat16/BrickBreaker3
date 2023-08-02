@@ -40,6 +40,8 @@ public class BallSystemVer2 : FSMSystem
     public bool isItemTypePower = false;
 
     public float ballRadius = 0.5f;
+    public float castRadius = 0.5f;
+
     public float tempDirX;
     public float tempX = 0;
     public float tempY = 0;
@@ -53,10 +55,10 @@ public class BallSystemVer2 : FSMSystem
     public float ballForce;
     public float bounceFact = 0.2f;
     private float timeDecrease1 = 0.1f, timeDecrease2 = 0.1f, timeDecrease3 = 0.1f;
-    private float minDuration = 3f, maxDuration = 10f;
-    [SerializeField] private float scaleUpDuration = 5f;
-    [SerializeField] private float magnetDuration = 5f;
-    [SerializeField] private float powerDuration = 5f;
+    private float minDuration = 5f, maxDuration = 15f;
+    [SerializeField] private float scaleUpDuration = 7f;
+    [SerializeField] private float magnetDuration = 7f;
+    [SerializeField] private float powerDuration = 7f;
     public int maxLives = 1;
     public int currentLive;
     public int hitAngleCount = 0;
@@ -81,13 +83,16 @@ public class BallSystemVer2 : FSMSystem
         Init();
         StartCoroutine(RandomSpawnItem());
     }
-    private IEnumerator RandomSpawnItem() 
+    public IEnumerator RandomSpawnItem() 
     {
         while (true)
         {
-            float spawnDuration = Random.Range(minDuration, maxDuration);
-            yield return new WaitForSeconds(spawnDuration);
-            RandomItem();
+           // if (currentState == MoveState)
+           // {
+                float spawnDuration = Random.Range(minDuration, maxDuration);
+                yield return new WaitForSeconds(spawnDuration);
+                RandomItem();
+            //}
         }
     }
     private void Init()
@@ -197,12 +202,14 @@ public class BallSystemVer2 : FSMSystem
     {
         if (isScaleUp)
         {
+            Debug.Log("On ScaleUp");
+
             scaleUpDuration -= Time.deltaTime;
             if (scaleUpDuration <= 0)
             {
                 this.gameObject.transform.GetChild(0).localScale = new Vector2(0.5f, 0.5f);
                 ballRadius = 0.15f;
-                //castRadius = 0.15f;
+                castRadius = 0.15f;
                 scaleUpDuration = 5f;
                 isScaleUp = false;
             }
@@ -213,6 +220,7 @@ public class BallSystemVer2 : FSMSystem
             magnetDuration -= Time.deltaTime;
             if (magnetDuration <= 0)
             {
+                Debug.Log("On Magnet");
                 this.transform.SetParent(null);
                 ballSpeed = 6f;
                 magnetDuration = 5f;
@@ -222,6 +230,8 @@ public class BallSystemVer2 : FSMSystem
 
         if (isItemTypePower)
         {
+            Debug.Log("On ItemPower");
+
             this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(41, 130, 252, 255);
             powerDuration -= Time.deltaTime;
             if (powerDuration <= 0)
@@ -268,9 +278,11 @@ public class BallSystemVer2 : FSMSystem
         isScaleUp = true;
         if ( t == null)
         {
-            t = this.gameObject.transform.GetChild(0).DOScale(new Vector2(1f, 1f), 0.5f);
-            ballRadius *= 1f;
-            //castRadius *= 1f;
+            Debug.Log("On ScaleUp");
+
+            t = this.gameObject.transform.GetChild(0).DOScale(new Vector2(1.5f, 1.5f), 0.5f);
+            ballRadius *= 1.5f;
+            castRadius *= 1.5f;
             t.SetAutoKill ( false );
         }
         else
@@ -287,6 +299,7 @@ public class BallSystemVer2 : FSMSystem
     private void Magnet()
     {
         isOnMagnet = true;
+
     }
     private void OnDrawGizmos()
     {
@@ -568,6 +581,10 @@ public class BallSystemVer2 : FSMSystem
         SetMaxLive();
         GotoState(SpawnState);
     }
+    public void SetDefaultScale()
+    {
+
+    }
     public void CheckBallLive()
     {
         if (currentLive <= 0)
@@ -592,6 +609,7 @@ public class BallSystemVer2 : FSMSystem
     }
     public void RandomItem()
     {
+        //ItemPoolManager.instance.SpawnItem();
         ItemPoolManager.instance.SpawnItem();
         ItemPoolManager.instance.item.transform.DOMoveY(-50f, 50f);
 
@@ -601,7 +619,7 @@ public class BallSystemVer2 : FSMSystem
 
         if (value %7 == 0 )
         {
-            ItemPoolManager.instance.SpawnItem();
+            
 
             Debug.Log("RANDOM OBJECT IN SEVEN" + value);
         }

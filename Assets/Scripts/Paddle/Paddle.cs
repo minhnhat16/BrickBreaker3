@@ -39,6 +39,7 @@ public class Paddle : FSMSystem,InteractBall
 
     private void Awake()
     {
+        PaddleEvent.onTripple.AddListener(OnTripple);
         instance = this;
         MoveState.Setup(this);
     }

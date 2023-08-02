@@ -45,7 +45,7 @@ public class Item : MonoBehaviour
 
                     break;
                 case ItemType.LONG_BAR:
-                    Paddle.instance.isShortBar = true;
+                    Paddle.instance.isLongBar = true;
                     targetScale = new Vector3(1.5f, 1.5f, 1.5f);
                     Paddle.instance.transform.GetChild(0).GetComponent<Transform>().DOScaleX(0.7f, 0.7f);
                     Paddle.instance.transform.localScale = Vector3.Lerp(Paddle.instance.transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
@@ -103,12 +103,13 @@ public class Item : MonoBehaviour
     }
     bool intersects(Item circle, Paddle rect)
     {
-        Debug.LogWarning("Start InterSects");
+        //Debug.LogWarning("Start InterSects");
+        //Debug.LogWarning("Position item:" + transform.position);
         rect = Paddle.instance;
 
         circleDistance.x = Mathf.Abs(this.transform.position.x - rect.GetComponent<Transform>().position.x);
         circleDistance.y = Mathf.Abs(this.transform.position.y - rect.GetComponent<Transform>().position.y);
-
+        //Debug.Log(" Circledistance x " + circleDistance.x + "Circledistance y " +    circleDistance.y);
         if (circleDistance.x > (rect.GetComponent<BoxCollider2D>().size.x / 2 + this.GetComponent<CircleCollider2D>().radius)) { return false; }
         if (circleDistance.y > (rect.GetComponent<BoxCollider2D>().size.y / 2 + this.GetComponent<CircleCollider2D>().radius)) { return false; }
 
