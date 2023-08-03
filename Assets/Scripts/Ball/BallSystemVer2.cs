@@ -236,7 +236,7 @@ public class BallSystemVer2 : FSMSystem
 
         if (isItemTypePower)
         {
-            Debug.Log("On ItemPower");
+            //Debug.Log("On ItemPower");
 
             this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(41, 130, 252, 255);
             powerDuration -= Time.deltaTime;

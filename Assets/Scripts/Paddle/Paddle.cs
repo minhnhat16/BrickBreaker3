@@ -11,7 +11,7 @@ public class Paddle : FSMSystem,InteractBall
     [SerializeField] public Collision collision { get; set; }
     public BallSystemVer2 ballSystem;
     [SerializeField] private BoxCollider2D boxCollider2D;
-    //public List<BallSystemVer2> trippleList = new List<BallSystemVer2>();
+    public List<BallSystemVer2> trippleList = new List<BallSystemVer2>();
     [SerializeField]
     private BallSystemVer2 mainBall;
 
@@ -97,16 +97,25 @@ public class Paddle : FSMSystem,InteractBall
     {
         Debug.Log("On Tripple");
         isTrippleBall = true;
-
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 2; i++)
         {
-            BallSystemVer2 ball = BallPoolManager.instance.pool.SpawnNonGravity();
-            ball.ResetBall();
-            ball.transform.SetParent(BallPoolManager.instance.transform);
-            ball.transform.position = mainBall.transform.position;
-            ball.moveDir.x = Random.Range(-1, 2);
-            //trippleList.Add(ball);
+            InGameController.Instance.LoadNextBall();
         }
+        
+        
+        //for (int i = 0; i < 1; i++)
+        //{
+        //    BallPoolManager.instance.pool.SpawnNonGravity();
+        //    //BallPoolManager.instance.pool.SpawnNonGravity();
+        //    Debug.Log("Ball in Tripple" + trippleList[i]);
+        //    //trippleList[i].transform.position = InGameController.Instance.main.transform.position;
+        //    //ball.transform.SetParent(BallPoolManager.instance.transform);
+        //    //ball.transform.position = mainBall.transform.position;
+        //    //float x = Random.Range(-1f, 1f);
+        //    //trippleList[i].moveDir = new Vector3(x, 1f);
+        //    //ball.moveDir.x = Random.Range(-1, 2);
+        //    //trippleList.Add(ball);
+        //}
     }
 
     //private void TrippleBall()

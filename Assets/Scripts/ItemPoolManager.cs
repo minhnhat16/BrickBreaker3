@@ -25,12 +25,12 @@ public class ItemPoolManager : MonoBehaviour
         float random = Random.Range(0f, 1f);
         float x = Random.Range(CameraMain.instance.GetLeft() + 2, CameraMain.instance.GetRight() - 2);
         int i;
-        Debug.Log("itemType " + itemType);
+        //Debug.Log("itemType " + itemType);
 
         for (i = 0; i < itemConfig[itemType].itemData.Length; i++)
         {
             random -= itemConfig[itemType].itemData[i].rate;
-            Debug.LogWarning("random" + random);
+            //Debug.LogWarning("random" + random);
 
             if (random - itemConfig[itemType].itemData[i].rate <= 0)
             {

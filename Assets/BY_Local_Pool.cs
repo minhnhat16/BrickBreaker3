@@ -36,6 +36,16 @@ public class BY_Local_Pool<T> where T : MonoBehaviour
         return trans;
 
     }
+    public T SpawnNonGravityWithIndex(int index)
+    {
+        // Debug.Log("spawn brick");
+        this.index++;
+        if (index >= list.Count) index = 0;
+        T trans = list[index];
+        trans.gameObject.SetActive(true);
+        return trans;
+
+    }
     public T SpawnGravity()
     {
         index++;

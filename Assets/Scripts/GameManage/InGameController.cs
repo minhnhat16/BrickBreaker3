@@ -16,6 +16,7 @@ public class InGameController : MonoBehaviour
     public bool isGameOver;
     public bool isLevelComplete;
 
+    public List<BallSystemVer2> pool;
     public ConfigFileManager configFile;
     public GameObject ballPref;
     public GameObject paddlePref;
@@ -27,8 +28,7 @@ public class InGameController : MonoBehaviour
     public static GameObject prefabPaddleInstance;
     public static GameObject prefabBallInstance;
     public Vector3 position;
-    
-
+    private int listIndex = 1;
 
     // Start is called before the first frame update
     private void Awake()
@@ -38,7 +38,7 @@ public class InGameController : MonoBehaviour
     }
     void Start()
     {
-       
+        pool = BallPoolManager.instance.pool.list;
     }
 
     void Update()
@@ -131,14 +131,33 @@ public class InGameController : MonoBehaviour
         prefabBallInstance = gameObject1;
         prefabBallInstance.GetComponent<BallSystemVer2>().paddle =
             prefabPaddleInstance.GetComponent<Paddle>();
-        for(int i = 0; i < BallPoolManager.instance.pool.total; i++)
+        SettingPaddleComp();
+        ResetBallPosition();   
+    }
+    public void SettingPaddleComp()
+    {
+        for (int i = 0; i < BallPoolManager.instance.pool.total; i++)
         {
-            BallPoolManager.instance.pool.list[i].paddle = 
+            BallPoolManager.instance.pool.list[i].paddle =
             prefabPaddleInstance.GetComponent<Paddle>();
-           
+
         }
-        ResetBallPosition();
+    }
+    public void LoadNextBall()
+    {
         
+        if (listIndex == 0) listIndex = 1;
+        if( listIndex >= pool.Count ) { listIndex = 1; }
+        BallPoolManager.instance.pool.SpawnNonGravityWithIndex(listIndex);
+        int temp = listIndex - 1;
+        BallPoolManager.instance.pool.list[listIndex].GetComponentInChildren<BallSystemVer2>().transform.position =
+            BallPoolManager.instance.pool.list[0].GetComponentInChildren<BallSystemVer2>().transform.position;
+        BallPoolManager.instance.pool.list[listIndex].GetComponentInChildren<BallSystemVer2>().moveDir =
+            new Vector3((Random.Range(-1, 1)), 1);
+        //Debug.LogError("main postion: " + main.transform.position);
+        Debug.LogError(BallPoolManager.instance.pool.list[listIndex].GetComponentInChildren<BallSystemVer2>().transform.position);
+        Debug.Log("list index + " + listIndex);
+        listIndex++;
     }
     public void DeSpawnBall()
     {
@@ -181,6 +200,7 @@ public class InGameController : MonoBehaviour
     }
     public void ReloadGameObject()
     {
+        listIndex = 0;
         prefabBallInstance.SetActive(true);
         prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall ();
 
@@ -198,5 +218,9 @@ public class InGameController : MonoBehaviour
         {
             BallPoolManager.instance.pool.list[i].ResetBall();
         }
+    }
+    public Vector3 MainBallPosition()
+    {
+        return main.transform.position;
     }
 }
