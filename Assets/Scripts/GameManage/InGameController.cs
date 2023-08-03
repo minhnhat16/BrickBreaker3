@@ -1,5 +1,7 @@
+using DG.Tweening;
 using NaughtyAttributes.Test;
 using Newtonsoft.Json.Bson;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +19,9 @@ public class InGameController : MonoBehaviour
     public bool isLevelComplete;
 
     public List<BallSystemVer2> pool;
+    public List<BallSystemVer2> ballActiveList;
+
+
     public ConfigFileManager configFile;
     public GameObject ballPref;
     public GameObject paddlePref;
@@ -29,6 +34,7 @@ public class InGameController : MonoBehaviour
     public static GameObject prefabBallInstance;
     public Vector3 position;
     private int listIndex = 1;
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -43,6 +49,8 @@ public class InGameController : MonoBehaviour
 
     void Update()
     {
+      
+       
     }
     public void GameOver()  
     {
@@ -132,7 +140,8 @@ public class InGameController : MonoBehaviour
         prefabBallInstance.GetComponent<BallSystemVer2>().paddle =
             prefabPaddleInstance.GetComponent<Paddle>();
         SettingPaddleComp();
-        ResetBallPosition();   
+        ResetBallPosition();
+        ballActiveList.Add(main);
     }
     public void SettingPaddleComp()
     {
@@ -143,21 +152,47 @@ public class InGameController : MonoBehaviour
 
         }
     }
-    public void LoadNextBall()
-    {
+    //public void LoadNextBall()
+    //{
         
-        if (listIndex == 0) listIndex = 1;
-        if( listIndex >= pool.Count ) { listIndex = 1; }
-        BallPoolManager.instance.pool.SpawnNonGravityWithIndex(listIndex);
-        int temp = listIndex - 1;
-        BallPoolManager.instance.pool.list[listIndex].GetComponentInChildren<BallSystemVer2>().transform.position =
-            BallPoolManager.instance.pool.list[0].GetComponentInChildren<BallSystemVer2>().transform.position;
-        BallPoolManager.instance.pool.list[listIndex].GetComponentInChildren<BallSystemVer2>().moveDir =
-            new Vector3((Random.Range(-1, 1)), 1);
-        //Debug.LogError("main postion: " + main.transform.position);
-        Debug.LogError(BallPoolManager.instance.pool.list[listIndex].GetComponentInChildren<BallSystemVer2>().transform.position);
-        Debug.Log("list index + " + listIndex);
-        listIndex++;
+    //    if (listIndex == 0) listIndex = 1;
+    //    if( listIndex >= pool.Count ) { listIndex = 1; }
+    //    BallPoolManager.instance.pool.SpawnNonGravityWithIndex(listIndex);
+    //    int temp = listIndex - 1;
+    //    BallPoolManager.instance.pool.list[listIndex].GetComponentInChildren<BallSystemVer2>().transform.position =
+    //        BallPoolManager.instance.pool.list[0].GetComponentInChildren<BallSystemVer2>().transform.position;
+    //    BallPoolManager.instance.pool.list[listIndex].GetComponentInChildren<BallSystemVer2>().moveDir =
+    //        new Vector3((UnityEngine.Random.Range(-1, 1)), 1);
+    //    //Debug.LogError("main postion: " + main.transform.position);
+    //    Debug.LogError(BallPoolManager.instance.pool.list[listIndex].GetComponentInChildren<BallSystemVer2>().transform.position);  
+    //    Debug.Log("list index + " + listIndex);
+    //    listIndex++;
+    //}
+    public void AddBallActive()
+    {
+        for(int i = 0; i < pool.Count; i++)
+        {
+            //Debug.Log("FOREACH " +  +" IN " +);
+            int j = ballActiveList.Count + 1;
+            if (pool[i].gameObject.activeSelf == true)
+            {
+                //Debug.Log("CHECK ACTIVE LIST");
+                BallSystemVer2 b = pool[i];
+                ballActiveList.Add(b);
+                Debug.Log(ballActiveList.Count);
+                //Debug.Log("ball activelist " + ballActiveList[j]);
+            }
+            else break;
+        }
+    }
+    public void LoadBallInTrippleList()
+    {
+        AddBallActive();
+        for (int i = 0; i < ballActiveList.Count; i++) 
+        { 
+            Debug.Log("MULTIPLY BALL" + i );
+            ballActiveList[i].BallMultiply();
+        }
     }
     public void DeSpawnBall()
     {
@@ -223,4 +258,5 @@ public class InGameController : MonoBehaviour
     {
         return main.transform.position;
     }
+   
 }

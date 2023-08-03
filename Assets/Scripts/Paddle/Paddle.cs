@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class Paddle : FSMSystem,InteractBall
     public float shortBarDuration;
     public float speedUpBarDuration;
     public float speedDownBarDuration;
+    private float minDuration = 1f, maxDuration = 5f;
     public Vector3 currenPaddlePosition;
     public Vector3 spawnPosition = new Vector3(0, -8, 0);
     public bool isShortBar = false;
@@ -34,6 +36,7 @@ public class Paddle : FSMSystem,InteractBall
     public bool isSpeedDown = false ;
     public bool isSpeedUp = false;
     public bool isTrippleBall = false;
+
 
 
 
@@ -50,8 +53,9 @@ public class Paddle : FSMSystem,InteractBall
         //    cameraMain = GetComponent<CameraMain>();    
         //}
         Init();
-    }
+        StartCoroutine(RandomSpawnItem());
 
+    }
     //public void SetUpCamera()
     //{
     //    if (cameraMain == null)
@@ -97,11 +101,11 @@ public class Paddle : FSMSystem,InteractBall
     {
         Debug.Log("On Tripple");
         isTrippleBall = true;
-        for (int i = 0; i < 2; i++)
-        {
-            InGameController.Instance.LoadNextBall();
-        }
-        
+        //for (int i = 0; i < 2; i++)
+        //{
+        //    InGameController.Instance.LoadNextBall();
+        //}
+        InGameController.Instance.LoadBallInTrippleList();
         
         //for (int i = 0; i < 1; i++)
         //{
@@ -188,6 +192,29 @@ public class Paddle : FSMSystem,InteractBall
         {
             BallPoolManager.instance.pool.DeSpawnNonGravity(ball);
         }
+    }
+    [HideInInspector]
+    public IEnumerator RandomSpawnItem()
+    {
+        while (true)
+        {
+            // if (currentState == MoveState)
+            // {
+            float spawnDuration = UnityEngine.Random.Range(minDuration, maxDuration);
+            yield return new WaitForSeconds(spawnDuration);
+            RandomItem();
+            //}     
+        }
+    }
+    public void RandomItem()
+    {
+        //ItemPoolManager.instance.SpawnItem();
+        ItemPoolManager.instance.SpawnItem();
+        ItemPoolManager.instance.item.transform.DOMoveY(-10f, 10f);
+
+        float randomValue = UnityEngine.Random.Range(1f, 10f);
+        int value = (int)(randomValue * 10);
+        //Debug.Log("RANDOM OBJECT ...." + value);
     }
 
 }

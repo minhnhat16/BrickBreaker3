@@ -6,6 +6,9 @@ using UnityEngine.UIElements;
 using DG.Tweening;
 using UnityEngine.Experimental.GlobalIllumination;
 using System.Collections;
+using System.Collections.Generic;
+using System;
+using UnityEditor;
 
 public class BallSystemVer2 : FSMSystem
 {
@@ -62,7 +65,7 @@ public class BallSystemVer2 : FSMSystem
     public int maxLives = 1;
     public int currentLive;
     public int hitAngleCount = 0;
-
+    public List<BallSystemVer2>  triplelist;
 
     private void Awake()
     {
@@ -81,13 +84,14 @@ public class BallSystemVer2 : FSMSystem
     void Start()
     {
         Init();
-        StartRandomItem();
+        //StartRandomItem();
 
     }
     public void StartRandomItem()
     {
         Debug.Log("Start Random Item");
-        StartCoroutine(RandomSpawnItem());
+        //StartCoroutine(RandomSpawnItem());
+       ;
     }
     private IEnumerator RandomSpawnItem() 
     {
@@ -95,10 +99,10 @@ public class BallSystemVer2 : FSMSystem
         {
            // if (currentState == MoveState)
            // {
-                float spawnDuration = Random.Range(minDuration, maxDuration);
+                float spawnDuration = UnityEngine.Random.Range(minDuration, maxDuration);
                 yield return new WaitForSeconds(spawnDuration);
-                RandomItem();
-            //}
+                //RandomItem();
+            //}     
         }
     }
     private void Init()
@@ -418,8 +422,8 @@ public class BallSystemVer2 : FSMSystem
     }
     public Vector3 RandomVector(float minX, float maxX, float minY, float maxY)
     {
-        float randomX = Random.Range(minX, maxX);
-        float randomY = Random.Range(minY, maxY);
+        float randomX = UnityEngine.Random.Range(minX, maxX);
+        float randomY = UnityEngine.Random.Range(minY, maxY);
 
         return new Vector3(randomX, randomY);
     }
@@ -613,22 +617,17 @@ public class BallSystemVer2 : FSMSystem
     {
         currentLive--;
     }
-    public void RandomItem()
+    
+    public void BallMultiply()
     {
-        //ItemPoolManager.instance.SpawnItem();
-        ItemPoolManager.instance.SpawnItem();
-        ItemPoolManager.instance.item.transform.DOMoveY(-50f, 50f);
-
-        float randomValue = Random.Range(1f, 10f) ;
-        int value = (int)(randomValue * 10);
-        //Debug.Log("RANDOM OBJECT ...." + value);
-
-        if (value %7 == 0 )
+        for (int i = 1; i < 3;i ++)
         {
-            
-
-            Debug.Log("RANDOM OBJECT IN SEVEN" + value);
-        }
+            BallSystemVer2 ball = BallPoolManager.instance.pool.SpawnNonGravity();
+            ball.transform.position = this.transform.position;
+            ball.moveDir = new Vector3(UnityEngine.Random.Range(-1, 1), 1);
+            ball.moveDir.Normalize();
+        }  
+        
     }
 }
 
