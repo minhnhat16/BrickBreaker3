@@ -1,14 +1,4 @@
-using DG.Tweening;
-using NaughtyAttributes.Test;
-using Newtonsoft.Json.Bson;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
-using UnityEditor.Build;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class InGameController : MonoBehaviour
@@ -49,10 +39,10 @@ public class InGameController : MonoBehaviour
 
     void Update()
     {
-      
-       
+
+
     }
-    public void GameOver()  
+    public void GameOver()
     {
 
         if (isGameOver)
@@ -60,11 +50,11 @@ public class InGameController : MonoBehaviour
             DialogManager.Instance.ShowDialog(DialogIndex.LoseDialog);
         }
     }
-   
+
     public void LoadGameObject()
     {
         bool check = CheckGameObjectNull();
-        if(check)
+        if (check)
         {
             //Debug.Log(" load");
             LoadPaddle();
@@ -76,11 +66,11 @@ public class InGameController : MonoBehaviour
             //Debug.Log("reload ");
             ReloadGameObject();
         }
-       
+
     }
     public bool CheckGameObjectNull()
     {
-        if (prefabPaddleInstance == null || prefabBallInstance == null)  return true; 
+        if (prefabPaddleInstance == null || prefabBallInstance == null) return true;
         else return false;
     }
     public void SetUpCamera()
@@ -97,10 +87,10 @@ public class InGameController : MonoBehaviour
             CameraMain.instance.GetCameraAspect();
         }
     }
-  
+
     public bool CheckCompleteScore()
     {
-        if(GameManager.Instance.currentScore ==  LoadLevel.instance.completeScore)
+        if (GameManager.Instance.currentScore == LoadLevel.instance.completeScore)
         {
             isLevelComplete = true;
             return true;
@@ -119,10 +109,10 @@ public class InGameController : MonoBehaviour
     }
     public void LoadPaddle()
     {
-        prefabPaddleInstance = Instantiate(paddlePref,transform.parent);
+        prefabPaddleInstance = Instantiate(paddlePref, transform.parent);
         prefabPaddleInstance.SetActive(true);
     }
-        
+
     public void LoadBall()
     {
         GameObject gameObject1 = Instantiate(ballPref, transform.parent);
@@ -154,7 +144,7 @@ public class InGameController : MonoBehaviour
     }
     //public void LoadNextBall()
     //{
-        
+
     //    if (listIndex == 0) listIndex = 1;
     //    if( listIndex >= pool.Count ) { listIndex = 1; }
     //    BallPoolManager.instance.pool.SpawnNonGravityWithIndex(listIndex);
@@ -170,10 +160,10 @@ public class InGameController : MonoBehaviour
     //}
     public void AddBallActive()
     {
-        for(int i = 0; i < pool.Count; i++)
+        for (int i = 0; i < pool.Count; i++)
         {
             //Debug.Log("FOREACH " +  +" IN " +);
-            int j = ballActiveList.Count + 1;
+            //int j = ballActiveList.Count + 1;
             if (pool[i].gameObject.activeSelf == true)
             {
                 //Debug.Log("CHECK ACTIVE LIST");
@@ -182,16 +172,26 @@ public class InGameController : MonoBehaviour
                 Debug.Log(ballActiveList.Count);
                 //Debug.Log("ball activelist " + ballActiveList[j]);
             }
-            else break;
         }
     }
     public void LoadBallInTrippleList()
     {
         AddBallActive();
-        for (int i = 0; i < ballActiveList.Count; i++) 
-        { 
-            Debug.Log("MULTIPLY BALL" + i );
-            ballActiveList[i].BallMultiply();
+
+        Debug.Log("LoadBallInTripplelist " + ballActiveList.Count);
+        if (ballActiveList.Count == 1)
+        {
+            Debug.LogError($"Just have 1 ball");
+
+        }
+        else
+        {
+            for (int i = 0; i < ballActiveList.Count; i++)
+            {
+                Debug.Log("MULTIPLY BALL " + i);
+                Debug.Log($"ballActiveList[{i}] {ballActiveList[i]}");
+                ballActiveList[i].BallMultiply(ballActiveList[i]);
+            }
         }
     }
     public void DeSpawnBall()
@@ -205,16 +205,16 @@ public class InGameController : MonoBehaviour
     }
     public void LevelComplete()
     {
-       CheckCompleteScore();
-       if (isLevelComplete)
-       {
-                GameManager.Instance.currentLevel++;
-                PauseGame();
-                DeSpawnAll();
-                DialogManager.Instance.ShowDialog(DialogIndex.WinDialog);
+        CheckCompleteScore();
+        if (isLevelComplete)
+        {
+            GameManager.Instance.currentLevel++;
+            PauseGame();
+            DeSpawnAll();
+            DialogManager.Instance.ShowDialog(DialogIndex.WinDialog);
         }
     }
- 
+
     public void PauseGame()
     {
         //Debug.Log("======>PAUSE");
@@ -235,20 +235,23 @@ public class InGameController : MonoBehaviour
     }
     public void ReloadGameObject()
     {
+        BallPoolManager.instance.pool.DeSpawnAll();
+        ballActiveList.Clear();
         listIndex = 0;
         prefabBallInstance.SetActive(true);
-        prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall ();
+        prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall();
 
         prefabPaddleInstance.SetActive(true);
         prefabPaddleInstance.GetComponent<Paddle>().ResetPaddle();
 
         ResetBallPosition();
-       // BallPoolManager.instance.ResetAllPoolPostion();
+        // BallPoolManager.instance.ResetAllPoolPostion();
         ItemPoolManager.instance.pool.DeSpawnAll();
-       
+
     }
     public void ResetBallPosition()
     {
+        Debug.Log("RESET BALL POSITION");
         for (int i = 0; i < BallPoolManager.instance.pool.total; i++)
         {
             BallPoolManager.instance.pool.list[i].ResetBall();
@@ -258,5 +261,5 @@ public class InGameController : MonoBehaviour
     {
         return main.transform.position;
     }
-   
+
 }

@@ -28,7 +28,7 @@ public class Paddle : FSMSystem,InteractBall
     public float shortBarDuration;
     public float speedUpBarDuration;
     public float speedDownBarDuration;
-    private float minDuration = 1f, maxDuration = 5f;
+    private float minDuration = 1f, maxDuration = 2f;
     public Vector3 currenPaddlePosition;
     public Vector3 spawnPosition = new Vector3(0, -8, 0);
     public bool isShortBar = false;
@@ -99,27 +99,10 @@ public class Paddle : FSMSystem,InteractBall
  
     private void OnTripple()
     {
-        Debug.Log("On Tripple");
+        Debug.LogError("On Tripple");
         isTrippleBall = true;
-        //for (int i = 0; i < 2; i++)
-        //{
-        //    InGameController.Instance.LoadNextBall();
-        //}
         InGameController.Instance.LoadBallInTrippleList();
-        
-        //for (int i = 0; i < 1; i++)
-        //{
-        //    BallPoolManager.instance.pool.SpawnNonGravity();
-        //    //BallPoolManager.instance.pool.SpawnNonGravity();
-        //    Debug.Log("Ball in Tripple" + trippleList[i]);
-        //    //trippleList[i].transform.position = InGameController.Instance.main.transform.position;
-        //    //ball.transform.SetParent(BallPoolManager.instance.transform);
-        //    //ball.transform.position = mainBall.transform.position;
-        //    //float x = Random.Range(-1f, 1f);
-        //    //trippleList[i].moveDir = new Vector3(x, 1f);
-        //    //ball.moveDir.x = Random.Range(-1, 2);
-        //    //trippleList.Add(ball);
-        //}
+
     }
 
     //private void TrippleBall()
@@ -178,6 +161,7 @@ public class Paddle : FSMSystem,InteractBall
         if (isTrippleBall)
         {
             //TrippleBall();
+
             trippleDuration -= Time.deltaTime;
             if (trippleDuration <= 0)
             {
@@ -210,7 +194,7 @@ public class Paddle : FSMSystem,InteractBall
     {
         //ItemPoolManager.instance.SpawnItem();
         ItemPoolManager.instance.SpawnItem();
-        ItemPoolManager.instance.item.transform.DOMoveY(-10f, 10f);
+        ItemPoolManager.instance.item.transform.DOMoveY((CameraMain.instance.GetBottom() - 3), (CameraMain.instance.GetTop()));
 
         float randomValue = UnityEngine.Random.Range(1f, 10f);
         int value = (int)(randomValue * 10);
