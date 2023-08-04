@@ -22,7 +22,7 @@ public class Item : MonoBehaviour
     public Vector3 circleDistance;
     public Vector3 targetScale = new Vector3(1.5f, 1.5f, 1.5f);
     public float cornerDistance_sq;
-    public float scaleSpeed = 2f;
+    public float scaleSpeed = 5f;
     public float radius;
 
     private void Start()
@@ -87,8 +87,9 @@ public class Item : MonoBehaviour
             }
         }
 
-        if (transform.position.y < CameraMain.instance.GetBottom())
+        if (transform.position.y < -10 )
         {
+            Debug.Log("de5pawn item" + transform.position);
             ItemPoolManager.instance.pool.DeSpawnNonGravity(this);
         }
     }

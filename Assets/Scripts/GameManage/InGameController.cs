@@ -179,7 +179,7 @@ public class InGameController : MonoBehaviour
                 //Debug.Log("CHECK ACTIVE LIST");
                 BallSystemVer2 b = pool[i];
                 ballActiveList.Add(b);
-                Debug.Log(ballActiveList.Count);
+                //Debug.Log(ballActiveList.Count);
                 //Debug.Log("ball activelist " + ballActiveList[j]);
             }
             else break;
@@ -190,7 +190,7 @@ public class InGameController : MonoBehaviour
         AddBallActive();
         for (int i = 0; i < ballActiveList.Count; i++) 
         { 
-            Debug.Log("MULTIPLY BALL" + i );
+            //Debug.Log("MULTIPLY BALL" + i );
             ballActiveList[i].BallMultiply();
         }
     }

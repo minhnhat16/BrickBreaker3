@@ -99,12 +99,9 @@ public class Paddle : FSMSystem,InteractBall
  
     private void OnTripple()
     {
-        Debug.Log("On Tripple");
+        //Debug.Log("On Tripple");
         isTrippleBall = true;
-        //for (int i = 0; i < 2; i++)
-        //{
-        //    InGameController.Instance.LoadNextBall();
-        //}
+
         InGameController.Instance.LoadBallInTrippleList();
         
         //for (int i = 0; i < 1; i++)
@@ -122,13 +119,6 @@ public class Paddle : FSMSystem,InteractBall
         //}
     }
 
-    //private void TrippleBall()
-    //{
-    //    foreach (BallPoolManager.instance.pool.list in list)
-    //    {
-    //        ball.ballSpeed = 6f;
-    //    }
-    //}
     public void CheckItemEvent()
     {
         if (isLongBar)
@@ -210,7 +200,7 @@ public class Paddle : FSMSystem,InteractBall
     {
         //ItemPoolManager.instance.SpawnItem();
         ItemPoolManager.instance.SpawnItem();
-        ItemPoolManager.instance.item.transform.DOMoveY(-10f, 10f);
+        ItemPoolManager.instance.item.transform.DOMoveY(-15f, 11f);
 
         float randomValue = UnityEngine.Random.Range(1f, 10f);
         int value = (int)(randomValue * 10);
