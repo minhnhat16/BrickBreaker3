@@ -7,13 +7,13 @@ public class Ball_MovermentState : FSMState<BallSystemVer2>
     public override void OnEnter()
     {
 
-        sys.moveDir = sys.forwardDir;
+        if(!Paddle.instance.isTrippleBall)
+        {
+            sys.moveDir = sys.forwardDir;
+        }
     }
 
-    public override void OnFixedUpdate()
-    {
 
-    }
 
     public override void OnUpdate()
     {

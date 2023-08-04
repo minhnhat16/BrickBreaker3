@@ -16,10 +16,18 @@ public class Ball_SpawnState : FSMState<BallSystemVer2>
     public override void OnEnter()
     {
         //sys.BallDeath();
-        lastestPaddlePosition = sys.paddle.spawnPosition;
-        sys.transform.position = lastestPaddlePosition + Vector3.up;
-        sys.direction1 = new Vector3(0, 6.25f, 0);
-        sys.tempX = 0;
+        if (!Paddle.instance.isTrippleBall)
+        {
+            lastestPaddlePosition = sys.paddle.spawnPosition;
+            sys.transform.position = lastestPaddlePosition + Vector3.up;
+            sys.direction1 = new Vector3(0, 6.25f, 0);
+            sys.tempX = 0;
+        }
+        else
+        {
+            sys.GotoState(sys.MoveState);
+        }
+       
     }    
     public override void OnUpdate()
     {
