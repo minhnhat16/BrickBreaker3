@@ -9,6 +9,7 @@ public class InGameController : MonoBehaviour
     public bool isLevelComplete;
 
     public List<BallSystemVer2> pool;
+
     public List<BallSystemVer2> ballActiveList;
 
 
@@ -35,6 +36,7 @@ public class InGameController : MonoBehaviour
     void Start()
     {
         pool = BallPoolManager.instance.pool.list;
+        ballActiveList = new List<BallSystemVer2>(100);
     }
 
     void Update()
@@ -131,7 +133,8 @@ public class InGameController : MonoBehaviour
             prefabPaddleInstance.GetComponent<Paddle>();
         SettingPaddleComp();
         ResetBallPosition();
-        ballActiveList.Add(main);
+        AddBallActive();
+        //ballActiveList.Add(main);
     }
     public void SettingPaddleComp()
     {
@@ -139,25 +142,8 @@ public class InGameController : MonoBehaviour
         {
             BallPoolManager.instance.pool.list[i].paddle =
             prefabPaddleInstance.GetComponent<Paddle>();
-
         }
     }
-    //public void LoadNextBall()
-    //{
-
-    //    if (listIndex == 0) listIndex = 1;
-    //    if( listIndex >= pool.Count ) { listIndex = 1; }
-    //    BallPoolManager.instance.pool.SpawnNonGravityWithIndex(listIndex);
-    //    int temp = listIndex - 1;
-    //    BallPoolManager.instance.pool.list[listIndex].GetComponentInChildren<BallSystemVer2>().transform.position =
-    //        BallPoolManager.instance.pool.list[0].GetComponentInChildren<BallSystemVer2>().transform.position;
-    //    BallPoolManager.instance.pool.list[listIndex].GetComponentInChildren<BallSystemVer2>().moveDir =
-    //        new Vector3((UnityEngine.Random.Range(-1, 1)), 1);
-    //    //Debug.LogError("main postion: " + main.transform.position);
-    //    Debug.LogError(BallPoolManager.instance.pool.list[listIndex].GetComponentInChildren<BallSystemVer2>().transform.position);  
-    //    Debug.Log("list index + " + listIndex);
-    //    listIndex++;
-    //}
     public void AddBallActive()
     {
         for (int i = 0; i < pool.Count; i++)
@@ -174,25 +160,67 @@ public class InGameController : MonoBehaviour
             }
         }
     }
+    public void SettingMainBall()
+    {
+        for (int i = 0; i < pool.Count; i++)
+        {
+            //Debug.Log("FOREACH " +  +" IN " +);
+            //int j = ballActiveList.Count + 1;
+            if (pool[i].gameObject.activeSelf == true)
+            {
+                //Debug.Log("CHECK ACTIVE LIST");
+                main = pool[i];
+                break;
+                //Debug.Log("ball activelist " + ballActiveList[j]);
+            }
+        }
+    }
     public void LoadBallInTrippleList()
     {
+        int i = 0;
         AddBallActive();
-
         Debug.Log("LoadBallInTripplelist " + ballActiveList.Count);
-        if (ballActiveList.Count == 1)
-        {
+        if (ballActiveList.Count == 1 && ballActiveList.Count <3)
+        {   
+            i = 1;
             Debug.LogError($"Just have 1 ball");
+            BallPoolManager.instance.pool.SpawnNonGravity();
 
-        }
-        else
-        {
-            for (int i = 0; i < ballActiveList.Count; i++)
+            for (i = 0; i < ballActiveList.Count; i++)
             {
                 Debug.Log("MULTIPLY BALL " + i);
                 Debug.Log($"ballActiveList[{i}] {ballActiveList[i]}");
                 ballActiveList[i].BallMultiply(ballActiveList[i]);
             }
+
         }
+        else if(ballActiveList.Count >= 3)
+        {
+            for (i = 1; i < ballActiveList.Count; i++)
+            {
+                Debug.Log("MULTIPLY BALL " + i);
+                //Debug.Log($"ballActiveList[{i}] {ballActiveList[i]}");
+                ballActiveList[i].BallMultiply(ballActiveList[i]);
+            }
+        }
+       // AddBallActive();
+
+    }
+    public bool CheckBallList()
+    {
+        for (int i = 0; i < pool.Count; i++)
+        {
+            //Debug.Log("FOREACH " +  +" IN " +);
+            //int j = ballActiveList.Count + 1;
+            if (pool[i].gameObject.activeSelf == true)
+            {
+                //Debug.Log("CHECK ACTIVE LIST");
+                main = pool[i];
+                return false;
+                //Debug.Log("ball activelist " + ballActiveList[j]);
+            }
+        }
+        return false;
     }
     public void DeSpawnBall()
     {
@@ -240,14 +268,12 @@ public class InGameController : MonoBehaviour
         listIndex = 0;
         prefabBallInstance.SetActive(true);
         prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall();
-
         prefabPaddleInstance.SetActive(true);
         prefabPaddleInstance.GetComponent<Paddle>().ResetPaddle();
-
         ResetBallPosition();
         // BallPoolManager.instance.ResetAllPoolPostion();
         ItemPoolManager.instance.pool.DeSpawnAll();
-
+       
     }
     public void ResetBallPosition()
     {

@@ -65,7 +65,7 @@ public class BallSystemVer2 : FSMSystem
     public int maxLives = 1;
     public int currentLive;
     public int hitAngleCount = 0;
-    public List<BallSystemVer2>  triplelist;
+
 
     private void Awake()
     {
@@ -93,18 +93,7 @@ public class BallSystemVer2 : FSMSystem
         //StartCoroutine(RandomSpawnItem());
        ;
     }
-    private IEnumerator RandomSpawnItem() 
-    {
-        while (true)
-        {
-           // if (currentState == MoveState)
-           // {
-                float spawnDuration = UnityEngine.Random.Range(minDuration, maxDuration);
-                yield return new WaitForSeconds(spawnDuration);
-                //RandomItem();
-            //}     
-        }
-    }
+    
     private void Init()
     {
         GotoState(SpawnState);
@@ -124,7 +113,6 @@ public class BallSystemVer2 : FSMSystem
         }
     }
     private void AngleCalculation(float tempXDir)
-
     {
         tempX += angleMoveSpeed * tempXDir;
         tempX = Mathf.Clamp(tempX, CameraMain.instance.GetLeft() - 2, CameraMain.instance.GetRight() + 2);
@@ -135,37 +123,6 @@ public class BallSystemVer2 : FSMSystem
         angle = Mathf.Atan2(direction1.y, direction1.x) * Mathf.Rad2Deg - 90;
         transform.eulerAngles = Vector3.forward * angle;
     }
-    //public void ObjecstHitOnRayCastPaddle()
-    //{
-    //    RaycastHit2D hit = Physics2D.Raycast(Anchor.position, (Vector2)moveDir, ballRadius);
-    //    Debug.DrawRay(Anchor.position, (Vector2)Anchor.position - (Vector2)moveDir, Color.red);
-    //    if (hit.collider != null && hit.collider.CompareTag("Paddle"))
-    //    {
-    //        BallReflectPaddle();
-    //    }
-    //    else if (hit.collider != null && hit.collider.CompareTag("Brick"))
-    //    {
-    //        Debug.Log("hit brick");
-
-    //        tempDirection = Vector2.Reflect(moveDir, Vector2.down);
-    //        moveDir = tempDirection;
-    //        // Debug.Log("HIT OBJECT ====>" + hitObject);  
-    //    }
-    //}
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.collider.CompareTag("Paddle"))
-    //    {
-    //        BallReflectPaddle();
-    //    }
-    //    else if (collision.collider.CompareTag("Brick"))
-    //    {
-    //        Debug.Log("hit brick");
-
-    //        tempDirection = Vector2.Reflect(moveDir, Vector2.down);
-    //        moveDir = tempDirection;
-    //    }
-    //}
     public void CheckCollider()
     {
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, ballRadius,Vector2.zero);
@@ -182,7 +139,7 @@ public class BallSystemVer2 : FSMSystem
                     contactHandler.contactUnit = hit.collider.transform;
                     contactHandler.unitType = UnitType.OTHERS;
                     //Debug.Log(contactHandler.contactUnit);
-                    //Debug.Log(hit.collider.transform);
+                    Debug.Log(hit.collider.transform);
                 }
                 else
                 {
@@ -193,21 +150,7 @@ public class BallSystemVer2 : FSMSystem
             
         }
     }
-    //public bool ObjecstHitOnRayCastBrick()
-    //{
-    //    RaycastHit2D hit = Physics2D.Raycast(Anchor.position, (Vector2)moveDir, ballRadius);
-    //    Debug.DrawRay(Anchor.position, (Vector2)Anchor.position - (Vector2)moveDir, Color.red);
-    //    if (hit.collider != null && hit.collider.CompareTag("Brick"))
-    //    {
-    //        tempDirection = Vector2.Reflect(moveDir, Vector2.down);
-    //        moveDir = tempDirection;
-    //       // BrickPoolManager.instance.pool;
-
-    //        Debug.Log("HIT OBJECT ====>" );  
-    //        return true;
-    //    }
-    //    return false;
-    //}
+   
     public void CheckItemEvent()
     {
         if (isScaleUp)
@@ -227,11 +170,13 @@ public class BallSystemVer2 : FSMSystem
 
         if (isOnMagnet)
         {
+            CheckCollider();
+           // Debug.Log("On Magnet");
             magnetDuration -= Time.deltaTime;
             if (magnetDuration <= 0)
             {
-                Debug.Log("On Magnet");
-                this.transform.SetParent(null);
+                //Debug.Log("On Magnet");
+                this.transform.SetParent(InGameController.Instance.transform);
                 ballSpeed = 6f;
                 magnetDuration = 5f;
                 isOnMagnet = false;
@@ -305,11 +250,12 @@ public class BallSystemVer2 : FSMSystem
     private void Power()
     {
         isItemTypePower = true;
+        onItemPowerUP = true;
     }
     private void Magnet()
     {
         isOnMagnet = true;
-
+      
     }
     private void OnDrawGizmos()
     {
@@ -364,17 +310,26 @@ public class BallSystemVer2 : FSMSystem
     }
     public void BallDeath()
     {
-        if ( transform.position.y < CameraMain.instance.GetBottom())
+        if (transform.position.y < CameraMain.instance.GetBottom())
         {
-            BallPoolManager.instance.pool.DeSpawnNonGravity(this);
+            Debug.Log($"Ball active list {InGameController.Instance.ballActiveList.IndexOf(this)}");
             InGameController.Instance.ballActiveList.Remove(this);
+
+            BallPoolManager.instance.pool.DeSpawnNonGravity(this);
+            //Debug.Log($"Ball active list {InGameController.Instance.ballActiveList.}");
+
 
             //DecreaseLive();
             //InGameController.Instance.isBallDeath = true;
             //InGameController.Instance.isGameOver = false;
             //transform.position = paddle.spawnPosition + Vector3.up;
-            //GotoState(DeathState);
+            GotoState(DeathState);
         }
+        if (InGameController.Instance.CheckBallList())
+        {
+            InGameController.Instance.GameOver();
+        }
+
     }
     public void GetBallDirection()
     {
@@ -507,6 +462,9 @@ public class BallSystemVer2 : FSMSystem
             moveDir = tempDirection.normalized;
         }
     }
+    public void BallOnMagnet() {
+    
+    }
     public void BallReflectPaddle()
     {
         Collider2D collider = paddle.GetComponent<Collider2D>();
@@ -583,7 +541,12 @@ public class BallSystemVer2 : FSMSystem
 
             moveDir = tempDirection.normalized;
         }
-        transform.position = new Vector3(xMoveDir, yMoveDir);
+
+        if (!isOnMagnet)
+        {
+            transform.position = new Vector3(xMoveDir, yMoveDir);
+        }
+    
     }
     public void ResetBall()
     {
@@ -628,6 +591,7 @@ public class BallSystemVer2 : FSMSystem
             ball.transform.position = ballparent.transform.position;
             ball.moveDir = new Vector3(UnityEngine.Random.Range(-1, 1), 1);
             ball.moveDir.Normalize();
+            //Debug.Log("Ball multiply"); 
             //InGameController.Instance.ballActiveList.Add(ball);
         }  
         

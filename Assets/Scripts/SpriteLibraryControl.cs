@@ -19,7 +19,7 @@ public class SpriteLibraryControl : MonoBehaviour
         {
             string spritename = spriteList[i].name;
             AddSprite(spritename, spriteList[i]);
-            Debug.LogWarning("ADDED SPRITE TO DICT" + spritename); 
+            //Debug.LogWarning("ADDED SPRITE TO DICT" + spritename); 
         }
     }
     public void AddSprite(string spriteName, Sprite sprite)
