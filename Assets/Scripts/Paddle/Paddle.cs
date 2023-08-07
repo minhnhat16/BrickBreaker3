@@ -103,13 +103,6 @@ public class Paddle : FSMSystem,InteractBall
         //Debug.Log("On Tripple");
         isTrippleBall = true;
 
-=======
-        Debug.Log("On Tripple");
-        isTrippleBall = true;
-        //for (int i = 0; i < 2; i++)
-        //{
-        //    InGameController.Instance.LoadNextBall();
-        //}
 >>>>>>> parent of 5949819 (change 4/8)
         InGameController.Instance.LoadBallInTrippleList();
         
@@ -212,8 +205,7 @@ public class Paddle : FSMSystem,InteractBall
 <<<<<<< HEAD
         ItemPoolManager.instance.item.transform.DOMoveY(-15f, 11f);
 =======
-        ItemPoolManager.instance.item.transform.DOMoveY(-10f, 10f);
->>>>>>> parent of 5949819 (change 4/8)
+        ItemPoolManager.instance.item.transform.DOMoveY((CameraMain.instance.GetBottom() - 3), (CameraMain.instance.GetTop()));
 
         float randomValue = UnityEngine.Random.Range(1f, 10f);
         int value = (int)(randomValue * 10);
