@@ -11,7 +11,7 @@ public class BallPoolManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        pool = new BY_Local_Pool<BallSystemVer2>(prefab, 100, this.transform);
+        pool = new BY_Local_Pool<BallSystemVer2>(prefab, 50, this.transform);
     }
     public void ResetBallPool()
     {

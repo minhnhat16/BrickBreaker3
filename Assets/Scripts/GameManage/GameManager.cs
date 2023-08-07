@@ -27,6 +27,5 @@ public class GameManager : MonoBehaviour
     public void LoadOnInGameController()
     {
         InGameController.LoadGameObject();
-
     }
 }

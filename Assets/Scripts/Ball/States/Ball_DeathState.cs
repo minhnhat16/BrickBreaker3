@@ -7,7 +7,7 @@ public class Ball_DeathState : FSMState<BallSystemVer2>
 { 
 
     public override void OnEnter()
-    {
+    { 
         sys.GotoState(sys.SpawnState);
         sys.CheckBallLive();        
     }
