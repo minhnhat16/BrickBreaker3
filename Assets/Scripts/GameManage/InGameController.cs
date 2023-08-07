@@ -190,7 +190,11 @@ public class InGameController : MonoBehaviour
         AddBallActive();
         for (int i = 0; i < ballActiveList.Count; i++) 
         { 
+<<<<<<< HEAD
             //Debug.Log("MULTIPLY BALL" + i );
+=======
+            Debug.Log("MULTIPLY BALL" + i );
+>>>>>>> parent of 5949819 (change 4/8)
             ballActiveList[i].BallMultiply();
         }
     }
