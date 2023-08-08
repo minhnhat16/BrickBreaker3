@@ -1,14 +1,7 @@
-using NaughtyAttributes.Test;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 using DG.Tweening;
-using UnityEngine.Experimental.GlobalIllumination;
-using System.Collections;
-using System.Collections.Generic;
-using System;
-using UnityEditor;
+
 
 public class BallSystemVer2 : FSMSystem
 {
@@ -32,6 +25,7 @@ public class BallSystemVer2 : FSMSystem
     public Vector3 moveDir;
     public Vector3 tempDirection;
     public Vector2 forwardDir { get => (Forward.position - Anchor.position).normalized; }
+    public Vector2 hitpoint;
     public Vector3 direction1 = new Vector3(0, 1, 0);
 
     public bool isLeft = false;
@@ -65,7 +59,6 @@ public class BallSystemVer2 : FSMSystem
     public int maxLives = 1;
     public int currentLive;
     public int hitAngleCount = 0;
-
 
     private void Awake()
     {
@@ -138,8 +131,9 @@ public class BallSystemVer2 : FSMSystem
                     interactBall.OnContact(hit, this);
                     contactHandler.contactUnit = hit.collider.transform;
                     contactHandler.unitType = UnitType.OTHERS;
+                    hitpoint = hit.point;
                     //Debug.Log(contactHandler.contactUnit);
-                    Debug.Log(hit.collider.transform);
+
                 }
                 else
                 {
@@ -546,7 +540,13 @@ public class BallSystemVer2 : FSMSystem
         {
             transform.position = new Vector3(xMoveDir, yMoveDir);
         }
-    
+        else if (isOnMagnet && (contactHandler.unitType == UnitType.OTHERS))
+        {
+            Debug.Log($"MIN {min} + MAX {max}");
+            GotoState(SpawnState);
+
+        }
+
     }
     public void ResetBall()
     {
@@ -604,5 +604,4 @@ public static class BallEvent
     public static UnityEvent onMagnet = new UnityEvent();
     public static UnityEvent onPower = new UnityEvent();
     public static UnityEvent onReset = new UnityEvent();
-
 }
