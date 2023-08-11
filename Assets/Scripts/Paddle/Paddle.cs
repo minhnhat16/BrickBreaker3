@@ -94,6 +94,7 @@ public class Paddle : FSMSystem,InteractBall
     public void OnContact(RaycastHit2D hit, BallSystemVer2 ball)
     {
         //Debug.Log("Ball reflect Paddle");
+        ball.BallOnMagnet();
         ball.BallReflectPaddle();
     }
  

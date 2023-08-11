@@ -1,7 +1,6 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
-using DG.Tweening;
-
 
 public class BallSystemVer2 : FSMSystem
 {
@@ -54,7 +53,7 @@ public class BallSystemVer2 : FSMSystem
     private float timeDecrease1 = 0.1f, timeDecrease2 = 0.1f, timeDecrease3 = 0.1f;
     private float minDuration = 1f, maxDuration = 5f;
     [SerializeField] private float scaleUpDuration = 7f;
-    [SerializeField] private float magnetDuration = 7f;
+    [SerializeField] private float magnetDuration = 20f;
     [SerializeField] private float powerDuration = 7f;
     public int maxLives = 1;
     public int currentLive;
@@ -84,9 +83,9 @@ public class BallSystemVer2 : FSMSystem
     {
         Debug.Log("Start Random Item");
         //StartCoroutine(RandomSpawnItem());
-       ;
+        ;
     }
-    
+
     private void Init()
     {
         GotoState(SpawnState);
@@ -118,7 +117,7 @@ public class BallSystemVer2 : FSMSystem
     }
     public void CheckCollider()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, ballRadius,Vector2.zero);
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, ballRadius, Vector2.zero);
         if (hit.collider != null)
         {
             InteractBall interactBall = hit.collider.GetComponent(typeof(InteractBall)) as InteractBall;
@@ -126,13 +125,13 @@ public class BallSystemVer2 : FSMSystem
             if (interactBall != null)
             {
                 //Debug.Log("Interac not null");
-                if ( contactHandler.contactUnit != hit.collider.transform)
+                if (contactHandler.contactUnit != hit.collider.transform)
                 {
                     interactBall.OnContact(hit, this);
                     contactHandler.contactUnit = hit.collider.transform;
                     contactHandler.unitType = UnitType.OTHERS;
                     hitpoint = hit.point;
-                    //Debug.Log(contactHandler.contactUnit);
+                    Debug.Log("=======HITPOINT======" + hit.point);
 
                 }
                 else
@@ -141,10 +140,10 @@ public class BallSystemVer2 : FSMSystem
                     contactHandler.contactUnit = null;
                 }
             }
-            
+
         }
     }
-   
+
     public void CheckItemEvent()
     {
         if (isScaleUp)
@@ -164,15 +163,14 @@ public class BallSystemVer2 : FSMSystem
 
         if (isOnMagnet)
         {
-            CheckCollider();
-           // Debug.Log("On Magnet");
+
+
             magnetDuration -= Time.deltaTime;
             if (magnetDuration <= 0)
             {
-                //Debug.Log("On Magnet");
-                this.transform.SetParent(InGameController.Instance.transform);
-                ballSpeed = 6f;
-                magnetDuration = 5f;
+                this.transform.SetParent(BallPoolManager.instance.transform);
+                ballSpeed = 15f;
+                magnetDuration = 10f;
                 isOnMagnet = false;
             }
         }
@@ -225,14 +223,14 @@ public class BallSystemVer2 : FSMSystem
     private void ScaleUp()
     {
         isScaleUp = true;
-        if ( t == null)
+        if (t == null)
         {
             Debug.Log("On ScaleUp");
 
             t = this.gameObject.transform.GetChild(0).DOScale(new Vector2(1.5f, 1.5f), 0.5f);
             ballRadius *= 1.5f;
             castRadius *= 1.5f;
-            t.SetAutoKill ( false );
+            t.SetAutoKill(false);
         }
         else
         {
@@ -240,7 +238,7 @@ public class BallSystemVer2 : FSMSystem
             t.Play();
         }
     }
-    
+
     private void Power()
     {
         isItemTypePower = true;
@@ -249,7 +247,7 @@ public class BallSystemVer2 : FSMSystem
     private void Magnet()
     {
         isOnMagnet = true;
-      
+
     }
     private void OnDrawGizmos()
     {
@@ -263,7 +261,7 @@ public class BallSystemVer2 : FSMSystem
     }
     public void BallMoverment()
     {
-        Vector3 currentPosition = transform.position ;
+        Vector3 currentPosition = transform.position;
         float leftCam = CameraMain.instance.GetLeft();
         float rightCam = CameraMain.instance.GetRight();
         float topCam = CameraMain.instance.GetTop();
@@ -273,7 +271,7 @@ public class BallSystemVer2 : FSMSystem
         //float pointY = currentPosition.y + ballRadius * Mathf.Sin(theta);
         // transform.position = Mathf.Clamp(CameraMain.instance.GetLeft(), CameraMain.instance.GetRight());
         //transform.Translate(ballSpeed * Time.deltaTime * moveDir.normalized);
-        if (currentPosition.x <= rightCam  && currentPosition.x >= leftCam && currentPosition.y <=topCam && currentPosition.y >= botCam)
+        if (currentPosition.x <= rightCam && currentPosition.x >= leftCam && currentPosition.y <= topCam && currentPosition.y >= botCam)
         {
             //Debug.Log("Point X:" + pointX);
             transform.Translate(ballSpeed * Time.deltaTime * moveDir.normalized);
@@ -283,20 +281,20 @@ public class BallSystemVer2 : FSMSystem
         else if (currentPosition.x > rightCam - ballRadius || currentPosition.x < leftCam + ballRadius)
         {
             currentPosition = transform.position + (ballSpeed * Time.deltaTime * moveDir.normalized);
-            currentPosition.x = Mathf.Clamp(currentPosition.x, leftCam + 0.2f, rightCam - 0.2f) ;
+            currentPosition.x = Mathf.Clamp(currentPosition.x, leftCam + 0.2f, rightCam - 0.2f);
             //Debug.Log("CLAMPED: " + currentPosition.x);
             transform.position = currentPosition;
             //RandomItem();
 
         }
-        else if(currentPosition.y > topCam -  ballRadius - 1 || currentPosition.y < botCam + ballRadius)
+        else if (currentPosition.y > topCam - ballRadius - 1 || currentPosition.y < botCam + ballRadius)
         {
             currentPosition = transform.position + (ballSpeed * Time.deltaTime * moveDir.normalized);
             currentPosition.y = Mathf.Clamp(currentPosition.y, topCam - 1.05f, botCam);
             //Debug.Log("CLAMPED: " + currentPosition.x);
 
             transform.position = currentPosition;
-           
+
 
         }
         //RandomItem();
@@ -335,7 +333,7 @@ public class BallSystemVer2 : FSMSystem
         float theta = Mathf.PI / 4;
         double pointX = tempPosX + ballRadius * Mathf.Cos(theta);
         double pointY = tempPosY + ballRadius * Mathf.Sin(theta);
-      //  Debug.Log($"Point on ball:({pointX},{pointY})") ;
+        //  Debug.Log($"Point on ball:({pointX},{pointY})") ;
         if (tempPosX <= left || tempPosX >= right || pointY >= top - 1 ||
             (pointX <= left && pointY >= top - 1) || (pointX >= right && pointY >= top - 1))
         {
@@ -348,13 +346,13 @@ public class BallSystemVer2 : FSMSystem
                 CheckBallAngle(Vector3.up);
 
             }
-            else if (tempPosX  > right - ballRadius)
+            else if (tempPosX > right - ballRadius)
             {
                 //Debug.Log("Hit right");
-               // Debug.Log("tempposX " + tempPosX);
+                // Debug.Log("tempposX " + tempPosX);
 
                 tempDirection = Vector3.Reflect(moveDir, Vector3.left).normalized;
-               // tempDirection = Vector3.Reflect(moveDir, new Vector3(-1, 0.05f, 0));
+                // tempDirection = Vector3.Reflect(moveDir, new Vector3(-1, 0.05f, 0));
                 hitAngleCount++;
                 CheckBallAngle(Vector3.up);
 
@@ -364,7 +362,7 @@ public class BallSystemVer2 : FSMSystem
                 //Debug.Log("tempposX " + tempPosX);
                 //Debug.Log("Hit top");
                 tempDirection = Vector3.Reflect(moveDir, Vector3.right).normalized;
-               // tempDirection = Vector3.Reflect(moveDir, new Vector3(1, 0.05f, 0));
+                // tempDirection = Vector3.Reflect(moveDir, new Vector3(1, 0.05f, 0));
 
                 hitAngleCount++;
                 CheckBallAngle(Vector3.up);
@@ -416,7 +414,7 @@ public class BallSystemVer2 : FSMSystem
     public void CheckBallAngle(Vector3 vector)
     {
 
-       // float dotProduct = Vector3.Dot(moveDir.normalized, vector.normalized);
+        // float dotProduct = Vector3.Dot(moveDir.normalized, vector.normalized);
         //float anglecheck = Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
 
         float anglecheck_no1 = Vector3.Angle(moveDir.normalized, vector.normalized);
@@ -456,25 +454,32 @@ public class BallSystemVer2 : FSMSystem
             moveDir = tempDirection.normalized;
         }
     }
-    public void BallOnMagnet() {
-    
+    public void BallOnMagnet()
+    {
+
+        if (isOnMagnet && (contactHandler.unitType == UnitType.OTHERS))
+        {
+            GotoState(SpawnState);
+
+        }
     }
     public void BallReflectPaddle()
     {
+        Debug.Log("HIT POINT: " + hitpoint);
+
         Collider2D collider = paddle.GetComponent<Collider2D>();
         Bounds bounds = collider.bounds;
         Vector3 min = bounds.min;
         Vector3 max = bounds.max;
-        float xMoveDir = transform.position.x ;
+        float xMoveDir = transform.position.x;
         float yMoveDir = transform.position.y;
         paddle.GetCurrentPosition();
-        //CheckBallAngle(Vector2.down);
-        if (xMoveDir > min.x - ballRadius  && xMoveDir < min.x + 1)
+        if (xMoveDir > min.x - ballRadius && xMoveDir < min.x + 1)
         {
             //Debug.Log("hit  left");
             // Debug.Log(xMoveDir);
             xMoveDir = Mathf.Clamp(transform.position.x, min.x - ballRadius, min.x + ballRadius);
-            yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius , min.y );
+            yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius, min.y);
 
             //Debug.Log(max.y+ " "+ min.y);
             tempDirection = Vector3.Reflect(moveDir, new Vector3(-1, 1));
@@ -485,7 +490,7 @@ public class BallSystemVer2 : FSMSystem
             //Debug.Log("hit  right");
             //Debug.Log(xMoveDir);
             xMoveDir = Mathf.Clamp(transform.position.x, max.x - ballRadius, max.x + ballRadius);
-            yMoveDir = Mathf.Clamp(transform.position.y, max.y  + ballRadius, min.y  );
+            yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius, min.y);
 
             tempDirection = Vector3.Reflect(moveDir, new Vector3(1, 1));
             moveDir = tempDirection.normalized;
@@ -494,12 +499,12 @@ public class BallSystemVer2 : FSMSystem
         {
             // Debug.Log("hit half left");
             //Debug.Log(xMoveDir);
-            yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius , max.y + ballRadius);
+            yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius, max.y + ballRadius);
 
             Vector2 add = new Vector2(-0.5f, 1f);
             tempDirection = Vector3.Reflect(moveDir, add);
             moveDir = tempDirection.normalized;
-           
+
 
         }
         else if (xMoveDir < max.x - 1 && xMoveDir > max.x - 1.5)
@@ -512,7 +517,7 @@ public class BallSystemVer2 : FSMSystem
             Vector2 add = new Vector2(0.5f, 1f);
             tempDirection = Vector3.Reflect(moveDir, add);
             moveDir = tempDirection.normalized;
-         
+
 
         }
         else if (xMoveDir < max.x - 1.5 && xMoveDir > min.x + 1.5)
@@ -525,7 +530,7 @@ public class BallSystemVer2 : FSMSystem
             Vector2 add = Vector2.up;
             tempDirection = Vector3.Reflect(moveDir, add);
             moveDir = tempDirection.normalized;
-            
+
         }
         else
         {
@@ -540,20 +545,17 @@ public class BallSystemVer2 : FSMSystem
         {
             transform.position = new Vector3(xMoveDir, yMoveDir);
         }
-        else if (isOnMagnet && (contactHandler.unitType == UnitType.OTHERS))
-        {
-            Debug.Log($"MIN {min} + MAX {max}");
-            GotoState(SpawnState);
 
-        }
 
     }
+
     public void ResetBall()
     {
         tempX = 0;
         tempDirection = Vector3.zero;
         moveDir = Vector3.zero;
         SetMaxLive();
+        isOnMagnet = false;
         GotoState(SpawnState);
     }
     public void SetDefaultScale()
@@ -582,10 +584,10 @@ public class BallSystemVer2 : FSMSystem
     {
         currentLive--;
     }
-    
+
     public void BallMultiply(BallSystemVer2 ballparent)
     {
-        for (int i = 0; i < 2;i ++)
+        for (int i = 0; i < 2; i++)
         {
             BallSystemVer2 ball = BallPoolManager.instance.pool.SpawnNonGravity();
             ball.transform.position = ballparent.transform.position;
@@ -593,8 +595,8 @@ public class BallSystemVer2 : FSMSystem
             ball.moveDir.Normalize();
             //Debug.Log("Ball multiply"); 
             //InGameController.Instance.ballActiveList.Add(ball);
-        }  
-        
+        }
+
     }
 }
 
