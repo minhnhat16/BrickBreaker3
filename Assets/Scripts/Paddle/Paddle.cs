@@ -48,22 +48,11 @@ public class Paddle : FSMSystem,InteractBall
     }
     private void Start()
     {
-        //if (cameraMain == null)
-        //{
-        //    cameraMain = GetComponent<CameraMain>();    
-        //}
         Init();
         StartCoroutine(RandomSpawnItem());
 
     }
-    //public void SetUpCamera()
-    //{
-    //    if (cameraMain == null)
-    //    {
-    //        cameraMain = GetComponent<CameraMain>();
-    //        cameraMain.GetCamera();
-    //    }
-    //}
+
     private void Init()
     {
         GotoState(MoveState);
@@ -102,26 +91,19 @@ public class Paddle : FSMSystem,InteractBall
     {
         Debug.LogError("On Tripple");
         isTrippleBall = true;
-        
         InGameController.Instance.LoadBallInTrippleList();
-
     }
 
-    //private void TrippleBall()
-    //{
-    //    foreach (BallPoolManager.instance.pool.list in list)
-    //    {
-    //        ball.ballSpeed = 6f;
-    //    }
-    //}
     public void CheckItemEvent()
     {
         if (isLongBar)
         {
+            //Debug.LogWarning("=============LONGBAR=============");
             longBarDuration -= Time.deltaTime;
             if (longBarDuration <= 0)
             {
-                transform.GetChild(0).GetComponent<Transform>().DOScaleX(1.5f, 1f);
+                transform.GetChild(0).GetComponent<Transform>().DOScaleX(2.20f, 1.2f);
+                transform.GetComponent<BoxCollider2D>().size = new Vector2(2.65f + 0.5f, 0.5f) ;
                 isLongBar = false;
                 longBarDuration = 5f;
             }
@@ -129,6 +111,8 @@ public class Paddle : FSMSystem,InteractBall
 
         if (isShortBar)
         {
+            //Debug.LogWarning("=============SHORTBAR=============");
+
             shortBarDuration -= Time.deltaTime;
             if (shortBarDuration <= 0)
             {
@@ -140,6 +124,8 @@ public class Paddle : FSMSystem,InteractBall
 
         if (isSpeedUp)
         {
+            //Debug.LogWarning("=============SPEEDUP=============");
+
             speedUpBarDuration -= Time.deltaTime;
             if (speedUpBarDuration <= 0)
             {
@@ -151,6 +137,8 @@ public class Paddle : FSMSystem,InteractBall
 
         if (isSpeedDown)
         {
+            //Debug.LogWarning("=============SPEEDDOWN=============");
+
             speedDownBarDuration -= Time.deltaTime;
             if (speedDownBarDuration <= 0)
             {
@@ -162,21 +150,12 @@ public class Paddle : FSMSystem,InteractBall
 
         if (isTrippleBall)
         {
-            //TrippleBall();
-
             trippleDuration -= Time.deltaTime;
             if (trippleDuration <= 0)
             {
                 trippleDuration = 5f;
                 isTrippleBall = false;
             }
-        }
-    }
-    public void RemoveClone(BallSystemVer2 ball)
-    {
-        if (BallPoolManager.instance.pool.list.Contains(ball))
-        {
-            BallPoolManager.instance.pool.DeSpawnNonGravity(ball);
         }
     }
     [HideInInspector]
@@ -194,17 +173,16 @@ public class Paddle : FSMSystem,InteractBall
     }
     public void RandomItem()
     {
-        //ItemPoolManager.instance.SpawnItem();
         ItemPoolManager.instance.SpawnItem();
         ItemPoolManager.instance.item.transform.DOMoveY((CameraMain.instance.GetBottom() - 3), (CameraMain.instance.GetTop()));
 
         float randomValue = UnityEngine.Random.Range(1f, 10f);
         int value = (int)(randomValue * 10);
-        //Debug.Log("RANDOM OBJECT ...." + value);
     }
 
 }
 public static class PaddleEvent
 {
     public static UnityEvent onTripple = new UnityEvent();
+    public static UnityEvent onLongBar = new UnityEvent();
 }

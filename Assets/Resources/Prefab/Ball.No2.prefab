@@ -74,7 +74,7 @@ Transform:
   m_GameObject: {fileID: 3256839622178004550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.93, y: 1.93, z: 1.93}
+  m_LocalScale: {x: 1.9999999, y: 1.9999999, z: 1.9999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3256839623880254091}
@@ -247,6 +247,7 @@ MonoBehaviour:
     lastestPaddlePosition: {x: 0, y: 0, z: 0}
     currentPaddlePosition: {x: 0, y: 0, z: 0}
     deltaPosition: {x: 0, y: 0, z: 0}
+    distance: 0
   Forward: {fileID: 3256839622463450961}
   Anchor: {fileID: 3256839623333844154}
   Contact:
@@ -258,6 +259,7 @@ MonoBehaviour:
     unitType: 0
   moveDir: {x: 1, y: 0, z: 0}
   tempDirection: {x: 0, y: 0, z: 0}
+  hitpoint: {x: 0, y: 0}
   direction1: {x: 0, y: 0, z: 0}
   isLeft: 0
   isRight: 0

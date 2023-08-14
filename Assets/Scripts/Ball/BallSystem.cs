@@ -123,17 +123,17 @@ public class BallSystem : FSMSystem
         tempDirection = Vector2.Reflect(moveDirection, Vector2.down);
         moveDirection = tempDirection;
     }
-    public void BallDeath()
-    {
-        if ((transform.position.y < CameraMain.instance.GetBottom() - ballRadius) && currentLive >0)
-        {
-            DecreaseLive();
-            InGameController.Instance.isBallDeath = true;
-            InGameController.Instance.isGameOver = false;
-            transform.position = paddle.spawnPosition + Vector3.up;
-            GotoState(DeathState);
-        }      
-    }
+    //public void BallDeath()
+    //{
+    //    if ((transform.position.y < CameraMain.instance.GetBottom() - ballRadius) && currentLive > 0)
+    //    {
+    //        DecreaseLive();
+    //        InGameController.Instance.isBallDeath = true;
+    //        InGameController.Instance.isGameOver = false;
+    //        transform.position = paddle.spawnPosition + Vector3.up;
+    //        GotoState(DeathState);
+    //    }
+    //}
     public void DecreaseLive()
     {
         currentLive--; 
@@ -157,18 +157,18 @@ public class BallSystem : FSMSystem
         SetMaxLive();
         GotoState(SpawnState);
     }
-    public void CheckBallLive()
-    {
-        if(currentLive <= 0)
-        {
-            InGameController.Instance.isGameOver = true;
-            InGameController.Instance.GameOver();
-        }
-        else{
-            InGameController.Instance.isBallDeath = true;
-            InGameController.Instance.isGameOver = false;
-            Debug.Log(InGameController.Instance.isGameOver);
-        }
-    }
+    //public void CheckBallLive()
+    //{
+    //    if(currentLive <= 0)
+    //    {
+    //        InGameController.Instance.isGameOver = true;
+    //        InGameController.Instance.GameOver();
+    //    }
+    //    else{
+    //        InGameController.Instance.isBallDeath = true;
+    //        InGameController.Instance.isGameOver = false;
+    //        Debug.Log(InGameController.Instance.isGameOver);
+    //    }
+    //}
    
 }

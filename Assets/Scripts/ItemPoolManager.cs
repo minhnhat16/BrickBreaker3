@@ -20,7 +20,7 @@ public class ItemPoolManager : MonoBehaviour
 
     public void SpawnItem()
     {
-        int itemType = Random.Range(0, 2);
+        int itemType = Random.Range(0, 1);
       
         float random = Random.Range(0f, 1f);
         float x = Random.Range(CameraMain.instance.GetLeft() + 2, CameraMain.instance.GetRight() - 2);
@@ -42,6 +42,7 @@ public class ItemPoolManager : MonoBehaviour
 
         item = pool.SpawnNonGravity();
         item.transform.position = new Vector2 (x,( CameraMain.instance.GetTop() - 2));
+        Debug.Log($"Itemtype: {itemType}, ItemData {i}, ItemConfig {itemConfig[itemType].itemData[i].itemType}");
         item.SetUp(itemConfig[itemType].itemData[i].itemType, itemConfig[itemType].itemData[i].sprite);
     }
 }

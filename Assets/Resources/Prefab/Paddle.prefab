@@ -52,14 +52,26 @@ MonoBehaviour:
     direction: {x: 0, y: 0}
   ballSystem: {fileID: 3041008350702303431, guid: 8a2be6dd36163ba43b224e028cb59c58, type: 3}
   boxCollider2D: {fileID: 8399257107630653266}
+  trippleList: []
+  mainBall: {fileID: 0}
   paddleSpeed: 5
   paddleLenght: 0
   rightLimit: 0
   leftLimit: 0
   PaddleMoveLimit: 0
   tempX: 0
+  trippleDuration: 0
+  longBarDuration: 0
+  shortBarDuration: 0
+  speedUpBarDuration: 0
+  speedDownBarDuration: 0
   currenPaddlePosition: {x: 0, y: 0, z: 0}
   spawnPosition: {x: 0, y: -8, z: 0}
+  isShortBar: 0
+  isLongBar: 0
+  isSpeedDown: 0
+  isSpeedUp: 0
+  isTrippleBall: 0
 --- !u!114 &7204150380990232426
 MonoBehaviour:
   m_ObjectHideFlags: 0

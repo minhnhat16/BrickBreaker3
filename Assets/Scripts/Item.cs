@@ -47,7 +47,7 @@ public class Item : MonoBehaviour
                 case ItemType.LONG_BAR:
                     Paddle.instance.isLongBar = true;
                     targetScale = new Vector3(1.5f, 1.5f, 1.5f);
-                    Paddle.instance.transform.GetChild(0).GetComponent<Transform>().DOScaleX(0.7f, 0.7f);
+                    Paddle.instance.transform.GetChild(0).GetComponent<Transform>().DOScaleX(2.2f, 1.2f);
                     Paddle.instance.transform.localScale = Vector3.Lerp(Paddle.instance.transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
                     ItemPoolManager.instance.pool.DeSpawnNonGravity(this);
 
@@ -78,7 +78,7 @@ public class Item : MonoBehaviour
                 case ItemType.SHORT_BAR:
                     Paddle.instance.isShortBar = true;
                     targetScale = new Vector3(0.7f, 0.7f, 0.7f);
-                    Paddle.instance.transform.GetChild(0).GetComponent<Transform>().DOScaleX(0.7f, 0.7f);
+                    Paddle.instance.transform.GetChild(0).GetComponent<Transform>().DOScaleX(1.3f, 1f);
                     Paddle.instance.transform.localScale = Vector3.Lerp(Paddle.instance.transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
                     ItemPoolManager.instance.pool.DeSpawnNonGravity(this);
                     break;

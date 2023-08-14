@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InGameController : MonoBehaviour
@@ -24,8 +26,10 @@ public class InGameController : MonoBehaviour
     public static GameObject prefabPaddleInstance;
     public static GameObject prefabBallInstance;
     public Vector3 position;
-    private int listIndex = 1;
 
+    [SerializeField] public float scaleUpDuration = 0;
+    [SerializeField] public float magnetDuration = 0;
+    [SerializeField] public float powerDuration = 0;
 
     // Start is called before the first frame update
     private void Awake()
@@ -35,6 +39,7 @@ public class InGameController : MonoBehaviour
     }
     void Start()
     {
+        NotOnMagnet(ClearOnMagnet);
         pool = BallPoolManager.instance.pool.list;
         ballActiveList = new List<BallSystemVer2>(100);
     }
@@ -42,7 +47,9 @@ public class InGameController : MonoBehaviour
     void Update()
     {
 
-
+       DecreaItemDurationMagnet();
+       DecreaItemDurationPower();
+       DecreaItemDurationScaleUp();
     }
     public void GameOver()
     {
@@ -164,14 +171,10 @@ public class InGameController : MonoBehaviour
     {
         for (int i = 0; i < pool.Count; i++)
         {
-            //Debug.Log("FOREACH " +  +" IN " +);
-            //int j = ballActiveList.Count + 1;
             if (pool[i].gameObject.activeSelf == true)
             {
-                //Debug.Log("CHECK ACTIVE LIST");
                 main = pool[i];
                 break;
-                //Debug.Log("ball activelist " + ballActiveList[j]);
             }
         }
     }
@@ -180,8 +183,8 @@ public class InGameController : MonoBehaviour
         int i = 0;
         AddBallActive();
         Debug.Log("LoadBallInTripplelist " + ballActiveList.Count);
-        if (ballActiveList.Count == 1 && ballActiveList.Count <3)
-        {   
+        if (ballActiveList.Count == 1 && ballActiveList.Count < 3)
+        {
             i = 1;
             Debug.LogError($"Just have 1 ball");
             BallPoolManager.instance.pool.SpawnNonGravity();
@@ -194,7 +197,7 @@ public class InGameController : MonoBehaviour
             }
 
         }
-        else if(ballActiveList.Count >= 3)
+        else if (ballActiveList.Count >= 3)
         {
             for (i = 1; i < ballActiveList.Count; i++)
             {
@@ -203,24 +206,23 @@ public class InGameController : MonoBehaviour
                 ballActiveList[i].BallMultiply(ballActiveList[i]);
             }
         }
-       // AddBallActive();
+        // AddBallActive();
 
     }
     public bool CheckBallList()
     {
+        Debug.Log("CHECKBALLLIST");
         for (int i = 0; i < pool.Count; i++)
         {
-            //Debug.Log("FOREACH " +  +" IN " +);
-            //int j = ballActiveList.Count + 1;
             if (pool[i].gameObject.activeSelf == true)
             {
-                //Debug.Log("CHECK ACTIVE LIST");
                 main = pool[i];
+                Debug.Log("Mainball" + main);
                 return false;
-                //Debug.Log("ball activelist " + ballActiveList[j]);
             }
         }
-        return false;
+        Debug.Log("BALL ACTIVE LIST NULL");
+        return true;
     }
     public void DeSpawnBall()
     {
@@ -265,7 +267,9 @@ public class InGameController : MonoBehaviour
     {
         BallPoolManager.instance.pool.DeSpawnAll();
         ballActiveList.Clear();
-        listIndex = 0;
+        magnetDuration = 7f;
+        scaleUpDuration = 7f;
+        powerDuration = 7f;
         prefabBallInstance.SetActive(true);
         prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall();
         prefabPaddleInstance.SetActive(true);
@@ -273,7 +277,7 @@ public class InGameController : MonoBehaviour
         ResetBallPosition();
         // BallPoolManager.instance.ResetAllPoolPostion();
         ItemPoolManager.instance.pool.DeSpawnAll();
-       
+
     }
     public void ResetBallPosition()
     {
@@ -282,6 +286,46 @@ public class InGameController : MonoBehaviour
         {
             BallPoolManager.instance.pool.list[i].ResetBall();
         }
+    }
+    public float DecreaseItemDuration(float duration)
+    {
+        if (duration >0)
+        {
+            duration -= Time.deltaTime;
+        }
+        return duration;
+    }
+    public void DecreaItemDurationMagnet()
+    { 
+        magnetDuration = DecreaseItemDuration(magnetDuration);
+        
+    }
+    public void DecreaItemDurationPower()
+    {
+        powerDuration = DecreaseItemDuration(powerDuration);
+
+    }
+    public void DecreaItemDurationScaleUp()
+    {
+        scaleUpDuration = DecreaseItemDuration(scaleUpDuration);
+
+    }
+    public void NotOnMagnet(Action callback)
+    {
+        Debug.Log("Action callback");
+        if(magnetDuration <= 0)
+        {
+            callback?.Invoke();
+        }
+    }
+    public void ClearOnMagnet()
+    {
+        Debug.Log("clearONmagnet");
+        for(int i = 0;i < pool.Count; i++)
+        {
+            pool[i].isOnMagnet = false;
+        }
+        
     }
     public Vector3 MainBallPosition()
     {
