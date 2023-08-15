@@ -12,6 +12,8 @@ public class UserData
     public ItemData itemData;
     [SerializeField]
     public UserInventory inventory;
+    [SerializeField]
+    public UserLevelData levelData;
 }
 [Serializable]
 public class UserInfo
@@ -32,3 +34,17 @@ public class ItemData
     public int id;
     public int total;
 }
+[Serializable]
+public class UserLevelData 
+{
+    public Dictionary<int, Level> level = new Dictionary<int, Level>();
+    public int highestLevel;
+    public int totalStar;
+}
+public class LevelData
+{
+    public int highestScore;
+    public int totalStarInLevel;
+    public bool isWin = false;
+}
+

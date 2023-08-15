@@ -11,6 +11,8 @@ public class BallSystemVer2 : FSMSystem
     public Ball_SpawnState SpawnState;
     [HideInInspector]
     public Ball_DeathState DeathState;
+    [HideInInspector]
+    public Ball_MagnetState MagnetState;
     [SerializeField]
     private Transform Forward;
     [SerializeField]
@@ -135,20 +137,20 @@ public class BallSystemVer2 : FSMSystem
     }
     public void CheckItemEvent()
     {
-        Debug.Log($"scaleUpDuration{InGameController.Instance.scaleUpDuration}" +
-            $"magnetDuration  {InGameController.Instance.magnetDuration}" +
-            $"powerDuration {InGameController.Instance.powerDuration}");
-        
+        //Debug.Log($"scaleUpDuration{InGameController.Instance.scaleUpDuration}" +
+        //    $"magnetDuration  {InGameController.Instance.magnetDuration}" +
+        //    $"powerDuration {InGameController.Instance.powerDuration}");
+        //Debug.Log("Check Item Event");
         if (isScaleUp)
         {
             //Debug.Log("On ScaleUp");
 
             if (InGameController.Instance.scaleUpDuration <= 0)
             {
+                Debug.Log("Scale up duration < 0");
                 this.gameObject.transform.GetChild(0).localScale = new Vector2(2f, 2f);
-                ballRadius /= 2f;
-                castRadius /= 2f;
-                InGameController.Instance.scaleUpDuration = 5f;
+                ballRadius -= ballRadius/2f;
+                castRadius -= castRadius/2f;
                 isScaleUp = false;
             }
         }
@@ -158,20 +160,23 @@ public class BallSystemVer2 : FSMSystem
 
             if (InGameController.Instance.magnetDuration <= 0)
             {
+                Debug.Log("Magnet duration < 0");
+
                 this.transform.SetParent(BallPoolManager.instance.transform);
                 ballSpeed = 15f;
-                InGameController.Instance.magnetDuration = 10f;
                 isOnMagnet = false;
             }
         }
 
         if (isItemTypePower || onItemPowerUP)
         {
+
             this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(41, 130, 252, 255);
             if (InGameController.Instance.powerDuration <= 0)
             {
+                Debug.Log("Power duration < 0");
+
                 this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
-                InGameController.Instance.powerDuration = 7f;
                 isItemTypePower = false;
                 onItemPowerUP = false;
 
@@ -212,13 +217,15 @@ public class BallSystemVer2 : FSMSystem
     private void ScaleUp()
     {
         isScaleUp = true;
+        InGameController.Instance.scaleUpDuration = 5f;
+
         if (t == null)
         {
             Debug.Log("On ScaleUp");
 
             t = this.gameObject.transform.GetChild(0).DOScale(new Vector2(3f, 3f), 0.5f);
-            ballRadius *= 2.0f;
-            castRadius *= 2.0f;
+            ballRadius += ballRadius/2f;
+            castRadius += castRadius/2f;
             t.SetAutoKill(false);
         }
         else
@@ -230,18 +237,22 @@ public class BallSystemVer2 : FSMSystem
 
     private void Power()
     {
+        InGameController.Instance.powerDuration = 7f;
+
         isItemTypePower = true;
         onItemPowerUP = true;
     }
     private void Magnet()
     {
+        InGameController.Instance.magnetDuration = 10f;
+
         isOnMagnet = true;
     }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(Anchor.position, (Vector2)Anchor.position + (Vector2)moveDir);
-        Gizmos.DrawWireSphere(transform.position, 0.5f);
+        Gizmos.DrawWireSphere(transform.position, ballRadius);
         Gizmos.DrawLine((new Vector2(5.625f, 10f)), (new Vector2(-5.625f, 10f)));
         Gizmos.DrawLine((new Vector2(5.625f, -10f)), (new Vector2(-5.625f, -10f)));
         Gizmos.DrawLine((new Vector2(5.625f, 10f)), (new Vector2(5.625f, -10f)));
@@ -259,7 +270,7 @@ public class BallSystemVer2 : FSMSystem
         //float pointY = currentPosition.y + ballRadius * Mathf.Sin(theta);
         // transform.position = Mathf.Clamp(CameraMain.instance.GetLeft(), CameraMain.instance.GetRight());
         //transform.Translate(ballSpeed * Time.deltaTime * moveDir.normalized);
-        if (currentPosition.x <= rightCam && currentPosition.x >= leftCam && currentPosition.y <= topCam && currentPosition.y >= botCam)
+        if (currentPosition.x <= rightCam && currentPosition.x >= leftCam && currentPosition.y <= topCam - ballRadius - 1f && currentPosition.y >= botCam)
         {
             //Debug.Log("Point X:" + pointX);
             transform.Translate(ballSpeed * Time.deltaTime * moveDir.normalized);
@@ -275,15 +286,12 @@ public class BallSystemVer2 : FSMSystem
             //RandomItem();
 
         }
-        else if (currentPosition.y > topCam - ballRadius - 1 || currentPosition.y < botCam + ballRadius)
+        else if (currentPosition.y > topCam  - ballRadius - 1.2f )
         {
             currentPosition = transform.position + (ballSpeed * Time.deltaTime * moveDir.normalized);
-            currentPosition.y = Mathf.Clamp(currentPosition.y, topCam - 2f, botCam);
-            //Debug.Log("CLAMPED: " + currentPosition.x);
-
+            currentPosition.y = Mathf.Clamp(currentPosition.y, botCam + 2f, topCam - ballRadius - 1.2f);
+            Debug.Log("CLAMPED: " + currentPosition.y);
             transform.position = currentPosition;
-
-
         }
         //RandomItem();
 
@@ -311,10 +319,10 @@ public class BallSystemVer2 : FSMSystem
         double pointX = tempPosX + ballRadius * Mathf.Cos(theta);
         double pointY = tempPosY + ballRadius * Mathf.Sin(theta);
         //  Debug.Log($"Point on ball:({pointX},{pointY})") ;
-        if (tempPosX <= left || tempPosX >= right || pointY >= top - 1 ||
-            (pointX <= left && pointY >= top - 1) || (pointX >= right && pointY >= top - 1))
+        if (tempPosX <= left || tempPosX >= right || pointY >= top - 1.2f ||
+            (pointX <= left && pointY >= top - 1.2f) || (pointX >= right && pointY >= top - 1.2f))
         {
-            if (tempPosY > top - 1)
+            if (tempPosY > top - ballRadius - 1.2f)
             {
 
                 //Debug.Log("Hit left");
@@ -380,14 +388,7 @@ public class BallSystemVer2 : FSMSystem
                 return Vector3.zero;
         }
     }
-    //public Vector3 ReflectRandomAngleY()
-    //{
-    //    float randomX = Random.Range(-1f, 1f);
-    //    float randomY = Random.Range(-1f, 1f);
-    //    Vector3 randomVect = new Vector3(randomX, randomY);
-    //    Debug.Log("RandomY" + randomY);
-    //    return randomVect;
-    //}
+   
     public void CheckBallAngle(Vector3 vector)
     {
 
@@ -488,7 +489,6 @@ public class BallSystemVer2 : FSMSystem
             //Debug.Log(xMoveDir);
             //yMoveDir = Mathf.Clamp(transform.position.y, -7.25f, -7.30f);
             yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius, max.y + ballRadius);
-
             Vector2 add = new Vector2(0.5f, 1f);
             tempDirection = Vector3.Reflect(moveDir, add);
             moveDir = tempDirection.normalized;
@@ -516,7 +516,7 @@ public class BallSystemVer2 : FSMSystem
             moveDir = tempDirection.normalized;
         }
 
-        if (!isOnMagnet)
+        if (!Paddle.instance.isOnMagnet)
         {
             transform.position = new Vector3(xMoveDir, yMoveDir);
         }
@@ -526,12 +526,20 @@ public class BallSystemVer2 : FSMSystem
 
     public void ResetBall()
     {
+        Debug.Log("Reset Ball");
         tempX = 0;
         tempDirection = Vector3.zero;
         moveDir = Vector3.zero;
         SetMaxLive();
+        this.gameObject.transform.GetChild(0).localScale = new Vector2(2f, 2f);
+        ballRadius = 0.5f;
+        castRadius = 0.5f;
+        this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
 
         isOnMagnet = false;
+        isItemTypePower = false;
+        isScaleUp = false;
+        onItemPowerUP = false;
         GotoState(SpawnState);
     }
     public void SetDefaultScale()
@@ -549,11 +557,14 @@ public class BallSystemVer2 : FSMSystem
 
     public void BallMultiply(BallSystemVer2 ballparent)
     {
+        Debug.Log("Multiplyball");
         for (int i = 0; i < 2; i++)
         {
             BallSystemVer2 ball = BallPoolManager.instance.pool.SpawnNonGravity();
             ball.transform.position = ballparent.transform.position;
-            ball.moveDir = new Vector3(UnityEngine.Random.Range(-1, 1), 1);
+            Debug.Log($"ballparent.transform.position {ballparent.transform.position}");
+            Debug.Log($"ball {i} position {ball.transform.position} \n");
+            ball.moveDir = new Vector3(Random.Range(-1, 1), 1);
             ball.moveDir.Normalize();
             
         }

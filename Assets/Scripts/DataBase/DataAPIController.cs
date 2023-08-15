@@ -44,7 +44,11 @@ public class DataAPIController : MonoBehaviour
         return gold;
     }
     #endregion
-
+    public int GetHighestLevel()
+    {
+        int level = dataModel.ReadData<int>(DataPath.LEVEL);
+        return level;
+    }
     #region Others
     public ItemData GetItemData(int idItem)
     {

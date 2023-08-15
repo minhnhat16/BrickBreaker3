@@ -1,11 +1,9 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 public static class DataTrigger
 {
@@ -64,7 +62,7 @@ public static class DataTrigger
 
 public class DataModel : MonoBehaviour
 {
-    private UserData userData; 
+    private UserData userData;
 
     public void InitData(Action callback)
     {
@@ -79,12 +77,19 @@ public class DataModel : MonoBehaviour
             userData = new UserData();
             UserInfo inf = new UserInfo();
             inf.name = "Player 1";
-            inf.level =  0;
+            inf.level = 0;
             userData.userInfo = inf;
             UserInventory userInventory = new UserInventory();
             userInventory.gold = 100;
             userData.inventory = userInventory;
-          
+
+            UserLevelData userLevelData = new UserLevelData();
+
+            userLevelData.highestLevel = 1;
+            userLevelData.totalStar = 0;
+
+            userData.levelData = userLevelData;
+
             SaveData();
 
             Debug.Log("(BOOT) // INIT DATA DONE");
@@ -192,7 +197,7 @@ public class DataModel : MonoBehaviour
     {
         List<string> paths = path.ConvertToListPath();
         object dicDataOut;
-        UpdateDataDictionaryByPath<T>(paths, key, userData, newData,out dicDataOut, callback);
+        UpdateDataDictionaryByPath<T>(paths, key, userData, newData, out dicDataOut, callback);
         (path + "/" + key).TriggerValueChange(newData);
         path.TriggerValueChange(dicDataOut);
         SaveData();
@@ -248,5 +253,5 @@ public class DataModel : MonoBehaviour
 
 public class GameInitData
 {
-    
+
 }

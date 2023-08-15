@@ -9,6 +9,7 @@ public class InGameController : MonoBehaviour
     public bool isBallDeath;
     public bool isGameOver;
     public bool isLevelComplete;
+    
 
     public List<BallSystemVer2> pool;
 
@@ -39,15 +40,13 @@ public class InGameController : MonoBehaviour
     }
     void Start()
     {
-        NotOnMagnet(ClearOnMagnet);
         pool = BallPoolManager.instance.pool.list;
         ballActiveList = new List<BallSystemVer2>(100);
     }
 
     void Update()
-    {
-
-       DecreaItemDurationMagnet();
+    { 
+      DecreaItemDurationMagnet();
        DecreaItemDurationPower();
        DecreaItemDurationScaleUp();
     }
@@ -73,9 +72,9 @@ public class InGameController : MonoBehaviour
         else
         {
             //Debug.Log("reload ");
+            ResetEvent();
             ReloadGameObject();
         }
-
     }
     public bool CheckGameObjectNull()
     {
@@ -137,7 +136,7 @@ public class InGameController : MonoBehaviour
         GameObject gameObject1 = main.gameObject;
         prefabBallInstance = gameObject1;
         prefabBallInstance.GetComponent<BallSystemVer2>().paddle =
-            prefabPaddleInstance.GetComponent<Paddle>();
+        prefabPaddleInstance.GetComponent<Paddle>();
         SettingPaddleComp();
         ResetBallPosition();
         AddBallActive();
@@ -211,13 +210,13 @@ public class InGameController : MonoBehaviour
     }
     public bool CheckBallList()
     {
-        Debug.Log("CHECKBALLLIST");
+        //Debug.Log("CHECKBALLLIST");
         for (int i = 0; i < pool.Count; i++)
         {
             if (pool[i].gameObject.activeSelf == true)
             {
                 main = pool[i];
-                Debug.Log("Mainball" + main);
+                //Debug.Log("Mainball" + main);
                 return false;
             }
         }
@@ -310,22 +309,19 @@ public class InGameController : MonoBehaviour
         scaleUpDuration = DecreaseItemDuration(scaleUpDuration);
 
     }
-    public void NotOnMagnet(Action callback)
+    public void ResetEvent( )
     {
-        Debug.Log("Action callback");
-        if(magnetDuration <= 0)
+        //Debug.Log("Action callback");
+        for(int i = 0;i < pool.Count; i++)
         {
-            callback?.Invoke();
+            pool[i].ResetBall();
         }
+      
     }
     public void ClearOnMagnet()
     {
         Debug.Log("clearONmagnet");
-        for(int i = 0;i < pool.Count; i++)
-        {
-            pool[i].isOnMagnet = false;
-        }
-        
+        Paddle.instance.isOnMagnet = false;
     }
     public Vector3 MainBallPosition()
     {
