@@ -7,7 +7,6 @@ using UnityEngine;
 public class ConfigFileManager : MonoBehaviour
 {
     public BrickTypeScriptableObject brickScript ;
-    public LevelCompleteScrObj _lvComplete;
     [SerializeField] private LevelConfig _level;
     public static ConfigFileManager Instance;
     [SerializeField] private ConfigItemRecord _item;

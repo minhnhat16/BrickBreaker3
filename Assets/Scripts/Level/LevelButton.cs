@@ -47,10 +47,11 @@ public class LevelButton : MonoBehaviour
     }
     public void HighestLevel(int index)
     {
-        if(GameManager.Instance.currentLevel == index)
+        int level = Convert.ToInt32(DataAPIController.instance.GetHighestLevel());
+        if (level == index)
         {
             Debug.Log("Highest level on" + index);
-            highetsSprite.gameObject.SetActive(true);
+            highetsSprite.SetActive(true);
         }
     }
     

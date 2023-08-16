@@ -1,8 +1,6 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DataAPIController : MonoBehaviour
@@ -23,7 +21,7 @@ public class DataAPIController : MonoBehaviour
 
         dataModel.InitData(() =>
         {
-           // CheckDailyLogin();
+            // CheckDailyLogin();
             callback();
         });
 
@@ -31,10 +29,12 @@ public class DataAPIController : MonoBehaviour
     }
 
     #region Get Data
-    public void GetName()
+    public void Level()
     {
+        Debug.Log("DATA === LEVEL");
+
         dataModel.ReadData<string>(DataPath.NAME);
-        Level level = dataModel.ReadData<Level>(DataPath.LEVEL);
+        LevelConfig level = dataModel.ReadDictionary<LevelConfig>(DataPath.LEVEL, DataPath.HIGHESTLV);
     }
     public int GetGold()
     {
@@ -46,18 +46,43 @@ public class DataAPIController : MonoBehaviour
     #endregion
     public int GetHighestLevel()
     {
-        int level = dataModel.ReadData<int>(DataPath.LEVEL);
+        Debug.Log("DATA === highestLevel");
+        int level = dataModel.ReadData<int>(DataPath.HIGHESTLV);
         return level;
+    }
+    public void SaveHighestLevel(int level)
+    {
+        int highlevel = GetHighestLevel();
+        if (highlevel > level)
+        {
+            dataModel.UpdateData(DataPath.HIGHESTLV, level);
+
+        }
+    }
+    public void SaveLevel(int id, int hightSc, int totalStr, bool Win)
+    {
+        Debug.Log("DATA === SAVE LEVEL");
+        LevelData levelData = new LevelData
+        {
+            ID = id.ToString(),
+            highestScore = hightSc,
+            totalStarInLevel = totalStr,
+            isWin = Win
+        };
+        SaveHighestLevel(id);
+        dataModel.UpdateDataDictionary(DataPath.LEVEL, id.ToString(), levelData);
     }
     #region Others
     public ItemData GetItemData(int idItem)
     {
+        Debug.Log("DATA === ITEM DATA");
+
         ItemData itemData = dataModel.ReadDictionary<ItemData>(DataPath.ITEM, idItem.ToKey());
         return itemData;
     }
     public void SaveGold(int gold)
     {
-       dataModel.UpdateData(DataPath.GOLD, gold);
+        dataModel.UpdateData(DataPath.GOLD, gold);
     }
     #endregion
 }

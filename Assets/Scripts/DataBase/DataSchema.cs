@@ -37,12 +37,14 @@ public class ItemData
 [Serializable]
 public class UserLevelData 
 {
-    public Dictionary<int, Level> level = new Dictionary<int, Level>();
+    public Dictionary<string, LevelData> level = new Dictionary<string, LevelData>();
     public int highestLevel;
     public int totalStar;
+    public int currentLevel;
 }
 public class LevelData
 {
+    public string ID;
     public int highestScore;
     public int totalStarInLevel;
     public bool isWin = false;

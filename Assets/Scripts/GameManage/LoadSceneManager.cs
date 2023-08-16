@@ -32,7 +32,6 @@ public class LoadSceneManager : MonoBehaviour
     {
         LoadScene(sceneName);
         GameManager.Instance.LoadOnInGameController();
-
     }
     public void HidePopUpUI()
     {

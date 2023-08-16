@@ -526,7 +526,7 @@ public class BallSystemVer2 : FSMSystem
 
     public void ResetBall()
     {
-        Debug.Log("Reset Ball");
+        //Debug.Log("Reset Ball");
         tempX = 0;
         tempDirection = Vector3.zero;
         moveDir = Vector3.zero;

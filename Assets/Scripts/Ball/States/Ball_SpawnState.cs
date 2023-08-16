@@ -13,7 +13,7 @@ public class Ball_SpawnState : FSMState<BallSystemVer2>
         sys.CheckItemEvent();
         if (Paddle.instance.isTrippleBall)
         {
-            Debug.Log("On Tripple ball");
+            //Debug.Log("On Tripple ball");
             sys.GotoState(sys.MoveState);       
         }
         else if (sys.isOnMagnet)

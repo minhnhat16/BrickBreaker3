@@ -28,8 +28,7 @@ public class LevelConfirmDialog : BaseDialog
         DialogManager.Instance.HideDialog(DialogIndex.LevelConfirmDialog);
     }
     public void OnStartBtn()
-    {
-       
+    {       
         TextLevel = GameObject.Find("Level_Text_Temp").GetComponent<Text>().text;
         DialogManager.Instance.HideDialog(DialogIndex.LevelConfirmDialog);
         LoadSceneManager.Instance.LoadScene("Ingame");
@@ -38,6 +37,6 @@ public class LevelConfirmDialog : BaseDialog
         GameManager.Instance.currentScore = 0;
         LoadLevel.instance.LevelSelect(TextLevel);
         LoadLevel.instance.currentLevelLoad = Convert.ToInt32(TextLevel);
-
     }
+
 }

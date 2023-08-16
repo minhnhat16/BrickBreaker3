@@ -6,6 +6,16 @@ public class GamePlayView : BaseView
 {
     public void Update()
     {
+        InGameController.Instance.CheckCompleteScore();
+    }
+    public void CompleteLevel()
+    {
+      
+    }
+    public void LoadWinDialog()
+    {
+        DialogManager.Instance.ShowDialog(DialogIndex.WinDialog);
+
     }
     public override void OnStartShowView()
     {

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class InGameController : MonoBehaviour
@@ -9,7 +8,7 @@ public class InGameController : MonoBehaviour
     public bool isBallDeath;
     public bool isGameOver;
     public bool isLevelComplete;
-    
+
 
     public List<BallSystemVer2> pool;
 
@@ -45,10 +44,10 @@ public class InGameController : MonoBehaviour
     }
 
     void Update()
-    { 
-      DecreaItemDurationMagnet();
-       DecreaItemDurationPower();
-       DecreaItemDurationScaleUp();
+    {
+        DecreaItemDurationMagnet();
+        DecreaItemDurationPower();
+        DecreaItemDurationScaleUp();
     }
     public void GameOver()
     {
@@ -96,15 +95,13 @@ public class InGameController : MonoBehaviour
         }
     }
 
-    public bool CheckCompleteScore()
+    public void CheckCompleteScore( )
     {
         if (GameManager.Instance.currentScore == LoadLevel.instance.completeScore)
         {
             isLevelComplete = true;
-            return true;
-
+            LevelComplete();
         }
-        return false;
     }
     public bool CheckBrickClear()
     {
@@ -234,16 +231,19 @@ public class InGameController : MonoBehaviour
     }
     public void LevelComplete()
     {
-        CheckCompleteScore();
-        if (isLevelComplete)
-        {
-            GameManager.Instance.currentLevel++;
-            PauseGame();
-            DeSpawnAll();
-            DialogManager.Instance.ShowDialog(DialogIndex.WinDialog);
-        }
+        PauseGame();
+        DeSpawnAll();
+        DialogManager.Instance.ShowDialog(DialogIndex.WinDialog);
+        return;
     }
-
+    public void SaveLevelData( )
+    {
+        int currentlv = GameManager.Instance.currentLevel;
+        int currentSc = GameManager.Instance.winScore;
+        int totalStar = 3;
+        DataAPIController.instance.SaveLevel(currentlv, currentSc, totalStar, isLevelComplete);
+        
+    }
     public void PauseGame()
     {
         //Debug.Log("======>PAUSE");
@@ -288,16 +288,16 @@ public class InGameController : MonoBehaviour
     }
     public float DecreaseItemDuration(float duration)
     {
-        if (duration >0)
+        if (duration > 0)
         {
             duration -= Time.deltaTime;
         }
         return duration;
     }
     public void DecreaItemDurationMagnet()
-    { 
+    {
         magnetDuration = DecreaseItemDuration(magnetDuration);
-        
+
     }
     public void DecreaItemDurationPower()
     {
@@ -309,14 +309,14 @@ public class InGameController : MonoBehaviour
         scaleUpDuration = DecreaseItemDuration(scaleUpDuration);
 
     }
-    public void ResetEvent( )
+    public void ResetEvent()
     {
         //Debug.Log("Action callback");
-        for(int i = 0;i < pool.Count; i++)
+        for (int i = 0; i < pool.Count; i++)
         {
             pool[i].ResetBall();
         }
-      
+
     }
     public void ClearOnMagnet()
     {

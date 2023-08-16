@@ -15,7 +15,7 @@ MonoBehaviour:
   records:
   - ID: 1
     IsBoss: 0
-    IsWon: 0
+    IsWon: 1
   - ID: 2
     IsBoss: 0
     IsWon: 0
