@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,10 +12,20 @@ public class LevelConfirmDialog : BaseDialog
 {
     [SerializeField] private string TextLevel;
     [SerializeField] private Text _levelNumText;
+    [SerializeField] private Text _score_lb;
+
     public Text _showLevelNum;
+    
     private void Start()
     {
         _levelNumText = GameObject.Find("Level_Text").GetComponent<Text>();
+        
+    }
+    public override void OnStartShowDialog()
+    {
+        string key = GameObject.Find("Level_Text_Temp").GetComponent<Text>().text;
+        string score_txt = "High Score: " + DataAPIController.instance.GetLevelScore(key).ToString();
+        _score_lb.text = score_txt;
     }
     private void Update()
     {

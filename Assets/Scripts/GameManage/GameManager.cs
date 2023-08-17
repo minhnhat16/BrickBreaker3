@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public void LoadOnInGameController()
     {
         InGameController.LoadGameObject();
-        LoadOnData();
+        currentLevel = DataAPIController.instance.GetHighestLevel();
     }
     public void LoadOnData()
     {

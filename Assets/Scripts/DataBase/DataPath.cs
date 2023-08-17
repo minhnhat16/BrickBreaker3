@@ -6,6 +6,7 @@ public class DataPath
 {
     public const string NAME = "userInfo/name";
     public const string LEVEL = "levelData/level";
+    public const string SCORE = "levelData/level/highestScore";
     public const string HIGHESTLV = "levelData/highestLevel";
     public const string CURRENTLV = "levelData/highestLevel";
     public const string ITEM = "ItemData/id";

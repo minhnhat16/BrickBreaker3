@@ -123,7 +123,7 @@ public class BallSystemVer2 : FSMSystem
                     contactHandler.contactUnit = hit.collider.transform;
                     contactHandler.unitType = UnitType.OTHERS;
                     hitpoint = hit.point;
-                    Debug.Log("=======HITPOINT======" + hit.point);
+                    //Debug.Log("=======HITPOINT======" + hit.point);
 
                 }
                 else
@@ -290,7 +290,7 @@ public class BallSystemVer2 : FSMSystem
         {
             currentPosition = transform.position + (ballSpeed * Time.deltaTime * moveDir.normalized);
             currentPosition.y = Mathf.Clamp(currentPosition.y, botCam + 2f, topCam - ballRadius - 1.2f);
-            Debug.Log("CLAMPED: " + currentPosition.y);
+            //Debug.Log("CLAMPED: " + currentPosition.y);
             transform.position = currentPosition;
         }
         //RandomItem();
@@ -441,7 +441,7 @@ public class BallSystemVer2 : FSMSystem
     }
     public void BallReflectPaddle()
     {
-        Debug.Log("HIT POINT: " + hitpoint);
+        //Debug.Log("HIT POINT: " + hitpoint);
 
         Collider2D collider = paddle.GetComponent<Collider2D>();
         Bounds bounds = collider.bounds;
@@ -557,13 +557,13 @@ public class BallSystemVer2 : FSMSystem
 
     public void BallMultiply(BallSystemVer2 ballparent)
     {
-        Debug.Log("Multiplyball");
+        //Debug.Log("Multiplyball");
         for (int i = 0; i < 2; i++)
         {
             BallSystemVer2 ball = BallPoolManager.instance.pool.SpawnNonGravity();
             ball.transform.position = ballparent.transform.position;
-            Debug.Log($"ballparent.transform.position {ballparent.transform.position}");
-            Debug.Log($"ball {i} position {ball.transform.position} \n");
+            //Debug.Log($"ballparent.transform.position {ballparent.transform.position}");
+            //Debug.Log($"ball {i} position {ball.transform.position} \n");
             ball.moveDir = new Vector3(Random.Range(-1, 1), 1);
             ball.moveDir.Normalize();
             

@@ -91,7 +91,7 @@ public class Paddle : FSMSystem,InteractBall
  
     private void OnTripple()
     {
-        Debug.LogError("On Tripple");
+        //Debug.LogError("On Tripple");
         isTrippleBall = true;
         InGameController.Instance.LoadBallInTrippleList();
     }

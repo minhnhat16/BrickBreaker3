@@ -42,7 +42,7 @@ public class ItemPoolManager : MonoBehaviour
 
         item = pool.SpawnNonGravity();
         item.transform.position = new Vector2 (x,( CameraMain.instance.GetTop() - 2));
-        Debug.Log($"Itemtype: {itemType}, ItemData {i}, ItemConfig {itemConfig[itemType].itemData[i].itemType}");
+        //Debug.Log($"Itemtype: {itemType}, ItemData {i}, ItemConfig {itemConfig[itemType].itemData[i].itemType}");
         item.SetUp(itemConfig[itemType].itemData[i].itemType, itemConfig[itemType].itemData[i].sprite);
     }
 }

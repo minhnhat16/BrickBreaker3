@@ -50,13 +50,22 @@ public class DataAPIController : MonoBehaviour
         int level = dataModel.ReadData<int>(DataPath.HIGHESTLV);
         return level;
     }
+    public int GetLevelScore(string key)
+    {
+        Debug.Log("key === "+ key);
+        Debug.Log("======= DATA GetLevelScore");
+        LevelData temp = dataModel.ReadDictionary<LevelData>(DataPath.LEVEL,key);
+        Debug.Log("temp" + temp.highestScore);
+        int score = temp.highestScore;
+        return score;
+    }
     public void SaveHighestLevel(int level)
     {
         int highlevel = GetHighestLevel();
-        if (highlevel > level)
+        if (highlevel < level)
         {
             dataModel.UpdateData(DataPath.HIGHESTLV, level);
-
+            dataModel.UpdateData(DataPath.CURRENTLV, level);
         }
     }
     public void SaveLevel(int id, int hightSc, int totalStr, bool Win)

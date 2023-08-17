@@ -27,8 +27,5 @@ public class SelectLevelView : BaseView
     {
         ViewManager.Instance.SwitchView(ViewIndex.ShopView);
     }
-    public void checkHighestLevel()
-    {
-       
-    }
+
 }

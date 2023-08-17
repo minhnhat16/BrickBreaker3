@@ -97,13 +97,13 @@ public class Ball_SpawnState : FSMState<BallSystemVer2>
 
             if (ballPosX > 0 || currentPaddlePosition.x > 0)
             {
-                Debug.Log("CASE B1");
+                //Debug.Log("CASE B1");
                 distance = ballPosX - currentPaddlePosition.x;
 
             }
             else if (ballPosX < 0 || currentPaddlePosition.x < 0)
             {
-                Debug.Log("CASE B2");
+                //Debug.Log("CASE B2");
                 distance = -currentPaddlePosition.x + ballPosX;
             }
         }

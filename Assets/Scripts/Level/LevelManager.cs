@@ -49,6 +49,8 @@ public class LevelManager : MonoBehaviour
         int highId = DataAPIController.instance.GetHighestLevel();
         int level = Convert.ToInt32(highId);
         selectLevelList[level - 1].GetComponent<LevelButton>().highetsSprite.SetActive(true);
+        selectLevelList[level - 1].GetComponent<LevelButton>().lockSprite.SetActive(false);
+        selectLevelList[level - 1].GetComponent<LevelButton>().starList.gameObject.SetActive(false);
     }
     public void HighestLevelOff()
     {
@@ -60,9 +62,10 @@ public class LevelManager : MonoBehaviour
     public void IncompletedLevel(GameObject gameObject, int index, Action callback)
     {
         Debug.Log("WonLevelON");
-        if (levelConfigRecordList[index].isWon == 0)
+        if (levelConfigRecordList[index].isWon == 0 || index == DataAPIController.instance.GetHighestLevel())
         {
             gameObject.GetComponent<LevelButton>().lockSprite.SetActive(true);
+            gameObject.GetComponent<LevelButton>().starList.gameObject.SetActive(false);
             callback?.Invoke();
         }
     }

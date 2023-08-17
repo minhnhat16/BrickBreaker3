@@ -19,7 +19,7 @@ public class LevelButton : MonoBehaviour
     public Text levelTxtTemp;
     public GameObject lockSprite;
     public GameObject highetsSprite;
-
+    public StarList starList;
     public int currentLevel;
     public bool isComplete;
     private void Start()
@@ -30,7 +30,7 @@ public class LevelButton : MonoBehaviour
 
     public void OnclickLevelButton()
     {
-        if(isComplete) {
+        if(levelID <= DataAPIController.instance.GetHighestLevel()) {
             levelTxt.text = "Level " + levelID + "";
             levelTxtTemp.text = levelID + "";
             DialogManager.Instance.ShowDialog(DialogIndex.LevelConfirmDialog);

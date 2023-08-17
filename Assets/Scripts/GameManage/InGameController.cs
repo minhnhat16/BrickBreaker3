@@ -11,7 +11,6 @@ public class InGameController : MonoBehaviour
 
 
     public List<BallSystemVer2> pool;
-
     public List<BallSystemVer2> ballActiveList;
 
 
@@ -158,7 +157,7 @@ public class InGameController : MonoBehaviour
                 //Debug.Log("CHECK ACTIVE LIST");
                 BallSystemVer2 b = pool[i];
                 ballActiveList.Add(b);
-                Debug.Log(ballActiveList.Count);
+               //Debug.Log(ballActiveList.Count);
                 //Debug.Log("ball activelist " + ballActiveList[j]);
             }
         }
@@ -178,11 +177,11 @@ public class InGameController : MonoBehaviour
     {
         int i = 0;
         AddBallActive();
-        Debug.Log("LoadBallInTripplelist " + ballActiveList.Count);
+        //Debug.Log("LoadBallInTripplelist " + ballActiveList.Count);
         if (ballActiveList.Count == 1 && ballActiveList.Count < 3)
         {
             i = 1;
-            Debug.LogError($"Just have 1 ball");
+            //Debug.LogError($"Just have 1 ball");
             BallPoolManager.instance.pool.SpawnNonGravity();
 
             for (i = 0; i < ballActiveList.Count; i++)
@@ -197,7 +196,7 @@ public class InGameController : MonoBehaviour
         {
             for (i = 1; i < ballActiveList.Count; i++)
             {
-                Debug.Log("MULTIPLY BALL " + i);
+                //Debug.Log("MULTIPLY BALL " + i);
                 //Debug.Log($"ballActiveList[{i}] {ballActiveList[i]}");
                 ballActiveList[i].BallMultiply(ballActiveList[i]);
             }
@@ -236,14 +235,14 @@ public class InGameController : MonoBehaviour
         DialogManager.Instance.ShowDialog(DialogIndex.WinDialog);
         return;
     }
-    public void SaveLevelData( )
-    {
-        int currentlv = GameManager.Instance.currentLevel;
-        int currentSc = GameManager.Instance.winScore;
-        int totalStar = 3;
-        DataAPIController.instance.SaveLevel(currentlv, currentSc, totalStar, isLevelComplete);
+    //public void SaveLevelData()
+    //{
+    //    int currentlv = GameManager.Instance.currentLevel;
+    //    int currentSc = GameManager.Instance.winScore;
+    //    int totalStar = 3;
+    //    DataAPIController.instance.SaveLevel(currentlv, currentSc, totalStar, isLevelComplete);
         
-    }
+    //}
     public void PauseGame()
     {
         //Debug.Log("======>PAUSE");
