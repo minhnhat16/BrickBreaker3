@@ -58,6 +58,7 @@ public class Paddle : FSMSystem,InteractBall
     private void Init()
     {
         GotoState(MoveState);
+
         mainBall = InGameController.Instance.main;
         transform.localScale = new Vector3(1.5f, 1f, 1f);
     }

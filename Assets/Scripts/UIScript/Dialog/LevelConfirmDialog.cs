@@ -24,6 +24,7 @@ public class LevelConfirmDialog : BaseDialog
     public override void OnStartShowDialog()
     {
         string key = GameObject.Find("Level_Text_Temp").GetComponent<Text>().text;
+       
         string score_txt = "High Score: " + DataAPIController.instance.GetLevelScore(key).ToString();
         _score_lb.text = score_txt;
     }
@@ -45,6 +46,7 @@ public class LevelConfirmDialog : BaseDialog
         LoadSceneManager.Instance.LoadScene("Ingame");
         ViewManager.Instance.SwitchView(ViewIndex.GameplayView);
         GameManager.Instance.LoadOnInGameController();
+        
         GameManager.Instance.currentScore = 0;
         LoadLevel.instance.LevelSelect(TextLevel);
         LoadLevel.instance.currentLevelLoad = Convert.ToInt32(TextLevel);

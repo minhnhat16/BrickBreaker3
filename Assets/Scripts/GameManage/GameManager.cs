@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public DialogManager DialogManager;
     public LevelManager LevelManager;
     public int winScore;
+    public int starCount;
     public int currentScore;
     public int currentLevel ;
     public bool isBossLevel;
@@ -22,12 +23,12 @@ public class GameManager : MonoBehaviour
     }
     public void Start()
     {
-    }
 
+    }
     public void LoadOnInGameController()
     {
         InGameController.LoadGameObject();
-        currentLevel = DataAPIController.instance.GetHighestLevel();
+        //currentLevel = DataAPIController.instance.GetHighestLevel();
     }
     public void LoadOnData()
     {

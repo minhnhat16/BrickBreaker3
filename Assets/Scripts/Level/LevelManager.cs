@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,54 +18,62 @@ public class LevelManager : MonoBehaviour
     }
     private void Start()
     {
-       // Debug.Log("levelconfigrecordlist" + levelConfigRecordList.Count);
-    }   
+        // Debug.Log("levelconfigrecordlist" + levelConfigRecordList.Count);
+    }
     public void SpawnLevel()
     {
         if (selectLevelList.Count == 0)
         {
             //Debug.Log("select level list:" + selectLevelList.Count);
             //Debug.Log($"Level config record count {levelConfigRecordList.Count}");
-            for (int i = 0;  i < levelConfigRecordList.Count; i++)
+            for (int i = 0; i < levelConfigRecordList.Count; i++)
             {
                 GameObject selectedLevel = Instantiate(levelPrefab, this.transform);
-
                 selectedLevel.transform.GetChild(1).GetComponent<Text>().text = levelConfigRecordList[i].iD + "";
-                selectLevelList.Add(selectedLevel); 
+                selectLevelList.Add(selectedLevel);
                 selectedLevel.GetComponent<LevelButton>().levelID = levelConfigRecordList[i].iD;
-                IncompletedLevel(selectedLevel,i, HighestLevelOn);
-                
+                IncompletedLevel(selectedLevel, i, HighestLevelOn);
             }
-
         }
     }
-
+    public void CompleteLevelOn()
+    {
+        Debug.Log("CompleteLevelOn");
+        int currentlv = DataAPIController.instance.GetCurrentLevel();
+        selectLevelList[currentlv - 1].GetComponent<LevelButton>().highetsSprite.SetActive(false);
+        selectLevelList[currentlv - 1].GetComponent<LevelButton>().lockSprite.SetActive(false);
+        selectLevelList[currentlv - 1].GetComponent<LevelButton>().starList.gameObject.SetActive(true);
+    }
     public void HighestLevelOn()
     {
         Debug.Log("HighestLevelON");
 
         int highId = DataAPIController.instance.GetHighestLevel();
-        int level = Convert.ToInt32(highId);
-        selectLevelList[level - 1].GetComponent<LevelButton>().highetsSprite.SetActive(true);
-        selectLevelList[level - 1].GetComponent<LevelButton>().lockSprite.SetActive(false);
-        selectLevelList[level - 1].GetComponent<LevelButton>().starList.gameObject.SetActive(false);
+        Debug.Log("Level" + (highId - 1));
+        selectLevelList[highId - 1].GetComponent<LevelButton>().highetsSprite.SetActive(true);
+        selectLevelList[highId - 1].GetComponent<LevelButton>().lockSprite.SetActive(false);
+        selectLevelList[highId - 2].GetComponent<LevelButton>().starList.gameObject.SetActive(true);
+        selectLevelList[highId - 1].GetComponent<LevelButton>().starList.gameObject.SetActive(false);   
     }
     public void HighestLevelOff()
     {
-        int highId = GameManager.Instance.currentLevel;
-        Debug.Log("HIGHTID "+ highId);  
-        selectLevelList[highId - 1].GetComponent<LevelButton>().highetsSprite.SetActive(false);
-
+        int current = DataAPIController.instance.GetCurrentLevel();
+        Debug.Log("HIGHTID " + current);
+        selectLevelList[current - 1].GetComponent<LevelButton>().highetsSprite.SetActive(false);
     }
     public void IncompletedLevel(GameObject gameObject, int index, Action callback)
     {
         Debug.Log("WonLevelON");
-        if (levelConfigRecordList[index].isWon == 0 || index == DataAPIController.instance.GetHighestLevel())
+        StarOn(gameObject);
+        if (index >= DataAPIController.instance.GetHighestLevel())
         {
             gameObject.GetComponent<LevelButton>().lockSprite.SetActive(true);
             gameObject.GetComponent<LevelButton>().starList.gameObject.SetActive(false);
             callback?.Invoke();
         }
     }
-    
+    public void StarOn(GameObject obj)
+    {
+        obj.GetComponent<LevelButton>().starList.gameObject.SetActive(true);
+    }
 }

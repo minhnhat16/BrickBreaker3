@@ -53,7 +53,7 @@ public class BallSystemVer2 : FSMSystem
     public float ballForce;
     public float bounceFact = 0.2f;
     private float timeDecrease1 = 0.1f, timeDecrease2 = 0.1f, timeDecrease3 = 0.1f;
-    private float minDuration = 1f, maxDuration = 5f;
+    //private float minDuration = 1f, maxDuration = 5f;
    
     public int maxLives = 1;
     public int currentLive;

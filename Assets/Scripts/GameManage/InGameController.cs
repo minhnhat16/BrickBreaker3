@@ -1,5 +1,7 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class InGameController : MonoBehaviour
@@ -26,9 +28,10 @@ public class InGameController : MonoBehaviour
     public static GameObject prefabBallInstance;
     public Vector3 position;
 
-    [SerializeField] public float scaleUpDuration = 0;
-    [SerializeField] public float magnetDuration = 0;
-    [SerializeField] public float powerDuration = 0;
+    [HideInInspector] public float scaleUpDuration = 0;
+    [HideInInspector] public float magnetDuration = 0;
+    [HideInInspector] public float powerDuration = 0;
+    [HideInInspector] public float deltatime = 0;
 
     // Start is called before the first frame update
     private void Awake()
@@ -59,6 +62,7 @@ public class InGameController : MonoBehaviour
 
     public void LoadGameObject()
     {
+        Debug.Log("LOAD GAME OBJECT");
         bool check = CheckGameObjectNull();
         if (check)
         {
@@ -326,5 +330,23 @@ public class InGameController : MonoBehaviour
     {
         return main.transform.position;
     }
+    public void UpdateTimer(Action callback, float timer)
+    {
+        GameManager.Instance.starCount = 3;
+        deltatime += Time.deltaTime;    
+        if (deltatime > timer && GameManager.Instance.starCount > 1)
+        {
+            Debug.Log("Trigger Timer");
+            deltatime = 0;
+            callback?.Invoke();
+           
+        }
+    }
 
+    public void CalStar() // Calculating Star
+    {
+        Debug.Log("Calculating Star");
+        deltatime += Time.deltaTime;
+        GameManager.Instance.starCount -= 1;
+    }
 }

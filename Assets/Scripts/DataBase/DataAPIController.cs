@@ -46,18 +46,47 @@ public class DataAPIController : MonoBehaviour
     #endregion
     public int GetHighestLevel()
     {
-        Debug.Log("DATA === highestLevel");
+        //Debug.Log("DATA === highestLevel");
         int level = dataModel.ReadData<int>(DataPath.HIGHESTLV);
         return level;
     }
     public int GetLevelScore(string key)
     {
-        Debug.Log("key === "+ key);
+        Debug.Log("key === " + key);
         Debug.Log("======= DATA GetLevelScore");
-        LevelData temp = dataModel.ReadDictionary<LevelData>(DataPath.LEVEL,key);
-        Debug.Log("temp" + temp.highestScore);
-        int score = temp.highestScore;
-        return score;
+        LevelData temp = dataModel.ReadDictionary<LevelData>(DataPath.LEVEL, key);
+        if(temp == null)
+        {
+            Debug.Log("NULL TEMP");
+            return 0;
+        }
+        else
+        {
+            Debug.Log("temp" + temp.highestScore);
+            int score = temp.highestScore;
+            return score;
+        }
+    }
+
+    public bool GetWinInfo(string key)
+    {
+        LevelData temp = dataModel.ReadDictionary<LevelData>(DataPath.LEVEL, key);
+        if (temp == null)
+        {
+            Debug.Log("NULL TEMP");
+            return false;
+        }
+        else
+        {
+            Debug.Log("temp" + temp.highestScore);
+            bool _isWin = temp.isWin;
+            return _isWin;
+        }
+    }
+    public int GetCurrentLevel()
+    {
+        int level = dataModel.ReadData<int>(DataPath.CURRENTLV);
+        return level;
     }
     public void SaveHighestLevel(int level)
     {
@@ -68,9 +97,12 @@ public class DataAPIController : MonoBehaviour
             dataModel.UpdateData(DataPath.CURRENTLV, level);
         }
     }
+    public void SaveCurrentLevel(int level) {
+            dataModel.UpdateData(DataPath.CURRENTLV, level);
+    }
     public void SaveLevel(int id, int hightSc, int totalStr, bool Win)
     {
-        Debug.Log("DATA === SAVE LEVEL");
+        //Debug.Log("DATA === SAVE LEVEL");
         LevelData levelData = new LevelData
         {
             ID = id.ToString(),

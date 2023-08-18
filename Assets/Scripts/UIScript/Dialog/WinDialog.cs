@@ -7,17 +7,20 @@ public class WinDialog : BaseDialog
     [SerializeField] private string TextLevel;
     [SerializeField] private int _crLevel;
     [SerializeField] private int _nextLv;
-    [SerializeField] private int score;
-    [SerializeField] private int star;
+    [SerializeField] private int _score;
+    [SerializeField] private int _star;
     public override void OnStartShowDialog()
     {
         _crLevel = LoadLevel.instance.currentLevelLoad;
-        score = GameManager.Instance.currentScore;
+        _score = GameManager.Instance.currentScore;
+        _star = GameManager.Instance.starCount;
         _nextLv = _crLevel + 1;
-        star = 3;
         GameManager.Instance.currentLevel = _nextLv;
+       
+    }
+    public override void OnEndHideDialog()
+    {
         SaveOnWin();
-
     }
     public void OnNextLevelButton()
     {
@@ -31,6 +34,7 @@ public class WinDialog : BaseDialog
     }
     public void OnHomeBtn()
     {
+        SaveOnWin();
         GameManager.Instance.currentScore = 0;
 
         ViewManager.Instance.SwitchView(ViewIndex.SelectLevelView);
@@ -46,8 +50,8 @@ public class WinDialog : BaseDialog
     }
     public void SaveOnWin()
     {
-        DataAPIController.instance.SaveLevel(_crLevel, score, star, true);
+        DataAPIController.instance.SaveLevel(_crLevel, _score, _star, true);
         DataAPIController.instance.SaveHighestLevel(_nextLv);
-        
+        //DataAPIController.instance.SaveCurrentLevel(_crLevel);
     }
 }
