@@ -120,12 +120,12 @@ public class LoadLevel : MonoBehaviour
     public void ResetData()
     {
         totalBrickInLevel = 1;
+        GameManager.Instance.starCount = 3;
         GameManager.Instance.currentScore = 0;
         InGameController.Instance.isGameOver = false;
         InGameController.Instance.DeSpawnAll();
         InGameController.Instance.LoadGameObject();
         InGameController.Instance.isLevelComplete = false;
         //ItemPoolManager.instance.pool.DeSpawnAll();
-
     }
 }

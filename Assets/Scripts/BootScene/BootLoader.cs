@@ -19,7 +19,7 @@ public class BootLoader : MonoBehaviour
     {
         //Debug.Log("Load Scene Buffer");
         // T?i scene có tên "Buffer"
-
+        //LOAD CONFIG FILE FIRST
         SceneManager.LoadScene("Buffer");
         ViewManager.Instance.SwitchView(ViewIndex.LoadingView);
     }

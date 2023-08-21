@@ -24,7 +24,7 @@ public class InGameController : MonoBehaviour
 
     public Paddle paddle;
     public BallSystemVer2 main;
-    public static GameObject prefabPaddleInstance;
+    public static Paddle prefabPaddleInstance;
     public static GameObject prefabBallInstance;
     public Vector3 position;
 
@@ -50,6 +50,8 @@ public class InGameController : MonoBehaviour
         DecreaItemDurationMagnet();
         DecreaItemDurationPower();
         DecreaItemDurationScaleUp();
+        InGameController.Instance.CheckCompleteScore();
+        InGameController.Instance.UpdateTimer(InGameController.Instance.CalStar, 10f);
     }
     public void GameOver()
     {
@@ -66,14 +68,14 @@ public class InGameController : MonoBehaviour
         bool check = CheckGameObjectNull();
         if (check)
         {
-            //Debug.Log(" load");
+            Debug.Log("load");
             LoadPaddle();
             LoadBall(1);
             SetUpCamera();
         }
         else
         {
-            //Debug.Log("reload ");
+            Debug.Log("reload ");
             ResetEvent();
             ReloadGameObject();
         }
@@ -100,7 +102,7 @@ public class InGameController : MonoBehaviour
 
     public void CheckCompleteScore( )
     {
-        if (GameManager.Instance.currentScore == LoadLevel.instance.completeScore)
+        if (GameManager.Instance.currentScore == LoadLevel.instance.completeScore && LoadLevel.instance.completeScore != 0)
         {
             isLevelComplete = true;
             LevelComplete();
@@ -117,8 +119,10 @@ public class InGameController : MonoBehaviour
     }
     public void LoadPaddle()
     {
-        prefabPaddleInstance = Instantiate(paddlePref, transform.parent);
-        prefabPaddleInstance.SetActive(true);
+        GameObject gameObject = Instantiate(paddlePref, transform.parent);
+        Debug.Log("game object paddle" + gameObject);
+        prefabPaddleInstance = gameObject.GetComponent<Paddle>();
+        prefabPaddleInstance.gameObject.SetActive(true);
     }
 
     public void LoadBall()
@@ -225,7 +229,10 @@ public class InGameController : MonoBehaviour
     }
     public void DeSpawnBall()
     {
+        //Debug.Log("BallPoolManager" + BallPoolManager.instance.pool);
         BallPoolManager.instance.pool.DeSpawnAll();
+        //Debug.Log("prefab ball" + prefabBallInstance);
+        //Debug.Log("prefab ball get component" + prefabBallInstance.GetComponent<BallSystemVer2>());
         prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall();
     }
     public void DeSpawnPaddle()
@@ -236,7 +243,13 @@ public class InGameController : MonoBehaviour
     {
         PauseGame();
         DeSpawnAll();
-        DialogManager.Instance.ShowDialog(DialogIndex.WinDialog);
+        WinDialogParam param = new WinDialogParam();
+        param.crLevel = LoadLevel.instance.currentLevelLoad;
+        param.score = GameManager.Instance.currentScore;
+        param.star = GameManager.Instance.starCount;
+        param.nextLv = param.crLevel + 1;
+
+        DialogManager.Instance.ShowDialog(DialogIndex.WinDialog,param);
         return;
     }
     //public void SaveLevelData()
@@ -274,7 +287,7 @@ public class InGameController : MonoBehaviour
         powerDuration = 7f;
         prefabBallInstance.SetActive(true);
         prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall();
-        prefabPaddleInstance.SetActive(true);
+        prefabPaddleInstance.gameObject.SetActive(true);
         prefabPaddleInstance.GetComponent<Paddle>().ResetPaddle();
         ResetBallPosition();
         // BallPoolManager.instance.ResetAllPoolPostion();
@@ -332,7 +345,6 @@ public class InGameController : MonoBehaviour
     }
     public void UpdateTimer(Action callback, float timer)
     {
-        GameManager.Instance.starCount = 3;
         deltatime += Time.deltaTime;    
         if (deltatime > timer && GameManager.Instance.starCount > 1)
         {
@@ -345,8 +357,8 @@ public class InGameController : MonoBehaviour
 
     public void CalStar() // Calculating Star
     {
-        Debug.Log("Calculating Star");
         deltatime += Time.deltaTime;
         GameManager.Instance.starCount -= 1;
+        Debug.Log("Calculating Star" + GameManager.Instance.starCount);
     }
 }

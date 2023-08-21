@@ -9,22 +9,30 @@ public class WinDialog : BaseDialog
     [SerializeField] private int _nextLv;
     [SerializeField] private int _score;
     [SerializeField] private int _star;
+
+    public override void Setup(DialogParam dialogParam)
+    {
+        base.Setup(dialogParam);
+        if(dialogParam != null)
+        {
+            WinDialogParam param = (WinDialogParam)dialogParam;
+            _crLevel = param.crLevel;
+            _nextLv = param.nextLv;
+            _score = param.score;
+            _star = param.star;
+        }
+    }
     public override void OnStartShowDialog()
     {
-        _crLevel = LoadLevel.instance.currentLevelLoad;
-        _score = GameManager.Instance.currentScore;
-        _star = GameManager.Instance.starCount;
-        _nextLv = _crLevel + 1;
-        GameManager.Instance.currentLevel = _nextLv;
-       
+        
     }
-    public override void OnEndHideDialog()
+    public override void OnEndShowDialog()
     {
-        SaveOnWin();
+        Debug.Log("On Start Hide Dialog");
     }
     public void OnNextLevelButton()
     {
-
+        SaveOnWin();
         InGameController.Instance.isGameOver = false;
         LoadLevel.instance.LevelSelect(_nextLv.ToString());
         GameManager.Instance.currentScore = 0;
@@ -35,11 +43,12 @@ public class WinDialog : BaseDialog
     public void OnHomeBtn()
     {
         SaveOnWin();
+        InGameController.Instance.isGameOver = false;
         GameManager.Instance.currentScore = 0;
-
-        ViewManager.Instance.SwitchView(ViewIndex.SelectLevelView);
+        LoadLevel.instance.ResetData();
         InGameController.Instance.DeSpawnAll();
         DialogManager.Instance.HideDialog(DialogIndex.WinDialog);
+        ViewManager.Instance.SwitchView(ViewIndex.SelectLevelView);
     }
     public void OnRestartLevel()
     {
@@ -50,6 +59,7 @@ public class WinDialog : BaseDialog
     }
     public void SaveOnWin()
     {
+        Debug.Log("Save On Win");
         DataAPIController.instance.SaveLevel(_crLevel, _score, _star, true);
         DataAPIController.instance.SaveHighestLevel(_nextLv);
         //DataAPIController.instance.SaveCurrentLevel(_crLevel);

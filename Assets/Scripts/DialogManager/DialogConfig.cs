@@ -1,5 +1,6 @@
 
 using System;
+using UnityEngine;
 
 public enum DialogIndex
 {
@@ -40,10 +41,10 @@ public class LoseDialogParam : DialogParam
 
 public class WinDialogParam : DialogParam
 {
-    public int timeScore;
-    public int playScore;
-    public int finishScore;
-    public int highScore;
+   public int crLevel;
+   public int nextLv;
+   public int score;
+   public int star;
 }
 
 public class BuyConfirmDialogParam : DialogParam

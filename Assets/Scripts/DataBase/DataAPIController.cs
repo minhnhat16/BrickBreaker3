@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class DataAPIController : MonoBehaviour
@@ -102,7 +103,7 @@ public class DataAPIController : MonoBehaviour
     }
     public void SaveLevel(int id, int hightSc, int totalStr, bool Win)
     {
-        //Debug.Log("DATA === SAVE LEVEL");
+        Debug.Log("DATA === SAVE LEVEL");
         LevelData levelData = new LevelData
         {
             ID = id.ToString(),
@@ -110,7 +111,8 @@ public class DataAPIController : MonoBehaviour
             totalStarInLevel = totalStr,
             isWin = Win
         };
-        SaveHighestLevel(id);
+        Debug.Log("LEVEL DATA" + levelData);
+        //SaveHighestLevel(id);
         dataModel.UpdateDataDictionary(DataPath.LEVEL, id.ToString(), levelData);
     }
     #region Others

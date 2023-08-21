@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
     }
     public void CompleteLevelOn()
     {
-        Debug.Log("CompleteLevelOn");
+        //Debug.Log("CompleteLevelOn");
         int currentlv = DataAPIController.instance.GetCurrentLevel();
         selectLevelList[currentlv - 1].GetComponent<LevelButton>().highetsSprite.SetActive(false);
         selectLevelList[currentlv - 1].GetComponent<LevelButton>().lockSprite.SetActive(false);
@@ -46,24 +46,26 @@ public class LevelManager : MonoBehaviour
     }
     public void HighestLevelOn()
     {
-        Debug.Log("HighestLevelON");
+        //Debug.Log("HighestLevelON");
 
         int highId = DataAPIController.instance.GetHighestLevel();
-        Debug.Log("Level" + (highId - 1));
+        //Debug.Log("Level" + (highId - 1));
         selectLevelList[highId - 1].GetComponent<LevelButton>().highetsSprite.SetActive(true);
         selectLevelList[highId - 1].GetComponent<LevelButton>().lockSprite.SetActive(false);
+        selectLevelList[highId - 1].GetComponent<LevelButton>().starList.gameObject.SetActive(false);
+        if (highId > 1) {
         selectLevelList[highId - 2].GetComponent<LevelButton>().starList.gameObject.SetActive(true);
-        selectLevelList[highId - 1].GetComponent<LevelButton>().starList.gameObject.SetActive(false);   
+        }
     }
     public void HighestLevelOff()
     {
         int current = DataAPIController.instance.GetCurrentLevel();
-        Debug.Log("HIGHTID " + current);
+        //Debug.Log("HIGHTID " + current);
         selectLevelList[current - 1].GetComponent<LevelButton>().highetsSprite.SetActive(false);
     }
     public void IncompletedLevel(GameObject gameObject, int index, Action callback)
     {
-        Debug.Log("WonLevelON");
+        //Debug.Log("WonLevelON");
         StarOn(gameObject);
         if (index >= DataAPIController.instance.GetHighestLevel())
         {

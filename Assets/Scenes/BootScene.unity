@@ -802,6 +802,10 @@ PrefabInstance:
       propertyPath: isLevelComplete
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 139010313211194246, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: prefabPaddleInstance
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 139010313468756696, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: _MenuUI
       value: 

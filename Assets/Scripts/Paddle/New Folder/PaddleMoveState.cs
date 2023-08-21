@@ -19,8 +19,7 @@ public class PaddleMoveState : FSMState<Paddle>
     {
         MovePaddle();
         sys.CheckItemEvent();
-        InGameController.Instance.UpdateTimer(InGameController.Instance.CalStar, 30f);
-
+        
         //InGameController.Instance.RandomItem();
         //IngameController.instance.main.StartCoroutine(RandomSpawnItem());
 

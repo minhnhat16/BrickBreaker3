@@ -28,11 +28,6 @@ public class LoadSceneManager : MonoBehaviour
 
         scene.allowSceneActivation = true;
     }
-    public void ChangeScene(string sceneName)
-    {
-        LoadScene(sceneName);
-        GameManager.Instance.LoadOnInGameController();
-    }
     public void HidePopUpUI()
     {
 
