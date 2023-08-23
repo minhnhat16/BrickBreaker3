@@ -32,7 +32,7 @@ public class InGameController : MonoBehaviour
     [HideInInspector] public float magnetDuration = 0;
     [HideInInspector] public float powerDuration = 0;
     [HideInInspector] public float deltatime = 0;
-
+    public float lives = 1;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -41,6 +41,7 @@ public class InGameController : MonoBehaviour
     }
     void Start()
     {
+        lives = 1;
         pool = BallPoolManager.instance.pool.list;
         ballActiveList = new List<BallSystemVer2>(100);
     }

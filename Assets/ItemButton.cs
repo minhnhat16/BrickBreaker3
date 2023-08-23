@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemButton : MonoBehaviour
 {
+    public List<Item> startItem;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +17,10 @@ public class ItemButton : MonoBehaviour
     void Update()
     {
         
+    }
+    
+    public void OnPowerButton()
+    {
+        startItem.
     }
 }

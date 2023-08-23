@@ -13,6 +13,7 @@ public enum ItemType
     SPEED_DOWN,
     SHORT_BAR,
     LONG_BAR,
+    ADD_LIVE,
 }
 
 public class Item : MonoBehaviour
@@ -91,6 +92,10 @@ public class Item : MonoBehaviour
         {
             ItemPoolManager.instance.pool.DeSpawnNonGravity(this);
         }
+    }
+    public void StartItem()
+    {
+        
     }
     public void SetUp(ItemType itemType,Sprite sprite)
     {

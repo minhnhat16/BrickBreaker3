@@ -72,6 +72,9 @@ MonoBehaviour:
   isSpeedDown: 0
   isSpeedUp: 0
   isTrippleBall: 0
+  isScaleUp: 0
+  isItemTypePower: 0
+  isOnMagnet: 0
 --- !u!114 &7204150380990232426
 MonoBehaviour:
   m_ObjectHideFlags: 0

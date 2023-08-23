@@ -8,7 +8,7 @@ public class Ball_DeathState : FSMState<BallSystemVer2>
 
     public override void OnEnter()
     {
-        if (InGameController.Instance.CheckBallList())
+        if (InGameController.Instance.CheckBallList() && InGameController.Instance.lives ==0)
         {
             InGameController.Instance.isGameOver = true ;
         }
