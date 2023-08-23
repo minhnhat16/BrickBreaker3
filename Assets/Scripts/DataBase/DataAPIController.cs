@@ -37,6 +37,11 @@ public class DataAPIController : MonoBehaviour
         dataModel.ReadData<string>(DataPath.NAME);
         LevelConfig level = dataModel.ReadDictionary<LevelConfig>(DataPath.LEVEL, DataPath.HIGHESTLV);
     }
+    public LevelData GetLevelData(int key)
+    {
+        LevelData levelData = dataModel.ReadDictionary<LevelData>(DataPath.LEVEL, key.ToKey());
+        return levelData;
+    }
     public int GetGold()
     {
         Debug.LogWarning("GETTING GOLD .....");
@@ -99,7 +104,7 @@ public class DataAPIController : MonoBehaviour
         }
     }
     public void SaveCurrentLevel(int level) {
-            dataModel.UpdateData(DataPath.CURRENTLV, level);
+        dataModel.UpdateData(DataPath.CURRENTLV, level);
     }
     public void SaveLevel(int id, int hightSc, int totalStr, bool Win)
     {

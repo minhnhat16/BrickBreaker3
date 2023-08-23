@@ -602,6 +602,7 @@ MonoBehaviour:
   baseViewAnim: {fileID: 0}
   ScrollView: {fileID: 5880050376701116236}
   total_lb: {fileID: 2849116894379706081}
+  highestlevel: 0
 --- !u!1 &8591567200084887931
 GameObject:
   m_ObjectHideFlags: 0

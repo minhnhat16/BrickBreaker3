@@ -35,7 +35,6 @@ public class LevelButton : MonoBehaviour
             levelTxtTemp.text = levelID + "";
             DialogManager.Instance.ShowDialog(DialogIndex.LevelConfirmDialog);
         }
-        
         //ViewManager.Instance.SwitchView(ViewIndex.GameplayView);
     }
    

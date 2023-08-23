@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GamePlayView : BaseView
 {
+
     public override void OnStartShowView()
     {
         //InGameController.Instance.CheckCompleteScore();

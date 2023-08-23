@@ -15,12 +15,19 @@ public class WinDialog : BaseDialog
         base.Setup(dialogParam);
         if(dialogParam != null)
         {
+            Debug.Log("LEVEL DATA NULL");
+
             WinDialogParam param = (WinDialogParam)dialogParam;
             _crLevel = param.crLevel;
             _nextLv = param.nextLv;
             _score = param.score;
             _star = param.star;
         }
+        //DataTrigger.RegisterValueChange(DataPath.LEVEL + "/" + _crLevel.ToKey(), (data) =>
+        //{
+        //    = (LevelData)data;
+        //    Debug.Log("TRIGGER VALUE CHANGE");
+        //});
     }
     public override void OnStartShowDialog()
     {
@@ -28,7 +35,7 @@ public class WinDialog : BaseDialog
     }
     public override void OnEndShowDialog()
     {
-        Debug.Log("On Start Hide Dialog");
+        //Debug.Log("On Start Hide Dialog");
     }
     public void OnNextLevelButton()
     {
@@ -43,6 +50,7 @@ public class WinDialog : BaseDialog
     public void OnHomeBtn()
     {
         SaveOnWin();
+
         InGameController.Instance.isGameOver = false;
         GameManager.Instance.currentScore = 0;
         LoadLevel.instance.ResetData();

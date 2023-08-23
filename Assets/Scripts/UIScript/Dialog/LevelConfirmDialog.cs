@@ -14,6 +14,7 @@ public class LevelConfirmDialog : BaseDialog
     [SerializeField] private Text _levelNumText;
     [SerializeField] private Text _score_lb;
     [SerializeField] private StarList _star;
+    [SerializeField] private List<ItemButton> itemButton;
     public Text _showLevelNum;
     
     private void Start()

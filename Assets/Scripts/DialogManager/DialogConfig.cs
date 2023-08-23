@@ -1,6 +1,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum DialogIndex
 {
@@ -49,8 +50,10 @@ public class WinDialogParam : DialogParam
 
 public class BuyConfirmDialogParam : DialogParam
 {
-    public Action onConfirmAction;
-    public Action onCancleAction;
+    //public Action onConfirmAction;
+    //public Action onCancleAction;
+    public string amount_lb;
+    public string bonus_lb;
 }
 public class LevelConfirm : DialogParam
 {

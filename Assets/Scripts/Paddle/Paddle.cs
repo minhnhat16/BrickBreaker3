@@ -28,7 +28,7 @@ public class Paddle : FSMSystem,InteractBall
     public float shortBarDuration;
     public float speedUpBarDuration;
     public float speedDownBarDuration;
-    private float minDuration = 0f, maxDuration = 3f;
+    private float minDuration = 10f, maxDuration = 15f;
     public Vector3 currenPaddlePosition;
     public Vector3 spawnPosition = new Vector3(0, -8, 0);
     public bool isShortBar = false;

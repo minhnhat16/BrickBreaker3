@@ -10,55 +10,29 @@ public class ShopView : BaseView
 
     public Text name_lb;
     public Image Icon;
-    private ConfigItemRecord cf;
     public Text total_lb;
-    public Sprite gold_bar; 
+    public Sprite gold_bar;
 
-    public void Setup(ConfigItemRecord cf)
+    public override void Setup(ViewParam viewParam) { 
+        base.Setup(viewParam);
+        if (viewParam != null)
+        {
+            ShopViewParam param = (ShopViewParam)viewParam;
+            total_lb.text = param.totalGold.ToString();
+        }
+    }
+    public override void ShowView()
     {
-        this.cf = cf;
-        ItemData dataItem = DataAPIController.instance.GetItemData(cf.ID);
-        if (dataItem != null)
-        {
-            total_lb.text = dataItem.total.ToString();
-        }
-        else
-        {
-            total_lb.text = "";
-        }
-        name_lb.text = cf.name;
-        Icon.overrideSprite = SpriteLibraryControl.Instance.GetSpriteByName(cf.icon);
-        Icon.SetNativeSize();
-        DataTrigger.RegisterValueChange(DataPath.ITEM + "/" + cf.ID.ToKey(), (data) =>
-        {
-            dataItem = (ItemData)data;
-            total_lb.text = "Total " + dataItem.total;
-        });
-
+        total_lb.text = DataAPIController.instance.GetGold().ToString();
+        base.ShowView();
     }
     public override void OnStartShowView()
     {
         total_lb.text = DataAPIController.instance.GetGold().ToString();
     }
-    public void OnAddGold()
+    public void OnUpdateGold()
     {
-        int gold =Convert.ToInt32(total_lb.text);
-        gold += 10;
-        DataAPIController.instance.SaveGold(gold);
         total_lb.text = DataAPIController.instance.GetGold().ToString();
-
-    }
-    public void OnMinusGold()
-    {
-        int gold = Convert.ToInt32(total_lb.text);
-        gold -= 10;
-        DataAPIController.instance.SaveGold(gold);
-        total_lb.text = DataAPIController.instance.GetGold().ToString();
-
-    }
-    public void OnShowInfo()
-    {
-        // DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, new Dialog)
 
     }
     public void OnSelectLevel()

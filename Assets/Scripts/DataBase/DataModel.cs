@@ -235,7 +235,7 @@ public class DataModel : MonoBehaviour
     private void SaveData()
     {
         string json_string = JsonConvert.SerializeObject(userData);
-        //Debug.Log("(DATA) // SAVE  DATA: " + json_string);
+        Debug.Log("(DATA) // SAVE  DATA: " + json_string);
         PlayerPrefs.SetString("DATA", json_string);
     }
 

@@ -10,15 +10,28 @@ public class SelectLevelView : BaseView
     public GameObject ScrollView;
     public Text total_lb;
     public int highestlevel;
+    private LevelConfigRecord lv_cf;
 
+    public void Setup(LevelConfigRecord lv_cf)
+    {
+        this.lv_cf = lv_cf;
+        LevelData levelData = DataAPIController.instance.GetLevelData(lv_cf.iD);
+        if (levelData != null)
+        {
+            Debug.Log("LEVEL DATA NULL");
+        }
+        DataTrigger.RegisterValueChange(DataPath.LEVEL + "/" + lv_cf.iD.ToKey(), (data) =>
+        {
+            levelData = (LevelData)data;
+            Debug.Log("TRIGGER VALUE CHANGE");
+        });
+    }
     public override void OnInit()
     {
         GameManager.Instance.currentLevel = DataAPIController.instance.GetHighestLevel();
     }
     public override void OnStartShowView()
     {
-        //Debug.Log("Onstart show select level view");
-        //Debug.Log("current level" + ScrollView.GetComponentInChildren<LevelManager>().currentLevel);
         Debug.Log("On Start Show View SelecDiaglog");
         GameManager.Instance.currentLevel = DataAPIController.instance.GetHighestLevel();
         ScrollView.GetComponentInChildren<LevelManager>().SpawnLevel();

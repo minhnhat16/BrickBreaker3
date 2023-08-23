@@ -348,7 +348,7 @@ public class InGameController : MonoBehaviour
         deltatime += Time.deltaTime;    
         if (deltatime > timer && GameManager.Instance.starCount > 1)
         {
-            Debug.Log("Trigger Timer");
+            //Debug.Log("Trigger Timer");
             deltatime = 0;
             callback?.Invoke();
            
@@ -359,6 +359,6 @@ public class InGameController : MonoBehaviour
     {
         deltatime += Time.deltaTime;
         GameManager.Instance.starCount -= 1;
-        Debug.Log("Calculating Star" + GameManager.Instance.starCount);
+        //Debug.Log("Calculating Star" + GameManager.Instance.starCount);
     }
 }
