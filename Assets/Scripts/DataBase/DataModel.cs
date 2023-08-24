@@ -81,6 +81,17 @@ public class DataModel : MonoBehaviour
             userData.userInfo = inf;
             UserInventory  userInventory = new UserInventory();
             userInventory.gold = 100;
+            userInventory.itemInventory = new Dictionary<string, ItemData>();
+            
+            for(int i = 0; i < 3;i ++) {
+                ItemData itemData = new ItemData();
+                itemData.total = 0;
+                int id = i ;
+                itemData.id = id.ToString();
+                Debug.Log(id);
+                userInventory.itemInventory.Add(itemData.id, itemData);
+            }
+
             userData.inventory = userInventory;
 
             UserLevelData userLevelData = new UserLevelData();

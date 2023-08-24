@@ -9,6 +9,6 @@ public class DataPath
     public const string SCORE = "levelData/level/highestScore";
     public const string HIGHESTLV = "levelData/highestLevel";
     public const string CURRENTLV = "levelData/currentLevel";
-    public const string ITEM = "ItemData/id";
+    public const string ITEM = "inventory/itemInventory";
     public const string GOLD = "inventory/gold";
 }

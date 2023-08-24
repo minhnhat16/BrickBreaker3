@@ -32,6 +32,14 @@ public class InGameController : MonoBehaviour
     [HideInInspector] public float magnetDuration = 0;
     [HideInInspector] public float powerDuration = 0;
     [HideInInspector] public float deltatime = 0;
+    public bool isShortBar = false;
+    public bool isLongBar = false;
+    public bool isSpeedDown = false;
+    public bool isSpeedUp = false;
+    public bool isTrippleBall = false;
+    public bool isScaleUp = false;
+    public bool isItemTypePower = false;
+    public bool isOnMagnet = false;
     public float lives = 1;
     // Start is called before the first frame update
     private void Awake()
@@ -338,7 +346,7 @@ public class InGameController : MonoBehaviour
     public void ClearOnMagnet()
     {
         Debug.Log("clearONmagnet");
-        Paddle.instance.isOnMagnet = false;
+        InGameController.Instance.isOnMagnet = false;
     }
     public Vector3 MainBallPosition()
     {

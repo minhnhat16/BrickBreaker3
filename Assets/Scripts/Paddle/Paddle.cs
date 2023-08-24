@@ -31,14 +31,7 @@ public class Paddle : FSMSystem,InteractBall
     private float minDuration = 10f, maxDuration = 15f;
     public Vector3 currenPaddlePosition;
     public Vector3 spawnPosition = new Vector3(0, -8, 0);
-    public bool isShortBar = false;
-    public bool isLongBar = false ;
-    public bool isSpeedDown = false ;
-    public bool isSpeedUp = false;
-    public bool isTrippleBall = false;
-    public bool isScaleUp = false;
-    public bool isItemTypePower = false;
-    public bool isOnMagnet = false;
+
 
 
 
@@ -93,13 +86,13 @@ public class Paddle : FSMSystem,InteractBall
     private void OnTripple()
     {
         //Debug.LogError("On Tripple");
-        isTrippleBall = true;
+        InGameController.Instance.isTrippleBall = true;
         InGameController.Instance.LoadBallInTrippleList();
     }
 
     public void CheckItemEvent()
     {
-        if (isLongBar)
+        if (InGameController.Instance.isLongBar)
         {
             //Debug.LogWarning("=============LONGBAR=============");
             longBarDuration -= Time.deltaTime;
@@ -107,12 +100,12 @@ public class Paddle : FSMSystem,InteractBall
             {
                 transform.GetChild(0).GetComponent<Transform>().DOScaleX(2.20f, 1.2f);
                 transform.GetComponent<BoxCollider2D>().size = new Vector2(2.65f + 0.5f, 0.5f) ;
-                isLongBar = false;
+                InGameController.Instance.isLongBar = false;
                 longBarDuration = 5f;
             }
         }
 
-        if (isShortBar)
+        if (InGameController.Instance.isShortBar)
         {
             //Debug.LogWarning("=============SHORTBAR=============");
 
@@ -120,12 +113,12 @@ public class Paddle : FSMSystem,InteractBall
             if (shortBarDuration <= 0)
             {
                 transform.GetChild(0).GetComponent<Transform>().DOScaleX(1.5f, 1f);
-                isShortBar = false;
+                InGameController.Instance.isShortBar = false;
                 shortBarDuration = 5f;
             }
         }
 
-        if (isSpeedUp)
+        if (InGameController.Instance.isSpeedUp)
         {
             //Debug.LogWarning("=============SPEEDUP=============");
 
@@ -133,12 +126,12 @@ public class Paddle : FSMSystem,InteractBall
             if (speedUpBarDuration <= 0)
             {
                 paddleSpeed = 10f;
-                isSpeedUp = false;
+                InGameController.Instance.isSpeedUp = false;
                 speedUpBarDuration = 5f;
             }
         }
 
-        if (isSpeedDown)
+        if (InGameController.Instance.isSpeedDown)
         {
             //Debug.LogWarning("=============SPEEDDOWN=============");
 
@@ -146,18 +139,18 @@ public class Paddle : FSMSystem,InteractBall
             if (speedDownBarDuration <= 0)
             {
                 paddleSpeed = 10f;
-                isSpeedDown = false;
+                InGameController.Instance.isSpeedDown = false;
                 speedDownBarDuration = 5f;
             }
         }
 
-        if (isTrippleBall)
+        if (InGameController.Instance.isTrippleBall)
         {
             trippleDuration -= Time.deltaTime;
             if (trippleDuration <= 0)
             {
                 trippleDuration = 5f;
-                isTrippleBall = false;
+                InGameController.Instance.isTrippleBall = false;
             }
         }
     }

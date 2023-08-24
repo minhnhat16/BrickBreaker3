@@ -549,7 +549,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 651755351719344218}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -808,9 +808,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3702547802559298426}
   - {fileID: 4182586060669798352}
   - {fileID: 1397915452418411398}
+  - {fileID: 3702547802559298426}
   - {fileID: 2994911993985265330}
   - {fileID: 449064367276404265}
   - {fileID: 649270770717826099}
@@ -1236,7 +1236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 985602978117600296, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 985602978117600296, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1313,6 +1313,10 @@ PrefabInstance:
     - target: {fileID: 2072990049005446210, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_Name
       value: BackGround
+      objectReference: {fileID: 0}
+    - target: {fileID: 2072990049005446210, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5992726049121595286, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_Sprite
@@ -1516,7 +1520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 985602978117600296, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 985602978117600296, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1593,6 +1597,10 @@ PrefabInstance:
     - target: {fileID: 2072990049005446210, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_Name
       value: BackGround (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2072990049005446210, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5992726049121595286, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_Color.a

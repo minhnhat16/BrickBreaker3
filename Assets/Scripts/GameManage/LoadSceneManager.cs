@@ -11,13 +11,14 @@ using UnityEngine.UIElements;
 public class LoadSceneManager : MonoBehaviour
 {
     public static LoadSceneManager Instance;
+    public string currrentSence;
     private void Awake()
     {
         Instance = this;
     }
     public async void LoadScene(string sceneName)
     {
-
+        currrentSence = sceneName;
         var scene = SceneManager.LoadSceneAsync(sceneName);
         scene.allowSceneActivation = false;
         ViewManager.Instance.SwitchView(ViewIndex.LoadingView);
@@ -27,10 +28,6 @@ public class LoadSceneManager : MonoBehaviour
         } while (scene.progress < 0.9f);
 
         scene.allowSceneActivation = true;
-    }
-    public void HidePopUpUI()
-    {
-
     }
     public void PauseGame()
     {

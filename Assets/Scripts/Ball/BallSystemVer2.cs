@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -168,7 +169,7 @@ public class BallSystemVer2 : FSMSystem
             }
         }
 
-        if (isItemTypePower || onItemPowerUP)
+        if (isItemTypePower || onItemPowerUP || InGameController.Instance.isItemTypePower)
         {
 
             this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(41, 130, 252, 255);
@@ -238,7 +239,7 @@ public class BallSystemVer2 : FSMSystem
     private void Power()
     {
         InGameController.Instance.powerDuration = 7f;
-
+        InGameController.Instance.isItemTypePower = true;
         isItemTypePower = true;
         onItemPowerUP = true;
     }
@@ -301,8 +302,9 @@ public class BallSystemVer2 : FSMSystem
         if (transform.position.y < CameraMain.instance.GetBottom())
         {
             Debug.Log($"Ball active list {InGameController.Instance.ballActiveList.IndexOf(this)}");
+            Debug.Log($"LIVES {InGameController.Instance.lives}");
             InGameController.Instance.ballActiveList.Remove(this);
-
+            InGameController.Instance.lives--;
             BallPoolManager.instance.pool.DeSpawnNonGravity(this);
             GotoState(DeathState);
         }
@@ -516,7 +518,7 @@ public class BallSystemVer2 : FSMSystem
             moveDir = tempDirection.normalized;
         }
 
-        if (!Paddle.instance.isOnMagnet)
+        if (!InGameController.Instance.isOnMagnet)
         {
             transform.position = new Vector3(xMoveDir, yMoveDir);
         }

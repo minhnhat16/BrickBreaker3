@@ -121,12 +121,30 @@ public class DataAPIController : MonoBehaviour
         dataModel.UpdateDataDictionary(DataPath.LEVEL, id.ToString(), levelData);
     }
     #region Others
-    public ItemData GetItemData(int idItem)
+    public ItemData GetItemData(string type)
     {
         Debug.Log("DATA === ITEM DATA");
-
-        ItemData itemData = dataModel.ReadDictionary<ItemData>(DataPath.ITEM, idItem.ToKey());
+        ItemData itemData = dataModel.ReadDictionary<ItemData>(DataPath.ITEM, type.ToString());
         return itemData;
+    }
+    public int GetItemTotal(string type)
+    {
+        Debug.Log("GetItemTotal");
+        ItemData itemData = dataModel.ReadDictionary<ItemData>(DataPath.ITEM, type);
+        int total = itemData.total;
+        return total;
+    }
+    public void SetItemTotal(string type, int inTotal)
+    {
+        Debug.Log("DATA === SAVE ITEMDATA");
+        ItemData itemData = new ItemData
+        {
+            id = type,
+            total = inTotal,
+        };
+        Debug.Log("ITEM DATA" + itemData);
+        //SaveHighestLevel(id);
+        dataModel.UpdateDataDictionary(DataPath.ITEM, type.ToString(), itemData);
     }
     public void SaveGold(int gold)
     {

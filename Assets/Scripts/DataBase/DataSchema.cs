@@ -25,13 +25,13 @@ public class UserInfo
 public class UserInventory
 {
     [SerializeField]
-    public Dictionary<int, ItemData> inventory = new Dictionary<int, ItemData>();
+    public Dictionary<string, ItemData> itemInventory = new Dictionary<string, ItemData>();
     public int gold;
 }
 [Serializable]
 public class ItemData
 {
-    public int id;
+    public string id;
     public int total;
 }
 [Serializable]

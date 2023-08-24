@@ -121,6 +121,7 @@ public class LoadLevel : MonoBehaviour
     {
         totalBrickInLevel = 1;
         GameManager.Instance.starCount = 3;
+        InGameController.Instance.lives = 1;
         GameManager.Instance.currentScore = 0;
         InGameController.Instance.isGameOver = false;
         InGameController.Instance.DeSpawnAll();

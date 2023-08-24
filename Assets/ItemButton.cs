@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ItemButton : MonoBehaviour
 {
-    public List<Item> startItem;
+    public List<StartItem> startItem;
     
     // Start is called before the first frame update
     void Start()
@@ -21,6 +21,6 @@ public class ItemButton : MonoBehaviour
     
     public void OnPowerButton()
     {
-        startItem.
+       
     }
 }

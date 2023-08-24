@@ -47,7 +47,6 @@ public class LevelConfirmDialog : BaseDialog
         ViewManager.Instance.SwitchView(ViewIndex.GameplayView);
         UnityEngine.Debug.Log("GAME MANAGER" + GameManager.Instance);
         GameManager.Instance.LoadOnInGameController();
-        
         GameManager.Instance.currentScore = 0;
         LoadLevel.instance.LevelSelect(TextLevel);
         LoadLevel.instance.currentLevelLoad = Convert.ToInt32(TextLevel);

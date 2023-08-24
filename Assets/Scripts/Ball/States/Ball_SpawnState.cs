@@ -11,7 +11,7 @@ public class Ball_SpawnState : FSMState<BallSystemVer2>
     public override void OnEnter()
     {    
         sys.CheckItemEvent();
-        if (Paddle.instance.isTrippleBall)
+        if (InGameController.Instance.isTrippleBall)
         {
             //Debug.Log("On Tripple ball");
             sys.GotoState(sys.MoveState);       
@@ -20,7 +20,7 @@ public class Ball_SpawnState : FSMState<BallSystemVer2>
         {
             OnMagnet();
         }
-        else if (!Paddle.instance.isTrippleBall && !sys.isOnMagnet)
+        else if (!InGameController.Instance.isTrippleBall && !sys.isOnMagnet)
         {
             //Debug.Log("TRANSFORM ON ENTER NO MAGNET");
             lastestPaddlePosition = sys.paddle.spawnPosition;
@@ -44,7 +44,7 @@ public class Ball_SpawnState : FSMState<BallSystemVer2>
     public void GetPaddlePosition()
     {
         currentPaddlePosition = sys.paddle.transform.position;
-        if (!Paddle.instance.isOnMagnet)
+        if (!InGameController.Instance.isOnMagnet)
         {
             deltaPosition.x = currentPaddlePosition.x - lastestPaddlePosition.x;
             sys.transform.position = new Vector3(deltaPosition.x, currentPaddlePosition.y + 1f, currentPaddlePosition.z);
@@ -67,7 +67,7 @@ public class Ball_SpawnState : FSMState<BallSystemVer2>
     {
         float ballPosX = sys.transform.position.x;
         currentPaddlePosition = sys.paddle.transform.position;
-        if (Paddle.instance.isTrippleBall)
+        if (InGameController.Instance.isTrippleBall)
         {
             sys.GotoState(sys.MoveState);
         }
