@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -55,7 +54,7 @@ public class BallSystemVer2 : FSMSystem
     public float bounceFact = 0.2f;
     private float timeDecrease1 = 0.1f, timeDecrease2 = 0.1f, timeDecrease3 = 0.1f;
     //private float minDuration = 1f, maxDuration = 5f;
-   
+
     public int maxLives = 1;
     public int currentLive;
     public int hitAngleCount = 0;
@@ -150,8 +149,8 @@ public class BallSystemVer2 : FSMSystem
             {
                 Debug.Log("Scale up duration < 0");
                 this.gameObject.transform.GetChild(0).localScale = new Vector2(2f, 2f);
-                ballRadius -= ballRadius/2f;
-                castRadius -= castRadius/2f;
+                ballRadius -= ballRadius / 2f;
+                castRadius -= castRadius / 2f;
                 isScaleUp = false;
             }
         }
@@ -171,12 +170,11 @@ public class BallSystemVer2 : FSMSystem
 
         if (isItemTypePower || onItemPowerUP || InGameController.Instance.isItemTypePower)
         {
-
+            isItemTypePower = true;
+            onItemPowerUP = true;
             this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(41, 130, 252, 255);
             if (InGameController.Instance.powerDuration <= 0)
             {
-                //Debug.Log("Power duration < 0");
-
                 this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
                 isItemTypePower = false;
                 onItemPowerUP = false;
@@ -225,8 +223,8 @@ public class BallSystemVer2 : FSMSystem
             Debug.Log("On ScaleUp");
 
             t = this.gameObject.transform.GetChild(0).DOScale(new Vector2(3f, 3f), 0.5f);
-            ballRadius += ballRadius/2f;
-            castRadius += castRadius/2f;
+            ballRadius += ballRadius / 2f;
+            castRadius += castRadius / 2f;
             t.SetAutoKill(false);
         }
         else
@@ -271,7 +269,7 @@ public class BallSystemVer2 : FSMSystem
         //float pointY = currentPosition.y + ballRadius * Mathf.Sin(theta);
         // transform.position = Mathf.Clamp(CameraMain.instance.GetLeft(), CameraMain.instance.GetRight());
         //transform.Translate(ballSpeed * Time.deltaTime * moveDir.normalized);
-        if (currentPosition.x <= rightCam && currentPosition.x >= leftCam && currentPosition.y <= topCam - ballRadius - 1f && currentPosition.y >= botCam)
+        if (currentPosition.x <= rightCam && currentPosition.x >= leftCam && currentPosition.y <= topCam - ballRadius - 2f && currentPosition.y >= botCam)
         {
             //Debug.Log("Point X:" + pointX);
             transform.Translate(ballSpeed * Time.deltaTime * moveDir.normalized);
@@ -287,10 +285,10 @@ public class BallSystemVer2 : FSMSystem
             //RandomItem();
 
         }
-        else if (currentPosition.y > topCam  - ballRadius - 1.2f )
+        else if (currentPosition.y > topCam - ballRadius - 2f)
         {
             currentPosition = transform.position + (ballSpeed * Time.deltaTime * moveDir.normalized);
-            currentPosition.y = Mathf.Clamp(currentPosition.y, botCam + 2f, topCam - ballRadius - 1.2f);
+            currentPosition.y = Mathf.Clamp(currentPosition.y, botCam + 2f, topCam - ballRadius - 2.2f);
             //Debug.Log("CLAMPED: " + currentPosition.y);
             transform.position = currentPosition;
         }
@@ -321,10 +319,10 @@ public class BallSystemVer2 : FSMSystem
         double pointX = tempPosX + ballRadius * Mathf.Cos(theta);
         double pointY = tempPosY + ballRadius * Mathf.Sin(theta);
         //  Debug.Log($"Point on ball:({pointX},{pointY})") ;
-        if (tempPosX <= left || tempPosX >= right || pointY >= top - 1.2f ||
-            (pointX <= left && pointY >= top - 1.2f) || (pointX >= right && pointY >= top - 1.2f))
+        if (tempPosX <= left || tempPosX >= right || pointY >= top - 2.2f ||
+            (pointX <= left && pointY >= top - 2.2f) || (pointX >= right && pointY >= top - 2.2f))
         {
-            if (tempPosY > top - ballRadius - 1.2f)
+            if (tempPosY > top - ballRadius - 2.2f)
             {
 
                 //Debug.Log("Hit left");
@@ -390,7 +388,7 @@ public class BallSystemVer2 : FSMSystem
                 return Vector3.zero;
         }
     }
-   
+
     public void CheckBallAngle(Vector3 vector)
     {
 
@@ -568,7 +566,7 @@ public class BallSystemVer2 : FSMSystem
             //Debug.Log($"ball {i} position {ball.transform.position} \n");
             ball.moveDir = new Vector3(Random.Range(-1, 1), 1);
             ball.moveDir.Normalize();
-            
+
         }
 
     }

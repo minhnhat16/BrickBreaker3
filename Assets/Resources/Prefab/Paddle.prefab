@@ -67,14 +67,6 @@ MonoBehaviour:
   speedDownBarDuration: 0
   currenPaddlePosition: {x: 0, y: 0, z: 0}
   spawnPosition: {x: 0, y: -8, z: 0}
-  isShortBar: 0
-  isLongBar: 0
-  isSpeedDown: 0
-  isSpeedUp: 0
-  isTrippleBall: 0
-  isScaleUp: 0
-  isItemTypePower: 0
-  isOnMagnet: 0
 --- !u!114 &7204150380990232426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +182,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 7de19b1e353e2994c843030e5c18ab47, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

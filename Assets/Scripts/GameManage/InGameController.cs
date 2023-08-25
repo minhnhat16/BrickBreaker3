@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InGameController : MonoBehaviour
@@ -21,7 +22,7 @@ public class InGameController : MonoBehaviour
     public GameObject paddlePref;
     public CameraMain cam;
     public GameObject item;
-
+    public GameObject backGround;
     public Paddle paddle;
     public BallSystemVer2 main;
     public static Paddle prefabPaddleInstance;
@@ -32,6 +33,14 @@ public class InGameController : MonoBehaviour
     [HideInInspector] public float magnetDuration = 0;
     [HideInInspector] public float powerDuration = 0;
     [HideInInspector] public float deltatime = 0;
+
+    public int winScore;
+    public int starCount;
+    public int currentScore;
+    public int currentLevel;
+    public int lives = 1;
+
+    public bool isBossLevel;
     public bool isShortBar = false;
     public bool isLongBar = false;
     public bool isSpeedDown = false;
@@ -40,7 +49,6 @@ public class InGameController : MonoBehaviour
     public bool isScaleUp = false;
     public bool isItemTypePower = false;
     public bool isOnMagnet = false;
-    public float lives = 1;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -73,18 +81,18 @@ public class InGameController : MonoBehaviour
 
     public void LoadGameObject()
     {
-        Debug.Log("LOAD GAME OBJECT");
+        //Debug.Log("LOAD GAME OBJECT");
         bool check = CheckGameObjectNull();
         if (check)
         {
-            Debug.Log("load");
+            //Debug.Log("load");
             LoadPaddle();
             LoadBall(1);
             SetUpCamera();
         }
         else
         {
-            Debug.Log("reload ");
+            //Debug.Log("reload ");
             ResetEvent();
             ReloadGameObject();
         }
@@ -111,7 +119,7 @@ public class InGameController : MonoBehaviour
 
     public void CheckCompleteScore( )
     {
-        if (GameManager.Instance.currentScore == LoadLevel.instance.completeScore && LoadLevel.instance.completeScore != 0)
+        if (InGameController.Instance.currentScore == LoadLevel.instance.completeScore && LoadLevel.instance.completeScore != 0)
         {
             isLevelComplete = true;
             LevelComplete();
@@ -129,7 +137,7 @@ public class InGameController : MonoBehaviour
     public void LoadPaddle()
     {
         GameObject gameObject = Instantiate(paddlePref, transform.parent);
-        Debug.Log("game object paddle" + gameObject);
+        //Debug.Log("game object paddle" + gameObject);
         prefabPaddleInstance = gameObject.GetComponent<Paddle>();
         prefabPaddleInstance.gameObject.SetActive(true);
     }
@@ -229,7 +237,6 @@ public class InGameController : MonoBehaviour
             if (pool[i].gameObject.activeSelf == true)
             {
                 main = pool[i];
-                //Debug.Log("Mainball" + main);
                 return false;
             }
         }
@@ -254,8 +261,8 @@ public class InGameController : MonoBehaviour
         DeSpawnAll();
         WinDialogParam param = new WinDialogParam();
         param.crLevel = LoadLevel.instance.currentLevelLoad;
-        param.score = GameManager.Instance.currentScore;
-        param.star = GameManager.Instance.starCount;
+        param.score = InGameController.Instance.currentScore;
+        param.star = InGameController.Instance.starCount;
         param.nextLv = param.crLevel + 1;
 
         DialogManager.Instance.ShowDialog(DialogIndex.WinDialog,param);
@@ -305,7 +312,7 @@ public class InGameController : MonoBehaviour
     }
     public void ResetBallPosition()
     {
-        Debug.Log("RESET BALL POSITION");
+        //Debug.Log("RESET BALL POSITION");
         for (int i = 0; i < BallPoolManager.instance.pool.total; i++)
         {
             BallPoolManager.instance.pool.list[i].ResetBall();
@@ -355,7 +362,7 @@ public class InGameController : MonoBehaviour
     public void UpdateTimer(Action callback, float timer)
     {
         deltatime += Time.deltaTime;    
-        if (deltatime > timer && GameManager.Instance.starCount > 1)
+        if (deltatime > timer && InGameController.Instance.starCount > 1)
         {
             //Debug.Log("Trigger Timer");
             deltatime = 0;
@@ -367,7 +374,7 @@ public class InGameController : MonoBehaviour
     public void CalStar() // Calculating Star
     {
         deltatime += Time.deltaTime;
-        GameManager.Instance.starCount -= 1;
+        InGameController.Instance.starCount -= 1;
         //Debug.Log("Calculating Star" + GameManager.Instance.starCount);
     }
 }

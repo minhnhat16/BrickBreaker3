@@ -11,11 +11,7 @@ public class GameManager : MonoBehaviour
     public ViewManager ViewManager;
     public DialogManager DialogManager;
     public LevelManager LevelManager;
-    public int winScore;
-    public int starCount;
-    public int currentScore;
-    public int currentLevel ;
-    public bool isBossLevel;
+   
     private void Awake()
     {
         Instance = this;
@@ -27,12 +23,12 @@ public class GameManager : MonoBehaviour
     }
     public void LoadOnInGameController()
     {
-        Debug.Log("LOAD ON INGAME CONTROLLER");
+        //Debug.Log("LOAD ON INGAME CONTROLLER");
         InGameController.LoadGameObject();
         //currentLevel = DataAPIController.instance.GetHighestLevel();
     }
-    public void LoadOnData()
-    {
-        currentLevel = DataAPIController.instance.GetHighestLevel();
-    }
+    //public void LoadOnData()
+    //{
+    //    ingamecurrentLevel = DataAPIController.instance.GetHighestLevel();
+    //}
 }

@@ -292,6 +292,10 @@ PrefabInstance:
       value: LoadBar
       objectReference: {fileID: 0}
     - target: {fileID: 351105281269999474, guid: 51906c2d6e4de644d93972ee8fb4028f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 351105281269999474, guid: 51906c2d6e4de644d93972ee8fb4028f, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

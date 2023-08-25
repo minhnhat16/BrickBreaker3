@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseDialog : BaseDialog
 {
@@ -9,6 +10,7 @@ public class PauseDialog : BaseDialog
         ViewManager.Instance.SwitchView(ViewIndex.SelectLevelView);
         InGameController.Instance.DeSpawnAll();
         DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
+        SceneManager.LoadScene("Buffer");
 
     }
     public void OnRestartBtn()
@@ -16,6 +18,7 @@ public class PauseDialog : BaseDialog
         DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
         LoadLevel.instance.RestartLevel();
         InGameController.Instance.ResumeGame();
+        InGameController.Instance.lives = 1;
         Debug.Log("======> RESTART ON YOUR HAND ");
     }
     public void OnReturnBtn()

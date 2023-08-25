@@ -1,14 +1,5 @@
-using NaughtyAttributes.Test;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Xml.Schema;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class StartItem : MonoBehaviour
 {
@@ -27,7 +18,7 @@ public class StartItem : MonoBehaviour
         type = GetItemType();
         total = DataAPIController.instance.GetItemTotal(type);
         amount.text = total.ToString();
-        
+
     }
     // Update is called once per frame
     void Update()
@@ -37,20 +28,20 @@ public class StartItem : MonoBehaviour
     public void OnItemButton()
     {
         int total = DataAPIController.instance.GetItemTotal(type);
-        if (!checkUse && total > 0 )
+        if (!checkUse && total > 0)
         {
             checkStatus.SetActive(true);
-            checkUse =true;
+            checkUse = true;
         }
         else
         {
             checkStatus.SetActive(false);
-            checkUse= false;
+            checkUse = false;
         }
 
     }
     public void ItemDataCalculation(string type)
-    { 
+    {
         Debug.Log("ItemDataCalculation");
         int total = DataAPIController.instance.GetItemTotal(type);
         if (total > 0)
@@ -59,7 +50,7 @@ public class StartItem : MonoBehaviour
             amount.text = total.ToString();
 
         }
-        DataAPIController.instance.SetItemTotal(type,total);
+        DataAPIController.instance.SetItemTotal(type, total);
     }
     public void OnItemType()
     {
@@ -86,7 +77,7 @@ public class StartItem : MonoBehaviour
                 case (ItemType.ADD_LIVE):
                     Debug.Log("ADD_LIVE Item");
                     //Add data status
-                    InGameController.Instance.lives += 1;
+                    InGameController.Instance.lives =2 ;
                     ItemDataCalculation("2");
                     Debug.Log("LIVES" + InGameController.Instance.lives);
                     //checkStatus.SetActive(true);
@@ -95,11 +86,11 @@ public class StartItem : MonoBehaviour
                     break;
             }
         }
-        else
-        {
-            Debug.Log("CHECK USE" + checkUse);
-            OffItemType();
-        }
+        //else
+        //{
+        //    Debug.Log("CHECK USE" + checkUse);
+        //    OffItemType();
+        //}
     }
     public void OffItemType()
     {
@@ -121,7 +112,10 @@ public class StartItem : MonoBehaviour
                 break;
             case (ItemType.ADD_LIVE):
                 Debug.Log("OFF ADD_LIVE Item");
-                InGameController.Instance.lives -= 1;
+                if (InGameController.Instance.lives > 0)
+                {
+                    InGameController.Instance.lives = 1;
+                }
                 Debug.Log("LIVES" + InGameController.Instance.lives);
                 break;
             default:
@@ -133,7 +127,7 @@ public class StartItem : MonoBehaviour
         switch (Type)
         {
             case (ItemType.BIGBALL):
-                 type = "0";
+                type = "0";
                 return type;
             case (ItemType.POWER):
                 type = "1";

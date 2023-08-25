@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 84fd5966a324f7f44ab64e5f52a8bb5f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brickType: 0
   brickHealth: 0
-  ballSystem: {fileID: 2471958557961736357, guid: ca6cf7dca02c00a448716b03f3b5cac1, type: 3}
+  ballSystemV2: {fileID: 0}
   spriteRenderer: {fileID: 0}
   boxCollider2D: {fileID: 0}
   sprites:

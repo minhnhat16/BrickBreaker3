@@ -24,7 +24,7 @@ public class LoadSceneManager : MonoBehaviour
         ViewManager.Instance.SwitchView(ViewIndex.LoadingView);
         do
         {
-            await Task.Delay(100);
+            await Task.Delay(0);
         } while (scene.progress < 0.9f);
 
         scene.allowSceneActivation = true;

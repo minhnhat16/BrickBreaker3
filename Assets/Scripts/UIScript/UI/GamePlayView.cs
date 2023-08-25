@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GamePlayView : BaseView
 {
+    [SerializeField] private Text score_lb;
+    private void Update()
+    {
+        UpdateScore();
 
+    }
     public override void OnStartShowView()
     {
-        //InGameController.Instance.CheckCompleteScore();
-        //InGameController.Instance.UpdateTimer(InGameController.Instance.CalStar, 10f);
-        //InGameController.Instance.UpdateTimer(InGameController.Instance.CalStar, 10f);
+
     }
     public override void OnEndHideView()
     {
@@ -28,5 +33,16 @@ public class GamePlayView : BaseView
     {
         InGameController.Instance.PauseGame();
         DialogManager.Instance.ShowDialog(DialogIndex.PauseDialog);
+    }
+    private void UpdateScore()
+    {
+        //Debug.Log("UPDATE SCORE");
+        int temp = 0;
+        if(InGameController.Instance.currentScore > temp)
+        {
+            temp = InGameController.Instance.currentScore;
+            score_lb.text = "Score: " + temp.ToString();
+            //Debug.Log("SCORE_LB" + score_lb.text);
+        }
     }
 }

@@ -47,9 +47,9 @@ public class LevelConfirmDialog : BaseDialog
         DialogManager.Instance.HideDialog(DialogIndex.LevelConfirmDialog);
         LoadSceneManager.Instance.LoadScene("Ingame");
         ViewManager.Instance.SwitchView(ViewIndex.GameplayView);
-        Debug.Log("GAME MANAGER" + GameManager.Instance);
+        //Debug.Log("GAME MANAGER" + GameManager.Instance);
         GameManager.Instance.LoadOnInGameController();
-        GameManager.Instance.currentScore = 0;      
+        InGameController.Instance.currentScore = 0;      
         LoadLevel.instance.LevelSelect(TextLevel);
         LoadLevel.instance.currentLevelLoad = Convert.ToInt32(TextLevel);
     }
@@ -61,14 +61,18 @@ public class LevelConfirmDialog : BaseDialog
     }
     private void ItemSprite()
     {
-        power.checkUse = false;
-        power.OffItemType();
-        power.checkStatus.SetActive(false);
-        bigBall.checkUse = false;
-        bigBall.OffItemType();
-        bigBall.checkStatus.SetActive(false);
-        addLive.checkUse = false;
-        addLive.OffItemType();
-        addLive.checkStatus.SetActive(false);
+        CheckUse(power);
+        CheckUse(bigBall);
+        CheckUse(addLive);
+    }
+    private void CheckUse(StartItem check) 
+    {
+        if (check.checkUse)
+        {
+            check.checkUse = false;
+            check.checkStatus.SetActive(false);
+            check.OffItemType();
+
+        }
     }
 }

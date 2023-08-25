@@ -82,11 +82,11 @@ public class LoadLevel : MonoBehaviour
         if (level.isBossLevel)
         {
             //LoadBossData()
-            gameManager.winScore = level.winScore;
-            gameManager.isBossLevel = level.isBossLevel;
+            InGameController.Instance.winScore = level.winScore;
+            InGameController.Instance.isBossLevel = level.isBossLevel;
         }
         SetUp(matrix);
-        gameManager.winScore = level.winScore;
+        InGameController.Instance.winScore = level.winScore;
         Time.timeScale = 1;
     }
     //public void LoadBossData()
@@ -120,9 +120,8 @@ public class LoadLevel : MonoBehaviour
     public void ResetData()
     {
         totalBrickInLevel = 1;
-        GameManager.Instance.starCount = 3;
-        InGameController.Instance.lives = 1;
-        GameManager.Instance.currentScore = 0;
+        InGameController.Instance.starCount = 3;
+        InGameController.Instance.currentScore = 0;
         InGameController.Instance.isGameOver = false;
         InGameController.Instance.DeSpawnAll();
         InGameController.Instance.LoadGameObject();

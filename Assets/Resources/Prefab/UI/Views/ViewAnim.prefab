@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1571314575249117637}
   - component: {fileID: 2097877650142783524}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ViewAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}

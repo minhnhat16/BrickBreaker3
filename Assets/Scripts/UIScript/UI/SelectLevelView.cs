@@ -28,12 +28,12 @@ public class SelectLevelView : BaseView
     }
     public override void OnInit()
     {
-        GameManager.Instance.currentLevel = DataAPIController.instance.GetHighestLevel();
+        InGameController.Instance.currentLevel = DataAPIController.instance.GetHighestLevel();
     }
     public override void OnStartShowView()
     {
         Debug.Log("On Start Show View SelecDiaglog");
-        GameManager.Instance.currentLevel = DataAPIController.instance.GetHighestLevel();
+        InGameController.Instance.currentLevel = DataAPIController.instance.GetHighestLevel();
         ScrollView.GetComponentInChildren<LevelManager>().SpawnLevel();
         ScrollView.GetComponentInChildren<LevelManager>().CompleteLevelOn();
         ScrollView.GetComponentInChildren<LevelManager>().HighestLevelOn();

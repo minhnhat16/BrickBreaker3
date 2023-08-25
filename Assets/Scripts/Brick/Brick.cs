@@ -47,9 +47,9 @@ public class Brick : MonoBehaviour, InteractBall
     public void DestroyBrick()
     {
         BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
-        if (!GameManager.Instance.isBossLevel)
+        if (!InGameController.Instance.isBossLevel)
         {
-            GameManager.Instance.currentScore += 100 ;
+            InGameController.Instance.currentScore += 100 ;
             
         }
     }

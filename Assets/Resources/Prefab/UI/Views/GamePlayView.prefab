@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 434, y: 872}
-  m_SizeDelta: {x: 160, y: 160}
+  m_SizeDelta: {x: 128.6257, y: 128.63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &45747538197469919
 CanvasRenderer:
@@ -192,6 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewIndex: 3
   baseViewAnim: {fileID: 0}
+  score_lb: {fileID: 4543999599635097201}
 --- !u!1 &3891796062138080721
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +228,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -381.6, y: 864.18}
+  m_AnchoredPosition: {x: 133, y: 864.18}
   m_SizeDelta: {x: 274.78, y: 135.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4165518992535427081
@@ -303,7 +304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -159, y: 829}
+  m_AnchoredPosition: {x: -423.6, y: 829}
   m_SizeDelta: {x: 136.59, y: 69.8589}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4622030558523838197
@@ -383,8 +384,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -159, y: 896}
-  m_SizeDelta: {x: 136.59, y: 69.8589}
+  m_AnchoredPosition: {x: -303.7258, y: 896}
+  m_SizeDelta: {x: 376.3383, y: 69.8589}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3757679627614983417
 CanvasRenderer:
@@ -427,7 +428,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Score:'
+  m_Text: 'Score: 0'
 --- !u!1 &8913218967350174632
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 433118312409199563, guid: 575080bbdf1fcba4eb71d7e05c4bcde6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -22
+      value: -286.6
       objectReference: {fileID: 0}
     - target: {fileID: 433118312409199563, guid: 575080bbdf1fcba4eb71d7e05c4bcde6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -599,9 +600,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 588527073022674899, guid: 575080bbdf1fcba4eb71d7e05c4bcde6, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1121223896491597545, guid: 575080bbdf1fcba4eb71d7e05c4bcde6, type: 3}
       propertyPath: m_Name
       value: StartList
+      objectReference: {fileID: 0}
+    - target: {fileID: 2024866772986332243, guid: 575080bbdf1fcba4eb71d7e05c4bcde6, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2303895448104474060, guid: 575080bbdf1fcba4eb71d7e05c4bcde6, type: 3}
       propertyPath: m_SizeDelta.x
@@ -634,6 +643,10 @@ PrefabInstance:
     - target: {fileID: 7052753963383105813, guid: 575080bbdf1fcba4eb71d7e05c4bcde6, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -38.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7061850317592344714, guid: 575080bbdf1fcba4eb71d7e05c4bcde6, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8490254551365823125, guid: 575080bbdf1fcba4eb71d7e05c4bcde6, type: 3}
       propertyPath: m_SizeDelta.x
@@ -712,6 +725,10 @@ PrefabInstance:
     - target: {fileID: 5437521736257729806, guid: b6aa64811a77abb4380b3a96174f2e29, type: 3}
       propertyPath: m_Name
       value: ViewAnim
+      objectReference: {fileID: 0}
+    - target: {fileID: 5437521736257729806, guid: b6aa64811a77abb4380b3a96174f2e29, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6aa64811a77abb4380b3a96174f2e29, type: 3}
@@ -816,8 +833,12 @@ PrefabInstance:
       value: BackGround
       objectReference: {fileID: 0}
     - target: {fileID: 2072990049005446210, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2072990049005446210, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5992726049121595286, guid: 4d7a9169afe63394b9899f1fbfe00132, type: 3}
       propertyPath: m_Sprite
