@@ -132,6 +132,7 @@ public class DataAPIController : MonoBehaviour
         Debug.Log("GetItemTotal");
         ItemData itemData = dataModel.ReadDictionary<ItemData>(DataPath.ITEM, type);
         int total = itemData.total;
+        Debug.Log($"TOTAL ITEM{itemData.id} {total}");
         return total;
     }
     public void SetItemTotal(string type, int inTotal)

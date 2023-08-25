@@ -175,7 +175,7 @@ public class BallSystemVer2 : FSMSystem
             this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(41, 130, 252, 255);
             if (InGameController.Instance.powerDuration <= 0)
             {
-                Debug.Log("Power duration < 0");
+                //Debug.Log("Power duration < 0");
 
                 this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
                 isItemTypePower = false;

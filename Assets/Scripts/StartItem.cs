@@ -1,8 +1,11 @@
 using NaughtyAttributes.Test;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Xml.Schema;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -12,83 +15,93 @@ public class StartItem : MonoBehaviour
     public ItemType Type;
     public GameObject checkStatus;
     public bool checkUse;
-    [SerializeField] private int bigBallTotal;
-    [SerializeField] private int powerTotal;
-    [SerializeField] private int liveTotal;
+    //[SerializeField] private int bigBallTotal;
+    //[SerializeField] private int powerTotal;
+    //[SerializeField] private int liveTotal;
     [SerializeField] private Text amount;
-    
+    [SerializeField] private string type;
+    [SerializeField] private int total;
     // Start is called before the first frame update
     void Start()
     {
-        int total = DataAPIController.instance.GetItemTotal();
-
-
+        type = GetItemType();
+        total = DataAPIController.instance.GetItemTotal(type);
+        amount.text = total.ToString();
+        
     }
-
     // Update is called once per frame
     void Update()
     {
-        
     }
+
     public void OnItemButton()
     {
-        if (!checkUse)
+        int total = DataAPIController.instance.GetItemTotal(type);
+        if (!checkUse && total > 0 )
         {
             checkStatus.SetActive(true);
-            OnItemType();
             checkUse =true;
         }
         else
         {
             checkStatus.SetActive(false);
-            OffItemType();
             checkUse= false;
         }
 
     }
-    private void ItemDataCalculation(string type)
-    {
+    public void ItemDataCalculation(string type)
+    { 
         Debug.Log("ItemDataCalculation");
         int total = DataAPIController.instance.GetItemTotal(type);
         if (total > 0)
         {
             total -= 1;
+            amount.text = total.ToString();
+
         }
         DataAPIController.instance.SetItemTotal(type,total);
     }
     public void OnItemType()
     {
-        switch (Type)
+        if (checkUse)
         {
-            case (ItemType.BIGBALL):
-                Debug.Log("BIGBALL Item");
-                InGameController.Instance.isLongBar = true;
-                InGameController.Instance.isScaleUp = true;
-                Debug.Log($"InGameController.Instance.isLongBar ={InGameController.Instance.isLongBar} InGameController.Instance.isScaleUp ={InGameController.Instance.isScaleUp}");
-                ItemDataCalculation("0");
-                break;
-            case (ItemType.POWER):
-                Debug.Log("POWER Item");
-                InGameController.Instance.isItemTypePower = true;
-                ItemDataCalculation("1");
+            Debug.Log("CHECK USE" + checkUse);
+            switch (Type)
+            {
+                case (ItemType.BIGBALL):
+                    Debug.Log("BIGBALL Item");
+                    InGameController.Instance.isLongBar = true;
+                    InGameController.Instance.isScaleUp = true;
+                    ItemDataCalculation("0");
+                    Debug.Log($"InGameController.Instance.isLongBar ={InGameController.Instance.isLongBar} InGameController.Instance.isScaleUp ={InGameController.Instance.isScaleUp}");
+                    break;
+                case (ItemType.POWER):
+                    Debug.Log("POWER Item");
+                    InGameController.Instance.isItemTypePower = true;
+                    ItemDataCalculation("1");
 
-                Debug.Log("InGameController.Instance.isItemTypePower" + InGameController.Instance.isItemTypePower );
-                //checkStatus.SetActive(true);
-                break;
-            case (ItemType.ADD_LIVE):
-                Debug.Log("ADD_LIVE Item");
-                //Add data status
-                ItemDataCalculation("2");
-
-                InGameController.Instance.lives += 1;
-                Debug.Log("LIVES" + InGameController.Instance.lives);
-                //checkStatus.SetActive(true);
-                break;
-            default:
-                break;
+                    Debug.Log("InGameController.Instance.isItemTypePower" + InGameController.Instance.isItemTypePower);
+                    //checkStatus.SetActive(true);
+                    break;
+                case (ItemType.ADD_LIVE):
+                    Debug.Log("ADD_LIVE Item");
+                    //Add data status
+                    InGameController.Instance.lives += 1;
+                    ItemDataCalculation("2");
+                    Debug.Log("LIVES" + InGameController.Instance.lives);
+                    //checkStatus.SetActive(true);
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            Debug.Log("CHECK USE" + checkUse);
+            OffItemType();
         }
     }
-    private void OffItemType()
+    public void OffItemType()
     {
         switch (Type)
         {
@@ -108,8 +121,6 @@ public class StartItem : MonoBehaviour
                 break;
             case (ItemType.ADD_LIVE):
                 Debug.Log("OFF ADD_LIVE Item");
-                //Add data status
-
                 InGameController.Instance.lives -= 1;
                 Debug.Log("LIVES" + InGameController.Instance.lives);
                 break;
@@ -122,16 +133,17 @@ public class StartItem : MonoBehaviour
         switch (Type)
         {
             case (ItemType.BIGBALL):
-
-                return '0';
+                 type = "0";
+                return type;
             case (ItemType.POWER):
-                
-                break;
+                type = "1";
+                return type;
             case (ItemType.ADD_LIVE):
-               
-                break;
+
+                type = "2";
+                return type;
             default:
-                break;
+                return null;
         }
 
     }
