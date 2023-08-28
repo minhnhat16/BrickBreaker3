@@ -179,10 +179,10 @@ public class InGameController : MonoBehaviour
             //int j = ballActiveList.Count + 1;
             if (pool[i].gameObject.activeSelf == true)
             {
-                //Debug.Log("CHECK ACTIVE LIST");
+                Debug.Log("CHECK ACTIVE LIST");
                 BallSystemVer2 b = pool[i];
                 ballActiveList.Add(b);
-               //Debug.Log(ballActiveList.Count);
+                Debug.Log(ballActiveList.Count);
                 //Debug.Log("ball activelist " + ballActiveList[j]);
             }
         }
@@ -202,28 +202,32 @@ public class InGameController : MonoBehaviour
     {
         int i = 0;
         AddBallActive();
-        //Debug.Log("LoadBallInTripplelist " + ballActiveList.Count);
-        if (ballActiveList.Count == 1 && ballActiveList.Count < 3)
+        //Debug.Log("LoadBallInTripplelist " + GameManager.Instance.InGameController.ballActiveList.Count);
+        //Debug.Log("LoadBallInTripplelist 2" + GameManager.Instance.InGameController.ballActiveList.Count);
+        int ballActiveListCount = ballActiveList.Count;
+        if (ballActiveListCount == 1 && ballActiveListCount < 3)
         {
-            i = 1;
-            //Debug.LogError($"Just have 1 ball");
+           
             BallPoolManager.instance.pool.SpawnNonGravity();
+            Debug.LogError($"Just have 1 ball");
 
-            for (i = 0; i < ballActiveList.Count; i++)
+            for (i = 0; i < ballActiveListCount; i++)
             {
                 Debug.Log("MULTIPLY BALL " + i);
                 Debug.Log($"ballActiveList[{i}] {ballActiveList[i]}");
                 ballActiveList[i].BallMultiply(ballActiveList[i]);
+                AddBallActive();
             }
 
         }
-        else if (ballActiveList.Count >= 3)
+        else if (ballActiveListCount >= 3)
         {
             for (i = 1; i < ballActiveList.Count; i++)
             {
                 //Debug.Log("MULTIPLY BALL " + i);
                 //Debug.Log($"ballActiveList[{i}] {ballActiveList[i]}");
                 ballActiveList[i].BallMultiply(ballActiveList[i]);
+                AddBallActive();
             }
         }
         // AddBallActive();

@@ -299,10 +299,9 @@ public class BallSystemVer2 : FSMSystem
     {
         if (transform.position.y < CameraMain.instance.GetBottom())
         {
-            Debug.Log($"Ball active list {InGameController.Instance.ballActiveList.IndexOf(this)}");
+            Debug.Log($"Ball active list {InGameController.Instance.ballActiveList.IndexOf(this)}"); 
             Debug.Log($"LIVES {InGameController.Instance.lives}");
             InGameController.Instance.ballActiveList.Remove(this);
-            InGameController.Instance.lives--;
             BallPoolManager.instance.pool.DeSpawnNonGravity(this);
             GotoState(DeathState);
         }
@@ -557,16 +556,17 @@ public class BallSystemVer2 : FSMSystem
 
     public void BallMultiply(BallSystemVer2 ballparent)
     {
-        //Debug.Log("Multiplyball");
         for (int i = 0; i < 2; i++)
         {
+            Debug.Log("BallMultiply" + i);
             BallSystemVer2 ball = BallPoolManager.instance.pool.SpawnNonGravity();
             ball.transform.position = ballparent.transform.position;
-            //Debug.Log($"ballparent.transform.position {ballparent.transform.position}");
-            //Debug.Log($"ball {i} position {ball.transform.position} \n");
             ball.moveDir = new Vector3(Random.Range(-1, 1), 1);
+            if(ball.moveDir == Vector3.zero)
+            {
+                ball.moveDir = Vector3.up;
+            }
             ball.moveDir.Normalize();
-
         }
 
     }

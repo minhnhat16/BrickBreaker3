@@ -11,6 +11,10 @@ public class Ball_MovermentState : FSMState<BallSystemVer2>
         {
             sys.moveDir = sys.forwardDir;
         }
+        //else
+        //{
+        //    sys.moveDir = Vector3.up;
+        //}
     }
 
 
@@ -18,7 +22,6 @@ public class Ball_MovermentState : FSMState<BallSystemVer2>
     public override void OnUpdate()
     {
         sys.transform.rotation = new Quaternion(0, 0, 0, 0);
-        //sys.CheckBallAngle();
         sys.GetBallDirection();
         sys.CheckItemEvent();
         sys.CheckCollider();

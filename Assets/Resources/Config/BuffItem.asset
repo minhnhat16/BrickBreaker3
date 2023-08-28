@@ -17,7 +17,7 @@ MonoBehaviour:
     rate: 0.1
     sprite: {fileID: 21300000, guid: 29b948865b8216b4c98e6a762d5c6766, type: 3}
   - itemType: 1
-    rate: 0.1
+    rate: 0.5
     sprite: {fileID: 21300000, guid: 3ffbaa0f7cb9e4a498b0633db8b51e11, type: 3}
   - itemType: 3
     rate: 0.15

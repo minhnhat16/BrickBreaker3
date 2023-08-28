@@ -482,6 +482,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 139010313063362993, guid: cbe037dceba018d428c4021915e52242, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 139010313063362993, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: BallPrefab
       value: 
       objectReference: {fileID: 2471958557961736356, guid: ca6cf7dca02c00a448716b03f3b5cac1, type: 3}

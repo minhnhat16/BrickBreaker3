@@ -112,11 +112,8 @@ public class StartItem : MonoBehaviour
                 break;
             case (ItemType.ADD_LIVE):
                 Debug.Log("OFF ADD_LIVE Item");
-                if (InGameController.Instance.lives > 0)
-                {
                     InGameController.Instance.lives = 1;
-                }
-                Debug.Log("LIVES" + InGameController.Instance.lives);
+                    Debug.Log("LIVES" + InGameController.Instance.lives);
                 break;
             default:
                 break;
