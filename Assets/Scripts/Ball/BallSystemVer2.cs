@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -299,10 +300,8 @@ public class BallSystemVer2 : FSMSystem
     {
         if (transform.position.y < CameraMain.instance.GetBottom())
         {
-            Debug.Log($"Ball active list {InGameController.Instance.ballActiveList.IndexOf(this)}"); 
+            Debug.Log($"Ball active list {InGameController.Instance.ballActiveList.IndexOf(this)}") ; 
             Debug.Log($"LIVES {InGameController.Instance.lives}");
-            InGameController.Instance.ballActiveList.Remove(this);
-            BallPoolManager.instance.pool.DeSpawnNonGravity(this);
             GotoState(DeathState);
         }
     }
@@ -560,9 +559,13 @@ public class BallSystemVer2 : FSMSystem
         {
             Debug.Log("BallMultiply" + i);
             BallSystemVer2 ball = BallPoolManager.instance.pool.SpawnNonGravity();
+            Debug.Log("BALL PARENT POSITION" + ballparent.transform.position);
             ball.transform.position = ballparent.transform.position;
+            Debug.Log("ball.transform.position " + ball.transform.position);
+            //InGameController.Instance.ballActiveList.Add(ball);
+            Debug.Log("BALL " + ball);
             ball.moveDir = new Vector3(Random.Range(-1, 1), 1);
-            if(ball.moveDir == Vector3.zero)
+            if(ball.moveDir == ballparent.moveDir)
             {
                 ball.moveDir = Vector3.up;
             }

@@ -14,12 +14,14 @@ public class LoadLevel : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     public Paddle paddle;
     public BallSystem ball;
+    public GameObject bossPrefab;
+    public BossConfig bossConfig;
     public int currentLevelLoad;
     public int totalBrickInLevel;
     public int completeScore;
+    public float brickScale;
     public Vector2 rootPosition = new Vector2(-2.5f,2.5f);
 
-    public float brickScale;
     public static float BRICK_WIDTH_IMAGE = 0.79f;
     public static float BRICK_HEIGHT_IMAGE = 0.32f;
     private void Awake()
@@ -81,7 +83,7 @@ public class LoadLevel : MonoBehaviour
         }
         if (level.isBossLevel)
         {
-            //LoadBossData()
+            LoadBossData();
             InGameController.Instance.winScore = level.winScore;
             InGameController.Instance.isBossLevel = level.isBossLevel;
         }
@@ -89,13 +91,13 @@ public class LoadLevel : MonoBehaviour
         InGameController.Instance.winScore = level.winScore;
         Time.timeScale = 1;
     }
-    //public void LoadBossData()
-    //{
-    //    bossPrefabs.SetActive(true);
-    //    string bossPath = "Bosses/boss_" + level.bossID;
-    //    bossConfig = Resources.Load<BossConfig>(bossPath);
-    //    Bos
-    //}
+    public void LoadBossData()
+    {
+        bossPrefab.SetActive(true);
+        string bossPath = level.bossID.ToString();
+        bossConfig = ConfigFileManager.Instance._boss;
+        
+    }
     private void SetUp(List<List<int>> matrix)
     {
 
@@ -123,6 +125,13 @@ public class LoadLevel : MonoBehaviour
         InGameController.Instance.starCount = 3;
         InGameController.Instance.currentScore = 0;
         InGameController.Instance.isGameOver = false;
+        InGameController.Instance.isOnMagnet = false;
+        InGameController.Instance.isScaleUp = false;
+        InGameController.Instance.isShortBar = false;
+        InGameController.Instance.isSpeedDown = false;
+        InGameController.Instance.isSpeedUp = false;
+        InGameController.Instance.isItemTypePower = false;
+        InGameController.Instance.isTrippleBall = false;
         InGameController.Instance.DeSpawnAll();
         InGameController.Instance.LoadGameObject();
         InGameController.Instance.isLevelComplete = false;

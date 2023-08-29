@@ -11,10 +11,7 @@ public class Ball_MovermentState : FSMState<BallSystemVer2>
         {
             sys.moveDir = sys.forwardDir;
         }
-        //else
-        //{
-        //    sys.moveDir = Vector3.up;
-        //}
+       
     }
 
 

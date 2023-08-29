@@ -10,9 +10,11 @@ public class Ball_SpawnState : FSMState<BallSystemVer2>
     public float distance;
     public override void OnEnter()
     {    
+
         sys.CheckItemEvent();
         if (InGameController.Instance.isTrippleBall)
         {
+            Debug.Log("TRIPPLE BALL ENTER SPAWNSTATE");
             sys.GotoState(sys.MoveState);       
         }
         else if (sys.isOnMagnet)
@@ -32,8 +34,17 @@ public class Ball_SpawnState : FSMState<BallSystemVer2>
     }
     public override void OnUpdate()
     {
-        GetPaddlePosition();
-        CalculatePossitionOnMagnet();
+        if (InGameController.Instance.isTrippleBall)
+        {
+            Debug.LogWarning("Goto State when in trippple");
+            sys.GotoState(sys.MoveState);
+        }
+        else
+        {
+            GetPaddlePosition();
+            CalculatePossitionOnMagnet();
+        }
+        
 
         if (!InGameController.Instance.isGameOver && (Input.GetKey(KeyCode.Space)))
         {
@@ -42,6 +53,7 @@ public class Ball_SpawnState : FSMState<BallSystemVer2>
     }
     public void GetPaddlePosition()
     {
+        //Debug.LogWarning("Get Paddle Position");
         currentPaddlePosition = sys.paddle.transform.position;
         if (!InGameController.Instance.isOnMagnet)
         {

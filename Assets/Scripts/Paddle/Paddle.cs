@@ -28,7 +28,7 @@ public class Paddle : FSMSystem,InteractBall
     public float shortBarDuration;
     public float speedUpBarDuration;
     public float speedDownBarDuration;
-    private float minDuration = 10f, maxDuration = 15f;
+    private float minDuration = 0f, maxDuration = 2f;
     public Vector3 currenPaddlePosition;
     public Vector3 spawnPosition = new Vector3(0, -8, 0);
 
@@ -87,7 +87,8 @@ public class Paddle : FSMSystem,InteractBall
     {
         //Debug.LogError("On Tripple");
         InGameController.Instance.isTrippleBall = true;
-
+        Debug.Log("ADD BALL ACTIVE IN PADDLE");
+        Debug.Log("LOAD BALL TRIPPLE LIST IN PADDLE");
         InGameController.Instance.LoadBallInTrippleList();
     }
 
@@ -146,7 +147,7 @@ public class Paddle : FSMSystem,InteractBall
         }
 
         if (InGameController.Instance.isTrippleBall)
-        {
+        {   
             trippleDuration -= Time.deltaTime;
             if (trippleDuration <= 0)
             {
@@ -160,12 +161,9 @@ public class Paddle : FSMSystem,InteractBall
     {
         while (true)
         {
-            // if (currentState == MoveState)
-            // {
             float spawnDuration = UnityEngine.Random.Range(minDuration, maxDuration);
             yield return new WaitForSeconds(spawnDuration);
             RandomItem();
-            //}     
         }
     }
     public void RandomItem()

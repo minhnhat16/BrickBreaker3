@@ -59,7 +59,7 @@ public class InGameController : MonoBehaviour
     {
         lives = 1;
         pool = BallPoolManager.instance.pool.list;
-        ballActiveList = new List<BallSystemVer2>(100);
+        ballActiveList = new List<BallSystemVer2>(50);
     }
 
     void Update()
@@ -200,37 +200,31 @@ public class InGameController : MonoBehaviour
     }
     public void LoadBallInTrippleList()
     {
-        int i = 0;
         AddBallActive();
-        //Debug.Log("LoadBallInTripplelist " + GameManager.Instance.InGameController.ballActiveList.Count);
-        //Debug.Log("LoadBallInTripplelist 2" + GameManager.Instance.InGameController.ballActiveList.Count);
         int ballActiveListCount = ballActiveList.Count;
-        if (ballActiveListCount == 1 && ballActiveListCount < 3)
+        Debug.Log("LoadBallInTripplelist " + ballActiveList.Count);
+        Debug.Log("LoadBallInTripplelist 2 " + GameManager.Instance.InGameController.ballActiveList.Count);
+        if (ballActiveListCount <3 /*&& ballActiveListCount < 3*/)
         {
-           
-            BallPoolManager.instance.pool.SpawnNonGravity();
+            BallPoolManager.instance.pool.SpawnNonGravityWithIndex(1);    
             Debug.LogError($"Just have 1 ball");
-
-            for (i = 0; i < ballActiveListCount; i++)
+            for (int i = 0; i < ballActiveListCount; i++)
             {
                 Debug.Log("MULTIPLY BALL " + i);
                 Debug.Log($"ballActiveList[{i}] {ballActiveList[i]}");
                 ballActiveList[i].BallMultiply(ballActiveList[i]);
-                AddBallActive();
             }
 
         }
         else if (ballActiveListCount >= 3)
         {
-            for (i = 1; i < ballActiveList.Count; i++)
+            for (int i = 1; i < ballActiveList.Count; i++)
             {
                 //Debug.Log("MULTIPLY BALL " + i);
                 //Debug.Log($"ballActiveList[{i}] {ballActiveList[i]}");
                 ballActiveList[i].BallMultiply(ballActiveList[i]);
-                AddBallActive();
             }
         }
-        // AddBallActive();
 
     }
     public bool CheckBallList()
@@ -312,7 +306,7 @@ public class InGameController : MonoBehaviour
         ResetBallPosition();
         // BallPoolManager.instance.ResetAllPoolPostion();
         ItemPoolManager.instance.pool.DeSpawnAll();
-
+        ballActiveList.Clear();
     }
     public void ResetBallPosition()
     {

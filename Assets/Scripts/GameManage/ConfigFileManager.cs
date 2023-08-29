@@ -10,6 +10,7 @@ public class ConfigFileManager : MonoBehaviour
     [SerializeField] private LevelConfig _level;
     public static ConfigFileManager Instance;
     [SerializeField] private ConfigItemRecord _item;
+     public BossConfig _boss;
     public LevelConfig Level { get => _level; }
 
     private void Awake()
@@ -24,9 +25,10 @@ public class ConfigFileManager : MonoBehaviour
     {
         //Debug.Log("WAIT IN INIT");
         _level = Resources.Load("Config/LevelConfig", typeof(ScriptableObject)) as LevelConfig;
+        _boss = Resources.Load("ScriptableObjects/BossScriptableObject", typeof(ScriptableObject)) as BossConfig;
         //Debug.Log($"_level ===========> {_level}");
-        yield return new WaitUntil(() => _level != null);
-
+        yield return new WaitUntil(() => _level != null) ;
+        yield return new WaitUntil(() => _boss != null);
         //Debug.Log("==========> LOAD CONFIG FILE ");
 
         yield return null;

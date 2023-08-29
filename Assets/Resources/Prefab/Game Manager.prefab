@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 139010313063362995}
   - component: {fileID: 139010313063362994}
-  - component: {fileID: 139010313063362993}
   - component: {fileID: 3794794537084021218}
   - component: {fileID: 5348670711114413268}
   m_Layer: 0
@@ -56,50 +55,6 @@ MonoBehaviour:
   ViewManager: {fileID: 0}
   DialogManager: {fileID: 0}
   LevelManager: {fileID: 0}
-  winScore: 0
-  starCount: 0
-  currentScore: 0
-  currentLevel: 0
-  isBossLevel: 0
---- !u!114 &139010313063362993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139010313063363004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2484246dce4a10a4dbd86ae106066420, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isBallDeath: 0
-  isGameOver: 0
-  isLevelComplete: 0
-  pool: []
-  ballActiveList: []
-  configFile: {fileID: 0}
-  ballPref: {fileID: 0}
-  paddlePref: {fileID: 0}
-  cam: {fileID: 0}
-  item: {fileID: 0}
-  backGround: {fileID: 0}
-  paddle: {fileID: 0}
-  main: {fileID: 0}
-  position: {x: 0, y: 0, z: 0}
-  scaleUpDuration: 0
-  magnetDuration: 0
-  powerDuration: 0
-  deltatime: 0
-  isShortBar: 0
-  isLongBar: 0
-  isSpeedDown: 0
-  isSpeedUp: 0
-  isTrippleBall: 0
-  isScaleUp: 0
-  isItemTypePower: 0
-  isOnMagnet: 0
-  lives: 1
 --- !u!114 &3794794537084021218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +152,12 @@ MonoBehaviour:
   magnetDuration: 0
   powerDuration: 0
   deltatime: 0
+  winScore: 0
+  starCount: 0
+  currentScore: 0
+  currentLevel: 0
+  lives: 1
+  isBossLevel: 0
   isShortBar: 0
   isLongBar: 0
   isSpeedDown: 0
@@ -205,7 +166,6 @@ MonoBehaviour:
   isScaleUp: 0
   isItemTypePower: 0
   isOnMagnet: 0
-  lives: 1
 --- !u!114 &1977366585479490412
 MonoBehaviour:
   m_ObjectHideFlags: 0
