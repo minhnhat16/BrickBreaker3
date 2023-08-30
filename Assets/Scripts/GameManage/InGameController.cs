@@ -135,6 +135,21 @@ public class InGameController : MonoBehaviour
         }
 
     }
+    public void LoadBoss()
+    {
+        string bossPath = LoadLevel.instance.Level.bossID.ToString();
+        LoadLevel.instance.bossPrefab = Resources.Load<GameObject>("Prefab/BossPrefab/Boss" + bossPath);
+        GameObject bossPrefab = LoadLevel.instance.bossPrefab;
+        boss = Instantiate(bossPrefab, transform.parent);
+        ResetBossData();
+        Debug.Log("Load boss  pos: " + bossPrefab.GetComponent<BossSystem>().spawnPosition);
+    }
+    public void ResetBossData()
+    {
+        boss.GetComponent<BossSystem>().spawnPosition = LoadLevel.instance.Level.bossPos;
+        boss.GetComponent<BossSystem>().hp = LoadLevel.instance.Level.bossHP;
+        boss.GetComponent<BossSystem>().ResetPosition();
+    }
     public void LoadPaddle()
     {
         GameObject gameObject = Instantiate(paddlePref, transform.parent);

@@ -126,12 +126,12 @@ public class BallSystemVer2 : FSMSystem
                     contactHandler.contactUnit = hit.collider.transform;
                     contactHandler.unitType = UnitType.OTHERS;
                     hitpoint = hit.point;
-                    //Debug.Log("=======HITPOINT======" + hit.point);
+                    Debug.Log("=======HITPOINT======" + hit.point); 
 
                 }
                 else
                 {
-                    //Debug.Log("null contact handle");
+                    Debug.Log("null contact handle");
                     contactHandler.contactUnit = null;
                 }
             }
@@ -456,7 +456,6 @@ public class BallSystemVer2 : FSMSystem
             // Debug.Log(xMoveDir);
             xMoveDir = Mathf.Clamp(transform.position.x, min.x - ballRadius, min.x + ballRadius);
             yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius, min.y);
-
             //Debug.Log(max.y+ " "+ min.y);
             tempDirection = Vector3.Reflect(moveDir, new Vector3(-1, 1));
             moveDir = tempDirection.normalized;
@@ -467,7 +466,6 @@ public class BallSystemVer2 : FSMSystem
             //Debug.Log(xMoveDir);
             xMoveDir = Mathf.Clamp(transform.position.x, max.x - ballRadius, max.x + ballRadius);
             yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius, min.y);
-
             tempDirection = Vector3.Reflect(moveDir, new Vector3(1, 1));
             moveDir = tempDirection.normalized;
         }
@@ -476,12 +474,9 @@ public class BallSystemVer2 : FSMSystem
             // Debug.Log("hit half left");
             //Debug.Log(xMoveDir);
             yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius, max.y + ballRadius);
-
             Vector2 add = new Vector2(-0.5f, 1f);
             tempDirection = Vector3.Reflect(moveDir, add);
             moveDir = tempDirection.normalized;
-
-
         }
         else if (xMoveDir < max.x - 1 && xMoveDir > max.x - 1.5)
         {
@@ -492,8 +487,6 @@ public class BallSystemVer2 : FSMSystem
             Vector2 add = new Vector2(0.5f, 1f);
             tempDirection = Vector3.Reflect(moveDir, add);
             moveDir = tempDirection.normalized;
-
-
         }
         else if (xMoveDir < max.x - 1.5 && xMoveDir > min.x + 1.5)
         {
@@ -501,7 +494,6 @@ public class BallSystemVer2 : FSMSystem
             //Debug.Log(xMoveDir);
             //yMoveDir = Mathf.Clamp(transform.position.y, -7.25f, -7.30f);
             yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius, max.y + ballRadius);
-
             Vector2 add = Vector2.up;
             tempDirection = Vector3.Reflect(moveDir, add);
             moveDir = tempDirection.normalized;
@@ -512,16 +504,12 @@ public class BallSystemVer2 : FSMSystem
             //Debug.Log(xMoveDir);
             //yMoveDir = Mathf.Clamp(transform.position.y, -7.25f, -7.30f);
             yMoveDir = Mathf.Clamp(transform.position.y, max.y + ballRadius, max.y + ballRadius);
-
             moveDir = tempDirection.normalized;
         }
-
         if (!InGameController.Instance.isOnMagnet)
         {
             transform.position = new Vector3(xMoveDir, yMoveDir);
         }
-
-
     }
 
     public void ResetBall()

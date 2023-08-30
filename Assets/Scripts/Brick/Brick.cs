@@ -25,25 +25,6 @@ public class Brick : MonoBehaviour, InteractBall
     private void Update()
     {
     }
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Ball")){
-    //        if (brickType == 1 )
-    //        {
-    //            Debug.Log("Hit Ball");
-    //            brickHealth--;
-    //            DestroyBrick();
-    //            GameManager.Instance.currentScore += 100;
-
-    //        }
-    //        else if(brickType == 2)
-    //        {
-    //            Debug.Log("Hit rock");
-
-    //        }
-
-    //    }
-    //}
     public void DestroyBrick()
     {
         BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
@@ -63,10 +44,8 @@ public class Brick : MonoBehaviour, InteractBall
                 {
                     normalVector = hit.point - (Vector2)this.transform.position;
                     normalVector.Normalize();
-                    //Debug.Log(normalVector);
                     Debug.DrawLine(hit.point, normalVector,Color.magenta);
                     ball.moveDir = Vector2.Reflect(ball.direction1, normalVector);
-                   // ball.moveDir = normalVector;
                 }
                 else
                 {

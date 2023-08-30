@@ -177,7 +177,7 @@ MonoBehaviour:
   postion: {x: 0, y: 0, z: 0}
   movespeed: 1
   rotationspeed: 0.5
-  radius: 2.5
+  radius: 2.3
   attackCooldown: 10
   hp: 1000
   moveDir: {x: 0, y: 0, z: 0}

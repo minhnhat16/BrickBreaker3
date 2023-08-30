@@ -10,7 +10,7 @@ using Debug = UnityEngine.Debug;
 public class LoadLevel : MonoBehaviour
 {
     public static LoadLevel instance;
-    [SerializeField]private Level level;
+    [SerializeField] Level level;
     [SerializeField] private GameManager gameManager;
     public Paddle paddle;
     public BallSystem ball;
@@ -21,7 +21,7 @@ public class LoadLevel : MonoBehaviour
     public int completeScore;
     public float brickScale;
     public Vector2 rootPosition = new Vector2(-2.5f,2.5f);
-
+    public Level Level { get { return level; } }
     public static float BRICK_WIDTH_IMAGE = 0.79f;
     public static float BRICK_HEIGHT_IMAGE = 0.32f;
     private void Awake()
@@ -84,7 +84,15 @@ public class LoadLevel : MonoBehaviour
         if (level.isBossLevel)
         {
             Debug.LogError("LOAD BOSS DATA");
-            LoadBossData();
+            if (InGameController.Instance.boss == null)
+            {
+                InGameController.Instance.LoadBoss();
+                
+            }
+            else
+            {
+                InGameController.Instance.ResetBossData();
+            }
             InGameController.Instance.winScore = level.winScore;
             InGameController.Instance.isBossLevel = level.isBossLevel;
         }
@@ -92,16 +100,7 @@ public class LoadLevel : MonoBehaviour
         InGameController.Instance.winScore = level.winScore;
         Time.timeScale = 1;
     }
-    public void LoadBossData()
-    {
-        string bossPath = level.bossID.ToString();
-        bossPrefab = Resources.Load<GameObject>("Prefab/BossPrefab/Boss"+bossPath);
-        InGameController.Instance.boss = Instantiate(bossPrefab, InGameController.Instance.transform.parent);
-        InGameController.Instance.boss.GetComponent<BossSystem>().spawnPosition = level.bossPos;
-        Debug.Log("Load boss  pos: " + bossPrefab.GetComponent<BossSystem>().spawnPosition);
 
-        InGameController.Instance.boss.GetComponent<BossSystem>().hp = level.bossHP;
-    }
     private void SetUp(List<List<int>> matrix)
     {
 

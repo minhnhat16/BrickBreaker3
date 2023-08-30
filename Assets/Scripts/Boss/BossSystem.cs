@@ -1,6 +1,7 @@
 using NaughtyAttributes.Test;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -56,17 +57,90 @@ public class BossSystem : FSMSystem,InteractBall
         Debug.Log("Init");
         GotoState(SpawnState);
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Bounds bounds = CircleCollider2D.bounds;
+        Gizmos.DrawWireCube(bounds.center, bounds.size);
+        Gizmos.DrawWireSphere(transform.position, radius);
+
+    }
     public void OnContact(RaycastHit2D hit, BallSystemVer2 ball)
     {
         Debug.Log("HIT BOSS");
         hp -= 100;
+        if (!ball.onItemPowerUP)
+        {
+
+            Vector2 normalVector;
+            if (ball.transform.position.y< transform.position.y + ball.ballRadius && ball.transform.position.y > transform.position.y - ball.ballRadius)
+            {
+                Debug.Log("CASE 1 ");
+                //normalVector = -hit.point + (Vector2)ball.transform.position;
+                //normalVector.Normalize();
+                //Debug.DrawLine(hit.point, normalVector, Color.yellow);
+                //Debug.Log("NormalVector " + normalVector);
+                if ( ball.transform.position.x > transform.position.x)
+                {
+                    Debug.Log("RIGHT");
+
+                    ball.moveDir = Vector2.right;
+
+
+                }
+                else if (ball.transform.position.x < transform.position.x)
+                {
+                    Debug.Log("LEFT");
+                    ball.moveDir = Vector2.left;
+
+
+                }
+                ReflectBoss(ball);
+            }
+            else if(ball.transform.position.y > transform.position.y) 
+            {
+                Debug.Log("CASE 2 ");
+                normalVector = -hit.point + (Vector2)ball.transform.position;
+                normalVector.Normalize();
+                Debug.DrawLine(hit.point, normalVector, Color.yellow);
+                Debug.Log("NormalVector "+ normalVector);
+
+                ball.moveDir = Vector2.Reflect(-ball.direction1, normalVector);
+                ReflectBoss(ball);
+            }   
+            else if (ball.transform.position.y < transform.position.y)
+            {
+                Debug.Log("CASE 3");
+
+                normalVector = hit.point - (Vector2)ball.transform.position;
+                normalVector.Normalize();
+                Debug.DrawLine(hit.point, normalVector, Color.yellow);
+                Debug.Log("NormalVector " + normalVector);
+                ball.moveDir = Vector2.Reflect(ball.direction1, normalVector);
+                ReflectBoss(ball);
+            }
+            
+
+        }
+    }
+    private void ReflectBoss(BallSystemVer2 ball)
+    {
+        Bounds bounds = CircleCollider2D.bounds;
+        Vector3 min = bounds.min;
+        Vector3 max = bounds.max;
+        float x = ball.transform.position.x;
+        float y = ball.transform.position.y;
+        x = Mathf.Clamp(ball.transform.position.x, min.x - ball.ballRadius - 0.2f, max.x + ball.ballRadius + 0.2f);
+        y = Mathf.Clamp(ball.transform.position.y, min.y - ball.ballRadius - 0.2f, max.y + ball.ballRadius + 0.2f);
+        ball.transform.position = new Vector3(x,y,0);
+        Debug.Log("BALL POSTION REFLECT BOSS " + ball.transform.position);
+        Debug.Log($"MAX BOUND {max} + MIN BOUND {min}");
     }
     // Update is called once per frame
     public Vector3 ClaimPosition(Vector3 vector)
     {
         vector.x = Mathf.Clamp(transform.position.x, CameraMain.instance.GetLeft() +radius - 1f, CameraMain.instance.GetRight() -(radius - 1f));
-        //vector.y = Mathf.Clamp(transform.position.y, CameraMain.instance.GetTop(), CameraMain.instance.GetBottom());
-        //vector.x = Mathf.Clamp(transform.position.x, -9.5f, 9.5f);
+   
         return vector;
     }
     public void Rotation()
@@ -115,5 +189,9 @@ public class BossSystem : FSMSystem,InteractBall
     public void Attack()
     {
         GotoState(AttackState);
+    }
+    public void ResetPosition()
+    {
+        transform.position = spawnPosition;
     }
 }
