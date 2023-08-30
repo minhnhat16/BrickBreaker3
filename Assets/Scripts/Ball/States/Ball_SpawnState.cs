@@ -14,7 +14,7 @@ public class Ball_SpawnState : FSMState<BallSystemVer2>
         sys.CheckItemEvent();
         if (InGameController.Instance.isTrippleBall)
         {
-            Debug.Log("TRIPPLE BALL ENTER SPAWNSTATE");
+            //Debug.Log("TRIPPLE BALL ENTER SPAWNSTATE");
             sys.GotoState(sys.MoveState);       
         }
         else if (sys.isOnMagnet)

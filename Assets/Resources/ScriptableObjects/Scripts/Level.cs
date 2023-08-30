@@ -10,5 +10,7 @@ public class Level : ScriptableObject
     public string bricks;
     public bool isBossLevel;
     public int bossID;
+    public int bossHP;
+    public Vector3 bossPos;
     public bool isWin = false;
 }

@@ -58,7 +58,7 @@ public class LoadLevel : MonoBehaviour
         string[] arrColor = level.bricks.Split(';');
 
         rootPosition.x = CameraMain.instance.GetLeft() + BRICK_WIDTH_IMAGE * brickScale * 0.5f;
-        rootPosition.y = CameraMain.instance.GetTop() - BRICK_HEIGHT_IMAGE * brickScale * 0.6f - 5 ;
+        rootPosition.y = CameraMain.instance.GetTop() - BRICK_HEIGHT_IMAGE * brickScale * 0.6f - 2 ;
         List<List<int>> matrix = new List<List<int>>();
         List<int> rows = new List<int>();
         int rowCount = 0;
@@ -83,6 +83,7 @@ public class LoadLevel : MonoBehaviour
         }
         if (level.isBossLevel)
         {
+            Debug.LogError("LOAD BOSS DATA");
             LoadBossData();
             InGameController.Instance.winScore = level.winScore;
             InGameController.Instance.isBossLevel = level.isBossLevel;
@@ -93,10 +94,13 @@ public class LoadLevel : MonoBehaviour
     }
     public void LoadBossData()
     {
-        bossPrefab.SetActive(true);
         string bossPath = level.bossID.ToString();
-        bossConfig = ConfigFileManager.Instance._boss;
-        
+        bossPrefab = Resources.Load<GameObject>("Prefab/BossPrefab/Boss"+bossPath);
+        InGameController.Instance.boss = Instantiate(bossPrefab, InGameController.Instance.transform.parent);
+        InGameController.Instance.boss.GetComponent<BossSystem>().spawnPosition = level.bossPos;
+        Debug.Log("Load boss  pos: " + bossPrefab.GetComponent<BossSystem>().spawnPosition);
+
+        InGameController.Instance.boss.GetComponent<BossSystem>().hp = level.bossHP;
     }
     private void SetUp(List<List<int>> matrix)
     {

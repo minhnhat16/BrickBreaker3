@@ -19,23 +19,23 @@ public class BossSystem : FSMSystem,InteractBall
     private Transform Forward;
     [SerializeField]
     private Transform Anchor;
-    [SerializeField]
-    public ContactHandle Contact;
     public CircleCollider2D CircleCollider2D;
-    [SerializeField] private int hp;
     [SerializeField] private int id;
     [SerializeField] private GameObject core;
     [SerializeField] private GameObject mid;
     [SerializeField] private GameObject crust;
+    [SerializeField] private GameObject hp_bar;
+
     [SerializeField] private Vector3 postion;
     [SerializeField] private float movespeed = 4f;
     [SerializeField] private float rotationspeed = 0.5f;
     [SerializeField] private float radius = 2.2f;
     [SerializeField] public float attackCooldown = 10f;
 
+     public int hp;
     public Vector2 forwardDir { get => (Forward.position - Anchor.position).normalized; }
     public Vector3 moveDir;
-    public Vector3 spawnPosition = new Vector3(0, 5, 0);
+    public Vector3 spawnPosition;
 
     // Start is called before the first frame update
     private void Awake()
@@ -59,13 +59,14 @@ public class BossSystem : FSMSystem,InteractBall
     public void OnContact(RaycastHit2D hit, BallSystemVer2 ball)
     {
         Debug.Log("HIT BOSS");
+        hp -= 100;
     }
     // Update is called once per frame
     public Vector3 ClaimPosition(Vector3 vector)
     {
-        //vector.x = Mathf.Clamp(transform.position.x, CameraMain.instance.GetLeft(), CameraMain.instance.GetRight());
+        vector.x = Mathf.Clamp(transform.position.x, CameraMain.instance.GetLeft() +radius - 1f, CameraMain.instance.GetRight() -(radius - 1f));
         //vector.y = Mathf.Clamp(transform.position.y, CameraMain.instance.GetTop(), CameraMain.instance.GetBottom());
-        vector.x = Mathf.Clamp(transform.position.x, -9.5f, 9.5f);
+        //vector.x = Mathf.Clamp(transform.position.x, -9.5f, 9.5f);
         return vector;
     }
     public void Rotation()
@@ -84,7 +85,7 @@ public class BossSystem : FSMSystem,InteractBall
         Vector3 currentPosition = transform.position;
         currentPosition = transform.position + (movespeed * Time.deltaTime * moveDir.normalized);
         //Debug.Log("MoveDire" + moveDir);
-        transform.position = new Vector3 (currentPosition.x, 0,0);
+        transform.position = new Vector3 (currentPosition.x, transform.position.y, 0);
     }
     public void BossDirection()
     {
@@ -93,13 +94,13 @@ public class BossSystem : FSMSystem,InteractBall
         float tempPosX = transform.position.x;
         //Debug.Log($"right {right} left {left}");
         Vector3 tempDirection;
-        if (tempPosX > 10)
+        if (tempPosX > right - radius)
         {
             tempDirection = Vector3.Reflect(moveDir, Vector3.left).normalized;
             moveDir = tempDirection;
             transform.position = ClaimPosition(transform.position);
         }
-        else if(tempPosX < -10)
+        else if(tempPosX < left + radius)
         {
             tempDirection = Vector3.Reflect(moveDir, Vector3.right).normalized;
             moveDir = tempDirection;

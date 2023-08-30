@@ -8,6 +8,9 @@ public class BossAttackState : FSMState<BossSystem>
     // Start is called before the first frame update
     public override void OnEnter()
     {
+
+        sys.GotoState(sys.MoveState);
+
         Debug.Log("BOSS ATTACK");
     }
 
@@ -15,6 +18,5 @@ public class BossAttackState : FSMState<BossSystem>
     // Update is called once per frame
     public override void OnUpdate()
     {
-        sys.GotoState(sys.MoveState);
     }
 }

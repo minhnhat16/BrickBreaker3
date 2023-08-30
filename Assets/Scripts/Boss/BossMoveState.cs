@@ -20,7 +20,8 @@ public class BossMoveState : FSMState<BossSystem>
         //Debug.Log("ON UPDATE BOSS MOVE STATE");
         sys.Rotation();
         sys.BossMoverment();
-        sys.StartCoroutine(AtackTimer(sys.Attack));
+        //Debug.Log("ATTACK COOLDOWN" + sys.attackCooldown);
+        //sys.StartCoroutine(AtackTimer(sys.Attack));
     }
     IEnumerator AtackTimer(Action callback)
     {

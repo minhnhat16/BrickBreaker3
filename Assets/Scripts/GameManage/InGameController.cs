@@ -20,6 +20,7 @@ public class InGameController : MonoBehaviour
     public ConfigFileManager configFile;
     public GameObject ballPref;
     public GameObject paddlePref;
+    public GameObject boss;
     public CameraMain cam;
     public GameObject item;
     public GameObject backGround;
@@ -179,7 +180,7 @@ public class InGameController : MonoBehaviour
             //int j = ballActiveList.Count + 1;
             if (pool[i].gameObject.activeSelf == true)
             {
-                Debug.Log("CHECK ACTIVE LIST");
+                //Debug.Log("CHECK ACTIVE LIST");
                 BallSystemVer2 b = pool[i];
                 ballActiveList.Add(b);
                 Debug.Log(ballActiveList.Count);

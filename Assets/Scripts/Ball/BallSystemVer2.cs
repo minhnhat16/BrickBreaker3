@@ -120,6 +120,8 @@ public class BallSystemVer2 : FSMSystem
                 //Debug.Log("Interac not null");
                 if (contactHandler.contactUnit != hit.collider.transform)
                 {
+                    Debug.Log("HIT" + hit);
+                    Debug.Log("Hit" + interactBall);
                     interactBall.OnContact(hit, this);
                     contactHandler.contactUnit = hit.collider.transform;
                     contactHandler.unitType = UnitType.OTHERS;
@@ -557,13 +559,13 @@ public class BallSystemVer2 : FSMSystem
     {
         for (int i = 0; i < 2; i++)
         {
-            Debug.Log("BallMultiply" + i);
+            //Debug.Log("BallMultiply" + i);
             BallSystemVer2 ball = BallPoolManager.instance.pool.SpawnNonGravity();
-            Debug.Log("BALL PARENT POSITION" + ballparent.transform.position);
+            //Debug.Log("BALL PARENT POSITION" + ballparent.transform.position);
             ball.transform.position = ballparent.transform.position;
-            Debug.Log("ball.transform.position " + ball.transform.position);
+            //Debug.Log("ball.transform.position " + ball.transform.position);
             //InGameController.Instance.ballActiveList.Add(ball);
-            Debug.Log("BALL " + ball);
+            //Debug.Log("BALL " + ball);
             ball.moveDir = new Vector3(Random.Range(-1, 1), 1);
             if(ball.moveDir == ballparent.moveDir)
             {
