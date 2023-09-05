@@ -10,7 +10,6 @@ public class BossAttackState : FSMState<BossSystem>
     {
 
         sys.GotoState(sys.MoveState);
-
         Debug.Log("BOSS ATTACK");
     }
 

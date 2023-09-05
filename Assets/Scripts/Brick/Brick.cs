@@ -42,10 +42,11 @@ public class Brick : MonoBehaviour, InteractBall
                 brickHealth--;
                 if (!ball.onItemPowerUP)
                 {
-                    normalVector = hit.point - (Vector2)this.transform.position;
+                    Debug.Log("BRICK TYPE 2");
+                    normalVector = hit.point.normalized - (Vector2)this.transform.position.normalized;
                     normalVector.Normalize();
                     Debug.DrawLine(hit.point, normalVector,Color.magenta);
-                    ball.moveDir = Vector2.Reflect(ball.direction1, normalVector);
+                    ball.moveDir = Vector2.Reflect(ball.direction1.normalized, normalVector.normalized);
                 }
                 else
                 {
@@ -58,15 +59,33 @@ public class Brick : MonoBehaviour, InteractBall
                 break;
             case 2:
                 {
-                    normalVector = hit.point - (Vector2)(this.transform.position);
-                    normalVector.Normalize();
+                    Debug.Log("BRICK TYPE 2");
+                    normalVector = hit.point.normalized /*- (Vector2)this.transform.position.normalized*/;
 
-                    ball.moveDir = Vector2.Reflect(ball.moveDir, normalVector);
+                    normalVector.Normalize();
+                    Debug.DrawLine(hit.point, normalVector, Color.red);
+                    ball.moveDir = Vector2.Reflect(ball.direction1.normalized, normalVector.normalized);
                     break;
                 }
             default:
                 break;
         }
+    }
+    private void ClampOnHitBrik(BallSystemVer2 ball)
+    {
+        Bounds bounds = boxCollider2D.bounds;
+        float xPos = ball.transform.position.x;
+        float yPos = ball.transform.position.y;
+        Vector3 min = bounds.min;
+        Vector3 max = bounds.max;
+       
+        if(xPos > min.x - ball.ballRadius && xPos < max.x + ball.ballRadius)
+        {
+            float x = Mathf.Clamp(ball.transform.position.x, bounds.min.x - ball.ballRadius - 0.1f, bounds.max.x + ball.ballRadius+ 0.1f);
+
+        }
+        
+
     }
     public void SettingBrick(int type)
     {
@@ -226,7 +245,7 @@ public class Brick : MonoBehaviour, InteractBall
     {
         spriteRenderer.color = Color.white;
         transform.position -= new Vector3(0, 0, 0);
-        boxCollider2D.size = new Vector2(1f, 1f);
+        boxCollider2D.size = new Vector2(1.1f, 1.2f);
     }
 
 }

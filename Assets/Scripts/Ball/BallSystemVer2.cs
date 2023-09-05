@@ -110,7 +110,7 @@ public class BallSystemVer2 : FSMSystem
     }
     public void CheckCollider()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, ballRadius, Vector2.zero);
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, ballRadius,Vector2.zero);
         if (hit.collider != null)
         {
             InteractBall interactBall = hit.collider.GetComponent(typeof(InteractBall)) as InteractBall;
@@ -520,8 +520,8 @@ public class BallSystemVer2 : FSMSystem
         moveDir = Vector3.zero;
         SetMaxLive();
         this.gameObject.transform.GetChild(0).localScale = new Vector2(2f, 2f);
-        ballRadius = 0.5f;
-        castRadius = 0.5f;
+        ballRadius = 0.3f;
+        castRadius = 0.3f;
         this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
 
         isOnMagnet = false;

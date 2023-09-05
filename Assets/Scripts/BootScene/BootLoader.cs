@@ -21,7 +21,9 @@ public class BootLoader : MonoBehaviour
         // T?i scene có tên "Buffer"
         //LOAD CONFIG FILE FIRST
         SceneManager.LoadScene("Buffer");
+        LoadSceneManager.Instance.currrentSence = "Buffer";
         ViewManager.Instance.SwitchView(ViewIndex.LoadingView);
+
     }
     public void LoadConfigFile()
     {

@@ -20,19 +20,22 @@ public class BossSystem : FSMSystem,InteractBall
     private Transform Forward;
     [SerializeField]
     private Transform Anchor;
-    public CircleCollider2D CircleCollider2D;
+    public Collider2D CircleCollider2D;
     [SerializeField] private int id;
     [SerializeField] private GameObject core;
     [SerializeField] private GameObject mid;
     [SerializeField] private GameObject crust;
-    [SerializeField] private GameObject hp_bar;
+    //[SerializeField] private GameObject hp_bar;
 
     [SerializeField] private Vector3 postion;
     [SerializeField] private float movespeed = 4f;
     [SerializeField] private float rotationspeed = 0.5f;
     [SerializeField] private float radius = 2.2f;
     [SerializeField] public float attackCooldown = 10f;
-
+    [SerializeField] private GamePlayView gamePlayView;
+    public BossHub hub;
+    public Transform anchorHUB;   
+    
      public int hp;
     public Vector2 forwardDir { get => (Forward.position - Anchor.position).normalized; }
     public Vector3 moveDir;
@@ -46,17 +49,23 @@ public class BossSystem : FSMSystem,InteractBall
         AttackState.Setup(this);
         DeathState.Setup(this);
         SpawnState.Setup(this);
+        //hub.Setup(base, anchorHUB);
     }
-    private void Start()
+    public virtual void Setup()
     {
-        Debug.Log("Start");
-        Init();
-    }
-    private void Init()
-    {
-        Debug.Log("Init");
+        gamePlayView = ViewManager.Instance.currentView.GetComponent<GamePlayView>();
+        Debug.Log("Setup on boss system");
+        Debug.Log("GAMEPLAY VIEW " + gamePlayView.gameObject + "anchorHUB" + anchorHUB);
+        hub.Setup(gamePlayView.parentBossHub, anchorHUB);
         GotoState(SpawnState);
     }
+    private IEnumerator Start()
+    {
+        Debug.Log("Start");
+        yield return new WaitForSeconds(0);
+        Setup();
+    }
+   
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -76,10 +85,7 @@ public class BossSystem : FSMSystem,InteractBall
             if (ball.transform.position.y< transform.position.y + ball.ballRadius && ball.transform.position.y > transform.position.y - ball.ballRadius)
             {
                 Debug.Log("CASE 1 ");
-                //normalVector = -hit.point + (Vector2)ball.transform.position;
-                //normalVector.Normalize();
-                //Debug.DrawLine(hit.point, normalVector, Color.yellow);
-                //Debug.Log("NormalVector " + normalVector);
+              
                 if ( ball.transform.position.x > transform.position.x)
                 {
                     Debug.Log("RIGHT");

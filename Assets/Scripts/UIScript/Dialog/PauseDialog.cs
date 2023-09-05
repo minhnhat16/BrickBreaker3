@@ -11,7 +11,7 @@ public class PauseDialog : BaseDialog
         InGameController.Instance.DeSpawnAll();
         DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
         SceneManager.LoadScene("Buffer");
-
+        LoadSceneManager.Instance.currrentSence = "Buffer";
     }
     public void OnRestartBtn()
     {

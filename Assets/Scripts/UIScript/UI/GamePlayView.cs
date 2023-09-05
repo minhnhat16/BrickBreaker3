@@ -4,17 +4,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GamePlayView : BaseView
+public class GamePlayView : BaseView 
 {
     [SerializeField] private Text score_lb;
+    public RectTransform parentBossHub;
+
+    //public override on
     private void Update()
     {
         UpdateScore();
-
-    }
-    public override void OnStartShowView()
-    {
-
     }
     public override void OnEndHideView()
     {
