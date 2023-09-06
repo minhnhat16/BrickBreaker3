@@ -10,7 +10,9 @@ public class LoadingView : BaseView
         {
             StartCoroutine(LoadViewAfterDelay(0.3f, ViewIndex.SelectLevelView));
         }
-
+        else if (LoadSceneManager.Instance.currrentSence == "Ingame") {
+            StartCoroutine(LoadViewAfterDelay(1f, ViewIndex.GameplayView));
+        }
     }
     IEnumerator LoadViewAfterDelay(float delay, ViewIndex index)
     {

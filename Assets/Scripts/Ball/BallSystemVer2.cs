@@ -120,13 +120,13 @@ public class BallSystemVer2 : FSMSystem
                 //Debug.Log("Interac not null");
                 if (contactHandler.contactUnit != hit.collider.transform)
                 {
-                    Debug.Log("HIT" + hit);
-                    Debug.Log("Hit" + interactBall);
+                    //Debug.Log("HIT" + hit);
+                    //Debug.Log("Hit" + interactBall);
                     interactBall.OnContact(hit, this);
                     contactHandler.contactUnit = hit.collider.transform;
                     contactHandler.unitType = UnitType.OTHERS;
                     hitpoint = hit.point;
-                    Debug.Log("=======HITPOINT======" + hit.point); 
+                    //Debug.Log("=======HITPOINT======" + hit.point); 
 
                 }
                 else

@@ -28,11 +28,8 @@ public class Brick : MonoBehaviour, InteractBall
     public void DestroyBrick()
     {
         BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
-        if (!InGameController.Instance.isBossLevel)
-        {
-            InGameController.Instance.currentScore += 100 ;
+        InGameController.Instance.currentScore += 100 ;
             
-        }
     }
     public void OnContact(RaycastHit2D hit, BallSystemVer2 ball)
     {
@@ -43,10 +40,15 @@ public class Brick : MonoBehaviour, InteractBall
                 if (!ball.onItemPowerUP)
                 {
                     Debug.Log("BRICK TYPE 2");
+                    //ball.CheckBallAngle(Vector3.up);
                     normalVector = hit.point.normalized - (Vector2)this.transform.position.normalized;
                     normalVector.Normalize();
                     Debug.DrawLine(hit.point, normalVector,Color.magenta);
-                    ball.moveDir = Vector2.Reflect(ball.direction1.normalized, normalVector.normalized);
+                    if(ball.tempDirection == Vector3.zero)
+                    {
+                        ball.tempDirection = Vector3.down;
+                    }
+                    ball.moveDir = Vector2.Reflect(ball.tempDirection.normalized, normalVector.normalized);
                 }
                 else
                 {
@@ -59,7 +61,7 @@ public class Brick : MonoBehaviour, InteractBall
                 break;
             case 2:
                 {
-                    Debug.Log("BRICK TYPE 2");
+                    //Debug.Log("BRICK TYPE 2");
                     normalVector = hit.point.normalized /*- (Vector2)this.transform.position.normalized*/;
 
                     normalVector.Normalize();

@@ -32,11 +32,13 @@ public class BossSystem : FSMSystem,InteractBall
     [SerializeField] private float rotationspeed = 0.5f;
     [SerializeField] private float radius = 2.2f;
     [SerializeField] public float attackCooldown = 10f;
-    [SerializeField] private GamePlayView gamePlayView;
+    [SerializeField] private BaseView gamePlayView;
     public BossHub hub;
     public Transform anchorHUB;   
     
-     public int hp;
+    public int hp;
+    public int maxHp;
+    public bool isBossDefeat;
     public Vector2 forwardDir { get => (Forward.position - Anchor.position).normalized; }
     public Vector3 moveDir;
     public Vector3 spawnPosition;
@@ -49,20 +51,20 @@ public class BossSystem : FSMSystem,InteractBall
         AttackState.Setup(this);
         DeathState.Setup(this);
         SpawnState.Setup(this);
-        //hub.Setup(base, anchorHUB);
     }
     public virtual void Setup()
     {
-        gamePlayView = ViewManager.Instance.currentView.GetComponent<GamePlayView>();
         Debug.Log("Setup on boss system");
         Debug.Log("GAMEPLAY VIEW " + gamePlayView.gameObject + "anchorHUB" + anchorHUB);
-        hub.Setup(gamePlayView.parentBossHub, anchorHUB);
+        maxHp = hp;
+        hub.Setup(gamePlayView.GetComponent<GamePlayView>().parentBossHub, anchorHUB);
         GotoState(SpawnState);
     }
     private IEnumerator Start()
     {
         Debug.Log("Start");
-        yield return new WaitForSeconds(0);
+        ViewManager.Instance.dicView.TryGetValue(ViewIndex.GameplayView, out gamePlayView);
+        yield return new WaitUntil (() => gamePlayView !=null);
         Setup();
     }
    
@@ -74,10 +76,28 @@ public class BossSystem : FSMSystem,InteractBall
         Gizmos.DrawWireSphere(transform.position, radius);
 
     }
+    private IEnumerator HitCoolDown()
+    {
+        if (!InGameController.Instance.isItemTypePower)
+        {
+
+            hp -= 100;
+            hub.ShowEffect(hp, maxHp);
+            yield return new WaitForSeconds(3f);
+           
+        }
+        else
+        {
+            hp -= 50;
+            hub.ShowEffect(hp, maxHp);
+            yield return new WaitForSeconds(4f);
+           
+        }
+    }
     public void OnContact(RaycastHit2D hit, BallSystemVer2 ball)
     {
-        Debug.Log("HIT BOSS");
-        hp -= 100;
+        //Debug.Log("HIT BOSS");
+        StartCoroutine(HitCoolDown());
         if (!ball.onItemPowerUP)
         {
 
@@ -125,8 +145,6 @@ public class BossSystem : FSMSystem,InteractBall
                 ball.moveDir = Vector2.Reflect(ball.direction1, normalVector);
                 ReflectBoss(ball);
             }
-            
-
         }
     }
     private void ReflectBoss(BallSystemVer2 ball)
@@ -139,8 +157,8 @@ public class BossSystem : FSMSystem,InteractBall
         x = Mathf.Clamp(ball.transform.position.x, min.x - ball.ballRadius - 0.2f, max.x + ball.ballRadius + 0.2f);
         y = Mathf.Clamp(ball.transform.position.y, min.y - ball.ballRadius - 0.2f, max.y + ball.ballRadius + 0.2f);
         ball.transform.position = new Vector3(x,y,0);
-        Debug.Log("BALL POSTION REFLECT BOSS " + ball.transform.position);
-        Debug.Log($"MAX BOUND {max} + MIN BOUND {min}");
+        //Debug.Log("BALL POSTION REFLECT BOSS " + ball.transform.position);
+        //Debug.Log($"MAX BOUND {max} + MIN BOUND {min}");
     }
     // Update is called once per frame
     public Vector3 ClaimPosition(Vector3 vector)
@@ -188,16 +206,31 @@ public class BossSystem : FSMSystem,InteractBall
 
         }
     }
+ 
     public void BossCheckHP()
     {
-        if (hp < 0) GotoState(DeathState);
+        if (hp <= 0) GotoState(DeathState);
     }
     public void Attack()
     {
         GotoState(AttackState);
     }
+    public void ResetBossHealth()
+    {
+        hp = maxHp = LoadLevel.instance.Level.bossHP;
+        hub.fg_image.fillAmount = 1;
+        hub.gameObject.SetActive(true);
+    }
     public void ResetPosition()
     {
         transform.position = spawnPosition;
+    }
+    public void ResetBoss()
+    {
+        this.gameObject.SetActive(true);
+        hub.ResetHub(); 
+        ResetBossHealth();
+        ResetPosition();
+        GotoState(SpawnState);
     }
 }

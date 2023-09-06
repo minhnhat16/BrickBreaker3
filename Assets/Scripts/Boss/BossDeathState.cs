@@ -8,8 +8,9 @@ public class BossDeathState : FSMState<BossSystem>
     // Start is called before the first frame update
     public override void OnEnter()
     {
-        sys.gameObject.SetActive(true);
-        InGameController.Instance.isLevelComplete = true;
+        sys.gameObject.SetActive(false);
+        InGameController.Instance.currentScore += sys.maxHp;
+        sys.hub.gameObject.SetActive(false);
     }
 
 

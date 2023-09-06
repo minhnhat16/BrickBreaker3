@@ -8,7 +8,10 @@ public class GamePlayView : BaseView
 {
     [SerializeField] private Text score_lb;
     public RectTransform parentBossHub;
-
+    public override void OnStartShowView()
+    {
+        //GameManager.Instance.LoadOnInGameController();
+    }
     //public override on
     private void Update()
     {

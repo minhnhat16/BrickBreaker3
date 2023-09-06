@@ -10,6 +10,8 @@ public class BossSpawnState : FSMState<BossSystem>
     {
         //Debug.Log("Enter Spaw");
         sys.transform.position = sys.spawnPosition;
+        new WaitForSeconds(2f);
+
         sys.GotoState(sys.MoveState);
         //Debug.Log("BOSS SPAWN POSITION " + sys.spawnPosition);
         //Debug.Log("BOSS POSITION IN SPAW" + sys.transform.position);    

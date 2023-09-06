@@ -9,6 +9,7 @@ public class Boss1 : BossSystem
         Debug.Log("Setup on boss 1");
 
         base.Setup();
+
     }
    
 }

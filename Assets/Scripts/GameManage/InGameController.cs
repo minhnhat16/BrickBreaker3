@@ -147,8 +147,7 @@ public class InGameController : MonoBehaviour
     public void ResetBossData()
     {
         boss.GetComponent<BossSystem>().spawnPosition = LoadLevel.instance.Level.bossPos;
-        boss.GetComponent<BossSystem>().hp = LoadLevel.instance.Level.bossHP;
-        boss.GetComponent<BossSystem>().ResetPosition();
+        boss.GetComponent<BossSystem>().ResetBoss();
     }
     public void LoadPaddle()
     {
