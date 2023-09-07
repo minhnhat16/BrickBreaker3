@@ -38,7 +38,7 @@ public class BossHub : MonoBehaviour
 
     // Update is called once per frame
     private void Update()
-    {
+    {   
         objectDisplay.SetActive(timeCount  >0);
         currentValue = Mathf.Lerp(currentValue, value, Time.deltaTime * 2);
         fg_image.fillAmount = currentValue;
@@ -61,6 +61,5 @@ public class BossHub : MonoBehaviour
         Debug.LogError("RESET HUB");
         currentValue = value = 1;
         timeCount = 2f;
-
     }
 }

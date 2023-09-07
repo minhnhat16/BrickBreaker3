@@ -39,7 +39,7 @@ public class Boss3 : BossSystem
             t = 0;
             startTime = Time.time;
         }
-        else if (curentvalue >= 1.7f)
+        else if (curentvalue == 1.7f)
         {
             mid.gameObject.transform.localScale = new Vector3(curentvalue, curentvalue);
             t = ((Time.time - startTime) / duration);
@@ -49,22 +49,28 @@ public class Boss3 : BossSystem
             mid.gameObject.transform.localScale = new Vector3(lerpedValue, lerpedValue);
             if (lerpedValue <= 1.2f)
             {
-                //Debug.Log("  if (lerpedValue <= 1.2f)");
+                Debug.Log("  if (lerpedValue <= 1.2f)");
+                curentvalue = lerpedValue;
+            }
+        }
+        else if(curentvalue == 1.2f)
+        {
+            t = (Time.time - startTime) / duration;
+            //Debug.Log("ELSE ");
+
+            float lerpedValue = Mathf.SmoothStep(minvalue, maxvalue,  t);
+            mid.gameObject.transform.localScale = new Vector3(lerpedValue, lerpedValue);
+            if (lerpedValue >= 1.7f )
+            {
+                Debug.Log("if (lerpedValue >=1.7f)");
+
                 curentvalue = lerpedValue;
             }
         }
         else
         {
-            t = (Time.time - startTime) / duration;
-            //Debug.Log("ELSE ");
-            float lerpedValue = Mathf.SmoothStep(minvalue, maxvalue,  t);
-            mid.gameObject.transform.localScale = new Vector3(lerpedValue, lerpedValue);
-            if (lerpedValue >=1.7f)
-            {
-                //Debug.Log("if (lerpedValue >=1.7f)");
+            Debug.Log("ELSE ");
 
-                curentvalue = lerpedValue;
-            }
         }
     }
 }

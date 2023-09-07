@@ -84,12 +84,13 @@ public class LoadLevel : MonoBehaviour
         if (level.isBossLevel)
         {
             Debug.LogError("LOAD BOSS DATA");
-            if (InGameController.Instance.boss == null)
+            if (InGameController.Instance.boss == null ||
+                InGameController.Instance.boss.gameObject.GetComponent<BossSystem>().id != level.bossID)
             {
                 InGameController.Instance.LoadBoss();
                 
             }
-            else
+            else 
             {
                 InGameController.Instance.ResetBossData();
             }

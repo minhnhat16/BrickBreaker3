@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using NaughtyAttributes.Test;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -23,8 +24,7 @@ public class InGameController : MonoBehaviour
     public GameObject boss;
     public CameraMain cam;
     public GameObject item;
-    public GameObject backGround;
-    public Paddle paddle;
+    public SpriteRenderer backGround;
     public BallSystemVer2 main;
     public static Paddle prefabPaddleInstance;
     public static GameObject prefabBallInstance;
@@ -69,7 +69,7 @@ public class InGameController : MonoBehaviour
         DecreaItemDurationPower();
         DecreaItemDurationScaleUp();
         InGameController.Instance.CheckCompleteScore();
-        InGameController.Instance.UpdateTimer(InGameController.Instance.CalStar, 10f);
+        InGameController.Instance.UpdateTimer(InGameController.Instance.CalStar, 30f);
     }
     public void GameOver()
     {
@@ -89,6 +89,7 @@ public class InGameController : MonoBehaviour
             //Debug.Log("load");
             LoadPaddle();
             LoadBall(1);
+            LoadBackGround();
             SetUpCamera();
         }
         else
@@ -98,9 +99,10 @@ public class InGameController : MonoBehaviour
             ReloadGameObject();
         }
     }
+    
     public bool CheckGameObjectNull()
     {
-        if (prefabPaddleInstance == null || prefabBallInstance == null) return true;
+        if (prefabPaddleInstance == null || prefabBallInstance == null ) return true;
         else return false;
     }
     public void SetUpCamera()
@@ -148,6 +150,10 @@ public class InGameController : MonoBehaviour
     {
         boss.GetComponent<BossSystem>().spawnPosition = LoadLevel.instance.Level.bossPos;
         boss.GetComponent<BossSystem>().ResetBoss();
+    }
+    public void LoadBackGround()
+    {
+        backGround.gameObject.SetActive(true);
     }
     public void LoadPaddle()
     {
@@ -267,6 +273,7 @@ public class InGameController : MonoBehaviour
     public void DeSpawnPaddle()
     {
         prefabPaddleInstance.GetComponent<Paddle>().ResetPaddle();
+        prefabPaddleInstance.gameObject.SetActive(false);
     }
     public void LevelComplete()
     {
@@ -300,11 +307,22 @@ public class InGameController : MonoBehaviour
 
         Time.timeScale = 1f;
     }
-
+    public void DeSpawnBoss()
+    {
+       if(boss !=  null)
+        {
+            //boss.gameObject.SetActive(false);
+            //Destroy(boss.GetComponent<BossSystem>().hub.);
+            boss.GetComponent<BossSystem>().hub.gameObject.SetActive(false);
+            Destroy(boss);
+        }
+    }
     public void DeSpawnAll()
     {
         DeSpawnBall();
         DeSpawnPaddle();
+        DeSpawnBoss();  
+        backGround.gameObject.SetActive(false);
         BrickPoolManager.instance.pool.DeSpawnAll();
     }
     public void ReloadGameObject()
@@ -318,6 +336,7 @@ public class InGameController : MonoBehaviour
         prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall();
         prefabPaddleInstance.gameObject.SetActive(true);
         prefabPaddleInstance.GetComponent<Paddle>().ResetPaddle();
+        LoadBackGround();
         ResetBallPosition();
         // BallPoolManager.instance.ResetAllPoolPostion();
         ItemPoolManager.instance.pool.DeSpawnAll();

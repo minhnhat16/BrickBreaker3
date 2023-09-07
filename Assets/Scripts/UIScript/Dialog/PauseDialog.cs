@@ -16,6 +16,7 @@ public class PauseDialog : BaseDialog
     public void OnRestartBtn()
     {
         DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
+        InGameController.Instance.DeSpawnAll();
         LoadLevel.instance.RestartLevel();
         InGameController.Instance.ResumeGame();
         InGameController.Instance.lives = 1;

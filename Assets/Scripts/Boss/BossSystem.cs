@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NaughtyAttributes.Test;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ public class BossSystem : FSMSystem,InteractBall
     [SerializeField]
     private Transform Anchor;
     public Collider2D CircleCollider2D;
-    [SerializeField] private int id;
+    public int id;
     public GameObject core;
     public GameObject mid;
     public GameObject crust;
@@ -108,7 +109,7 @@ public class BossSystem : FSMSystem,InteractBall
               
                 if ( ball.transform.position.x > transform.position.x)
                 {
-                    Debug.Log("RIGHT");
+                    //Debug.Log("RIGHT");
 
                     ball.moveDir = Vector2.right;
 
@@ -116,7 +117,7 @@ public class BossSystem : FSMSystem,InteractBall
                 }
                 else if (ball.transform.position.x < transform.position.x)
                 {
-                    Debug.Log("LEFT");
+                    //Debug.Log("LEFT");
                     ball.moveDir = Vector2.left;
 
 
@@ -125,23 +126,23 @@ public class BossSystem : FSMSystem,InteractBall
             }
             else if(ball.transform.position.y > transform.position.y) 
             {
-                Debug.Log("CASE 2 ");
+                //Debug.Log("CASE 2 ");
                 normalVector = -hit.point + (Vector2)ball.transform.position;
                 normalVector.Normalize();
                 Debug.DrawLine(hit.point, normalVector, Color.yellow);
-                Debug.Log("NormalVector "+ normalVector);
+                //Debug.Log("NormalVector "+ normalVector);
 
                 ball.moveDir = Vector2.Reflect(-ball.direction1, normalVector);
                 ReflectBoss(ball);
             }   
             else if (ball.transform.position.y < transform.position.y)
             {
-                Debug.Log("CASE 3");
+                //Debug.Log("CASE 3");
 
                 normalVector = hit.point - (Vector2)ball.transform.position;
                 normalVector.Normalize();
                 Debug.DrawLine(hit.point, normalVector, Color.yellow);
-                Debug.Log("NormalVector " + normalVector);
+                //Debug.Log("NormalVector " + normalVector);
                 ball.moveDir = Vector2.Reflect(ball.direction1, normalVector);
                 ReflectBoss(ball);
             }
@@ -169,7 +170,7 @@ public class BossSystem : FSMSystem,InteractBall
     }
     public void Rotation()
     {
-        Debug.Log("BOSS ROTATION");
+       //Debug.Log("BOSS ROTATION");
         core.gameObject.transform.Rotate(0, 0, rotationspeed);
         mid.gameObject.transform.Rotate(0, 0, rotationspeed * -1f);
         crust.gameObject.transform.Rotate(0, 0, rotationspeed * 2f);

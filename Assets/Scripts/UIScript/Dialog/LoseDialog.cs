@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class LoseDialog : BaseDialog
 {
-    public void onRestartBtn()
+    public void OnRestartBtn()
     {
         InGameController.Instance.isGameOver = false;
         LoadLevel.instance.RestartLevel();
         InGameController.Instance.ResumeGame();
         DialogManager.Instance.HideDialog(DialogIndex.LoseDialog);
     }
-    public void onHomeBtn()
+    public void OnHomeBtn()
     {
         ViewManager.Instance.SwitchView(ViewIndex.MainScreenView);
         InGameController.Instance.DeSpawnAll();
