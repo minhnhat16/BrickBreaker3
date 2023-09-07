@@ -11,4 +11,9 @@ public class Boss_2 : BossSystem
         base.Setup();
 
     }
+    public override void OnSystemUpdate()
+    {
+        Rotation();
+        base.OnSystemUpdate();
+    }
 }

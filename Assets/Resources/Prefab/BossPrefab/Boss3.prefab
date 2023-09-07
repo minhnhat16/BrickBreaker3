@@ -103,8 +103,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 803bfba6952d02a4e909b058ff2be6ef, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 59452c2449f6acb40be7ce9151255f39, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -125,7 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 434597882089412831}
   - component: {fileID: 7074117722591831675}
-  - component: {fileID: -2175751656787137251}
+  - component: {fileID: 4999376163090333387}
   m_Layer: 0
   m_Name: Boss3
   m_TagString: Untagged
@@ -169,8 +169,8 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.3
---- !u!114 &-2175751656787137251
+  m_Radius: 2.2
+--- !u!114 &4999376163090333387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,28 +179,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 434597882089412829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8898402d06787a429d8b46bbd2d26b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 876471d81c646864eacfebe2096b27ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   state: 
   Forward: {fileID: 434597881767069241}
   Anchor: {fileID: 434597882280859786}
   CircleCollider2D: {fileID: 7074117722591831675}
-  id: 1
+  id: 3
   core: {fileID: 434597883255620838}
   mid: {fileID: 434597882780178098}
   crust: {fileID: 434597882037420520}
   postion: {x: 0, y: 0, z: 0}
   movespeed: 4
   rotationspeed: 0.5
-  radius: 1.7
+  radius: 1.73
   attackCooldown: 10
   gamePlayView: {fileID: 0}
   hub: {fileID: 3374245578851003270}
   anchorHUB: {fileID: 3926687793220175718}
-  hp: 1000
+  hp: 15000
+  maxHp: 0
+  isBossDefeat: 0
   moveDir: {x: 0, y: 0, z: 0}
   spawnPosition: {x: 0, y: 0, z: 0}
+  maxvalue: 1.7
+  minvalue: 1.2
+  duration: 1.9
+  startTime: 0
+  t: 0
+  curentvalue: 1.2
 --- !u!1 &434597882280859787
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +267,7 @@ Transform:
   m_GameObject: {fileID: 434597882780178098}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.397705, y: 1.4794512, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 434597882089412831}
@@ -306,7 +314,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 0899db517017bb9408b372caa0847f02, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c295d6889e03bf46846fcfe106709e7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -341,7 +349,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 434597883255620838}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -389,8 +397,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 2d1acc4677666414dbad8a6723ea4525, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 42a6c15315138b049bf38c6499cd3573, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -496,6 +504,9 @@ MonoBehaviour:
   objectDisplay: {fileID: 9113673410295102308}
   parent: {fileID: 0}
   anchor2d: {fileID: 0}
+  timeCount: 0
+  value: 0
+  currentValue: 0
 --- !u!1 &6260889993300023077
 GameObject:
   m_ObjectHideFlags: 0

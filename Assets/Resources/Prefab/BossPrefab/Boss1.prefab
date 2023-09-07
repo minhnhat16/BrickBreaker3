@@ -193,12 +193,14 @@ MonoBehaviour:
   postion: {x: 0, y: 0, z: 0}
   movespeed: 4
   rotationspeed: 0.5
-  radius: 1.7
+  radius: 1.73
   attackCooldown: 10
   gamePlayView: {fileID: 0}
   hub: {fileID: 3374245578851003270}
   anchorHUB: {fileID: 3926687793220175718}
   hp: 1000
+  maxHp: 0
+  isBossDefeat: 0
   moveDir: {x: 0, y: 0, z: 0}
   spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &434597882280859787
@@ -496,6 +498,9 @@ MonoBehaviour:
   objectDisplay: {fileID: 9113673410295102308}
   parent: {fileID: 0}
   anchor2d: {fileID: 0}
+  timeCount: 0
+  value: 0
+  currentValue: 0
 --- !u!1 &6260889993300023077
 GameObject:
   m_ObjectHideFlags: 0

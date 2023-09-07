@@ -18,7 +18,7 @@ public class BossMoveState : FSMState<BossSystem>
     public override void OnUpdate()
     {
         //Debug.Log("ON UPDATE BOSS MOVE STATE");
-        sys.Rotation();
+        //sys.Rotation();
         sys.BossMoverment();
         sys.BossCheckHP();
         //Debug.Log("ATTACK COOLDOWN" + sys.attackCooldown);

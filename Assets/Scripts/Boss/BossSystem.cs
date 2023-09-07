@@ -22,9 +22,9 @@ public class BossSystem : FSMSystem,InteractBall
     private Transform Anchor;
     public Collider2D CircleCollider2D;
     [SerializeField] private int id;
-    [SerializeField] private GameObject core;
-    [SerializeField] private GameObject mid;
-    [SerializeField] private GameObject crust;
+    public GameObject core;
+    public GameObject mid;
+    public GameObject crust;
     //[SerializeField] private GameObject hp_bar;
 
     [SerializeField] private Vector3 postion;
@@ -169,7 +169,7 @@ public class BossSystem : FSMSystem,InteractBall
     }
     public void Rotation()
     {
-        //Debug.Log("BOSS ROTATION");
+        Debug.Log("BOSS ROTATION");
         core.gameObject.transform.Rotate(0, 0, rotationspeed);
         mid.gameObject.transform.Rotate(0, 0, rotationspeed * -1f);
         crust.gameObject.transform.Rotate(0, 0, rotationspeed * 2f);
