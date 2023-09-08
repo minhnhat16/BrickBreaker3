@@ -13,7 +13,6 @@ public class Boss3 : BossSystem
     public float startTime;
     public float t;
     public float curentvalue = 1.2f;
-
     public override void Setup()
     {
         Debug.Log("Setup on boss 3");
@@ -26,6 +25,8 @@ public class Boss3 : BossSystem
 
         core.gameObject.transform.Rotate(0,0, 1f);
         mid.gameObject.transform.Rotate(Vector3.zero);
+        //mid.gameObject.transform.Rotate(0, 0, -0.1f);
+
         crust.gameObject.transform.Rotate(Vector3.zero);
         ZoomInSprite();
         base.OnSystemUpdate();
@@ -47,6 +48,8 @@ public class Boss3 : BossSystem
             float lerpedValue = Mathf.SmoothStep(maxvalue, minvalue, t);
             //Debug.Log("lerpedValue " + lerpedValue);
             mid.gameObject.transform.localScale = new Vector3(lerpedValue, lerpedValue);
+            //ScaleUpCollider(lerpedValue);
+
             if (lerpedValue <= 1.2f)
             {
                 Debug.Log("  if (lerpedValue <= 1.2f)");
@@ -60,6 +63,7 @@ public class Boss3 : BossSystem
 
             float lerpedValue = Mathf.SmoothStep(minvalue, maxvalue,  t);
             mid.gameObject.transform.localScale = new Vector3(lerpedValue, lerpedValue);
+            //ScaleUpCollider(lerpedValue);
             if (lerpedValue >= 1.7f )
             {
                 Debug.Log("if (lerpedValue >=1.7f)");
@@ -72,5 +76,11 @@ public class Boss3 : BossSystem
             Debug.Log("ELSE ");
 
         }
+    }
+    private void ScaleUpCollider( float value )
+    {
+        Collider2D[1].transform.localScale = new Vector3(value, value);
+        Collider2D[2].transform.localScale = new Vector3(value, value);
+        Collider2D[3].transform.localScale = new Vector3(value, value);
     }
 }

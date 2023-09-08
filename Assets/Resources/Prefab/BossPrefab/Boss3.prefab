@@ -126,6 +126,10 @@ GameObject:
   - component: {fileID: 434597882089412831}
   - component: {fileID: 7074117722591831675}
   - component: {fileID: 4999376163090333387}
+  - component: {fileID: 3461456983975480454}
+  - component: {fileID: 4045206444115044507}
+  - component: {fileID: 6666245626364751417}
+  - component: {fileID: 3821498881429472852}
   m_Layer: 0
   m_Name: Boss3
   m_TagString: Untagged
@@ -185,7 +189,8 @@ MonoBehaviour:
   state: 
   Forward: {fileID: 434597881767069241}
   Anchor: {fileID: 434597882280859786}
-  CircleCollider2D: {fileID: 7074117722591831675}
+  Collider2D:
+  - {fileID: 7074117722591831675}
   id: 3
   core: {fileID: 434597883255620838}
   mid: {fileID: 434597882780178098}
@@ -209,6 +214,122 @@ MonoBehaviour:
   startTime: 0
   t: 0
   curentvalue: 1.2
+--- !u!60 &3461456983975480454
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434597882089412829}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -1.68, y: 2.02}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.18662405, y: 0.7846644}
+      - {x: -0.9367007, y: -0.39441216}
+      - {x: -0.18582559, y: -0.82337284}
+      - {x: 0.5590739, y: -0.033809185}
+--- !u!60 &4045206444115044507
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434597882089412829}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.98, y: 2.02}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.4593824, y: 0.7990203}
+      - {x: -0.8505666, y: -0.02116394}
+      - {x: -0.11404705, y: -0.82337284}
+      - {x: 0.6882751, y: -0.42141306}
+--- !u!60 &6666245626364751417
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434597882089412829}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.98, y: -1.82}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.071778655, y: 0.5980406}
+      - {x: -0.8218553, y: -0.17907667}
+      - {x: -0.47293937, y: -0.9669298}
+      - {x: 0.70263076, y: 0.2102375}
+--- !u!60 &3821498881429472852
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434597882089412829}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -1.6, y: -1.77}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.31582534, y: 0.56932914}
+      - {x: -1.0371908, y: 0.16545987}
+      - {x: 0.07257688, y: -1.0387084}
+      - {x: 0.45858395, y: -0.22043324}
 --- !u!1 &434597882280859787
 GameObject:
   m_ObjectHideFlags: 0

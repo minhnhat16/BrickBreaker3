@@ -21,7 +21,7 @@ public class BossSystem : FSMSystem,InteractBall
     private Transform Forward;
     [SerializeField]
     private Transform Anchor;
-    public Collider2D CircleCollider2D;
+    public List<Collider2D>  Collider2D;
     public int id;
     public GameObject core;
     public GameObject mid;
@@ -72,7 +72,7 @@ public class BossSystem : FSMSystem,InteractBall
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Bounds bounds = CircleCollider2D.bounds;
+        Bounds bounds = Collider2D[0].bounds;
         Gizmos.DrawWireCube(bounds.center, bounds.size);
         Gizmos.DrawWireSphere(transform.position, radius);
 
@@ -99,8 +99,6 @@ public class BossSystem : FSMSystem,InteractBall
     {
         //Debug.Log("HIT BOSS");
         StartCoroutine(HitCoolDown());
-        if (!ball.onItemPowerUP)
-        {
 
             Vector2 normalVector;
             if (ball.transform.position.y< transform.position.y + ball.ballRadius && ball.transform.position.y > transform.position.y - ball.ballRadius)
@@ -109,25 +107,25 @@ public class BossSystem : FSMSystem,InteractBall
               
                 if ( ball.transform.position.x > transform.position.x)
                 {
-                    //Debug.Log("RIGHT");
-
-                    ball.moveDir = Vector2.right;
-
+                Debug.Log("RIGHT");
+                ball.moveDir = Vector2.Reflect(hit.point, Vector2.down);
+                //ball.CheckBallAngle(Vector2.right);
 
                 }
                 else if (ball.transform.position.x < transform.position.x)
                 {
-                    //Debug.Log("LEFT");
-                    ball.moveDir = Vector2.left;
+                Debug.Log("LEFT");
+                ball.moveDir = Vector2.Reflect(hit.point, Vector2.down);
 
-
-                }
+                //ball.CheckBallAngle(Vector2.left);
                 ReflectBoss(ball);
+
             }
+        }
             else if(ball.transform.position.y > transform.position.y) 
             {
-                //Debug.Log("CASE 2 ");
-                normalVector = -hit.point + (Vector2)ball.transform.position;
+                Debug.Log("CASE 2 ");
+                normalVector = hit.point + (Vector2)ball.transform.position;
                 normalVector.Normalize();
                 Debug.DrawLine(hit.point, normalVector, Color.yellow);
                 //Debug.Log("NormalVector "+ normalVector);
@@ -137,7 +135,7 @@ public class BossSystem : FSMSystem,InteractBall
             }   
             else if (ball.transform.position.y < transform.position.y)
             {
-                //Debug.Log("CASE 3");
+                Debug.Log("CASE 3");
 
                 normalVector = hit.point - (Vector2)ball.transform.position;
                 normalVector.Normalize();
@@ -146,11 +144,29 @@ public class BossSystem : FSMSystem,InteractBall
                 ball.moveDir = Vector2.Reflect(ball.direction1, normalVector);
                 ReflectBoss(ball);
             }
+        
+    }
+    private int ColliderSwitchCase()
+    {
+        switch (Collider2D[0])
+        {
+            case CircleCollider2D:
+                return 1;
+            case PolygonCollider2D:
+                if (Collider2D[0].GetComponent<PolygonCollider2D>().points.Length == 3)
+                {
+                    return 2;
+                }
+                else if (Collider2D[0].GetComponent<PolygonCollider2D>().points.Length == 6){
+                    return 3;
+                }
+                else { return 4; }
         }
+        return 0;
     }
     private void ReflectBoss(BallSystemVer2 ball)
     {
-        Bounds bounds = CircleCollider2D.bounds;
+        Bounds bounds = Collider2D[0].bounds;
         Vector3 min = bounds.min;
         Vector3 max = bounds.max;
         float x = ball.transform.position.x;
@@ -161,11 +177,31 @@ public class BossSystem : FSMSystem,InteractBall
         //Debug.Log("BALL POSTION REFLECT BOSS " + ball.transform.position);
         //Debug.Log($"MAX BOUND {max} + MIN BOUND {min}");
     }
+    private void ReflectBoss2(BallSystemVer2 ball)
+    {
+        int colliderCase = ColliderSwitchCase();
+        switch (colliderCase)
+        {
+            case 1: //CIRCLE CASE
+                Bounds bounds = Collider2D[0].bounds;
+                Vector3 min = bounds.min;
+                Vector3 max = bounds.max;
+                float x = ball.transform.position.x;
+                float y = ball.transform.position.y;
+                x = Mathf.Clamp(ball.transform.position.x, min.x - ball.ballRadius - 0.2f, max.x + ball.ballRadius + 0.2f);
+                y = Mathf.Clamp(ball.transform.position.y, min.y - ball.ballRadius - 0.2f, max.y + ball.ballRadius + 0.2f);
+                ball.transform.position = new Vector3(x, y, 0);
+                break;
+            case 2:// TRIANGLE CASE
+            case 3:// HEX CASE
+            default: break;
+        }
+
+    }
     // Update is called once per frame
     public Vector3 ClaimPosition(Vector3 vector)
     {
         vector.x = Mathf.Clamp(transform.position.x, CameraMain.instance.GetLeft() +radius - 1f, CameraMain.instance.GetRight() -(radius - 1f));
-   
         return vector;
     }
     public void Rotation()
@@ -178,13 +214,13 @@ public class BossSystem : FSMSystem,InteractBall
     }
     public void BossMoverment()
     {
-        //ClaimPosition();
         BossDirection();
         //Debug.Log("BOSS MOVERMENT");
         Vector3 currentPosition = transform.position;
         currentPosition = transform.position + (movespeed * Time.deltaTime * moveDir.normalized);
         //Debug.Log("MoveDire" + moveDir);
         transform.position = new Vector3 (currentPosition.x, transform.position.y, 0);
+        ClaimPosition(transform.position);
     }
     public void BossDirection()
     {
@@ -234,4 +270,10 @@ public class BossSystem : FSMSystem,InteractBall
         ResetPosition();
         GotoState(SpawnState);
     }
+    public void TurnOffHub()
+    {
+        Destroy(gamePlayView.gameObject.GetComponentInChildren<BossHub>());
+        Destroy(hub.gameObject);
+    }
+
 }

@@ -54,7 +54,7 @@ public class LoadLevel : MonoBehaviour
         colCount = level.collumnCount;
 
         brickScale = 14f / colCount + 0.01f;
-
+            
         string[] arrColor = level.bricks.Split(';');
 
         rootPosition.x = CameraMain.instance.GetLeft() + BRICK_WIDTH_IMAGE * brickScale * 0.5f;
@@ -84,16 +84,19 @@ public class LoadLevel : MonoBehaviour
         if (level.isBossLevel)
         {
             Debug.LogError("LOAD BOSS DATA");
-            if (InGameController.Instance.boss == null ||
-                InGameController.Instance.boss.gameObject.GetComponent<BossSystem>().id != level.bossID)
-            {
+            //if (InGameController.Instance.boss == null ||
+            //    InGameController.Instance.boss.gameObject.GetComponent<BossSystem>().id != level.bossID)
+            //{
+            Debug.LogError("LOAD BOSS DATA null or !id");
+
                 InGameController.Instance.LoadBoss();
-                
-            }
-            else 
-            {
-                InGameController.Instance.ResetBossData();
-            }
+            //}
+            //else 
+            //{
+            //    Debug.LogError("RESET BOSS DATA WHEN NOT null or !id");
+
+            //    InGameController.Instance.ResetBossData();
+            //}
             InGameController.Instance.winScore = level.winScore;
             InGameController.Instance.isBossLevel = level.isBossLevel;
         }

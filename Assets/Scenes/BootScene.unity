@@ -134,6 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad6992efce595a4684619dd88753893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &553184965 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5056367258005707921, guid: cbe037dceba018d428c4021915e52242, type: 3}
+  m_PrefabInstance: {fileID: 139010312823714091}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &613234636 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 512525321681885428, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
@@ -592,7 +597,7 @@ PrefabInstance:
     - target: {fileID: 139010313211194246, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: backGround
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 553184965}
     - target: {fileID: 139010313211194246, guid: cbe037dceba018d428c4021915e52242, type: 3}
       propertyPath: configFile
       value: 

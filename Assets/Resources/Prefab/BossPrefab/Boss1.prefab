@@ -185,7 +185,8 @@ MonoBehaviour:
   state: 
   Forward: {fileID: 434597881767069241}
   Anchor: {fileID: 434597882280859786}
-  CircleCollider2D: {fileID: 7074117722591831675}
+  Collider2D:
+  - {fileID: 7074117722591831675}
   id: 1
   core: {fileID: 434597883255620838}
   mid: {fileID: 434597882780178098}

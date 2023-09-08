@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319989893604699511}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.006, y: 0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 3370d415155164e43962469d3e561a40, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fd4948f468b1ef442860bc1c9b2029ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -315,10 +315,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5622659552907099608}
-  - component: {fileID: 8982891956484614745}
-  - component: {fileID: 3124016530815268357}
+  - component: {fileID: -660253099280281855}
+  - component: {fileID: 8552037474059408237}
   m_Layer: 0
-  m_Name: Boss2
+  m_Name: Boss4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -332,9 +332,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5243872174718079159}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5.18, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: -5.2, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 680680011140982314}
   - {fileID: 1927447955448459513}
@@ -345,7 +345,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8982891956484614745
+--- !u!114 &-660253099280281855
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -354,22 +354,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 5243872174718079159}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cf6fa474100a304eacdbad59c86fc45, type: 3}
+  m_Script: {fileID: 11500000, guid: d239b890ff19cf349b613a433b418d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   state: 
   Forward: {fileID: 6642904411199192056}
   Anchor: {fileID: 3459212055771187076}
   Collider2D:
-  - {fileID: 3124016530815268357}
-  id: 2
+  - {fileID: 8552037474059408237}
+  id: 0
   core: {fileID: 319989893604699511}
   mid: {fileID: 1510936406046461944}
   crust: {fileID: 1510936406046461944}
   postion: {x: 0, y: 0, z: 0}
   movespeed: 4
   rotationspeed: 0.5
-  radius: 2.2
+  radius: 2.69
   attackCooldown: 10
   gamePlayView: {fileID: 0}
   hub: {fileID: 8204879504487059295}
@@ -379,7 +379,7 @@ MonoBehaviour:
   isBossDefeat: 0
   moveDir: {x: 0, y: 0, z: 0}
   spawnPosition: {x: 0, y: 0, z: 0}
---- !u!60 &3124016530815268357
+--- !u!60 &8552037474059408237
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -389,7 +389,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -404,12 +404,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -1.1203145, y: 1.9618864}
-      - {x: -2.2297993, y: 0.003476888}
-      - {x: -1.1083354, y: -1.9180154}
-      - {x: 1.1196518, y: -1.9180152}
-      - {x: 2.2184827, y: -0.019155562}
-      - {x: 1.1182519, y: 1.9554431}
+    - - {x: 1.7897016, y: 1.4672599}
+      - {x: -1.7897017, y: 1.4937056}
+      - {x: 0.008548332, y: -1.6324434}
 --- !u!1 &5387663165048247442
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,7 +557,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 4f21869d9abe3e94596a6b809f324ed5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2cd2bcf377468b74ba02d9fac49ec62f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

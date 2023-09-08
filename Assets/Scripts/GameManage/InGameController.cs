@@ -279,6 +279,7 @@ public class InGameController : MonoBehaviour
     {
         PauseGame();
         DeSpawnAll();
+        InGameController.Instance.backGround.gameObject.SetActive(true);
         WinDialogParam param = new WinDialogParam();
         param.crLevel = LoadLevel.instance.currentLevelLoad;
         param.score = InGameController.Instance.currentScore;
@@ -313,7 +314,8 @@ public class InGameController : MonoBehaviour
         {
             //boss.gameObject.SetActive(false);
             //Destroy(boss.GetComponent<BossSystem>().hub.);
-            boss.GetComponent<BossSystem>().hub.gameObject.SetActive(false);
+            Debug.Log("HUB " + boss.GetComponent<BossSystem>().hub.gameObject);
+            boss.GetComponent<BossSystem>().TurnOffHub();
             Destroy(boss);
         }
     }
