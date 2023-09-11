@@ -24,6 +24,7 @@ public class BallSystemVer2 : FSMSystem
     public Paddle paddle;
     [SerializeField]
     public ContactHandle contactHandler;
+    public Collider2D ballcollide;
     public Vector3 moveDir;
     public Vector3 tempDirection;
     public Vector2 forwardDir { get => (Forward.position - Anchor.position).normalized; }
@@ -110,7 +111,11 @@ public class BallSystemVer2 : FSMSystem
     }
     public void CheckCollider()
     {
+
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, ballRadius,Vector2.zero);
+        ballcollide = hit.collider;
+        //Debug.Log(hit.collider);
+
         if (hit.collider != null)
         {
             InteractBall interactBall = hit.collider.GetComponent(typeof(InteractBall)) as InteractBall;
@@ -131,7 +136,7 @@ public class BallSystemVer2 : FSMSystem
                 }
                 else
                 {
-                    Debug.Log("null contact handle");
+                    //Debug.Log("null contact handle");
                     contactHandler.contactUnit = null;
                 }
             }

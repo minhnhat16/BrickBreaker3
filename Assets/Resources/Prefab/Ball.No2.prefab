@@ -258,6 +258,7 @@ MonoBehaviour:
   contactHandler:
     contactUnit: {fileID: 0}
     unitType: 0
+  ballcollide: {fileID: 0}
   moveDir: {x: 1, y: 0, z: 0}
   tempDirection: {x: 0, y: 0, z: 0}
   hitpoint: {x: 0, y: 0}
@@ -269,7 +270,7 @@ MonoBehaviour:
   isScaleUp: 0
   isOnMagnet: 0
   isItemTypePower: 0
-  ballRadius: 0.23
+  ballRadius: 0.32
   castRadius: 0.5
   tempDirX: 0
   tempX: 0
