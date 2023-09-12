@@ -128,26 +128,28 @@ public class BossSystem : FSMSystem, InteractBall
         {
             Debug.Log("CASE 2 ");
             hitcase = 2;
-            normalVector = hit.point + (Vector2)ball.transform.position;
+            normalVector = new Vector2 (-hit.point.y,hit.point.x);
             normalVector.Normalize();
             Debug.DrawLine(hit.point, normalVector, Color.yellow);
             //Debug.Log("NormalVector "+ normalVector);
             if (ball.transform.position.x > transform.position.x)
             {
-                Debug.Log("RIGHT");
+                Debug.Log("RIGHT CASE 2");
                 hitcase = 0;
-                ReflectBoss(ball, hit, hitcase);    
-                ball.moveDir = Vector2.Reflect(hit.point, new Vector2(-1, 1)).normalized;
+                ball.moveDir = Vector2.Reflect(normalVector, ball.moveDir).normalized;
+
+                ClaimPosition(ball, hit, hitcase);    
                 //ball.CheckBallAngle(Vector2.right);
                 Physics2D.IgnoreCollision(hit.collider, Collider2D[0]);
 
             }
             else if (ball.transform.position.x < transform.position.x)
             {
-                Debug.Log("LEFT");
+                Debug.Log("LEFT CASE 2");
                 hitcase = 1;
-                ReflectBoss(ball, hit, hitcase);
-                ball.moveDir = Vector2.Reflect(hit.point, new Vector2(1, 1)).normalized;
+                Vector2 reflect = Vector2.Reflect(normalVector, ball.moveDir).normalized;
+                ball.moveDir = new Vector3(-reflect.x, Mathf.Abs(reflect.y));
+                ClaimPosition(ball, hit, hitcase);
 
                 //ball.CheckBallAngle(Vector2.left);
 
@@ -156,33 +158,46 @@ public class BossSystem : FSMSystem, InteractBall
             //ball.moveDir = Vector2.Reflect(-ball.direction1, normalVector);
             //ReflectBoss(ball, hit, hitcase);
 
-            //Physics2D.IgnoreCollision(hit.collider, Collider2D[0]);
+            Physics2D.IgnoreCollision(hit.collider, Collider2D[0]);
 
         }
         else if (ball.transform.position.y < transform.position.y)
         {
             Debug.Log("CASE 3");
 
-            normalVector = hit.point - (Vector2)ball.transform.position;
+            normalVector = new Vector2(-hit.point.y, hit.point.x);
             normalVector.Normalize();
             Debug.DrawLine(hit.point, normalVector, Color.yellow);
             //Debug.Log("NormalVector " + normalVector);
             if (ball.transform.position.x > transform.position.x)
             {
-                Debug.Log("RIGHT case 3 ");
+                Debug.Log("RIGHT CASE 2 ");
                 hitcase = 2;
-                ReflectBoss(ball, hit, hitcase);
-                ball.moveDir = Vector2.Reflect(hit.point, new Vector2(1, -1)).normalized;
+                ball.moveDir = Vector2.Reflect(normalVector, ball.moveDir).normalized;
+               ClaimPosition(ball, hit, hitcase);
                 //ball.CheckBallAngle(Vector2.right);
                 Physics2D.IgnoreCollision(hit.collider, Collider2D[0]);
 
             }
             else if (ball.transform.position.x < transform.position.x)
             {
-                Debug.Log("LEFT");
+                Debug.Log("LEFT CASE 2");
                 hitcase = 3;
-                ReflectBoss(ball, hit, hitcase);
-                ball.moveDir = Vector2.Reflect(hit.point, new Vector2(1, 1)).normalized;
+
+                Vector3 reflect = Vector2.Reflect(normalVector, ball.moveDir).normalized; 
+                if(reflect != ball.moveDir)
+                {
+                    Debug.Log("LEFT CASE 2A");
+
+                    ball.moveDir = new Vector3(reflect.x, -reflect.y);
+                }
+                else
+                {
+                    Debug.Log("LEFT CASE 2B");
+                    ball.moveDir = Vector2.Reflect(normalVector, -ball.moveDir).normalized;
+
+                }
+                ClaimPosition(ball, hit, hitcase);
 
                 //ball.CheckBallAngle(Vector2.left);
 
@@ -196,33 +211,10 @@ public class BossSystem : FSMSystem, InteractBall
         }
 
     }
-    private int ColliderSwitchCase()
+    private void ClaimPosition(BallSystemVer2 ball, RaycastHit2D hit, int hitcase)
     {
-        switch (Collider2D[0])
-        {
-            case CircleCollider2D:
-                return 1;
-            case PolygonCollider2D:
-                if (Collider2D[0].GetComponent<PolygonCollider2D>().points.Length == 3)
-                {
-                    return 2;
-                }
-                else if (Collider2D[0].GetComponent<PolygonCollider2D>().points.Length == 6)
-                {
-                    return 3;
-                }
-                else { return 4; }
-        }
-        return 0;
-    }
-    private void ReflectBoss(BallSystemVer2 ball, RaycastHit2D hit, int hitcase)
-    {
-        Bounds bounds = Collider2D[0].bounds;
-        Vector3 min = bounds.min;
-        Vector3 max = bounds.max;
-
-        float x = ball.transform.position.x;
-        float y = ball.transform.position.y;
+        float x;
+        float y;
         //x = Mathf.Clamp(ball.transform.position.x, hit.point.x - ball.ballRadius - 0.2f, hit.point.x + ball.ballRadius + 0.2f);
         //y = Mathf.Clamp(ball.transform.position.y, hit.point.y - ball.ballRadius - 0.2f, hit.point.y + ball.ballRadius + 0.2f);
         //ball.transform.position = new Vector3(x, y, 0);
@@ -258,41 +250,11 @@ public class BossSystem : FSMSystem, InteractBall
         //Debug.Log("BALL POSTION REFLECT BOSS " + ball.transform.position);
         //Debug.Log($"MAX BOUND {max} + MIN BOUND {min}");
     }
-    private void ClaimBallPostion(BallSystemVer2 ball, RaycastHit2D hit)
-    {
-
-    }
-    private void CheckCase(BallSystemVer2 ball)
-    {
-        Vector3 ballPos = ball.transform.position;
-
-        //if()
-    }
-    private void ReflectBoss2(BallSystemVer2 ball)
-    {
-        int colliderCase = ColliderSwitchCase();
-        switch (colliderCase)
-        {
-            case 1: //CIRCLE CASE
-                Bounds bounds = Collider2D[0].bounds;
-                Vector3 min = bounds.min;
-                Vector3 max = bounds.max;
-                float x = ball.transform.position.x;
-                float y = ball.transform.position.y;
-                x = Mathf.Clamp(ball.transform.position.x, min.x - ball.ballRadius - 0.2f, max.x + ball.ballRadius + 0.2f);
-                y = Mathf.Clamp(ball.transform.position.y, min.y - ball.ballRadius - 0.2f, max.y + ball.ballRadius + 0.2f);
-                ball.transform.position = new Vector3(x, y, 0);
-                break;
-            case 2:// TRIANGLE CASE
-            case 3:// HEX CASE
-            default: break;
-        }
-
-    }
-    // Update is called once per frame
+   
+    
     public Vector3 ClaimPosition(Vector3 vector)
     {
-        vector.x = Mathf.Clamp(transform.position.x, CameraMain.instance.GetLeft() + radius - 1f, CameraMain.instance.GetRight() - (radius - 1f));
+        vector.x = Mathf.Clamp(transform.position.x, CameraMain.instance.GetLeft() + radius , CameraMain.instance.GetRight() - radius );
         return vector;
     }
     public void Rotation()
@@ -301,7 +263,6 @@ public class BossSystem : FSMSystem, InteractBall
         core.gameObject.transform.Rotate(0, 0, rotationspeed);
         mid.gameObject.transform.Rotate(0, 0, rotationspeed * -1f);
         crust.gameObject.transform.Rotate(0, 0, rotationspeed * 2f);
-
     }
     public void BossMoverment()
     {

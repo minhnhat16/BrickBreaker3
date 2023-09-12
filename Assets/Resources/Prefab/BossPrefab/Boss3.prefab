@@ -198,7 +198,7 @@ MonoBehaviour:
   postion: {x: 0, y: 0, z: 0}
   movespeed: 4
   rotationspeed: 0.5
-  radius: 1.73
+  radius: 2.25
   attackCooldown: 10
   gamePlayView: {fileID: 0}
   hub: {fileID: 3374245578851003270}

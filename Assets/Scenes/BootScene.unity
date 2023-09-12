@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &340917038 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 13610790657218947, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+  m_PrefabInstance: {fileID: 4809746929112923834}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &348895705 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5349144308373220411, guid: cbe037dceba018d428c4021915e52242, type: 3}
@@ -923,6 +934,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1982437303}
     m_Modifications:
+    - target: {fileID: 13610790657218947, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_Text
+      value: FPS
+      objectReference: {fileID: 0}
+    - target: {fileID: 13610790657218947, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 13610790657218947, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 13610790657218947, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 13610790657218947, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: ecc74da531b34b441a7e756a3f263e58, type: 3}
+    - target: {fileID: 13610790657218947, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 99263693430295189, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
       propertyPath: m_Name
       value: Level_Text
@@ -1551,6 +1586,22 @@ PrefabInstance:
       propertyPath: m_Text
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4100795845176246621, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 316.4097
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100795845176246621, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 61.6893
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100795845176246621, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -372.9002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100795845176246621, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 919.9154
+      objectReference: {fileID: 0}
     - target: {fileID: 4165557853248430083, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1931,6 +1982,10 @@ PrefabInstance:
       propertyPath: m_FontData.m_FontSize
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 5793340212213096076, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
+      propertyPath: fpsText
+      value: 
+      objectReference: {fileID: 340917038}
     - target: {fileID: 5949797434414977891, guid: c9eebe1a11f56374fa6ea14c4b110467, type: 3}
       propertyPath: m_Size
       value: 0.20085342

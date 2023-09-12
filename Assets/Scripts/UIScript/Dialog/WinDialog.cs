@@ -64,6 +64,7 @@ public class WinDialog : BaseDialog
         InGameController.Instance.DeSpawnAll();
         DialogManager.Instance.HideDialog(DialogIndex.WinDialog);
         ViewManager.Instance.SwitchView(ViewIndex.SelectLevelView);
+        InGameController.Instance.gameObject.SetActive(true);
     }
     public void OnRestartLevel()
     {

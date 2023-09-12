@@ -57,7 +57,7 @@ public class LoadLevel : MonoBehaviour
             
         string[] arrColor = level.bricks.Split(';');
 
-        rootPosition.x = CameraMain.instance.GetLeft() + BRICK_WIDTH_IMAGE * brickScale * 0.5f;
+        rootPosition.x = CameraMain.instance.GetLeft() + BRICK_WIDTH_IMAGE * brickScale * 0.5f + 0.07f;
         rootPosition.y = CameraMain.instance.GetTop() - BRICK_HEIGHT_IMAGE * brickScale * 0.6f - 2 ;
         List<List<int>> matrix = new List<List<int>>();
         List<int> rows = new List<int>();

@@ -15,6 +15,8 @@ public class LoseDialog : BaseDialog
     {
         ViewManager.Instance.SwitchView(ViewIndex.MainScreenView);
         InGameController.Instance.DeSpawnAll();
+        InGameController.Instance.gameObject.SetActive(true);
+
         DialogManager.Instance.HideDialog(DialogIndex.LoseDialog);
     }
     public void OnSelectLevelBtn()
