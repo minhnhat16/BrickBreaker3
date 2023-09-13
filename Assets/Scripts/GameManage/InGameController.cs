@@ -18,6 +18,7 @@ public class InGameController : MonoBehaviour
     public List<BallSystemVer2> ballActiveList;
 
 
+    public GameObject particletest;
     public ConfigFileManager configFile;
     public GameObject ballPref;
     public GameObject paddlePref;
