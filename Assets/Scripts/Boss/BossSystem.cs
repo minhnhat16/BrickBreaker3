@@ -97,37 +97,9 @@ public class BossSystem : FSMSystem, InteractBall
         StartCoroutine(HitCoolDown());
         int hitcase;
         Vector2 normalVector;
-
-        //if (ball.transform.position.y < transform.position.y - ball.ballRadius && ball.transform.position.y > transform.position.y - ball.ballRadius)
-        //{
-        //    Debug.Log("CASE 1 ");
-
-        //    if (ball.transform.position.x > transform.position.x)
-        //    {
-        //        Debug.Log("RIGHT");
-        //        hitcase = 0;
-        //        ball.moveDir = Vector2.Reflect(hit.point, new Vector2(-1, -1));
-        //        //ball.CheckBallAngle(Vector2.right);
-        //        ReflectBoss(ball, hit, hitcase);
-        //        Physics2D.IgnoreCollision(hit.collider, Collider2D[0]);
-
-        //    }
-        //    else if (ball.transform.position.x < transform.position.x)
-        //    {
-        //        Debug.Log("LEFT");
-        //        hitcase = 1;
-        //        ball.moveDir = Vector2.Reflect(hit.point, new Vector2(1, -1));
-
-        //        //ball.CheckBallAngle(Vector2.left);
-        //        ReflectBoss(ball, hit, hitcase);
-
-        //        Physics2D.IgnoreCollision(hit.collider, Collider2D[0]);
-        //    }
-        //}
-         if (ball.transform.position.y > transform.position.y)
+        if (ball.transform.position.y > transform.position.y)
         {
             Debug.Log("CASE 2 ");
-            hitcase = 2;
             normalVector = new Vector2 (-hit.point.y,hit.point.x);
             normalVector.Normalize();
             Debug.DrawLine(hit.point, normalVector, Color.yellow);
@@ -173,8 +145,8 @@ public class BossSystem : FSMSystem, InteractBall
             {
                 Debug.Log("RIGHT CASE 2 ");
                 hitcase = 2;
-                ball.moveDir = Vector2.Reflect(normalVector, ball.moveDir).normalized;
-               ClaimPosition(ball, hit, hitcase);
+                 ball.moveDir = Vector2.Reflect(normalVector, transform.position + Vector3.up).normalized;
+                ClaimPosition(ball, hit, hitcase);
                 //ball.CheckBallAngle(Vector2.right);
                 Physics2D.IgnoreCollision(hit.collider, Collider2D[0]);
 
@@ -184,7 +156,7 @@ public class BossSystem : FSMSystem, InteractBall
                 Debug.Log("LEFT CASE 2");
                 hitcase = 3;
 
-                Vector3 reflect = Vector2.Reflect(normalVector, ball.moveDir).normalized; 
+                Vector3 reflect = Vector2.Reflect(normalVector, transform.position + Vector3.up).normalized; 
                 if(reflect != ball.moveDir)
                 {
                     Debug.Log("LEFT CASE 2A");
@@ -194,7 +166,7 @@ public class BossSystem : FSMSystem, InteractBall
                 else
                 {
                     Debug.Log("LEFT CASE 2B");
-                    ball.moveDir = Vector2.Reflect(normalVector, -ball.moveDir).normalized;
+                    ball.moveDir = Vector2.Reflect(normalVector, transform.position + Vector3.up).normalized;
 
                 }
                 ClaimPosition(ball, hit, hitcase);
@@ -223,27 +195,35 @@ public class BossSystem : FSMSystem, InteractBall
         {
             case 0:
                 Debug.Log("Right 1 " + hit.point);
-                x = Mathf.Clamp(ball.transform.position.x, hit.point.x + ball.ballRadius + 0.2f, hit.point.x + ball.ballRadius + 0.3f);
-                y = Mathf.Clamp(ball.transform.position.y, hit.point.y + ball.ballRadius + 0.2f, hit.point.y + ball.ballRadius + 0.3f);
+                //x = Mathf.Clamp(ball.transform.position.x, hit.point.x + ball.ballRadius + 0.2f, hit.point.x + ball.ballRadius + 0.3f);
+                //y = Mathf.Clamp(ball.transform.position.y, hit.point.y + ball.ballRadius + 0.2f, hit.point.y + ball.ballRadius + 0.3f);
+                x = Mathf.Lerp(ball.transform.position.x + ball.ballRadius,hit.point.x,0.5f);
+                y = Mathf.Lerp(ball.transform.position.y + ball.ballRadius, hit.point.y, 0.5f); 
+
                 ball.transform.position = new Vector3(x, y, 0);
                 break;
             case 1:
                 Debug.Log("Left 1 " + hit.point);
-                x = Mathf.Clamp(ball.transform.position.x, hit.point.x - ball.ballRadius - 0.2f, hit.point.x + ball.ballRadius + 0.3f);
-                y = Mathf.Clamp(ball.transform.position.y, hit.point.y - ball.ballRadius - 0.2f, hit.point.y + ball.ballRadius + 0.3f);
+                //x = Mathf.Clamp(ball.transform.position.x, hit.point.x - ball.ballRadius - 0.2f, hit.point.x + ball.ballRadius + 0.3f);
+                //y = Mathf.Clamp(ball.transform.position.y, hit.point.y - ball.ballRadius - 0.2f, hit.point.y + ball.ballRadius + 0.3f);
+                x = Mathf.Lerp(ball.transform.position.x - ball.ballRadius, hit.point.x, 0.5f);
+                y = Mathf.Lerp(ball.transform.position.y + ball.ballRadius, hit.point.y, 0.5f);
                 ball.transform.position = new Vector3(x, y, 0);
                 break;
             case 2:
                 Debug.Log("right 2 " + hit.point);
-                x = Mathf.Clamp(ball.transform.position.x, hit.point.x + ball.ballRadius + 0.2f, hit.point.x + ball.ballRadius + 0.3f);
-                y = Mathf.Clamp(ball.transform.position.y, hit.point.y - ball.ballRadius - 0.2f, hit.point.y + ball.ballRadius - 0.3f);
+                //x = Mathf.Clamp(ball.transform.position.x, hit.point.x + ball.ballRadius + 0.2f, hit.point.x + ball.ballRadius + 0.3f);
+                //y = Mathf.Clamp(ball.transform.position.y, hit.point.y - ball.ballRadius - 0.2f, hit.point.y + ball.ballRadius - 0.3f);
+                x = Mathf.Lerp(ball.transform.position.x + ball.ballRadius, hit.point.x, 0.5f);
+                y = Mathf.Lerp(ball.transform.position.y - ball.ballRadius, hit.point.y, 0.5f);
                 ball.transform.position = new Vector3(x, y, 0);
                 break;
             case 3:
                 Debug.Log("left 2 " + hit.point);
-                x = Mathf.Clamp(ball.transform.position.x, hit.point.x - ball.ballRadius - 0.2f, hit.point.x - ball.ballRadius - 0.3f);
-                y = Mathf.Clamp(ball.transform.position.y, hit.point.y - ball.ballRadius - 0.2f, hit.point.y - ball.ballRadius - 0.3f);
-                
+                //x = Mathf.Clamp(ball.transform.position.x, hit.point.x - ball.ballRadius - 0.2f, hit.point.x - ball.ballRadius - 0.3f);
+                //y = Mathf.Clamp(ball.transform.position.y, hit.point.y - ball.ballRadius - 0.2f, hit.point.y - ball.ballRadius - 0.3f);
+                x = Mathf.Lerp(ball.transform.position.x - ball.ballRadius, hit.point.x, 0.5f);
+                y = Mathf.Lerp(ball.transform.position.y - ball.ballRadius, hit.point.y, 0.5f);
                 ball.transform.position = new Vector3(x, y, 0);
                 break;
         }

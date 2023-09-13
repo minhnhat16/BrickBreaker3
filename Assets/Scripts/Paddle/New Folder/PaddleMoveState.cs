@@ -11,7 +11,7 @@ public class PaddleMoveState : FSMState<Paddle>
 
     public override void OnEnter()
     {
-        sys.transform.position = sys.spawnPosition;
+        sys.transform.position = sys.GetCurrentPosition();
         
     }
 
@@ -19,7 +19,6 @@ public class PaddleMoveState : FSMState<Paddle>
     {
         MovePaddle();
         sys.CheckItemEvent();
-        
         //InGameController.Instance.RandomItem();
         //IngameController.instance.main.StartCoroutine(RandomSpawnItem());
 
@@ -27,7 +26,7 @@ public class PaddleMoveState : FSMState<Paddle>
 
     public void MovePaddle()
     {
-
+      
         if (InGameController.Instance.isBallDeath)
         {
             sys.ResetPaddle();
@@ -36,7 +35,7 @@ public class PaddleMoveState : FSMState<Paddle>
         }
         else if(!InGameController.Instance.isBallDeath && !InGameController.Instance.isGameOver)
         {
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) )
             {
                 float tempDirection = -1;
                 sys.MoveCalculation(tempDirection);

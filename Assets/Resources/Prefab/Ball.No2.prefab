@@ -222,7 +222,7 @@ Transform:
   m_GameObject: {fileID: 3256839623880254088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3256839622178004569}
@@ -270,7 +270,7 @@ MonoBehaviour:
   isScaleUp: 0
   isOnMagnet: 0
   isItemTypePower: 0
-  ballRadius: 0.32
+  ballRadius: 0.25
   castRadius: 0.5
   tempDirX: 0
   tempX: 0

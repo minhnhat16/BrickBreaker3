@@ -9,7 +9,10 @@ public class Paddle : FSMSystem,InteractBall
 {
     [HideInInspector]
     public PaddleMoveState MoveState;
+    
     [SerializeField] public Collision collision { get; set; }
+ 
+    public SwipeDetection swipeDetection;
     public BallSystemVer2 ballSystem;
     [SerializeField] private BoxCollider2D boxCollider2D;
     public List<BallSystemVer2> trippleList = new List<BallSystemVer2>();
@@ -59,6 +62,7 @@ public class Paddle : FSMSystem,InteractBall
     public void ResetPaddle()
     {
         tempX = 0;
+        transform.position = spawnPosition;
         GotoState(MoveState);
     }
     public Vector3 GetCurrentPosition()
@@ -71,6 +75,7 @@ public class Paddle : FSMSystem,InteractBall
     {
         rightLimit = CameraMain.instance.GetRight() - paddleLenght / 10f;
         leftLimit = CameraMain.instance.GetLeft() + paddleLenght / 10f;
+        tempX = transform.position.x;
         tempX += Time.deltaTime * paddleSpeed * xDirection;
         tempX = Mathf.Clamp(tempX, leftLimit + ballSystem.ballRadius, rightLimit - ballSystem.ballRadius);
         transform.position = new Vector3(tempX, transform.position.y, transform.position.z);

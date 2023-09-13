@@ -1,6 +1,5 @@
-using System;
+using DG.Tweening;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -31,130 +30,253 @@ public class Brick : MonoBehaviour, InteractBall
     public void DestroyBrick()
     {
         BrickPoolManager.instance.pool.DeSpawnNonGravity(this);
-        InGameController.Instance.currentScore += 100 ;
-            
+        InGameController.Instance.currentScore += 100;
+
     }
     public void OnContact(RaycastHit2D hit, BallSystemVer2 ball)
     {
-        switch (brickType)
+        if (CheckBallPositionInBrick(ball))
         {
-            case 1:
-                brickHealth--;
-                if (!ball.onItemPowerUP)
-                {
-                    Debug.Log("BRICK TYPE 2");
-                    //ball.CheckBallAngle(Vector3.up);
-                    float temp;
-                    if(hit.point.x == 0)
+            ball.transform.position = Vector3.zero;
+        }
+        else
+        {
+            switch (brickType)
+            {
+                case 1:
+                    brickHealth--;
+                    if (!ball.onItemPowerUP)
                     {
-                        temp = Random.Range(-4, 4);
-                        normalVector = new Vector2(temp, -hit.point.y).normalized;
-                        ball.moveDir = Vector2.Reflect(ball.moveDir.normalized, normalVector.normalized);
-                        ClaimpBallPosition(ball, hit, normalVector);
+                        Debug.Log("BRICK TYPE 2");
+                        //ball.CheckBallAngle(Vector3.up);
+                        float temp;
+                        if (hit.point.x == 0)
+                        {
+                            temp = Random.Range(-4, 4);
+                            normalVector = new Vector2(temp, -hit.point.y).normalized;
+                            ball.moveDir = Vector2.Reflect(ball.moveDir.normalized, normalVector.normalized);
 
 
+
+                        }
+                        else
+                        {
+
+                        }
+                        {
+                            temp = hit.point.x;
+                            normalVector = new Vector2(temp, -hit.point.y).normalized;
+
+                            ball.moveDir = Vector2.Reflect(hit.point, ball.tempDirection - transform.position).normalized;
+
+
+                        }
+
+                        normalVector.Normalize();
+                        Debug.DrawLine(hit.point, normalVector, Color.magenta);
+                        //if(ball.tempDirection == Vector3.zero)
+                        //{
+                        //    ball.moveDir = Vector3.down;
+                        //}
                     }
                     else
                     {
-                        temp = hit.point.x;
-                        normalVector = new Vector2(temp, -hit.point.y).normalized;
-                      
-                        ball.moveDir = Vector2.Reflect(ball.moveDir.normalized, normalVector.normalized);
-                        ClaimpBallPosition(ball, hit, normalVector);
-
+                        brickHealth = 0;
                     }
-
-                    normalVector.Normalize();
-                    Debug.DrawLine(hit.point, normalVector,Color.magenta);
-                    //if(ball.tempDirection == Vector3.zero)
-                    //{
-                    //    ball.moveDir = Vector3.down;
-                    //}
-                }
-                else
-                {
-                    brickHealth = 0;
-                }
-                if (brickHealth == 0)
-                {
-                    DestroyBrick();
-                }
-                break;
-            case 2:
-                {
+                    if (brickHealth == 0)
+                    {
+                        DestroyBrick();
+                    }
+                    break;
+                case 2:
                     //Debug.Log("BRICK TYPE 2");
                     normalVector = new Vector2(-hit.point.y, hit.point.x).normalized /*- (Vector2)this.transform.position.normalized*/;
                     normalVector.Normalize();
-                    Debug.DrawLine(ball.transform.position, normalVector, Color.red);
-                    ClaimpBallPosition(ball, hit, normalVector);
+                    Debug.DrawLine(hit.point, normalVector, Color.red);
+                    ball.moveDir = Vector2.Reflect(hit.point,transform.position + Vector3.up).normalized;
                     break;
-                }
-            default:
-                break;
+            }
         }
-    }
-    private void ClaimpBallPosition(BallSystemVer2 ball, RaycastHit2D hit, Vector2 normalVector)
+        }
+
+    private void ClaimDir(BallSystemVer2 ball, RaycastHit2D hit, Vector2 normalVector)
     {
-        float x;
-        float y;
+
         Debug.Log("NORMAL VECTOR " + normalVector);
 
-        if (ball.transform.position.y  < this.transform.position.y)
+        if (ball.transform.position.y < this.transform.position.y)
         {
-           
+
             if (ball.transform.position.x > this.transform.position.x)
             {
                 Debug.Log("Case 2 DOWN RIGHT");
+                Debug.Log(ball.transform.position + " + " + this.transform.position + " + " + hit.point);
 
-                Debug.Log(ball.transform.position + " + " + this.transform.position);
 
-                x = Mathf.Clamp(ball.transform.position.x, hit.point.x + ball.ballRadius + 0.05f, hit.point.x + ball.ballRadius + 0.1f);
-                y = Mathf.Clamp(ball.transform.position.y, hit.point.y - ball.ballRadius - 0.05f, hit.point.y - ball.ballRadius - 0.1f);
-                ball.moveDir = Vector2.Reflect(-ball.moveDir.normalized, normalVector);
-                ball.transform.position = new Vector3(x, y, 0);
+
+                Vector2 vect = new Vector2(1, -1);
+                ball.moveDir = Vector2.Reflect(hit.point, (Vector2)ball.tempDirection - vect).normalized;
 
             }
-            else if(ball.transform.position.x < this.transform.position.x)
+            else if (ball.transform.position.x < this.transform.position.x)
             {
                 Debug.Log("Case 2 DOWN LEFT");
-                Debug.Log(ball.transform.position + " + " + this.transform.position);
+                Debug.Log(ball.transform.position + " + " + this.transform.position + " + " + hit.point);
 
-                x = Mathf.Clamp(ball.transform.position.x, hit.point.x - ball.ballRadius - 0.05f, hit.point.x - ball.ballRadius + 0.1f);
-                y = Mathf.Clamp(ball.transform.position.y, hit.point.y - ball.ballRadius - 0.05f, hit.point.y - ball.ballRadius + 0.1f);
-                //ball.moveDir = Vector2.Reflect(-ball.moveDir.normalized, normalVector.normalized);
-                ball.moveDir = Vector2.Reflect(-ball.moveDir.normalized, normalVector);
+                Vector2 vect = new Vector2(-1, -1);
+                ball.moveDir = Vector2.Reflect(hit.point, (Vector2)ball.tempDirection - vect).normalized;
 
-                ball.transform.position = new Vector3(x, y, 0);
 
             }
         }
-        else if(ball.transform.position.y > this.transform.position.y)
+        else if (ball.transform.position.y > this.transform.position.y)
         {
-            
+
 
             if (ball.transform.position.x > this.transform.position.x)
             {
                 Debug.Log("Case 2 UP RIGHT");
-                Debug.Log(ball.transform.position + " + " + this.transform.position);
-                
-                x = Mathf.Clamp(ball.transform.position.x, hit.point.x + ball.ballRadius + 0.05f, hit.point.x + ball.ballRadius + 0.1f);
-                y = Mathf.Clamp(ball.transform.position.y, hit.point.y + ball.ballRadius + 0.05f, hit.point.y + ball.ballRadius + 0.1f);
-                ball.transform.position = new Vector3(x, y, 0);
-                ball.moveDir = Vector2.Reflect(ball.moveDir.normalized, normalVector);
-                
+                Debug.Log(ball.transform.position + " + " + this.transform.position + " + " + hit.point);
+
+                Vector2 vect = new Vector2(1, 1);
+                ball.moveDir = Vector2.Reflect(hit.point, (Vector2)ball.tempDirection - vect).normalized;
+
             }
-            else if(ball.transform.position.x< this.transform.position.x)
+            else if (ball.transform.position.x < this.transform.position.x)
             {
                 Debug.Log("Case 2 UP LEFT");
-                Debug.Log(ball.transform.position + " + " + this.transform.position);
-                x = Mathf.Clamp(ball.transform.position.x, hit.point.x - ball.ballRadius - 0.05f, hit.point.x - ball.ballRadius - 0.1f);
-                y = Mathf.Clamp(ball.transform.position.y, hit.point.y + ball.ballRadius+ 0.05f, hit.point.y + ball.ballRadius - 0.1f);
-                ball.transform.position = new Vector3(x, y, 0);
-                ball.moveDir = Vector2.Reflect(-ball.moveDir.normalized, normalVector);
+                Vector2 vect = new Vector2(-1, 1);
+                ball.moveDir = Vector2.Reflect(hit.point, (Vector2)ball.tempDirection - vect).normalized;
+                Debug.Log(ball.transform.position + " + " + this.transform.position + " + " + hit.point);
 
             }
         }
     }
+
+    private bool CheckBallPositionInBrick(BallSystemVer2 ball)
+    {
+        Bounds bounds = boxCollider2D.bounds;
+        Vector2 min = bounds.min;
+        Vector2 max = bounds.max;
+        float x = ball.transform.position.x;
+        float y = ball.transform.position.y;
+        if (!((x + ball.ballRadius < min.x && x - ball.ballRadius > max.x) && (y + ball.ballRadius < min.y && y - ball.ballRadius > max.y)))
+        {
+
+            Debug.Log("IN BRICK");
+            LerpBallPosition(ball, min, max);
+
+            return false;
+        }
+        else {
+        Debug.Log("OUT BRICK");
+            LerpBallPosition(ball, min, max);
+        return true;
+        }
+    }
+    private void LerpBallPosition(BallSystemVer2 ball, Vector3 min, Vector3 max) 
+    {
+        float x;
+        float y;
+        if (ball.transform.position.x < min.x)
+        {
+             x = Mathf.Lerp(ball.transform.position.x, min.x, 0.1f);
+            if (ball.transform.position.y < min.y)
+            {
+                y = Mathf.Lerp(ball.transform.position.y, min.y, 0.1f);
+                ball.transform.position = new Vector3(x, y);
+
+            }
+            else
+            {
+                y = Mathf.Lerp(ball.transform.position.y, max.y, 0.1f);
+                ball.transform.position = new Vector3(x, y);
+
+            }
+        }
+        else
+        {
+           x = Mathf.Lerp(ball.transform.position.x, max.x, 0.1f);
+            if (ball.transform.position.y < min.y)
+            {
+                y = Mathf.Lerp(ball.transform.position.y, min.y, 0.1f);
+                ball.transform.position = new Vector3(x, y);
+            }
+            else
+            {
+                y = Mathf.Lerp(ball.transform.position.y, max.y, 0.1f);
+                ball.transform.position = new Vector3(x, y);
+
+            }
+        }
+
+    }
+    //private void ClaimpBallPosition(BallSystemVer2 ball, RaycastHit2D hit, Vector2 normalVector)
+    //{
+    //    float x;
+    //    float y;
+    //    Debug.Log("NORMAL VECTOR " + normalVector);
+
+    //    if (ball.transform.position.y < this.transform.position.y)
+    //    {
+
+    //        if (ball.transform.position.x > this.transform.position.x)
+    //        {
+    //            Debug.Log("Case 2 DOWN RIGHT");
+
+    //            Debug.Log(ball.transform.position + " + " + this.transform.position);
+
+    //            x = Mathf.Clamp(ball.transform.position.x, hit.point.x + ball.ballRadius + 0.05f, hit.point.x + ball.ballRadius + 0.1f);
+    //            y = Mathf.Clamp(ball.transform.position.y, hit.point.y - ball.ballRadius - 0.05f, hit.point.y - ball.ballRadius - 0.1f);
+    //            Vector2 vect = new Vector2(1, -1);
+    //            ball.moveDir = Vector2.Reflect(hit.point, (Vector2)ball.tempDirection - vect).normalized;
+    //            ball.transform.position = new Vector3(x, y, 0);
+
+    //        }
+    //        else if (ball.transform.position.x < this.transform.position.x)
+    //        {
+    //            Debug.Log("Case 2 DOWN LEFT");
+    //            Debug.Log(ball.transform.position + " + " + this.transform.position);
+
+    //            x = Mathf.Clamp(ball.transform.position.x, hit.point.x - ball.ballRadius - 0.05f, hit.point.x - ball.ballRadius + 0.1f);
+    //            y = Mathf.Clamp(ball.transform.position.y, hit.point.y - ball.ballRadius - 0.05f, hit.point.y - ball.ballRadius + 0.1f);
+    //            //ball.moveDir = Vector2.Reflect(-ball.moveDir.normalized, normalVector.normalized);
+    //            Vector2 vect = new Vector2(-1, -1);
+    //            ball.moveDir = Vector2.Reflect(hit.point, (Vector2)ball.tempDirection - vect).normalized;
+
+    //            ball.transform.position = new Vector3(x, y, 0);
+
+    //        }
+    //    }
+    //    else if (ball.transform.position.y > this.transform.position.y)
+    //    {
+
+
+    //        if (ball.transform.position.x > this.transform.position.x)
+    //        {
+    //            Debug.Log("Case 2 UP RIGHT");
+    //            Debug.Log(ball.transform.position + " + " + this.transform.position);
+
+    //            x = Mathf.Clamp(ball.transform.position.x, hit.point.x + ball.ballRadius + 0.05f, hit.point.x + ball.ballRadius + 0.1f);
+    //            y = Mathf.Clamp(ball.transform.position.y, hit.point.y + ball.ballRadius + 0.05f, hit.point.y + ball.ballRadius + 0.1f);
+    //            ball.transform.position = new Vector3(x, y, 0);
+    //            Vector2 vect = new Vector2(1, 1);
+    //            ball.moveDir = Vector2.Reflect(hit.point, (Vector2)ball.tempDirection - vect).normalized;
+
+    //        }
+    //        else if (ball.transform.position.x < this.transform.position.x)
+    //        {
+    //            Debug.Log("Case 2 UP LEFT");
+    //            Debug.Log(ball.transform.position + " + " + this.transform.position);
+    //            x = Mathf.Clamp(ball.transform.position.x, hit.point.x - ball.ballRadius - 0.05f, hit.point.x - ball.ballRadius - 0.1f);
+    //            y = Mathf.Clamp(ball.transform.position.y, hit.point.y + ball.ballRadius + 0.05f, hit.point.y + ball.ballRadius - 0.1f);
+    //            ball.transform.position = new Vector3(x, y, 0);
+    //            Vector2 vect = new Vector2(-1, 1);
+    //            ball.moveDir = Vector2.Reflect(hit.point, (Vector2)ball.tempDirection - vect).normalized;
+
+    //        }
+    //    }
+    //}
     public void SettingBrick(int type)
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -302,8 +424,6 @@ public class Brick : MonoBehaviour, InteractBall
                 break;
             case 24: // wall brick
                 spriteRenderer.sprite = sprites[4];
-                boxCollider2D.size = new Vector2(1f, 0.4f);
-
                 spriteRenderer.color = Color.white;
                 brickType = 2;
                 break;
