@@ -159,9 +159,11 @@ public class InGameController : MonoBehaviour
         particletest = Instantiate(particletest, transform.parent);
         slider = Instantiate(slider, transform.parent);
         backGround = Instantiate(backGround, transform.parent);
+        GameManager.Instance.InputManager.gameObject.SetActive(true);
         backGround.gameObject.SetActive(true);
         particletest.gameObject.SetActive(true);
         slider.gameObject.SetActive(true);
+
     }
     public void LoadPaddle()
     {

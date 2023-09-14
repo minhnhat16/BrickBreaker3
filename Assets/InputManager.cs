@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
     public UnityEvent<Vector3> onMouseStay = new UnityEvent<Vector3>();
     public UnityEvent<Vector3> onMouseUp = new UnityEvent<Vector3>();
     public static InputManager instance;
+
     private void Awake()
     {
         Debug.Log("AWAKE INPUTMANAGER");
@@ -14,7 +15,28 @@ public class InputManager : MonoBehaviour
     }
 
     void Update()
-    { 
+    {
+
+
+    }
+    public bool CheckEvent()
+    {
+        if (onMouseDown == null || onMouseStay == null || onMouseUp == null)
+        {
+            Debug.Log("CHECK ITEM EVENT FALSE");
+            return false;
+        }
+        else 
+
+            return true;
+
+
+    }
+    public void OnListened()
+    {
+        CheckEvent();
+        if (InGameController.Instance.slider != null && CheckEvent())
+        {
             if (Input.GetMouseButtonDown(0))
             {
                 onMouseDown?.Invoke(Input.mousePosition);
@@ -28,6 +50,12 @@ public class InputManager : MonoBehaviour
             {
                 onMouseUp?.Invoke(Input.mousePosition);
             }
-
+        }
+        else
+        {
+            Debug.Log("SLIDER NULL");
+        }
     }
+
 }
+

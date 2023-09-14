@@ -142,6 +142,7 @@ public class LoadLevel : MonoBehaviour
         InGameController.Instance.DeSpawnAll();
         InGameController.Instance.LoadGameObject();
         InGameController.Instance.isLevelComplete = false;
+        InGameController.Instance.slider.GetComponentInChildren<SliderButton>().transform.position =new Vector3(0,-8);
         //ItemPoolManager.instance.pool.DeSpawnAll();
     }
 }

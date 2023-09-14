@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc525a969f3d754f9c78bbfd3558bab, type: 3}
   m_Name: BossScriptableObject
   m_EditorClassIdentifier: 
-  records: []
+  records:
+  - id: 1
+    HP: 1000
+  - id: 2
+    HP: 2000
+  - id: 3
+    HP: 3000

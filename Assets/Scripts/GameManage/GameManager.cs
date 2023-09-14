@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        Debug.Log("Input manager" + InputManager);
     }
     public void Start()
     {

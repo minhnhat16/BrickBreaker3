@@ -17,7 +17,7 @@ public class BootLoader : MonoBehaviour
 
     public void  LoadSceneBuffer()
     {
-        //Debug.Log("Load Scene Buffer");
+        Debug.Log("Load Scene Buffer");
         // T?i scene có tên "Buffer"
         //LOAD CONFIG FILE FIRST
         SceneManager.LoadScene("Buffer");
@@ -27,6 +27,10 @@ public class BootLoader : MonoBehaviour
     }
     public void LoadConfigFile()
     {
+        Debug.Log("Load Configfile");
+
         ConfigFileManager.Instance.Init(LoadSceneBuffer);
+        
+
     }
 }

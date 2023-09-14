@@ -46,27 +46,27 @@ public class LevelContain : MonoBehaviour
         }
         return count;
     }
-    [Button]
+   // [Button]
     public void TotalScore()
     {
         //totalScore = 0;
         //GetRowData();
         //Debug.Log(totalScore);
     }
-    [Button]
-    private void CreatLevelScrtObj()
-    {
-        totalScore = 0;
-        Level level = ScriptableObject.CreateInstance<Level>();
-        level.bricks = GetRowData();
-        level.winScore = totalScore;
-        Debug.Log($"get total score {totalScore}");
-        Debug.Log(GetRowData());
-        //level.winScore = GetBlockNum() * 100;
-        string path = $"Assets/Resources/Levels/level_{levelnum}.asset";
-        AssetDatabase.CreateAsset(level, path);
-        EditorUtility.FocusProjectWindow();
-        Selection.activeObject = level;
-        GetBlockNum();
-    }
+    //[Button]
+    //private void CreatLevelScrtObj()
+    //{
+    //    totalScore = 0;
+    //    Level level = ScriptableObject.CreateInstance<Level>();
+    //    level.bricks = GetRowData();
+    //    level.winScore = totalScore;
+    //    Debug.Log($"get total score {totalScore}");
+    //    Debug.Log(GetRowData());
+    //    //level.winScore = GetBlockNum() * 100;
+    //    string path = $"Assets/Resources/Levels/level_{levelnum}.asset";
+    //    AssetDatabase.CreateAsset(level, path);
+    //    EditorUtility.FocusProjectWindow();
+    //    Selection.activeObject = level;
+    //    GetBlockNum();
+    //}
 }
