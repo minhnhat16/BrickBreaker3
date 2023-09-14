@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 1613542192962713998}
   - component: {fileID: 7204150380990232426}
   - component: {fileID: 8399257107630653266}
-  - component: {fileID: 3735942124590282013}
-  - component: {fileID: 6041515373425496259}
   m_Layer: 0
   m_Name: Paddle
   m_TagString: Paddle
@@ -52,7 +50,7 @@ MonoBehaviour:
   state: 
   MoveState:
     direction: {x: 0, y: 0}
-  swipeDetection: {fileID: 3735942124590282013}
+  swipeDetection: {fileID: 0}
   ballSystem: {fileID: 3041008350702303431, guid: 8a2be6dd36163ba43b224e028cb59c58, type: 3}
   boxCollider2D: {fileID: 8399257107630653266}
   trippleList: []
@@ -111,33 +109,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.65, y: 0.5}
+  m_Size: {x: 2, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &3735942124590282013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3102401259691858798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c448ecc7c951fe54eab6b39ce54e0c47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6041515373425496259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3102401259691858798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0409715ca95e334da75e1fe561377d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  paddle: {fileID: 1613542192962713998}
 --- !u!1 &3102401260334709046
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +137,7 @@ Transform:
   m_GameObject: {fileID: 3102401260334709046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.7, y: 1.2, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3102401259691858786}

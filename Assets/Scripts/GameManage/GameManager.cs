@@ -11,11 +11,11 @@ public class GameManager : MonoBehaviour
     public ViewManager ViewManager;
     public DialogManager DialogManager;
     public LevelManager LevelManager;
-   
+    public InputManager InputManager;
     private void Awake()
     {
         Instance = this;
-
+        Debug.Log("Input manager" + InputManager);
     }
     public void Start()
     {

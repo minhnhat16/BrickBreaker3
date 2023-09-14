@@ -25,6 +25,8 @@ public class InGameController : MonoBehaviour
     public GameObject boss;
     public CameraMain cam;
     public GameObject item;
+    public GameObject particles;
+    public GameObject slider;
     public SpriteRenderer backGround;
     public BallSystemVer2 main;
     public static Paddle prefabPaddleInstance;
@@ -55,7 +57,6 @@ public class InGameController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
     }
     void Start()
     {
@@ -103,7 +104,7 @@ public class InGameController : MonoBehaviour
     
     public bool CheckGameObjectNull()
     {
-        if (prefabPaddleInstance == null || prefabBallInstance == null ) return true;
+        if (prefabPaddleInstance == null || prefabBallInstance == null || particletest == null || slider == null) return true;
         else return false;
     }
     public void SetUpCamera()
@@ -154,7 +155,13 @@ public class InGameController : MonoBehaviour
     }
     public void LoadBackGround()
     {
+        Debug.Log("LOAD BACKGROUND");
+        particletest = Instantiate(particletest, transform.parent);
+        slider = Instantiate(slider, transform.parent);
+        backGround = Instantiate(backGround, transform.parent);
         backGround.gameObject.SetActive(true);
+        particletest.gameObject.SetActive(true);
+        slider.gameObject.SetActive(true);
     }
     public void LoadPaddle()
     {
@@ -324,7 +331,9 @@ public class InGameController : MonoBehaviour
     {
         DeSpawnBall();
         DeSpawnPaddle();
-        DeSpawnBoss();  
+        DeSpawnBoss();
+        particletest.gameObject.SetActive(false);
+        slider.gameObject.SetActive(false);
         backGround.gameObject.SetActive(false);
         BrickPoolManager.instance.pool.DeSpawnAll();
     }
@@ -336,10 +345,12 @@ public class InGameController : MonoBehaviour
         scaleUpDuration = 7f;
         powerDuration = 7f;
         prefabBallInstance.SetActive(true);
-        prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall();
         prefabPaddleInstance.gameObject.SetActive(true);
+        particletest.gameObject.SetActive(true);
+        slider.gameObject.SetActive(true);
+        backGround.gameObject.SetActive(true);
+        prefabBallInstance.GetComponent<BallSystemVer2>().ResetBall();
         prefabPaddleInstance.GetComponent<Paddle>().ResetPaddle();
-        LoadBackGround();
         ResetBallPosition();
         // BallPoolManager.instance.ResetAllPoolPostion();
         ItemPoolManager.instance.pool.DeSpawnAll();
