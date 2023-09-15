@@ -19,4 +19,4 @@ MonoBehaviour:
   bossID: 3
   bossHP: 15000
   bossPos: {x: 0, y: 2.5, z: 0}
-  isWin: 0
+  isWin: 1

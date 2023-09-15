@@ -568,6 +568,10 @@ public class BallSystemVer2 : FSMSystem
         }
 
     }
+   public void GoMoveState()
+    {
+        GotoState(MoveState);
+    }
 }
 
 public static class BallEvent

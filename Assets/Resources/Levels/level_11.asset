@@ -19,4 +19,4 @@ MonoBehaviour:
   bossID: 0
   bossHP: 0
   bossPos: {x: 0, y: 0, z: 0}
-  isWin: 0
+  isWin: 1

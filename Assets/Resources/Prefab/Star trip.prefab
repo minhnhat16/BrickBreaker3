@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6431934218166094644}
   - component: {fileID: 2190657920787800957}
   - component: {fileID: 2344857017050617358}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4827,7 +4827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1128386812516276204
 Transform:
   m_ObjectHideFlags: 0
@@ -4855,7 +4855,7 @@ GameObject:
   - component: {fileID: 3927415537511446280}
   - component: {fileID: 490533830549206266}
   - component: {fileID: 7366741610290971654}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarsStable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9676,7 +9676,7 @@ GameObject:
   - component: {fileID: 6405956059030454586}
   - component: {fileID: 7115296696472778274}
   - component: {fileID: 1987051105510322594}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9887,8 +9887,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.5149193, g: 0, b: 1, a: 0.18039216}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+      minColor: {r: 0.26655558, g: 0, b: 0.5188679, a: 0.18039216}
+      maxColor: {r: 0.49833286, g: 0.4625756, b: 0.990566, a: 0.039215688}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14488,7 +14488,7 @@ GameObject:
   - component: {fileID: 8069336231444553134}
   - component: {fileID: 5758556171598145526}
   - component: {fileID: 3170160720792079125}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Trails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19300,7 +19300,7 @@ GameObject:
   - component: {fileID: 7441917320875812019}
   - component: {fileID: 6544952998099821648}
   - component: {fileID: 3684025354198217769}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Flares
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24117,7 +24117,7 @@ GameObject:
   - component: {fileID: 7891589006825448499}
   - component: {fileID: 9140108403359750398}
   - component: {fileID: 2460463730345665}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Asteroids
   m_TagString: Untagged
   m_Icon: {fileID: 0}

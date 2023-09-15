@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ViewManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class ViewManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+       
     }
 
     IEnumerator Start()

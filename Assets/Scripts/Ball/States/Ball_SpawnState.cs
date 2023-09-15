@@ -46,11 +46,12 @@ public class Ball_SpawnState : FSMState<BallSystemVer2>
         }
         
 
-        if (!InGameController.Instance.isGameOver && (Input.GetKey(KeyCode.Space)))
+        if (!InGameController.Instance.isGameOver && (Input.GetKey(KeyCode.Space)) || Input.GetKeyUp(KeyCode.Mouse0))
         {
             sys.GotoState(sys.MoveState);
         }
     }
+    
     public void GetPaddlePosition()
     {
         //Debug.LogWarning("Get Paddle Position");

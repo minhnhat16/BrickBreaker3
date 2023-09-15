@@ -8,7 +8,7 @@ public class LoadingView : BaseView
         Debug.Log("ON START SHOW LOADING VIEW");
         if (LoadSceneManager.Instance.currrentSence == "Buffer")
         {
-            StartCoroutine(LoadViewAfterDelay(0.3f, ViewIndex.SelectLevelView));
+            StartCoroutine(LoadViewAfterDelay(3f, ViewIndex.SelectLevelView));
         }
         else if (LoadSceneManager.Instance.currrentSence == "Ingame") {
             StartCoroutine(LoadViewAfterDelay(1f, ViewIndex.GameplayView));

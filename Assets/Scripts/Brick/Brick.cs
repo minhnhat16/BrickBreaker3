@@ -425,6 +425,7 @@ public class Brick : MonoBehaviour, InteractBall
             case 24: // wall brick
                 spriteRenderer.sprite = sprites[4];
                 spriteRenderer.color = Color.white;
+                brickType = 1;
                 brickType = 2;
                 break;
             default:

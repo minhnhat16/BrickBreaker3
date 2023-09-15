@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class InGameController : MonoBehaviour
 {
@@ -156,13 +157,19 @@ public class InGameController : MonoBehaviour
     public void LoadBackGround()
     {
         Debug.Log("LOAD BACKGROUND");
+        float rate = GameManager.Instance.UIRootControlScale.rate;
+
         particletest = Instantiate(particletest, transform.parent);
         slider = Instantiate(slider, transform.parent);
         backGround = Instantiate(backGround, transform.parent);
         GameManager.Instance.InputManager.gameObject.SetActive(true);
         backGround.gameObject.SetActive(true);
+        //backGround.gameObject.transform.localScale *= GameManager.Instance.UIRootControlScale.rate;
+        backGround.gameObject.transform.localScale += backGround.gameObject.transform.localScale * rate;
         particletest.gameObject.SetActive(true);
+        particletest.gameObject.transform.localScale += particletest.gameObject.transform.localScale * rate;
         slider.gameObject.SetActive(true);
+        //slider.gameObject.transform.localScale *= GameManager.Instance.UIRootControlScale.rate;
 
     }
     public void LoadPaddle()

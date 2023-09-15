@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public DialogManager DialogManager;
     public LevelManager LevelManager;
     public InputManager InputManager;
+    public UIRootControlScale UIRootControlScale;
     private void Awake()
     {
         Instance = this;

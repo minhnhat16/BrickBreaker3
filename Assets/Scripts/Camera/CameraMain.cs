@@ -11,13 +11,11 @@ public class CameraMain : MonoBehaviour
     public float height;
     public float width;
     public GameObject _obj;
-
-
     private const float baseAspect = 9f / 16f;
+    public float rate;
     private void Awake()
     {
         instance = this;
-
     }
     private void Start()
     {
@@ -35,7 +33,7 @@ public class CameraMain : MonoBehaviour
     public void GetCameraAspect()
     {
         float targetAspect = main.aspect;
-        main.orthographicSize = baseAspect / targetAspect * main.orthographicSize;
+        main.orthographicSize = GameManager.Instance.UIRootControlScale.rate / targetAspect * main.orthographicSize;
         height = main.orthographicSize * 2;
         width = height * main.aspect;
     }
